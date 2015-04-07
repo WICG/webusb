@@ -98,7 +98,7 @@
             <dt>readonly attribute UsbInterface[] interfaces</dt>
             <dd></dd>
             <dt>Promise&lt;void&gt; select()</dt>
-            <dd></dd>
+            <dd>Issues the appropriate SET_CONFIGURATION request to select this configuration.</dd>
           </dl>
         </p>
       </section>
@@ -114,9 +114,11 @@
             <dt>readonly attribute UsbEndpoint[] endpoints</dt>
             <dd></dd>
             <dt>Promise&lt;void&gt; claim()</dt>
-            <dd></dd>
+            <dd>Requests control over this interface be granted to the user agent.</dd>
+            <dt>Promise&lt;void&gt; release()</dt>
+            <dd>Releases control over this interface from the user agent.</dt>
             <dt>Promise&lt;void&gt; select()</dt>
-            <dd></dd>
+            <dd>Issues the appropriate SET_INTERFACE request to select this alternate interface.</dd>
           </dl>
         </p>
       </section>
