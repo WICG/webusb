@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>WebUSB API</title>
+    <meta charset='utf-8'>
+    <script src='http://www.w3.org/Tools/respec/respec-w3c-common'
+            async class='remove'></script>
+    <script class='remove'>
+      var respecConfig = {
+          specStatus: "unofficial",
+          shortName: "webusb-api",
+          editors: [
+              { name: "Reilly Grant",
+                company: "Google",
+                companyUrl: "https://www.google.com/" }
+          ]
+      }
+    </script>
+  </head>
+  <body>
+    <section id='abstract'>
+      <p>
+        This document describes an API for direct access to Universal Serial Bus devices from web pages.
+      </p>
+    </section>
+
+    <section id='sotd'>
+    </section>
+
+    <section class='introductory'>
+      <h2>Introduction</h2>
+      <p>
+
+      </p>
+    </section>
+
+    <section>
+      <h2>Data Transfer</h2>
+      <p>
+        <dl title='enum UsbDirection' class='idl'>
+          <dt>in</dt>
+          <dd>Data is transmitted from the USB device to the USB host.</dd>
+          <dt>out</dt>
+          <dd>Data is transmitted from the USB host to the USB device.</dd>
+        </dl>
+      </p>
+
+      <section>
+        <h2>Devices</h2>
+        <p>
+          <dl title='interface UsbDevice' class='idl'>
+            <dt>readonly attribute unsigned short vendorId</dt>
+            <dd></dd>
+            <dt>readonly attribute unsigned short productId</dt>
+            <dd></dd>
+            <dt>readonly attribute UsbConfiguration[] configurations</dt>
+            <dd></dd>
+            <dt>Promise&lt;ArrayBuffer&gt; controlTransferIn(octet requestType, octet request, unsigned short value, unsigned short index, unsigned short length)</dt>
+            <dd>Issues a control transfer to the device through its default endpoint. <a>length</a> bytes of data will be read from the device during the IN phase of the transaction.</dd>
+            <dt>Promise&lt;void&gt; controlTransferOut(octet requestType, octet request, unsigned short value, unsigned short index, optional ArrayBuffer data)</dt>
+            <dd>Issues a control transfer to the device through its default endpoint. The given buffer will be sent to the device during the OUT phase of the transaction. The wLength field of the SETUP packet will be populated with the length of this buffer.</dd>
+            <dt>Promise&lt;&gt; reset()</dt>
+            <dd>Performs a complete reset of the device.</dd>
+          </dl>
+        </p>
+      </section>
+
+      <section>
+        <h2>Configurations</h2>
+        <p>
+          <dl title='interface UsbConfiguration' class='idl'>
+            <dt>readonly attribute octet configurationValue</dt>
+            <dd></dd>
+            <dt>readonly attribute UsbInterface[] interfaces</dt>
+            <dd></dd>
+            <dt>Promise&lt;void&gt; select()</dt>
+            <dd></dd>
+          </dl>
+        </p>
+      </section>
+
+      <section>
+        <h2>Interfaces</h2>
+        <p>
+          <dl title='interface UsbInterface' class='idl'>
+            <dt>readonly attribute octet interfaceNumber</dt>
+            <dd></dd>
+            <dt>readonly attribute octet alternateSetting</dt>
+            <dd></dd>
+            <dt>readonly attribute UsbEndpoint[] endpoints</dt>
+            <dd></dd>
+            <dt>Promise&lt;void&gt; claim()</dt>
+            <dd></dd>
+            <dt>Promise&lt;void&gt; select()</dt>
+            <dd></dd>
+          </dl>
+        </p>
+      </section>
+
+      <section>
+        <h2>Endpoints</h2>
+        <p>
+          <dl title='interface UsbEndpoint' class='idl'>
+            <dt>readonly attribute octet endpointNumber</dt>
+            <dd></dd>
+            <dt>readonly attribute UsbDirection direction</dt>
+            <dd></dd>
+          </dl>
+        </p>
+      </section>
+
+      <section>
+        <h2>Bulk and Interrupt Endpoints</h2>
+        <p>
+          <dl title='interface UsbBulkInterruptEndpoint : UsbEndpoint' class='idl'>
+            <dt>Promise&lt;void&gt; clearHalt()</dt>
+            <dd></dd>
+            <dt>Promise&lt;InTransferResult&gt; transferIn(unsigned long length)</dt>
+            <dd></dd>
+            <dt>Promise&lt;OutTransferResult&gt; transferOut(ArrayBuffer buffer)</dt>
+            <dd></dd>
+          </dl>
+        </p>
+      </section>
+
+      <section>
+        <h2>Isochronous Endpoints</h2>
+        <p>
+          <dl title='interface UsbIsochronousEndpoint : UsbEndpoint' class='idl'>
+            <dt>Promise&lt;IsochronousInTransferResult&gt; transferIn(unsigned long[] packetLengths)</dt>
+            <dd></dd>
+            <dt>Promise&lt;IsochronousOutTransferResult&gt; transferOut(ArrayBuffer[] packets)</dt>
+            <dd></dd>
+          </dl>
+        </p>
+      </section>
+    </section>
+  </body>
+</html>
