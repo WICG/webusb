@@ -44,6 +44,30 @@
           <dd>Data is transmitted from the USB host to the USB device.</dd>
         </dl>
       </p>
+      <p>
+        <dl title='enum UsbRequestType' class='idl'>
+          <dt>standard</dt>
+          <dd></dd>
+          <dt>class</dt>
+          <dd></dd>
+          <dt>vendor</dt>
+          <dd></dd>
+        </dl>
+      </p>
+      <p>
+        <dl title='enum UsbRecipient' class='idl'>
+          <dt>device</dt>
+          <dd></dd>
+          <dt>interface</dt>
+          <dd></dd>
+          <dt>endpoint</dt>
+          <dd></dd>
+          <dt>other</dt>
+          <dd></dd>
+          <dt>vendor</dt>
+          <dd></dd>
+        </dl>
+      </p>
 
       <section>
         <h2>Devices</h2>
@@ -55,11 +79,11 @@
             <dd></dd>
             <dt>readonly attribute UsbConfiguration[] configurations</dt>
             <dd></dd>
-            <dt>Promise&lt;ArrayBuffer&gt; controlTransferIn(octet requestType, octet request, unsigned short value, unsigned short index, unsigned short length)</dt>
+            <dt>Promise&lt;ArrayBuffer&gt; controlTransferIn(UsbRequestType requestType, UsbRecipient recipient, octet request, unsigned short value, unsigned short index, unsigned short length)</dt>
             <dd>Issues a control transfer to the device through its default endpoint. <a>length</a> bytes of data will be read from the device during the IN phase of the transaction.</dd>
-            <dt>Promise&lt;void&gt; controlTransferOut(octet requestType, octet request, unsigned short value, unsigned short index, optional ArrayBuffer data)</dt>
+            <dt>Promise&lt;void&gt; controlTransferOut(UsbRequestType requestType, UsbRecipient recipient, octet request, unsigned short value, unsigned short index, optional ArrayBuffer data)</dt>
             <dd>Issues a control transfer to the device through its default endpoint. The given buffer will be sent to the device during the OUT phase of the transaction. The wLength field of the SETUP packet will be populated with the length of this buffer.</dd>
-            <dt>Promise&lt;&gt; reset()</dt>
+            <dt>Promise&lt;void&gt; reset()</dt>
             <dd>Performs a complete reset of the device.</dd>
           </dl>
         </p>
@@ -115,9 +139,9 @@
           <dl title='interface UsbBulkInterruptEndpoint : UsbEndpoint' class='idl'>
             <dt>Promise&lt;void&gt; clearHalt()</dt>
             <dd></dd>
-            <dt>Promise&lt;InTransferResult&gt; transferIn(unsigned long length)</dt>
+            <dt>Promise&lt;ArrayBuffer&gt; transferIn(unsigned long length)</dt>
             <dd></dd>
-            <dt>Promise&lt;OutTransferResult&gt; transferOut(ArrayBuffer buffer)</dt>
+            <dt>Promise&lt;unsigned long&gt; transferOut(ArrayBuffer buffer)</dt>
             <dd></dd>
           </dl>
         </p>
@@ -127,9 +151,9 @@
         <h2>Isochronous Endpoints</h2>
         <p>
           <dl title='interface UsbIsochronousEndpoint : UsbEndpoint' class='idl'>
-            <dt>Promise&lt;IsochronousInTransferResult&gt; transferIn(unsigned long[] packetLengths)</dt>
+            <dt>Promise&lt;ArrayBuffer[]&gt; transferIn(unsigned long[] packetLengths)</dt>
             <dd></dd>
-            <dt>Promise&lt;IsochronousOutTransferResult&gt; transferOut(ArrayBuffer[] packets)</dt>
+            <dt>Promise&lt;unsigned long[]&gt; transferOut(ArrayBuffer[] packets)</dt>
             <dd></dd>
           </dl>
         </p>
