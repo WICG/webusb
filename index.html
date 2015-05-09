@@ -67,6 +67,60 @@
     </section>
 
     <section>
+      <h2>Device Enumeration</h2>
+      <pre class="idl">
+        dictionary USBDeviceFilter {
+          unsigned short vendorId;
+          unsigned short productId;
+          octet interfaceClass;
+          octet interfaceSubclass;
+          octet interfaceProtocol;
+        };
+
+        dictionary USBDeviceEnumerationOptions {
+          required sequence&lt;USBDeviceFilter> filters;
+        };
+
+        [NoInterfaceObject]
+        interface USBDeviceEnumeration {
+          Promise&lt;sequence&lt;USBDevice>> getDevices(USBDeviceEnumerationOptions options);
+        };
+      </pre>
+      <p dfn-for="USBDeviceEnumeration">
+        The <code><dfn>getDevices</dfn>(<var>options</var>)</code> method, when
+        invoked, MUST return a new promise <var>promise</var> and run the
+        following steps in parallel:
+      <p>
+      <ol>
+        <li>
+          Enumerate all devices which individually match at least one of the
+          filters in <code><var>options</var>.filters</code>.
+          <p>
+            The UA SHOULD apply additional origin-based filtering of available
+            devices by consulting an authoritative list of device-origin
+            mappings or referring to the origin list specified in the device's
+            <dfn>Binary Object Store</dfn>
+            (<abbr title="Binary Object Store">BOS</abbr>).
+          </p>
+          <p>
+            The UA MAY provide additional mechanisms for blacklisting or
+            whitelisting specific devices for arbitrary origins.
+          </p>
+          <p class="note" title="USBDeviceFilter members">
+          </p>
+          <p class="note" title="Binary Object Store">
+            <span class="issue">TODO: More detail about this.</span>
+          </p>
+        </li>
+        <li>
+          Get the sequence of <a>USBDevice</a> objects representing all the
+          devices which passed the filtering stage and resolve
+          <var>promise</var> with the result.
+        </li>
+      </ol>
+    </section>
+
+    <section>
       <h2>Data Transfer</h2>
       <p>
         <dl title='enum UsbDirection' class='idl'>
