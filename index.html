@@ -7,30 +7,62 @@
             async class='remove'></script>
     <script class='remove'>
       var respecConfig = {
-          specStatus: "unofficial",
-          shortName: "webusb-api",
-          editors: [
-              { name: "Reilly Grant",
-                company: "Google",
-                companyUrl: "https://www.google.com/" }
-          ]
-      }
+        specStatus: "unofficial",
+        shortName: "webusb-api",
+        editors: [
+          {
+            name: "Reilly Grant",
+            company: "Google",
+            companyUrl: "https://www.google.com/"
+          }, {
+            name: "Ken Rockot",
+            company: "Google",
+            companyUrl: "https://www.google.com/"
+          }
+        ]
+      };
     </script>
   </head>
   <body>
     <section id='abstract'>
       <p>
-        This document describes an API for direct access to Universal Serial Bus devices from web pages.
+        This document describes an API for direct access to Universal Serial Bus
+        devices from web pages.
       </p>
     </section>
 
     <section id='sotd'>
     </section>
 
-    <section class='introductory'>
+    <section class='informative'>
       <h2>Introduction</h2>
       <p>
-
+        Today when you connect a device to your computer you hope that somehow
+        it will find the right driver and it will Just Work&trade;. For lots of
+        devices it does because there are standardized drivers for things like
+        keyboards, mice, hard drives and webcams built into the operating
+        system. What about the long tail of unusual devices or the next
+        generation of gadgets that haven't been standardized yet? WebUSB takes
+        "plug and play" to the next level by connecting devices to the software
+        that drives them across any platform by harnessing the power of web
+        technologies.
+      </p>
+      <p>
+        WebUSB does not attempt to provide a general mechanism for any web page
+        to connect to any USB device. Historically USB hosts and devices have
+        trusted each other too much to let arbitrary pages connect to them.
+        There are published attacks against USB devices that will accept
+        unsigned firmware updates that cause them to become malicious and attack
+        the host they are connected to; exploiting the trust relationship in
+        both directions.
+      </p>
+      <p>
+        Instead USB devices will be associated with a web origin and can only be
+        connected to from a page from the same origin. New devices (or firmware
+        updates) may include a list of acceptable origins that the user agent
+        can query, similar to the CORS mechanism for HTTP requests. Device
+        vendors may enable existing devices by registering them in an open
+        directory which maps device IDs to acceptable origins.
       </p>
     </section>
 
