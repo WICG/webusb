@@ -149,7 +149,7 @@
           readonly attribute unsigned short productId;
           readonly attribute USBConfiguration[] configurations;
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
-          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBuffer data);
+          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
           Promise&lt;void> reset();
         };
       </pre>
@@ -248,13 +248,13 @@
         interface USBBulkInterruptEndpoint : USBEndpoint {
           Promise&lt;void> clearHalt();
           Promise&lt;ArrayBuffer> transferIn(unsigned long length);
-          Promise&lt;unsigned long> transferOut(ArrayBuffer data);
+          Promise&lt;unsigned long> transferOut(ArrayBufferView data);
         };
 
         [NoInterfaceObject]
         interface USBIsochronousEndpoint : USBEndpoint {
           Promise&lt;ArrayBuffer[]> transferIn(unsigned long[] packetLengths);
-          Promise&lt;unsigned long[]> transferOut(ArrayBuffer[] packets);
+          Promise&lt;unsigned long[]> transferOut(ArrayBufferiView[] packets);
         };
       </pre>
       <p class="issue">
