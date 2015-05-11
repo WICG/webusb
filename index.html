@@ -121,131 +121,142 @@
     </section>
 
     <section>
-      <h2>Data Transfer</h2>
-      <p>
-        <dl title='enum UsbDirection' class='idl'>
-          <dt>in</dt>
-          <dd>Data is transmitted from the USB device to the USB host.</dd>
-          <dt>out</dt>
-          <dd>Data is transmitted from the USB host to the USB device.</dd>
-        </dl>
+      <h2>Device Usage</h2>
+      <pre class="idl">
+        enum USBRequestType {
+          "standard",
+          "class",
+          "vendor"
+        };
+
+        enum USBRecipient {
+          "device",
+          "interface",
+          "endpoint"
+        };
+
+        dictionary USBControlTransferParameters {
+          required USBRequestType requestType;
+          required USBRecipient recipient;
+          required octet request;
+          required unsigned short value;
+          required unsigned short index;
+        };
+
+        [NoInterfaceObject]
+        interface USBDevice {
+          readonly attribute unsigned short vendorId;
+          readonly attribute unsigned short productId;
+          readonly attribute USBConfiguration[] configurations;
+          Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
+          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBuffer data);
+          Promise&lt;void> reset();
+        };
+      </pre>
+      <p dfn-for="USBDevice">
+        <code><dfn>controlTransferIn</dfn>(<var>parameters</var>, <var>length</var>)</code>
+        issues a control transfer to the device through its default endpoint.
+        <code><var>length</var></code> bytes of data will be read from the
+        device during the <code>IN</code> phase of the transaction.
       </p>
-      <p>
-        <dl title='enum UsbRequestType' class='idl'>
-          <dt>standard</dt>
-          <dd></dd>
-          <dt>class</dt>
-          <dd></dd>
-          <dt>vendor</dt>
-          <dd></dd>
-        </dl>
+      <p dfn-for="USBDevice">
+        <code><dfn>controlTransferOut</dfn>(<var>parameters</var>, <var>data</var>)</code>
+        issues a control transfer to the device through its default endpoint.
+        If provided, the contents of the <code><var>data</var></code> buffer
+        will be sent to the device during the OUT phase of the transaction.
+        The <code>wLength</code> field of the <code>SETUP</code> packet will
+        be populated with the length of this buffer.
       </p>
-      <p>
-        <dl title='enum UsbRecipient' class='idl'>
-          <dt>device</dt>
-          <dd></dd>
-          <dt>interface</dt>
-          <dd></dd>
-          <dt>endpoint</dt>
-          <dd></dd>
-          <dt>other</dt>
-          <dd></dd>
-          <dt>vendor</dt>
-          <dd></dd>
-        </dl>
+      <p dfn-for="USBDevice">
+        <code><dfn>reset</dfn>()</code> resets the device.
       </p>
+      <p class="issue">
+        Concepts like transaction phases, packet contents, and device reset
+        should be discussed in some additional detail with references to the
+        USB spec.
+      </p>
+    </section>
 
-      <section>
-        <h2>Devices</h2>
-        <p>
-          <dl title='interface UsbDevice' class='idl'>
-            <dt>readonly attribute unsigned short vendorId</dt>
-            <dd></dd>
-            <dt>readonly attribute unsigned short productId</dt>
-            <dd></dd>
-            <dt>readonly attribute UsbConfiguration[] configurations</dt>
-            <dd></dd>
-            <dt>Promise&lt;ArrayBuffer&gt; controlTransferIn(UsbRequestType requestType, UsbRecipient recipient, octet request, unsigned short value, unsigned short index, unsigned short length)</dt>
-            <dd>Issues a control transfer to the device through its default endpoint. <a>length</a> bytes of data will be read from the device during the IN phase of the transaction.</dd>
-            <dt>Promise&lt;void&gt; controlTransferOut(UsbRequestType requestType, UsbRecipient recipient, octet request, unsigned short value, unsigned short index, optional ArrayBuffer data)</dt>
-            <dd>Issues a control transfer to the device through its default endpoint. The given buffer will be sent to the device during the OUT phase of the transaction. The wLength field of the SETUP packet will be populated with the length of this buffer.</dd>
-            <dt>Promise&lt;void&gt; reset()</dt>
-            <dd>Performs a complete reset of the device.</dd>
-          </dl>
-        </p>
-      </section>
+    <section>
+      <h2>Device Configurations</h2>
+      <pre class="idl">
+        [NoInterfaceObject]
+        interface USBConfiguration {
+          readonly attribute octet configurationValue;
+          readonly attribute USBInterface[] interfaces;
+          Promise&lt;void> select();
+        };
+      </pre>
+      <p dfn-for="USBConfiguration">
+        <code><dfn>select</dfn>()</code> issues an appropriate SET_CONFIGURATION
+        control request to set this configuration as the device's current
+        configuration.
+      </p>
+      <p class="issue">
+        Document configurationValue.
+      </p>
+      <p class="issue">
+        Include some non-normative information about device configurations
+      </p>
+    </section>
 
-      <section>
-        <h2>Configurations</h2>
-        <p>
-          <dl title='interface UsbConfiguration' class='idl'>
-            <dt>readonly attribute octet configurationValue</dt>
-            <dd></dd>
-            <dt>readonly attribute UsbInterface[] interfaces</dt>
-            <dd></dd>
-            <dt>Promise&lt;void&gt; select()</dt>
-            <dd>Issues the appropriate SET_CONFIGURATION request to select this configuration.</dd>
-          </dl>
-        </p>
-      </section>
+    <section>
+      <h2>Device Interfaces</h2>
+      <pre class="idl">
+        [NoInterfaceObject]
+        interface USBInterface {
+          readonly attribute octet interfaceNumber;
+          readonly attribute octet alternateSetting;
+          readonly attribute USBEndpoint[] endpoints;
+          Promise&lt;void> claim();
+          Promise&lt;void> release();
+          Promise&lt;void> select();
+        };
+      </pre>
+      <p dfn-for="USBInterface">
+        The <code><dfn>claim</dfn>()</code> method requests that control over
+        the interface be granted to the UA.
+      </p>
+      <p dfn-for="USBConfiguration">
+        The <code><dfn>release</dfn>()</code> method releases the UA's control
+        over the interface if previously granted.
+      </p>
+      <p dfn-for="USBConfiguration">
+        Issues the appropriate <code>SET_INTERFACE</code> request to select this
+        alternate interface.
+      </p>
+      <p class="issue">
+        Explain alternate interface selection.
+      </p>
+    </select>
 
-      <section>
-        <h2>Interfaces</h2>
-        <p>
-          <dl title='interface UsbInterface' class='idl'>
-            <dt>readonly attribute octet interfaceNumber</dt>
-            <dd></dd>
-            <dt>readonly attribute octet alternateSetting</dt>
-            <dd></dd>
-            <dt>readonly attribute UsbEndpoint[] endpoints</dt>
-            <dd></dd>
-            <dt>Promise&lt;void&gt; claim()</dt>
-            <dd>Requests control over this interface be granted to the user agent.</dd>
-            <dt>Promise&lt;void&gt; release()</dt>
-            <dd>Releases control over this interface from the user agent.</dt>
-            <dt>Promise&lt;void&gt; select()</dt>
-            <dd>Issues the appropriate SET_INTERFACE request to select this alternate interface.</dd>
-          </dl>
-        </p>
-      </section>
+    <section>
+      <h2>Data Transfer Endpoints</h2>
+      <pre class="idl">
+        enum USBDirection {
+          "in",
+          "out"
+        };
 
-      <section>
-        <h2>Endpoints</h2>
-        <p>
-          <dl title='interface UsbEndpoint' class='idl'>
-            <dt>readonly attribute octet endpointNumber</dt>
-            <dd></dd>
-            <dt>readonly attribute UsbDirection direction</dt>
-            <dd></dd>
-          </dl>
-        </p>
-      </section>
+        [NoInterfaceObject]
+        interface USBEndpoint {
+          readonly attribute octet endpointNumber;
+          readonly attribute USBDirection direction;
+        };
 
-      <section>
-        <h2>Bulk and Interrupt Endpoints</h2>
-        <p>
-          <dl title='interface UsbBulkInterruptEndpoint : UsbEndpoint' class='idl'>
-            <dt>Promise&lt;void&gt; clearHalt()</dt>
-            <dd></dd>
-            <dt>Promise&lt;ArrayBuffer&gt; transferIn(unsigned long length)</dt>
-            <dd></dd>
-            <dt>Promise&lt;unsigned long&gt; transferOut(ArrayBuffer buffer)</dt>
-            <dd></dd>
-          </dl>
-        </p>
-      </section>
+        [NoInterfaceObject]
+        interface USBBulkInterruptEndpoint : USBEndpoint {
+          Promise&lt;void> clearHalt();
+          Promise&lt;ArrayBuffer> transferIn(unsigned long length);
+          Promise&lt;unsigned long> transferOut(ArrayBuffer data);
+        };
 
-      <section>
-        <h2>Isochronous Endpoints</h2>
-        <p>
-          <dl title='interface UsbIsochronousEndpoint : UsbEndpoint' class='idl'>
-            <dt>Promise&lt;ArrayBuffer[]&gt; transferIn(unsigned long[] packetLengths)</dt>
-            <dd></dd>
-            <dt>Promise&lt;unsigned long[]&gt; transferOut(ArrayBuffer[] packets)</dt>
-            <dd></dd>
-          </dl>
-        </p>
-      </section>
+        [NoInterfaceObject]
+        interface USBIsochronousEndpoint : USBEndpoint {
+          Promise&lt;ArrayBuffer[]> transferIn(unsigned long[] packetLengths);
+          Promise&lt;unsigned long[]> transferOut(ArrayBuffer[] packets);
+        };
+      </pre>
     </section>
   </body>
 </html>
