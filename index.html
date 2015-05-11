@@ -254,7 +254,7 @@
         [NoInterfaceObject]
         interface USBIsochronousEndpoint : USBEndpoint {
           Promise&lt;ArrayBuffer[]> transferIn(unsigned long[] packetLengths);
-          Promise&lt;unsigned long[]> transferOut(ArrayBufferiView[] packets);
+          Promise&lt;unsigned long[]> transferOut(ArrayBufferView[] packets);
         };
       </pre>
       <p class="issue">
