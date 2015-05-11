@@ -132,21 +132,30 @@
         enum USBRecipient {
           "device",
           "interface",
-          "endpoint"
+          "endpoint",
+          "other"
         };
 
         dictionary USBControlTransferParameters {
           required USBRequestType requestType;
-          required USBRecipient recipient;
+          USBRecipient recipient;
           required octet request;
           required unsigned short value;
-          required unsigned short index;
+          unsigned short index;
         };
 
         [NoInterfaceObject]
         interface USBDevice {
+          readonly attribute float usbVersion;
+          readonly attribute octet deviceClass;
+          readonly attribute octet deviceSubclass;
+          readonly attribute octet deviceProtocol;
           readonly attribute unsigned short vendorId;
           readonly attribute unsigned short productId;
+          readonly attribute float deviceVersion;
+          readonly attribute DOMString? manufacturer;
+          readonly attribute DOMString? product;
+          readonly attribute DOMString? serialNumber;
           readonly attribute USBConfiguration[] configurations;
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
           Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
@@ -154,21 +163,82 @@
         };
       </pre>
       <p dfn-for="USBDevice">
-        <code><dfn>controlTransferIn</dfn>(<var>parameters</var>, <var>length</var>)</code>
-        issues a control transfer to the device through its default endpoint.
+        The <code><dfn>usbVersion</dfn></code> attribute declares the USB
+        protocol version supported by the device. It SHALL correspond to the
+        value of the <code>bcdUSB</code> field of the device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>deviceClass</dfn></code> attribute declares the class
+        code of the device. It SHALL correspond to the value of the
+        <code>bDeviceClass</code> field of the device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>deviceSubclass</dfn></code> attribute declares the
+        subclass code of the device. It SHALL correspond to the value of the
+        <code>bDeviceSubClass</code> field of the device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>deviceProtocol</dfn></code> attribute declares the
+        protocol code of the device. It SHALL correspond to the value of the
+        <code>bDeviceProtocol</code> field of the device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>vendorId</dfn></code> attribute declares the vendor ID
+        of the device manufacturer. It SHALL correspond to the value of the
+        <code>idVendor</code> field of the device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>productId</dfn></code> attribute declares the product ID
+        assigned by the device manufacturer. It SHALL correspond to the value of
+        the <code>idProduct</code> field of the device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>deviceVersion</dfn></code> attribute declares the
+        device release number as defined by the device manufacturer. It SHALL
+        correspond to the value of the <code>bcdDevice</code> field of the
+        device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>configurations</dfn></code> attribute contains a list of
+        configurations supported by the device. These configurations SHALL be
+        populated from the configuration descriptors reported by the device and
+        the number of elements in this list SHALL match the value of the
+        <code>bNumConfigurations</code> field of the device descriptor.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>manufacturer</dfn></code> attribute SHOULD contain the
+        value of the string descriptor referenced by the
+        <code>iManufacturer</code> field of the device descriptor, if available.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>product</dfn></code> attribute SHOULD contain the value of
+        the string descriptor referenced by the <code>iProduct</code> field of
+        the device descriptor, if available.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>serialNumber</dfn></code> attribute SHOULD contain the
+        value of the string descriptor referenced by the
+        <code>iSerialNumber</code> field of the device descriptor, if available.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>controlTransferIn</dfn>(<var>parameters</var>,
+        <var>length</var>)</code> method issues a control transfer to the device
+        through its default endpoint. If non-zero,
         <code><var>length</var></code> bytes of data will be read from the
         device during the <code>IN</code> phase of the transaction.
       </p>
       <p dfn-for="USBDevice">
-        <code><dfn>controlTransferOut</dfn>(<var>parameters</var>, <var>data</var>)</code>
-        issues a control transfer to the device through its default endpoint.
-        If provided, the contents of the <code><var>data</var></code> buffer
-        will be sent to the device during the OUT phase of the transaction.
-        The <code>wLength</code> field of the <code>SETUP</code> packet will
-        be populated with the length of this buffer.
+        The <code><dfn>controlTransferOut</dfn>(<var>parameters</var>,
+        <var>data</var>)</code> method issues a control transfer to the device
+        through its default endpoint. If provided, the contents of the
+        <code><var>data</var></code> buffer will be sent to the device during
+        the OUT phase of the transaction. The <code>wLength</code> field of the
+        <code>SETUP</code> packet will be populated with the length of this
+        buffer.
       </p>
       <p dfn-for="USBDevice">
-        <code><dfn>reset</dfn>()</code> resets the device.
+        The <code><dfn>reset</dfn>()</code> method performs a soft reset on the
+        device.
       </p>
       <p class="issue">
         Concepts like transaction phases, packet contents, and device reset
@@ -183,14 +253,22 @@
         [NoInterfaceObject]
         interface USBConfiguration {
           readonly attribute octet configurationValue;
+          readonly attribute DOMString? configuration;
           readonly attribute USBInterface[] interfaces;
           Promise&lt;void> select();
         };
       </pre>
       <p dfn-for="USBConfiguration">
+        The <code><dfn>configuration</dfn></code> attribute SHOULD contain the
+        value of the string descriptor referenced by the
+        <code>iConfiguration</code> field of the configuration descriptor, if
+        available.
+      </p>
+      <p dfn-for="USBConfiguration">
         <code><dfn>select</dfn>()</code> issues an appropriate SET_CONFIGURATION
         control request to set this configuration as the device's current
-        configuration.
+        configuration. The operating system MAY automatically select the first
+        available device configuration.
       </p>
       <p class="issue">
         Document configurationValue.
@@ -206,10 +284,21 @@
         [NoInterfaceObject]
         interface USBInterface {
           readonly attribute octet interfaceNumber;
-          readonly attribute octet alternateSetting;
-          readonly attribute USBEndpoint[] endpoints;
+          readonly attribute USBAlternateInterface[] alternates;
           Promise&lt;void> claim();
           Promise&lt;void> release();
+          Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
+          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
+        };
+
+        [NoInterfaceObject]
+        interface USBAlternateInterface {
+          readonly attribute octet alternateSetting;
+          readonly attribute octet interfaceClass;
+          readonly attribute octet interfaceSubclass;
+          readonly attribute octet interfaceProtocol;
+          readonly attribute DOMString? interface;
+          readonly attribute USBEndpoint[] endpoints;
           Promise&lt;void> select();
         };
       </pre>
@@ -217,16 +306,41 @@
         The <code><dfn>claim</dfn>()</code> method requests that control over
         the interface be granted to the UA.
       </p>
-      <p dfn-for="USBConfiguration">
+      <p dfn-for="USBInterface">
         The <code><dfn>release</dfn>()</code> method releases the UA's control
         over the interface if previously granted.
       </p>
-      <p dfn-for="USBConfiguration">
-        Issues the appropriate <code>SET_INTERFACE</code> request to select this
-        alternate interface.
+      <p dfn-for="USBAlternateInterface">
+        Each alternative interface configuration SHALL have a unique
+        <code><dfn>alternateSetting</dfn></code> value that matches the
+        <code>bAlternateSetting</code> field of the interface descriptor that
+        defines it.
       </p>
-      <p class="issue">
-        Explain alternate interface selection.
+      <p dfn-for="USBAlternateInterface">
+        The <code><dfn>interfaceClass</dfn></code> attribute declares the class
+        code of the interface. It SHALL correspond to the value of the
+        <code>bInterfaceClass</code> field of the interface descriptor.
+      </p>
+      <p dfn-for="USBAlternateInterface">
+        The <code><dfn>interfaceSubclass</dfn></code> attribute declares the
+        subclass code of the interface. It SHALL correspond to the value of the
+        <code>bInterfaceSubClass</code> field of the interface descriptor.
+      </p>
+      <p dfn-for="USBAlternateInterface">
+        The <code><dfn>interfaceProtocol</dfn></code> attribute declares the
+        protocol code of the interface. It SHALL correspond to the value of the
+        <code>bInterfaceProtocol</code> field of the interface descriptor.
+      </p>
+      <p dfn-for="USBAlternateInterface">
+        The <code><dfn>interface</dfn></code> attribute SHOULD contain the
+        value of the string descriptor referenced by the
+        <code>iInterface</code> field of the interface descriptor, if available.
+      </p>
+      <p dfn-for="USBAlternateInterface">
+        The <code><dfn>select</dfn>()</code> method issues the appropriate<code>
+        SET_INTERFACE</code> request to select this alternate interface. By
+        default the alternate interface with <code>alternateSetting</code> set
+        to <code>0</code> is selected.
       </p>
     </section>
 
@@ -238,14 +352,30 @@
           "out"
         };
 
+        enum USBEndpointType {
+          "bulk",
+          "interrupt",
+          "isochronous"
+        };
+
         [NoInterfaceObject]
         interface USBEndpoint {
           readonly attribute octet endpointNumber;
           readonly attribute USBDirection direction;
+          readonly attribute USBEndpointType type;
+          Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
+          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
         };
 
         [NoInterfaceObject]
-        interface USBBulkInterruptEndpoint : USBEndpoint {
+        interface USBBulkEndpoint : USBEndpoint {
+          Promise&lt;void> clearHalt();
+          Promise&lt;ArrayBuffer> transferIn(unsigned long length);
+          Promise&lt;unsigned long> transferOut(ArrayBufferView data);
+        };
+
+        [NoInterfaceObject]
+        interface USBInterruptEndpoint : USBEndpoint {
           Promise&lt;void> clearHalt();
           Promise&lt;ArrayBuffer> transferIn(unsigned long length);
           Promise&lt;unsigned long> transferOut(ArrayBufferView data);
