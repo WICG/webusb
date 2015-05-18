@@ -72,9 +72,9 @@
         dictionary USBDeviceFilter {
           unsigned short vendorId;
           unsigned short productId;
-          octet interfaceClass;
-          octet interfaceSubclass;
-          octet interfaceProtocol;
+          octet class;
+          octet subclass;
+          octet protocol;
         };
 
         dictionary USBDeviceEnumerationOptions {
@@ -86,6 +86,20 @@
           Promise&lt;sequence&lt;USBDevice>> getDevices(USBDeviceEnumerationOptions options);
         };
       </pre>
+      <p dfn-for="USBDeviceFilter">
+        The <code><dfn>vendorId</dfn></code> and
+        <code><dfn>productId</dfn></code> field will cause the filter to match
+        any device with the given vendor and (optionally) product identifiers.
+      </p>
+      <p dfn-for="USBDeviceFilter">
+        The <code><dfn>class</dfn></code>, <code><dfn>subclass</dfn></code> and
+        <code><dfn>protocol</dfn></code> fields will cause the filter to match
+        any device that implements the given class, class and subclass, or
+        class, subclass and protocol tuple and any composite device with an
+        interface implementing the same. A subclass MUST NOT be specified unless
+        a class is provided and a protocol MUST NOT be specified unless a
+        subclass is also provided.
+      </p>
       <p dfn-for="USBDeviceEnumeration">
         The <code><dfn>getDevices</dfn>(<var>options</var>)</code> method, when
         invoked, MUST return a new promise <var>promise</var> and run the
@@ -105,8 +119,6 @@
           <p>
             The UA MAY provide additional mechanisms for blacklisting or
             whitelisting specific devices for arbitrary origins.
-          </p>
-          <p class="note" title="USBDeviceFilter members">
           </p>
           <p class="note" title="Binary Object Store">
             <span class="issue">TODO: More detail about this.</span>
