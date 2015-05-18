@@ -180,29 +180,21 @@
         value of the <code>bcdUSB</code> field of the device descriptor.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>deviceClass</dfn></code> attribute declares the class
-        code of the device. It SHALL correspond to the value of the
-        <code>bDeviceClass</code> field of the device descriptor.
+        The <code><dfn>deviceClass</dfn></code>,
+        <code><dfn>deviceSubclass</dfn></code> and
+        <code><dfn>deviceProtocol</dfn></code> attributes declare the
+        communication interface supported by the device. They MUST correspond
+        respectively to the values of the <code>bDeviceClass</code>,
+        <code>bDeviceSubClass</code> and <code>bDeviceProtocol</code> fields of
+        the device descriptor.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>deviceSubclass</dfn></code> attribute declares the
-        subclass code of the device. It SHALL correspond to the value of the
-        <code>bDeviceSubClass</code> field of the device descriptor.
-      </p>
-      <p dfn-for="USBDevice">
-        The <code><dfn>deviceProtocol</dfn></code> attribute declares the
-        protocol code of the device. It SHALL correspond to the value of the
-        <code>bDeviceProtocol</code> field of the device descriptor.
-      </p>
-      <p dfn-for="USBDevice">
-        The <code><dfn>vendorId</dfn></code> attribute declares the vendor ID
-        of the device manufacturer. It SHALL correspond to the value of the
-        <code>idVendor</code> field of the device descriptor.
-      </p>
-      <p dfn-for="USBDevice">
-        The <code><dfn>productId</dfn></code> attribute declares the product ID
-        assigned by the device manufacturer. It SHALL correspond to the value of
-        the <code>idProduct</code> field of the device descriptor.
+        The <code><dfn>vendorId</dfn></code> and
+        <code><dfn>productId</dfn></code> attribute declares the vendor ID
+        of the device manufacturer and product ID assigned by the device
+        manufacturer. They SHALL correspond to the values of the
+        <code>idVendor</code> and <code>idProduct</code> fields of the device
+        descriptor.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>deviceVersion</dfn></code> attribute declares the
@@ -218,19 +210,12 @@
         <code>bNumConfigurations</code> field of the device descriptor.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>manufacturer</dfn></code> attribute SHOULD contain the
-        value of the string descriptor referenced by the
-        <code>iManufacturer</code> field of the device descriptor, if available.
-      </p>
-      <p dfn-for="USBDevice">
-        The <code><dfn>product</dfn></code> attribute SHOULD contain the value of
-        the string descriptor referenced by the <code>iProduct</code> field of
-        the device descriptor, if available.
-      </p>
-      <p dfn-for="USBDevice">
-        The <code><dfn>serialNumber</dfn></code> attribute SHOULD contain the
-        value of the string descriptor referenced by the
-        <code>iSerialNumber</code> field of the device descriptor, if available.
+        The <code><dfn>manufacturer</dfn></code>,
+        <code><dfn>product</dfn></code> and <code><dfn>serialNumber</dfn></code>
+        attributes SHOULD contain the values of the string descriptors
+        referenced by the <code>iManufacturer</code>, <code>iProduct</code> and
+        <code>iSerialNumber</code> fields of the device descriptor if each is
+        available.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>controlTransferIn</dfn>(<var>parameters</var>,
@@ -329,19 +314,13 @@
         defines it.
       </p>
       <p dfn-for="USBAlternateInterface">
-        The <code><dfn>interfaceClass</dfn></code> attribute declares the class
-        code of the interface. It SHALL correspond to the value of the
-        <code>bInterfaceClass</code> field of the interface descriptor.
-      </p>
-      <p dfn-for="USBAlternateInterface">
-        The <code><dfn>interfaceSubclass</dfn></code> attribute declares the
-        subclass code of the interface. It SHALL correspond to the value of the
-        <code>bInterfaceSubClass</code> field of the interface descriptor.
-      </p>
-      <p dfn-for="USBAlternateInterface">
-        The <code><dfn>interfaceProtocol</dfn></code> attribute declares the
-        protocol code of the interface. It SHALL correspond to the value of the
-        <code>bInterfaceProtocol</code> field of the interface descriptor.
+        The <code><dfn>interfaceClass</dfn></code>,
+        <code><dfn>interfaceSubclass</dfn></code> and
+        <code><dfn>interfaceProtocol</dfn></code> attributes declare the
+        communication interface supported by the interface. They MUST correspond
+        respectively to the values of the <code>bInterfaceClass</code>,
+        <code>bInterfaceSubClass</code> and <code>bInterfaceProtocol</code>
+        fields of the interface descriptor.
       </p>
       <p dfn-for="USBAlternateInterface">
         The <code><dfn>interface</dfn></code> attribute SHOULD contain the
