@@ -72,9 +72,9 @@
         dictionary USBDeviceFilter {
           unsigned short vendorId;
           unsigned short productId;
-          octet class;
-          octet subclass;
-          octet protocol;
+          octet classCode;
+          octet subclassCode;
+          octet protocolCode;
         };
 
         dictionary USBDeviceEnumerationOptions {
@@ -92,8 +92,9 @@
         any device with the given vendor and (optionally) product identifiers.
       </p>
       <p dfn-for="USBDeviceFilter">
-        The <code><dfn>class</dfn></code>, <code><dfn>subclass</dfn></code> and
-        <code><dfn>protocol</dfn></code> fields will cause the filter to match
+        The <code><dfn>classCode</dfn></code>,
+        <code><dfn>subclassCode</dfn></code> and
+        <code><dfn>protocolCode</dfn></code> fields will cause the filter to match
         any device that implements the given class, class and subclass, or
         class, subclass and protocol tuple and any composite device with an
         interface implementing the same. A subclass MUST NOT be specified unless
