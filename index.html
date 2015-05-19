@@ -83,7 +83,7 @@
 
         [NoInterfaceObject]
         interface USBDeviceEnumerationResults {
-            readonly attribute sequence&lt;USBDevice> devices;
+            readonly attribute USBDevice[] devices;
         };
 
         [NoInterfaceObject]
@@ -132,8 +132,10 @@
         </li>
         <li>
           Get the sequence of <a>USBDevice</a> objects representing all the
-          devices which passed the filtering stage and resolve
-          <var>promise</var> with the result.
+          devices which passed the filtering stage, use these to populate the
+          <code>devices</code> field of a new
+          <code><a>USBDeviceEnumerationResults</a></code> object, and resolve
+          <var>promise</var> with that object.
         </li>
       </ol>
     </section>
