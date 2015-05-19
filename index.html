@@ -256,19 +256,28 @@
         };
       </pre>
       <p dfn-for="USBConfiguration">
+        Each device configuration SHALL have a unique
+        <code><dfn>configurationValue</dfn></code> that matches the
+        <code>bConfigurationValue</code> fields of the configuration descriptor
+        that defines it.
+      </p>
+      <p dfn-for="USBConfiguration">
         The <code><dfn>configuration</dfn></code> attribute SHOULD contain the
         value of the string descriptor referenced by the
         <code>iConfiguration</code> field of the configuration descriptor, if
         available.
       </p>
       <p dfn-for="USBConfiguration">
+        The <code><dfn>interfaces</dfn></code> attribute SHALL contain a list of
+        interfaces exposed by this device configuration. These interfaces SHALL
+        by populated from the interface descriptors contained within this
+        configuration descriptor.
+      </p>
+      <p dfn-for="USBConfiguration">
         <code><dfn>select</dfn>()</code> issues an appropriate SET_CONFIGURATION
         control request to set this configuration as the device's current
         configuration. The operating system MAY automatically select the first
         available device configuration.
-      </p>
-      <p class="issue">
-        Document configurationValue.
       </p>
       <p class="issue">
         Include some non-normative information about device configurations
@@ -300,6 +309,13 @@
         };
       </pre>
       <p dfn-for="USBInterface">
+        Each interface provides a collection of
+        <code><dfn>alternates</dfn></code> identified by a single
+        <code>bInterfaceNumber</code> field found in their interface
+        descriptors. The <code><dfn>interfaceNumber</dfn></code> attribute MUST
+        match this field.
+      </p>
+      <p dfn-for="USBInterface">
         The <code><dfn>claim</dfn>()</code> method requests that control over
         the interface be granted to the UA.
       </p>
@@ -307,11 +323,15 @@
         The <code><dfn>release</dfn>()</code> method releases the UA's control
         over the interface if previously granted.
       </p>
+      <p class="issue">
+        Document <code>controlTransferIn</code> and
+        <code>controlTransferOut</code>.
+      </p>
       <p dfn-for="USBAlternateInterface">
         Each alternative interface configuration SHALL have a unique
-        <code><dfn>alternateSetting</dfn></code> value that matches the
-        <code>bAlternateSetting</code> field of the interface descriptor that
-        defines it.
+        <code><dfn>alternateSetting</dfn></code> within a given interface that
+        matches the <code>bAlternateSetting</code> field of the interface
+        descriptor that defines it.
       </p>
       <p dfn-for="USBAlternateInterface">
         The <code><dfn>interfaceClass</dfn></code>,
@@ -326,6 +346,13 @@
         The <code><dfn>interface</dfn></code> attribute SHOULD contain the
         value of the string descriptor referenced by the
         <code>iInterface</code> field of the interface descriptor, if available.
+      </p>
+      <p dfn-for="USBAlternateInterface">
+        The <code><dfn>endpoints</dfn></code> attribute SHALL contain a list of
+        endpoints exposed by this interface. These endpoints SHALL by populated
+        from the endpoint descriptors contained within this interface descriptor
+        and the number of elements in this sequence SHALL match the value of the
+        <code>bNumEndpoints</code> field of the interface descriptor.
       </p>
       <p dfn-for="USBAlternateInterface">
         The <code><dfn>select</dfn>()</code> method issues the appropriate<code>
@@ -354,33 +381,97 @@
           readonly attribute octet endpointNumber;
           readonly attribute USBDirection direction;
           readonly attribute USBEndpointType type;
+          readonly attribute unsigned long packetSize;
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
           Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
         };
-
-        [NoInterfaceObject]
-        interface USBBulkEndpoint : USBEndpoint {
-          Promise&lt;void> clearHalt();
-          Promise&lt;ArrayBuffer> transferIn(unsigned long length);
-          Promise&lt;unsigned long> transferOut(ArrayBufferView data);
-        };
-
-        [NoInterfaceObject]
-        interface USBInterruptEndpoint : USBEndpoint {
-          Promise&lt;void> clearHalt();
-          Promise&lt;ArrayBuffer> transferIn(unsigned long length);
-          Promise&lt;unsigned long> transferOut(ArrayBufferView data);
-        };
-
-        [NoInterfaceObject]
-        interface USBIsochronousEndpoint : USBEndpoint {
-          Promise&lt;ArrayBuffer[]> transferIn(unsigned long[] packetLengths);
-          Promise&lt;unsigned long[]> transferOut(ArrayBufferView[] packets);
-        };
       </pre>
-      <p class="issue">
-        This section appears to be missing lots of useful text!
+      <p dfn-for="USBEndpoint">
+        Each endpoint within a particular device configuration SHALL have a
+        unique <code><dfn>endpointNumber</dfn></code> value that matches the 4
+        least significant bits of the <code>bEndpointAddress</code> field of the
+        endpoint descriptor defining it.
       </p>
+      <p dfn-for="USBEndpoint">
+        The <code><dfn>direction</dfn></code> attribute declares the transfer
+        direction supported by this endpoint and is equal to <code>"in"</code>
+        if the most significant bit of the <code>bEndpointAddress</code> is set
+        and <code>"out"</code> otherwise. An endpoint may either carry data
+        <code>IN</code> from the device to host or <code>OUT</code> from host to
+        device.
+      </p>
+      <p dfn-for="USBEndpoint">
+        The <code><dfn>type</dfn></code> attribute declares the type of data
+        transfer supported by this endpoint.
+      </p>
+      <p dfn-for="USBEndpoint">
+        The <code><dfn>packetSize</dfn></code> attribute declares the packet
+        size employed by this endpoint and MUST be equal to the value of the
+        <code>wMaxPacketSize</code> of the endpoint descriptor defining it. In a
+        High-Speed, High-Bandwidth endpoint this value will include the
+        multiplication factor provided by issuing multiple transactions per
+        microframe. In a SuperSpeed device this value will include the
+        multiplication factor provided by the <code>bMaxBurst</code> field of
+        the SuperSpeed Endpoint Companion descriptor.
+      </p>
+      <p class="issue">
+        Document <code>controlTransferIn</code> and
+        <code>controlTransferOut</code>.
+      </p>
+
+      <section>
+        <h3>Bulk Transfers</h3>
+        <pre class="idl">
+          [NoInterfaceObject]
+          interface USBBulkEndpoint : USBEndpoint {
+            Promise&lt;void> clearHalt();
+            Promise&lt;ArrayBuffer> transferIn(unsigned long length);
+            Promise&lt;unsigned long> transferOut(ArrayBufferView data);
+          };
+        </pre>
+        <p dfn-for="USBBulkEndpoint">
+          The <code><dfn>clearHalt</dfn>()</code> method clears a stall
+          condition on the endpoint by issuing the appropriate
+          <code>CLEAR_FEATURE</code> control transfer.
+        </p>
+        <p class="issue">
+          Document <code>transferIn</code> and <code>transferOut</code>.
+        </p>
+      </section>
+
+      <section>
+        <h3>Interrupt Transfers</h3>
+        <pre class="idl">
+          [NoInterfaceObject]
+          interface USBInterruptEndpoint : USBEndpoint {
+            Promise&lt;void> clearHalt();
+            Promise&lt;ArrayBuffer> transferIn(unsigned long length);
+            Promise&lt;unsigned long> transferOut(ArrayBufferView data);
+          };
+        </pre>
+        <p dfn-for="USBInterruptEndpoint">
+          The <code><dfn>clearHalt</dfn>()</code> method clears a stall
+          condition on the endpoint by issuing the appropriate
+          <code>CLEAR_FEATURE</code> control transfer.
+        </p>
+        <p class="issue">
+          Document <code>transferIn</code> and <code>transferOut</code>.
+        </p>
+      </section>
+
+      <section>
+        <h3>Isochronous Transfers</h3>
+        <pre class="idl">
+          [NoInterfaceObject]
+          interface USBIsochronousEndpoint : USBEndpoint {
+            Promise&lt;ArrayBuffer[]> transferIn(unsigned long[] packetLengths);
+            Promise&lt;unsigned long[]> transferOut(ArrayBufferView[] packets);
+          };
+        </pre>
+        <p class="issue">
+          Document <code>transferIn</code> and <code>transferOut</code>.
+        </p>
+      </section>
     </section>
   </body>
 </html>
