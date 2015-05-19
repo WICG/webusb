@@ -135,27 +135,6 @@
     <section>
       <h2>Device Usage</h2>
       <pre class="idl">
-        enum USBRequestType {
-          "standard",
-          "class",
-          "vendor"
-        };
-
-        enum USBRecipient {
-          "device",
-          "interface",
-          "endpoint",
-          "other"
-        };
-
-        dictionary USBControlTransferParameters {
-          required USBRequestType requestType;
-          USBRecipient recipient;
-          required octet request;
-          required unsigned short value;
-          unsigned short index;
-        };
-
         [NoInterfaceObject]
         interface USBDevice {
           readonly attribute float usbVersion;
@@ -323,9 +302,29 @@
         The <code><dfn>release</dfn>()</code> method releases the UA's control
         over the interface if previously granted.
       </p>
-      <p class="issue">
-        Document <code>controlTransferIn</code> and
-        <code>controlTransferOut</code>.
+      <p dfn-for="USBInterface">
+        The <code><dfn>controlTransferIn</dfn>(<var>parameters</var>,
+        <var>length</var>)</code> method issues a control transfer to the device
+        through its default endpoint with the
+        <code><var>parameters</var>.recipient</code> field equal to
+        <code>"interface"</code> and the
+        <code><var>parameters</var>.index</code> field set to
+        <code>interfaceNumber</code> if unspecified. If non-zero,
+        <code><var>length</var></code> bytes of data will be read from the
+        device during the <code>IN</code> phase of the transaction.
+      </p>
+      <p dfn-for="USBInterface">
+        The <code><dfn>controlTransferOut</dfn>(<var>parameters</var>,
+        <var>data</var>)</code> method issues a control transfer to the device
+        through its default endpoint with the
+        <code><var>parameters</var>.recipient</code> field equal to
+        <code>"interface"</code> and the
+        <code><var>parameters</var>.index</code> field set to
+        <code>interfaceNumber</code> if unspecified. If provided, the contents
+        of the <code><var>data</var></code> buffer will be sent to the device
+        during the OUT phase of the transaction. The <code>wLength</code> field
+        of the <code>SETUP</code> packet will be populated with the length of
+        this buffer.
       </p>
       <p dfn-for="USBAlternateInterface">
         Each alternative interface configuration SHALL have a unique
@@ -363,7 +362,7 @@
     </section>
 
     <section>
-      <h2>Data Transfer Endpoints</h2>
+      <h2>Data Transfers</h2>
       <pre class="idl">
         enum USBDirection {
           "in",
@@ -414,10 +413,103 @@
         multiplication factor provided by the <code>bMaxBurst</code> field of
         the SuperSpeed Endpoint Companion descriptor.
       </p>
-      <p class="issue">
-        Document <code>controlTransferIn</code> and
-        <code>controlTransferOut</code>.
+      <p dfn-for="USBEndpoint">
+        The <code><dfn>controlTransferIn</dfn>(<var>parameters</var>,
+        <var>length</var>)</code> method issues a control transfer to the device
+        through its default endpoint with the
+        <code><var>parameters</var>.recipient</code> field equal to
+        <code>"endpoint"</code> and the
+        <code><var>parameters</var>.index</code> field set to the
+        <code>bEndpointAddress</code> field of the endpoint descriptor (a
+        combination of <code>endpointNumber</code> and <code>direction</code>)
+        if unspecified. If non-zero, <code><var>length</var></code> bytes of
+        data will be read from the device during the <code>IN</code> phase of
+        the transaction.
       </p>
+      <p dfn-for="USBEndpoint">
+        The <code><dfn>controlTransferOut</dfn>(<var>parameters</var>,
+        <var>data</var>)</code> method issues a control transfer to the device
+        through its default endpoint with the
+        <code><var>parameters</var>.recipient</code> field equal to
+        <code>"endpoint"</code> and the
+        <code><var>parameters</var>.index</code> field set to the
+        <code>bEndpointAddress</code> field of the endpoint descriptor (a
+        combination of <code>endpointNumber</code> and <code>direction</code>)
+        if unspecified. If provided, the contents of the
+        <code><var>data</var></code> buffer will be sent to the device during
+        the OUT phase of the transaction. The <code>wLength</code> field of the
+        <code>SETUP</code> packet will be populated with the length of this
+        buffer.
+      </p>
+
+      <section>
+        <h3>Control Transfers</h3>
+        <p>
+          Control transfers are sent through the <emph>default control endpoint
+          </emph> which is given address <code>0</code>. The
+          <code><var>controlTransferIn</var></code> and
+          <code><var>controlTransferOut</var></code> methods on a
+          <a>USBDevice</a>, <a>USBInterface</a> or <a>USBEndpoint</a> accept the
+          following parameters.
+        </p>
+        <pre class="idl">
+          enum USBRequestType {
+            "standard",
+            "class",
+            "vendor"
+          };
+
+          enum USBRecipient {
+            "device",
+            "interface",
+            "endpoint",
+            "other"
+          };
+
+          dictionary USBControlTransferParameters {
+            required USBRequestType requestType;
+            USBRecipient recipient;
+            required octet request;
+            required unsigned short value;
+            unsigned short index;
+          };
+        </pre>
+        <p dfn-for="USBControlTransferParameters">
+          The <code><dfn>requestType</dfn></code> attribute populates part of
+          the <code>bmRequestType</code> field of the <code>SETUP</code> packet
+          to indicate whether this request is part of the USB standard, a
+          particular USB device class specification or a vendor-specific
+          protocol.
+        </p>
+        <p dfn-for="USBControlTransferParameters">
+          The <code><dfn>recipient</dfn></code> attribute populates part of the
+          <code>bmRequestType</code> field of the <code>SETUP</code> packet to
+          indicate whether the control transfer is addressed to the entire
+          device, or a specific interface or endpoint. When a control transfer
+          is initiated from a <a>USBInterface</a> or <a>USBEndpoint</a> object
+          this field is automatically populated with the appropriate value.
+        </p>
+        <p dfn-for="USBControlTransferParameters">
+          The <code><dfn>request</dfn></code> attribute populates the
+          <code>bRequest</code> field of the <code>SETUP</code> packet. Valid
+          requests are defined by the USB standard, USB device class
+          specifications or the device vendor.
+        </p>
+        <p dfn-for="USBControlTransferParameters">
+          The <code><dfn>value</dfn></code> attribute populates the
+          <code>wValue</code> field of the <code>SETUP</code> packet. The
+          meaning of this field depends on the request being made.
+        </p>
+        <p dfn-for="USBControlTransferParameters">
+          The <code><dfn>index</dfn></code> attribute populates the
+          <code>wIndex</code> field of the <code>SETUP</code> packet. The
+          meaning of this field depends on the request being made. When a
+          control transfer is initiated from a <a>USBInterface</a> or
+          <a>USBEndpoint</a> object this field is automatically populated with
+          the interface number or endpoint address as this is the usual purpose
+          of this field in that context.
+        </p>
+      </section>
 
       <section>
         <h3>Bulk Transfers</h3>
