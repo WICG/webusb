@@ -82,8 +82,13 @@
         };
 
         [NoInterfaceObject]
+        interface USBDeviceEnumerationResults {
+            readonly attribute sequence&lt;USBDevice> devices;
+        };
+
+        [NoInterfaceObject]
         interface USBDeviceEnumeration {
-          Promise&lt;sequence&lt;USBDevice>> getDevices(USBDeviceEnumerationOptions options);
+          Promise&lt;USBDeviceEnumerationResults> getDevices(USBDeviceEnumerationOptions options);
         };
       </pre>
       <p dfn-for="USBDeviceFilter">
@@ -446,8 +451,8 @@
       <section>
         <h3>Control Transfers</h3>
         <p>
-          Control transfers are sent through the <emph>default control endpoint
-          </emph> which is given address <code>0</code>. The
+          Control transfers are sent through the <em>default control endpoint
+          </em> which is given address <code>0</code>. The
           <code><var>controlTransferIn</var></code> and
           <code><var>controlTransferOut</var></code> methods on a
           <a>USBDevice</a>, <a>USBInterface</a> or <a>USBEndpoint</a> accept the
