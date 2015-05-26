@@ -82,13 +82,8 @@
         };
 
         [NoInterfaceObject]
-        interface USBDeviceEnumerationResults {
-            readonly attribute USBDevice[] devices;
-        };
-
-        [NoInterfaceObject]
         interface USBDeviceEnumeration {
-          Promise&lt;USBDeviceEnumerationResults> getDevices(USBDeviceEnumerationOptions options);
+          Promise&lt;sequence&lt;USBDevice>> getDevices(USBDeviceEnumerationOptions options);
         };
       </pre>
       <p dfn-for="USBDeviceFilter">
@@ -132,9 +127,7 @@
         </li>
         <li>
           Get the sequence of <a>USBDevice</a> objects representing all the
-          devices which passed the filtering stage, use these to populate the
-          <code>devices</code> field of a new
-          <code><a>USBDeviceEnumerationResults</a></code> object, and resolve
+          devices which passed the filtering stage and resolve
           <var>promise</var> with that object.
         </li>
       </ol>
@@ -155,7 +148,7 @@
           readonly attribute DOMString? manufacturer;
           readonly attribute DOMString? product;
           readonly attribute DOMString? serialNumber;
-          readonly attribute USBConfiguration[] configurations;
+          readonly attribute FrozenArray&lt;USBConfiguration> configurations;
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
           Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
           Promise&lt;void> reset();
@@ -238,7 +231,7 @@
         interface USBConfiguration {
           readonly attribute octet configurationValue;
           readonly attribute DOMString? configuration;
-          readonly attribute USBInterface[] interfaces;
+          readonly attribute FrozenArray&lt;USBInterface> interfaces;
           Promise&lt;void> select();
         };
       </pre>
@@ -277,7 +270,7 @@
         [NoInterfaceObject]
         interface USBInterface {
           readonly attribute octet interfaceNumber;
-          readonly attribute USBAlternateInterface[] alternates;
+          readonly attribute FrozenArray&lt;USBAlternateInterface> alternates;
           Promise&lt;void> claim();
           Promise&lt;void> release();
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
@@ -291,7 +284,7 @@
           readonly attribute octet interfaceSubclass;
           readonly attribute octet interfaceProtocol;
           readonly attribute DOMString? interface;
-          readonly attribute USBEndpoint[] endpoints;
+          readonly attribute FrozenArray&lt;USBEndpoint> endpoints;
           Promise&lt;void> select();
         };
       </pre>
@@ -564,8 +557,8 @@
         <pre class="idl">
           [NoInterfaceObject]
           interface USBIsochronousEndpoint : USBEndpoint {
-            Promise&lt;ArrayBuffer[]> transferIn(unsigned long[] packetLengths);
-            Promise&lt;unsigned long[]> transferOut(ArrayBufferView[] packets);
+            Promise&lt;sequence&lt;ArrayBuffer>> transferIn(sequence&lt;unsigned long> packetLengths);
+            Promise&lt;sequence&lt;unsigned long>> transferOut(sequence&lt;ArrayBufferView> packets);
           };
         </pre>
         <p class="issue">
