@@ -157,7 +157,7 @@
           readonly attribute DOMString? serialNumber;
           readonly attribute USBConfiguration[] configurations;
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
-          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
+          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
           Promise&lt;void> reset();
         };
       </pre>
@@ -281,7 +281,7 @@
           Promise&lt;void> claim();
           Promise&lt;void> release();
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
-          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
+          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
         };
 
         [NoInterfaceObject]
@@ -390,7 +390,7 @@
           readonly attribute USBEndpointType type;
           readonly attribute unsigned long packetSize;
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
-          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional ArrayBufferView data);
+          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
         };
       </pre>
       <p dfn-for="USBEndpoint">
@@ -526,7 +526,7 @@
           interface USBBulkEndpoint : USBEndpoint {
             Promise&lt;void> clearHalt();
             Promise&lt;ArrayBuffer> transferIn(unsigned long length);
-            Promise&lt;unsigned long> transferOut(ArrayBufferView data);
+            Promise&lt;unsigned long> transferOut(BufferSource data);
           };
         </pre>
         <p dfn-for="USBBulkEndpoint">
@@ -546,7 +546,7 @@
           interface USBInterruptEndpoint : USBEndpoint {
             Promise&lt;void> clearHalt();
             Promise&lt;ArrayBuffer> transferIn(unsigned long length);
-            Promise&lt;unsigned long> transferOut(ArrayBufferView data);
+            Promise&lt;unsigned long> transferOut(BufferSource data);
           };
         </pre>
         <p dfn-for="USBInterruptEndpoint">
@@ -565,7 +565,7 @@
           [NoInterfaceObject]
           interface USBIsochronousEndpoint : USBEndpoint {
             Promise&lt;ArrayBuffer[]> transferIn(unsigned long[] packetLengths);
-            Promise&lt;unsigned long[]> transferOut(ArrayBufferView[] packets);
+            Promise&lt;unsigned long[]> transferOut(BufferSource[] packets);
           };
         </pre>
         <p class="issue">
