@@ -82,8 +82,12 @@
         };
 
         [NoInterfaceObject]
-        interface USBDeviceEnumeration {
+        interface USB {
           Promise&lt;sequence&lt;USBDevice>> getDevices(USBDeviceEnumerationOptions options);
+        };
+
+        partial interface Navigator {
+          readonly attribute USB usb;
         };
       </pre>
       <p dfn-for="USBDeviceFilter">
