@@ -140,7 +140,6 @@
     <section>
       <h2>Device Usage</h2>
       <pre class="idl">
-        [NoInterfaceObject]
         interface USBDevice {
           readonly attribute float usbVersion;
           readonly attribute octet deviceClass;
@@ -231,7 +230,6 @@
     <section>
       <h2>Device Configurations</h2>
       <pre class="idl">
-        [NoInterfaceObject]
         interface USBConfiguration {
           readonly attribute octet configurationValue;
           readonly attribute DOMString? configuration;
@@ -271,7 +269,6 @@
     <section>
       <h2>Device Interfaces</h2>
       <pre class="idl">
-        [NoInterfaceObject]
         interface USBInterface {
           readonly attribute octet interfaceNumber;
           readonly attribute FrozenArray&lt;USBAlternateInterface> alternates;
@@ -281,7 +278,6 @@
           Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
         };
 
-        [NoInterfaceObject]
         interface USBAlternateInterface {
           readonly attribute octet alternateSetting;
           readonly attribute octet interfaceClass;
@@ -380,7 +376,6 @@
           "isochronous"
         };
 
-        [NoInterfaceObject]
         interface USBEndpoint {
           readonly attribute octet endpointNumber;
           readonly attribute USBDirection direction;
@@ -519,7 +514,6 @@
       <section>
         <h3>Bulk Transfers</h3>
         <pre class="idl">
-          [NoInterfaceObject]
           interface USBBulkEndpoint : USBEndpoint {
             Promise&lt;void> clearHalt();
             Promise&lt;ArrayBuffer> transferIn(unsigned long length);
@@ -539,7 +533,6 @@
       <section>
         <h3>Interrupt Transfers</h3>
         <pre class="idl">
-          [NoInterfaceObject]
           interface USBInterruptEndpoint : USBEndpoint {
             Promise&lt;void> clearHalt();
             Promise&lt;ArrayBuffer> transferIn(unsigned long length);
@@ -559,7 +552,6 @@
       <section>
         <h3>Isochronous Transfers</h3>
         <pre class="idl">
-          [NoInterfaceObject]
           interface USBIsochronousEndpoint : USBEndpoint {
             Promise&lt;sequence&lt;ArrayBuffer>> transferIn(sequence&lt;unsigned long> packetLengths);
             Promise&lt;sequence&lt;unsigned long>> transferOut(sequence&lt;BufferSource> packets);
