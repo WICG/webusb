@@ -141,13 +141,13 @@
       <h2>Device Usage</h2>
       <pre class="idl">
         interface USBDevice {
-          readonly attribute float usbVersion;
+          readonly attribute DOMString usbVersion;
           readonly attribute octet deviceClass;
           readonly attribute octet deviceSubclass;
           readonly attribute octet deviceProtocol;
           readonly attribute unsigned short vendorId;
           readonly attribute unsigned short productId;
-          readonly attribute float deviceVersion;
+          readonly attribute DOMString deviceVersion;
           readonly attribute DOMString? manufacturer;
           readonly attribute DOMString? product;
           readonly attribute DOMString? serialNumber;
@@ -158,9 +158,13 @@
         };
       </pre>
       <p dfn-for="USBDevice">
-        The <code><dfn>usbVersion</dfn></code> attribute declares the USB
-        protocol version supported by the device. It SHALL correspond to the
-        value of the <code>bcdUSB</code> field of the device descriptor.
+        The <code><dfn>usbVersion</dfn></code> and
+        <code><dfn>deviceVersion</dfn></code> attributes declare the USB
+        protocol version supported by the device and device version assigned by
+        the manufacturer. They SHALL correspond respectively to the values of
+        the <code>bcdUSB</code> and <code>bcdDevice</code> fields of the device
+        descriptor. The values MUST be normalized such that there are two digits
+        to either side of the decimal point (for example, <code>"03.10"</code>).
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>deviceClass</dfn></code>,
@@ -178,12 +182,6 @@
         manufacturer. They SHALL correspond to the values of the
         <code>idVendor</code> and <code>idProduct</code> fields of the device
         descriptor.
-      </p>
-      <p dfn-for="USBDevice">
-        The <code><dfn>deviceVersion</dfn></code> attribute declares the
-        device release number as defined by the device manufacturer. It SHALL
-        correspond to the value of the <code>bcdDevice</code> field of the
-        device descriptor.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>configurations</dfn></code> attribute contains a list of
