@@ -230,6 +230,7 @@
     <section>
       <h2>Device Configurations</h2>
       <pre class="idl">
+        [Constructor(USBDevice device, octet configurationValue)]
         interface USBConfiguration {
           readonly attribute octet configurationValue;
           readonly attribute DOMString? configuration;
@@ -269,6 +270,7 @@
     <section>
       <h2>Device Interfaces</h2>
       <pre class="idl">
+        [Constructor(USBConfiguration configuration, octet interfaceNumber)]
         interface USBInterface {
           readonly attribute octet interfaceNumber;
           readonly attribute FrozenArray&lt;USBAlternateInterface> alternates;
@@ -278,6 +280,7 @@
           Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
         };
 
+        [Constructor(USBInterface deviceInterface, octet alternateSetting)]
         interface USBAlternateInterface {
           readonly attribute octet alternateSetting;
           readonly attribute octet interfaceClass;
@@ -376,6 +379,7 @@
           "isochronous"
         };
 
+        [Constructor(USBAlternateInterface alternate, octet endpointNumber)]
         interface USBEndpoint {
           readonly attribute octet endpointNumber;
           readonly attribute USBDirection direction;
