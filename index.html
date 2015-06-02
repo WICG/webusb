@@ -141,13 +141,13 @@
       <h2>Device Usage</h2>
       <pre class="idl">
         interface USBDevice {
-          readonly attribute float usbVersion;
+          readonly attribute string usbVersion;
           readonly attribute octet deviceClass;
           readonly attribute octet deviceSubclass;
           readonly attribute octet deviceProtocol;
           readonly attribute unsigned short vendorId;
           readonly attribute unsigned short productId;
-          readonly attribute float deviceVersion;
+          readonly attribute string deviceVersion;
           readonly attribute DOMString? manufacturer;
           readonly attribute DOMString? product;
           readonly attribute DOMString? serialNumber;
@@ -160,7 +160,9 @@
       <p dfn-for="USBDevice">
         The <code><dfn>usbVersion</dfn></code> attribute declares the USB
         protocol version supported by the device. It SHALL correspond to the
-        value of the <code>bcdUSB</code> field of the device descriptor.
+        value of the <code>bcdUSB</code> field of the device descriptor and be
+        represented as a 4-digit, 0-padded, fixed-point decimal string between
+        <code>"00.00"</code> and <code>"99.99"</code> inclusive.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>deviceClass</dfn></code>,
@@ -183,7 +185,9 @@
         The <code><dfn>deviceVersion</dfn></code> attribute declares the
         device release number as defined by the device manufacturer. It SHALL
         correspond to the value of the <code>bcdDevice</code> field of the
-        device descriptor.
+        device descriptor and be represented as a 4-digit, 0-padded, fixed-point
+        decimal string between <code>"00.00"</code> and <code>"99.99"</code>
+        inclusive.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>configurations</dfn></code> attribute contains a list of
