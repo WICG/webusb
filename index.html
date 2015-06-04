@@ -109,7 +109,7 @@
         The <code><dfn>getDevices</dfn>(<var>options</var>)</code> method, when
         invoked, MUST return a new promise <var>promise</var> and run the
         following steps in parallel:
-      <p>
+      </p>
       <ol>
         <li>
           Enumerate all devices which individually match at least one of the
@@ -135,34 +135,57 @@
           <var>promise</var> with that object.
         </li>
       </ol>
+      <p dfn-for="USB">
+        The <code><dfn>getDevice</dfn>(<var>guid</var>)</code> method, when
+        invoked, MUST look up the device corresponding to <code>guid</code> and
+        return a new promise <var>promise</var> that is either resolved with
+        the corresponding <a>USBDevice</a> object or rejected if the GUID is
+        unknown or inaccessible to the requesting origin.
+      </p>
     </section>
 
     <section>
       <h2>Device Usage</h2>
       <pre class="idl">
+        [Constructor(octet major, octet minor, octet subminor)]
+        interface USBVersionNumber {
+          readonly attribute octet major;
+          readonly attribute octet minor;
+          readonly attribute octet subminor;
+
+          bool isOlderThan(USBVersionNumber other);
+          bool equals(USBVersionNumber other);
+        };
+
         interface USBDevice {
-          readonly attribute string usbVersion;
+          readonly attribute DOMString guid;
+          readonly attribute USBVersionNumber usbVersion;
           readonly attribute octet deviceClass;
           readonly attribute octet deviceSubclass;
           readonly attribute octet deviceProtocol;
           readonly attribute unsigned short vendorId;
           readonly attribute unsigned short productId;
-          readonly attribute string deviceVersion;
+          readonly attribute USBVersionNumber deviceVersion;
           readonly attribute DOMString? manufacturer;
           readonly attribute DOMString? product;
           readonly attribute DOMString? serialNumber;
           readonly attribute FrozenArray&lt;USBConfiguration> configurations;
+          Promise&lt;void> open();
+          Promise&lt;void> close();
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
           Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
           Promise&lt;void> reset();
         };
       </pre>
       <p dfn-for="USBDevice">
+        The <code><dfn>guid</dfn></code> attribute indicates a unique identifier
+        string for the device. This identifier SHALL remain consistent for the
+        lifetime of a device's connection to the USB host.
+      </p>
+      <p dfn-for="USBDevice">
         The <code><dfn>usbVersion</dfn></code> attribute declares the USB
         protocol version supported by the device. It SHALL correspond to the
-        value of the <code>bcdUSB</code> field of the device descriptor and be
-        represented as a 4-digit, 0-padded, fixed-point decimal string between
-        <code>"00.00"</code> and <code>"99.99"</code> inclusive.
+        value of the <code>bcdUSB</code> field of the device descriptor.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>deviceClass</dfn></code>,
@@ -185,9 +208,7 @@
         The <code><dfn>deviceVersion</dfn></code> attribute declares the
         device release number as defined by the device manufacturer. It SHALL
         correspond to the value of the <code>bcdDevice</code> field of the
-        device descriptor and be represented as a 4-digit, 0-padded, fixed-point
-        decimal string between <code>"00.00"</code> and <code>"99.99"</code>
-        inclusive.
+        device descriptor.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>configurations</dfn></code> attribute contains a list of
@@ -203,6 +224,15 @@
         referenced by the <code>iManufacturer</code>, <code>iProduct</code> and
         <code>iSerialNumber</code> fields of the device descriptor if each is
         available.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>open</dfn>()</code> method prepares the device to handle
+        further requests for the API. A device must be opened before any
+        subsequent operations may be performed on it or any of its interfaces.
+      </p>
+      <p dfn-for="USBDevice">
+        The <code><dfn>close</dfn>()</code> method closes an opened device,
+        releasing any claimed interfaces.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>controlTransferIn</dfn>(<var>parameters</var>,
