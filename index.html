@@ -19,7 +19,16 @@
             company: "Google",
             companyUrl: "https://www.google.com/"
           }
-        ]
+        ],
+
+        localBiblio: {
+          "USB31": {
+            href: "http://www.usb.org/developers/docs/usb_31_060115.zip",
+            title: "Universal Serial Bus 3.1 Specification",
+            publisher: "USB Implementors Forum",
+            date: "26 July 2013",
+          }
+        }
       };
     </script>
   </head>
@@ -178,7 +187,7 @@
       <p dfn-for="USBDevice">
         The <code><dfn>usbVersion</dfn></code> attribute declares the USB
         protocol version supported by the device. It SHALL correspond to the
-        value of the <code>bcdUSB</code> field of the device descriptor.
+        value of the <code>bcdUSB</code> field of the <a>device descriptor</a>.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>deviceClass</dfn></code>,
@@ -187,36 +196,36 @@
         communication interface supported by the device. They MUST correspond
         respectively to the values of the <code>bDeviceClass</code>,
         <code>bDeviceSubClass</code> and <code>bDeviceProtocol</code> fields of
-        the device descriptor.
+        the <a>device descriptor</a>.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>vendorId</dfn></code> and
         <code><dfn>productId</dfn></code> attribute declares the vendor ID
         of the device manufacturer and product ID assigned by the device
         manufacturer. They SHALL correspond to the values of the
-        <code>idVendor</code> and <code>idProduct</code> fields of the device
-        descriptor.
+        <code>idVendor</code> and <code>idProduct</code> fields of the <a>device
+        descriptor</a>.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>deviceVersion</dfn></code> attribute declares the
         device release number as defined by the device manufacturer. It SHALL
         correspond to the value of the <code>bcdDevice</code> field of the
-        device descriptor.
+        <a>device descriptor</a>.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>configurations</dfn></code> attribute contains a list of
         configurations supported by the device. These configurations SHALL be
         populated from the configuration descriptors reported by the device and
         the number of elements in this list SHALL match the value of the
-        <code>bNumConfigurations</code> field of the device descriptor.
+        <code>bNumConfigurations</code> field of the <a>device descriptor</a>.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>manufacturer</dfn></code>,
         <code><dfn>product</dfn></code> and <code><dfn>serialNumber</dfn></code>
         attributes SHOULD contain the values of the string descriptors
         referenced by the <code>iManufacturer</code>, <code>iProduct</code> and
-        <code>iSerialNumber</code> fields of the device descriptor if each is
-        available.
+        <code>iSerialNumber</code> fields of the <a>device descriptor</a> if
+        each is available.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>open</dfn>()</code> method prepares the device to handle
@@ -268,20 +277,20 @@
       <p dfn-for="USBConfiguration">
         Each device configuration SHALL have a unique
         <code><dfn>configurationValue</dfn></code> that matches the
-        <code>bConfigurationValue</code> fields of the configuration descriptor
-        that defines it.
+        <code>bConfigurationValue</code> fields of the <a>configuration
+        descriptor</a> that defines it.
       </p>
       <p dfn-for="USBConfiguration">
         The <code><dfn>configuration</dfn></code> attribute SHOULD contain the
         value of the string descriptor referenced by the
-        <code>iConfiguration</code> field of the configuration descriptor, if
-        available.
+        <code>iConfiguration</code> field of the <a>configuration
+        descriptor</a>, if available.
       </p>
       <p dfn-for="USBConfiguration">
         The <code><dfn>interfaces</dfn></code> attribute SHALL contain a list of
         interfaces exposed by this device configuration. These interfaces SHALL
-        by populated from the interface descriptors contained within this
-        configuration descriptor.
+        by populated from the <a title="interface descriptor">interface
+        descriptors</a> contained within this <a>configuration descriptor</a>.
       </p>
       <p dfn-for="USBConfiguration">
         <code><dfn>select</dfn>()</code> issues an appropriate SET_CONFIGURATION
@@ -321,9 +330,9 @@
       <p dfn-for="USBInterface">
         Each interface provides a collection of
         <code><dfn>alternates</dfn></code> identified by a single
-        <code>bInterfaceNumber</code> field found in their interface
-        descriptors. The <code><dfn>interfaceNumber</dfn></code> attribute MUST
-        match this field.
+        <code>bInterfaceNumber</code> field found in their
+        <a title="interface descriptor">interface descriptors</a>. The
+        <code><dfn>interfaceNumber</dfn></code> attribute MUST match this field.
       </p>
       <p dfn-for="USBInterface">
         The <code><dfn>claim</dfn>()</code> method requests that control over
@@ -360,8 +369,8 @@
       <p dfn-for="USBAlternateInterface">
         Each alternative interface configuration SHALL have a unique
         <code><dfn>alternateSetting</dfn></code> within a given interface that
-        matches the <code>bAlternateSetting</code> field of the interface
-        descriptor that defines it.
+        matches the <code>bAlternateSetting</code> field of the <a>interface
+        descriptor</a> that defines it.
       </p>
       <p dfn-for="USBAlternateInterface">
         The <code><dfn>interfaceClass</dfn></code>,
@@ -370,19 +379,21 @@
         communication interface supported by the interface. They MUST correspond
         respectively to the values of the <code>bInterfaceClass</code>,
         <code>bInterfaceSubClass</code> and <code>bInterfaceProtocol</code>
-        fields of the interface descriptor.
+        fields of the <a>interface descriptor</a>.
       </p>
       <p dfn-for="USBAlternateInterface">
         The <code><dfn>interface</dfn></code> attribute SHOULD contain the
         value of the string descriptor referenced by the
-        <code>iInterface</code> field of the interface descriptor, if available.
+        <code>iInterface</code> field of the <a>interface descriptor</a>, if
+        available.
       </p>
       <p dfn-for="USBAlternateInterface">
         The <code><dfn>endpoints</dfn></code> attribute SHALL contain a list of
         endpoints exposed by this interface. These endpoints SHALL by populated
-        from the endpoint descriptors contained within this interface descriptor
-        and the number of elements in this sequence SHALL match the value of the
-        <code>bNumEndpoints</code> field of the interface descriptor.
+        from the endpoint descriptors contained within this <a>interface
+        descriptor</a> and the number of elements in this sequence SHALL match
+        the value of the <code>bNumEndpoints</code> field of the <a>interface
+        descriptor</a>.
       </p>
       <p dfn-for="USBAlternateInterface">
         The <code><dfn>select</dfn>()</code> method issues the appropriate<code>
@@ -420,7 +431,7 @@
         Each endpoint within a particular device configuration SHALL have a
         unique <code><dfn>endpointNumber</dfn></code> value that matches the 4
         least significant bits of the <code>bEndpointAddress</code> field of the
-        endpoint descriptor defining it.
+        <a>endpoint descriptor</a> defining it.
       </p>
       <p dfn-for="USBEndpoint">
         The <code><dfn>direction</dfn></code> attribute declares the transfer
@@ -437,8 +448,8 @@
       <p dfn-for="USBEndpoint">
         The <code><dfn>packetSize</dfn></code> attribute declares the packet
         size employed by this endpoint and MUST be equal to the value of the
-        <code>wMaxPacketSize</code> of the endpoint descriptor defining it. In a
-        High-Speed, High-Bandwidth endpoint this value will include the
+        <code>wMaxPacketSize</code> of the <a>endpoint descriptor</a> defining
+        it. In a High-Speed, High-Bandwidth endpoint this value will include the
         multiplication factor provided by issuing multiple transactions per
         microframe. In a SuperSpeed device this value will include the
         multiplication factor provided by the <code>bMaxBurst</code> field of
@@ -451,7 +462,7 @@
         <code><var>parameters</var>.recipient</code> field equal to
         <code>"endpoint"</code> and the
         <code><var>parameters</var>.index</code> field set to the
-        <code>bEndpointAddress</code> field of the endpoint descriptor (a
+        <code>bEndpointAddress</code> field of the <a>endpoint descriptor</a> (a
         combination of <code>endpointNumber</code> and <code>direction</code>)
         if unspecified. If non-zero, <code><var>length</var></code> bytes of
         data will be read from the device during the <code>IN</code> phase of
@@ -464,7 +475,7 @@
         <code><var>parameters</var>.recipient</code> field equal to
         <code>"endpoint"</code> and the
         <code><var>parameters</var>.index</code> field set to the
-        <code>bEndpointAddress</code> field of the endpoint descriptor (a
+        <code>bEndpointAddress</code> field of the <a>endpoint descriptor</a> (a
         combination of <code>endpointNumber</code> and <code>direction</code>)
         if unspecified. If provided, the contents of the
         <code><var>data</var></code> buffer will be sent to the device during
@@ -592,6 +603,43 @@
           Document <code>transferIn</code> and <code>transferOut</code>.
         </p>
       </section>
+    </section>
+
+    <section>
+      <h2>Terminology</h2>
+      <p>
+        This specification uses several terms taken from [[USB31]]. While
+        reference is made to version 3.1 of the Universal Serial Bus many of
+        these concepts exist in previous versions as well. Significant
+        differences between USB versions that have barring on this specification
+        will be called out explicitly.
+      </p>
+      <p>
+        <dfn>Descriptors</dfn> are binary data structures that can be read from
+        a device and describe its properties and function:
+        <ul>
+          <li>
+            The <dfn>device descriptor</dfn> contains information applicable to
+            the entire devices and is described in section 9.6.1 of [[USB31]].
+          </li>
+          <li>
+            A <dfn>configuration descriptor</dfn> describes a particular set of
+            device interfaces and endpoints that can be selected by the host.
+            Its fields are described in section 9.6.3 of [[USB31]].
+          </li>
+          <li>
+            An <dfn>interface descriptor</dfn> describes the interface of a
+            particular functional component of a device including its protocol
+            and communication endpoints. Its fields are described in section
+            9.6.5 of [[USB31]].
+          </li>
+          <li>
+            An <dfn>endpoint descriptor</dfn> describes a channel through which
+            data is either sent to or received from the device. Its fields are
+            described in section 9.6.6 of [[USB31]].
+          </li>
+        </ul>
+      </p>
     </section>
   </body>
 </html>
