@@ -56,23 +56,87 @@
         that drives them across any platform by harnessing the power of web
         technologies.
       </p>
+    </section>
+
+    <section>
+      <h2>Security Considerations</h2>
       <p>
-        WebUSB does not attempt to provide a general mechanism for any web page
-        to connect to any USB device. Historically USB hosts and devices have
-        trusted each other too much to let arbitrary pages connect to them.
-        There are published attacks against USB devices that will accept
-        unsigned firmware updates that cause them to become malicious and attack
-        the host they are connected to; exploiting the trust relationship in
-        both directions.
+        USB hosts and devices have historically trusted each other. There are
+        published attacks against USB devices that will accept unsigned firmware
+        updates. These vulnerabilities permit an attacker to gain a foothold in
+        the device and attack the original host or any other host to which they
+        are later connected.
+
+        For this reason WebUSB does not attempt to provide a mechanism for any
+        web page to connect to arbitrary devices. Instead two methods are
+        defined to associate interfaces implemented by a device with origins
+        permitted to connect to them. A user agent may provide additional
+        mechanisms, for example a settings utility to configure additional
+        origin mappings manually.
       </p>
-      <p>
-        Instead USB devices will be associated with a web origin and can only be
-        connected to from a page from the same origin. New devices (or firmware
-        updates) may include a list of acceptable origins that the user agent
-        can query, similar to the CORS mechanism for HTTP requests. Device
-        vendors may enable existing devices by registering them in an open
-        directory which maps device IDs to acceptable origins.
-      </p>
+
+      <section>
+        <h3>Origin Capability Descriptor</h3>
+        <p>
+          This specification defines a Platform Descriptor with the following
+          fields:
+          <ul>
+            <li>
+              The <code>bLength</code> field MUST be set to the total size of
+              this descriptor.
+            </li>
+            <li>
+              The <code>bDescriptor</code> field MUST be set to the
+              <code>DEVICE CAPABILITY</code> descriptor type.
+            </li>
+            <li>
+              The <code>bDevCapabilityType</code> field MUST be set to the
+              <code>PLATFORM</code> capability type.
+            </li>
+            <li>
+              The <code>PlatformCapabilityUUID</code> field MUST be set to the
+              value <code>{3408b638-09a9-47a0-8bfd-a0768815b665}</code> to
+              indicate that this descriptor follows the format defined in this
+              specification.
+            </li>
+            <li>
+              The <code>CapabilityData</code> field MUST contain binary data
+              in the following order.
+              <ol>
+                <li>
+                  A 1-byte value indicating the device configuration value this
+                  descriptor refers to.
+                </li>
+                <li>
+                  A 8-byte bit mask indicating which interfaces in that
+                  configuration this descriptor refers to. Interface 1 is
+                  indicated by the lowest order bit and so on.
+                  <p>
+                    This mechanism only permits the first 64 interfaces to be
+                    accessible using WebUSB. This should be sufficient because
+                    a device may only have 32 endpoints.
+                </li>
+                <li>
+                  A set of domain names encoded in ASCII and separated by NUL
+                  bytes. International domains must be encoded in ASCII using
+                  Punycode.
+                  <p class="issue">
+                    Investigate even more compressed formats for storing a list
+                    of origins.
+                  </p>
+                </li>
+              </ol>
+            </li>
+          </ul>
+          Multiple descriptors MAY be provided by the device. The union of all
+          mappings between configurations, interfaces and origins described
+          SHALL apply to the device.
+        </p>
+      </section>
+
+      <section>
+        <h3>Public Device Registry</h3>
+      </section>
     </section>
 
     <section>
