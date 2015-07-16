@@ -327,7 +327,7 @@
         [Constructor(USBDevice device, octet configurationValue)]
         interface USBConfiguration {
           readonly attribute octet configurationValue;
-          readonly attribute DOMString? configuration;
+          readonly attribute DOMString? configurationName;
           readonly attribute FrozenArray&lt;USBInterface> interfaces;
           Promise&lt;void> select();
         };
@@ -380,7 +380,7 @@
           readonly attribute octet interfaceClass;
           readonly attribute octet interfaceSubclass;
           readonly attribute octet interfaceProtocol;
-          readonly attribute DOMString? interface;
+          readonly attribute DOMString? interfaceName;
           readonly attribute FrozenArray&lt;USBEndpoint> endpoints;
           Promise&lt;void> select();
         };
