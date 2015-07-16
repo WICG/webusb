@@ -649,20 +649,6 @@
         </p>
       </section>
 
-      <section>
-        <h3>Isochronous Transfers</h3>
-        <pre class="idl">
-          interface USBIsochronousEndpoint : USBEndpoint {
-            Promise&lt;sequence&lt;ArrayBuffer>> transferIn(sequence&lt;unsigned long> packetLengths);
-            Promise&lt;sequence&lt;unsigned long>> transferOut(sequence&lt;BufferSource> packets);
-          };
-        </pre>
-        <p class="issue">
-          Document <code>transferIn</code> and <code>transferOut</code>.
-        </p>
-      </section>
-    </section>
-
     <section>
       <h2>Terminology</h2>
       <p>
