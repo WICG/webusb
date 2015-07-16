@@ -213,25 +213,19 @@
     <section>
       <h2>Device Usage</h2>
       <pre class="idl">
-        [Constructor(octet major, octet minor, octet subminor)]
-        interface USBVersionNumber {
-          readonly attribute octet major;
-          readonly attribute octet minor;
-          readonly attribute octet subminor;
-
-          bool isOlderThan(USBVersionNumber other);
-          bool equals(USBVersionNumber other);
-        };
-
         interface USBDevice {
           readonly attribute DOMString guid;
-          readonly attribute USBVersionNumber usbVersion;
+          readonly attribute octet usbVersionMajor;
+          readonly attribute octet usbVersionMinor;
+          readonly attribute octet usbVersionSubminor;
           readonly attribute octet deviceClass;
           readonly attribute octet deviceSubclass;
           readonly attribute octet deviceProtocol;
           readonly attribute unsigned short vendorId;
           readonly attribute unsigned short productId;
-          readonly attribute USBVersionNumber deviceVersion;
+          readonly attribute octet deviceVersionMajor;
+          readonly attribute octet deviceVersionMinor;
+          readonly attribute octet deviceVersionSubminor;
           readonly attribute DOMString? manufacturer;
           readonly attribute DOMString? product;
           readonly attribute DOMString? serialNumber;
