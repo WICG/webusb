@@ -122,6 +122,197 @@
         <p>
           Communication with a device starts with the UA finding the following
           <a>Platform Descriptor</a> in the device's <a>Binary Object Store</a>:
+        </p>
+        <table>
+          <tr>
+            <th>Offset</th>
+            <th>Field</th>
+            <th>Size</th>
+            <th>Value</th>
+            <th>Description</th>
+          </tr>
+          <tr>
+            <td>0</td>
+            <td>bLength</td>
+            <td>1</td>
+            <td>Number</td>
+            <td>Size of this descriptor. Must be set to 23.</td>
+          </tr>
+          <tr>
+            <td>1</td>
+            <td>bDescriptorType</td>
+            <td>1</td>
+            <td>Constant</td>
+            <td>DEVICE CAPABILITY descriptor type ([[USB31]] Table 9-6).</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>bDevCapabilityType</td>
+            <td>1</td>
+            <td>Constant</td>
+            <td>PLATFORM capability type ([[USB31]] Table 9-14).</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>bReserved</td>
+            <td>1</td>
+            <td>Number</td>
+            <td>This field is reserved and shall be set to zero.</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>PlatformCapabilityUUID</td>
+            <td>16</td>
+            <td>UUID</td>
+            <td>Must be set to {3408b638-09a9-47a0-8bfd-a0768815b665}.</td>
+          </tr>
+          <tr>
+            <td>20</td>
+            <td>bcdVersion</td>
+            <td>2</td>
+            <td>BCD</td>
+            <td>Protocol version supported. Must be set to 0x0100.</td>
+          </tr>
+          <tr>
+            <td>22</td>
+            <td>bVendorCode</td>
+            <td>1</td>
+            <td>Number</td>
+            <td>bRequest value used for issuing WebUSB requests.</td>
+          </tr>
+        </table>
+      </section>
+
+      <section>
+        <h3>WebUSB Device Requests</h3>
+        <p>
+          All control transfers defined by this specification are considered to
+          be vendor-specific requests. The <code>bVendorCode</code> value found
+          in the <a>WebUSB Platform Capability Descriptor</a> provides the UA
+          with the <code>bRequest</code> the device expects the host to use when
+          issuing control transfers these requests. The request type is then
+          specified in the <code>wIndex</code> field.
+        </p>
+
+        <table>
+          <caption>WebUSB Request Codes</caption>
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>GET_ALLOWED_ORIGINS</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>GET_LANDING_PAGE</td>
+            <td>2</td>
+          </tr>
+        </table>
+
+        <section>
+          <h4>Get Allowed Origins</h4>
+          <p>
+            This request gets the set of origins allowed to access the device.
+            The descriptor returned MUST either contain a single <a>Origin
+            Descriptor</a> or begin with a <a>Descriptor Set Header</a>. In the
+            latter case the descriptor set SHALL contain a combination of <a
+            title="configuration subset header">Configuration Subset
+            Headers</a>, <a title="function subset header">Function Subset
+            Headers</a> and <a title="origin descriptor">Origin Descriptors</a>.
+          </p>
+
+          <table>
+            <tr>
+              <th>bmRequestType</th>
+              <th>bRequest</th>
+              <th>wValue</th>
+              <th>wIndex</th>
+              <th>wLength</th>
+              <th>Data</th>
+            </tr>
+            <tr>
+              <td>11000000B</td>
+              <td><code>bVendorCode</code></td>
+              <td>Zero</td>
+              <td>GET_ALLOWED_ORIGINS</td>
+              <td>Descriptor Length</td>
+              <td>Descriptor</td>
+            </tr>
+          </table>
+        </section>
+
+        <section>
+          <h4>Get Landing Page</h4>
+          <p>
+            This request gets the landing page to which the UA can be navigated
+            in order to interact with the device. While a device may be
+            accessible by multiple origins it MUST only have a single landing
+            page or none at all.
+          </p>
+
+          <p>
+            The data returned MUST be a single <a>Origin Descriptor</a>.
+          </p>
+
+          <table>
+            <tr>
+              <th>bmRequestType</th>
+              <th>bRequest</th>
+              <th>wValue</th>
+              <th>wIndex</th>
+              <th>wLength</th>
+              <th>Data</th>
+            </tr>
+            <tr>
+              <td>11000000B</td>
+              <td><code>bVendorCode</code></td>
+              <td>Zero</td>
+              <td>GET_LANDING_PAGE</td>
+              <td>Descriptor Length</td>
+              <td>Descriptor</td>
+            </tr>
+          </table>
+        </section>
+      </section>
+
+      <section>
+        <h3>WebUSB Descriptors</h3>
+        <p>
+          These descriptor types are returned by requests defined in this
+          specification.
+        </p>
+
+        <table>
+          <caption>WebUSB Origin Descriptor Types</caption>
+          <tr>
+            <th>Constant</th>
+            <th>Value</th>
+          </tr>
+          <tr>
+            <td>WEBUSB_ORIGIN_SET_HEADER</td>
+            <td>0</td>
+          </tr>
+          <tr>
+            <td>WEBUSB_ORIGIN_CONFIGURATION_SUBSET_HEADER</td>
+            <td>1</td>
+          </tr>
+          <tr>
+            <td>WEBUSB_ORIGIN_FUNCTION_SUBSET_HEADER</td>
+            <td>2</td>
+          </tr>
+          <tr>
+            <td>WEBUSB_ORIGIN</td>
+            <td>3</td>
+          </tr>
+        </table>
+
+        <section>
+          <h4><dfn>Descriptor Set Header</dfn></h4>
+          <p>
+            A response referring to multiple origins MUST begin with this header
+            to identify the total length of the data to follow.
+          </p>
 
           <table>
             <tr>
@@ -136,215 +327,23 @@
               <td>bLength</td>
               <td>1</td>
               <td>Number</td>
-              <td>Size of this descriptor. Must be set to 23.</td>
+              <td>Size of this descriptor. Must be set to 4.</td>
             </tr>
             <tr>
               <td>1</td>
               <td>bDescriptorType</td>
               <td>1</td>
               <td>Constant</td>
-              <td>DEVICE CAPABILITY descriptor type ([[USB31]] Table 9-6).</td>
+              <td>WEBUSB_ORIGIN_SET_HEADER.</td>
             </tr>
             <tr>
               <td>2</td>
-              <td>bDevCapabilityType</td>
-              <td>1</td>
-              <td>Constant</td>
-              <td>PLATFORM capability type ([[USB31]] Table 9-14).</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>bReserved</td>
-              <td>1</td>
+              <td>wTotalLength</td>
+              <td>2</td>
               <td>Number</td>
-              <td>This field is reserved and shall be set to zero.</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>PlatformCapabilityUUID</td>
-              <td>16</td>
-              <td>UUID</td>
-              <td>Must be set to {3408b638-09a9-47a0-8bfd-a0768815b665}.</td>
-            </tr>
-            <tr>
-              <td>20</td>
-              <td>bcdVersion</td>
-              <td>2</td>
-              <td>BCD</td>
-              <td>Protocol version supported. Must be set to 0x0100.</td>
-            </tr>
-            <tr>
-              <td>22</td>
-              <td>bVendorCode</td>
-              <td>1</td>
-              <td>Number</td>
-              <td>bRequest value used for issuing WebUSB requests.</td>
+              <td>Total size of this and all following descriptors.</td>
             </tr>
           </table>
-        </p>
-      </section>
-
-      <section>
-        <h3>WebUSB Device Requests</h3>
-        <p>
-          All control transfers defined by this specification are considered to
-          be vendor-specific requests. The <code>bVendorCode</code> value found
-          in the <a>WebUSB Platform Capability Descriptor</a> provides the UA
-          with the <code>bRequest</code> the device expects the host to use when
-          issuing control transfers these requests. The request type is then
-          specified in the <code>wIndex</code> field.
-
-          <table>
-            <caption>WebUSB Request Codes</caption>
-            <tr>
-              <th>Constant</th>
-              <th>Value</th>
-            </tr>
-            <tr>
-              <td>GET_ALLOWED_ORIGINS</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>GET_LANDING_PAGE</td>
-              <td>2</td>
-            </tr>
-          </table>
-        </p>
-
-        <section>
-          <h4>Get Allowed Origins</h4>
-          <p>
-            This request gets the set of origins allowed to access the device.
-            The descriptor returned MUST either contain a single <a>Origin
-            Descriptor</a> or begin with a <a>Descriptor Set Header</a>. In the
-            latter case the descriptor set SHALL contain a combination of <a
-            title="configuration subset header">Configuration Subset
-            Headers</a>, <a title="function subset header">Function Subset
-            Headers</a> and <a title="origin descriptor">Origin Descriptors</a>.
-
-            <table>
-              <tr>
-                <th>bmRequestType</td>
-                <th>bRequest</th>
-                <th>wValue</th>
-                <th>wIndex</th>
-                <th>wLength</th>
-                <th>Data</th>
-              </tr>
-              <tr>
-                <td>11000000B</td>
-                <td><code>bVendorCode</code></td>
-                <td>Zero</td>
-                <td>GET_ALLOWED_ORIGINS</td>
-                <td>Descriptor Length</td>
-                <td>Descriptor</td>
-              </tr>
-            </table>
-          </p>
-        </section>
-
-        <section>
-          <h4>Get Landing Page</h4>
-          <p>
-            This request gets the landing page to which the UA can be navigated
-            in order to interact with the device. While a device may be
-            accessible by multiple origins it MUST only have a single landing
-            page or none at all.
-          </p>
-
-          <p>
-            The data returned MUST be a single <a>Origin Descriptor</a>.
-
-            <table>
-              <tr>
-                <th>bmRequestType</td>
-                <th>bRequest</th>
-                <th>wValue</th>
-                <th>wIndex</th>
-                <th>wLength</th>
-                <th>Data</th>
-              </tr>
-              <tr>
-                <td>11000000B</td>
-                <td><code>bVendorCode</code></td>
-                <td>Zero</td>
-                <td>GET_LANDING_PAGE</td>
-                <td>Descriptor Length</td>
-                <td>Descriptor</td>
-              </tr>
-            </table>
-          </p>
-        </section>
-      </section>
-
-      <section>
-        <h3>WebUSB Descriptors</h3>
-        <p>
-          These descriptor types are returned by requests defined in this
-          specification.
-
-          <table>
-            <caption>WebUSB Origin Descriptor Types</caption>
-            <tr>
-              <th>Constant</th>
-              <th>Value</th>
-            </tr>
-            <tr>
-              <td>WEBUSB_ORIGIN_SET_HEADER</td>
-              <td>0</td>
-            </tr>
-            <tr>
-              <td>WEBUSB_ORIGIN_CONFIGURATION_SUBSET_HEADER</td>
-              <td>1</td>
-            </tr>
-            <tr>
-              <td>WEBUSB_ORIGIN_FUNCTION_SUBSET_HEADER</td>
-              <td>2</td>
-            </tr>
-            <tr>
-              <td>WEBUSB_ORIGIN</td>
-              <td>3</td>
-            </tr>
-          </table>
-        </p>
-
-        <section>
-          <h4><dfn>Descriptor Set Header</dfn></h4>
-          <p>
-            A response referring to multiple origins MUST begin with this header
-            to identify the total length of the data to follow.
-
-            <table>
-              <tr>
-                <th>Offset</th>
-                <th>Field</th>
-                <th>Size</th>
-                <th>Value</th>
-                <th>Description</th>
-              </tr>
-              <tr>
-                <td>0</td>
-                <td>bLength</td>
-                <td>1</td>
-                <td>Number</td>
-                <td>Size of this descriptor. Must be set to 4.</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>bDescriptorType</td>
-                <td>1</td>
-                <td>Constant</td>
-                <td>WEBUSB_ORIGIN_SET_HEADER.</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>wTotalLength</td>
-                <td>2</td>
-                <td>Number</td>
-                <td>Total size of this and all following descriptors.</td>
-              </tr>
-            </table>
-          </p>
         </section>
 
         <section>
@@ -358,48 +357,48 @@
           <p>
             This descriptor MUST be contained within a <a>Descriptor Set
             Header</a>.
-
-            <table>
-              <tr>
-                <th>Offset</th>
-                <th>Field</th>
-                <th>Size</th>
-                <th>Value</th>
-                <th>Description</th>
-              </tr>
-              <tr>
-                <td>0</td>
-                <td>bLength</td>
-                <td>1</td>
-                <td>Number</td>
-                <td>Size of this descriptor. Must be set to 4.</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>bDescriptorType</td>
-                <td>1</td>
-                <td>Constant</td>
-                <td>WEBUSB_ORIGIN_CONFIGURATION_SUBSET_HEADER.</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>bConfigurationValue</td>
-                <td>1</td>
-                <td>Number</td>
-                <td>Configuration to which this section applies.</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>wTotalLength</td>
-                <td>2</td>
-                <td>Number</td>
-                <td>
-                  Total size of this and the following descriptors to which this
-                  header applies.
-                </td>
-              </tr>
-            </table>
           </p>
+
+          <table>
+            <tr>
+              <th>Offset</th>
+              <th>Field</th>
+              <th>Size</th>
+              <th>Value</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>bLength</td>
+              <td>1</td>
+              <td>Number</td>
+              <td>Size of this descriptor. Must be set to 4.</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>bDescriptorType</td>
+              <td>1</td>
+              <td>Constant</td>
+              <td>WEBUSB_ORIGIN_CONFIGURATION_SUBSET_HEADER.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>bConfigurationValue</td>
+              <td>1</td>
+              <td>Number</td>
+              <td>Configuration to which this section applies.</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>wTotalLength</td>
+              <td>2</td>
+              <td>Number</td>
+              <td>
+                Total size of this and the following descriptors to which this
+                header applies.
+              </td>
+            </tr>
+          </table>
         </section>
 
         <section>
@@ -413,51 +412,51 @@
           <p>
             This descriptor MUST be contained within a <a>Descriptor Set
             Header</a>.
-
-            <table>
-              <caption>WebUSB Origin Function Subset Header</caption>
-              <tr>
-                <th>Offset</th>
-                <th>Field</th>
-                <th>Size</th>
-                <th>Value</th>
-                <th>Description</th>
-              </tr>
-              <tr>
-                <td>0</td>
-                <td>bLength</td>
-                <td>1</td>
-                <td>Number</td>
-                <td>Size of this descriptor. Must be set to 4.</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>bDescriptorType</td>
-                <td>1</td>
-                <td>Constant</td>
-                <td>WEBUSB_ORIGIN_FUNCTION_SUBSET_HEADER.</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>bFirstInterfaceNumber</td>
-                <td>1</td>
-                <td>Number</td>
-                <td>
-                  First interface of the function to which this section applies.
-                </td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>wTotalLength</td>
-                <td>2</td>
-                <td>Number</td>
-                <td>
-                  Total size of this and the following descriptors to which this
-                  header applies.
-                </td>
-              </tr>
-            </table>
           </p>
+
+          <table>
+            <caption>WebUSB Origin Function Subset Header</caption>
+            <tr>
+              <th>Offset</th>
+              <th>Field</th>
+              <th>Size</th>
+              <th>Value</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>bLength</td>
+              <td>1</td>
+              <td>Number</td>
+              <td>Size of this descriptor. Must be set to 4.</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>bDescriptorType</td>
+              <td>1</td>
+              <td>Constant</td>
+              <td>WEBUSB_ORIGIN_FUNCTION_SUBSET_HEADER.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>bFirstInterfaceNumber</td>
+              <td>1</td>
+              <td>Number</td>
+              <td>
+                First interface of the function to which this section applies.
+              </td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>wTotalLength</td>
+              <td>2</td>
+              <td>Number</td>
+              <td>
+                Total size of this and the following descriptors to which this
+                header applies.
+              </td>
+            </tr>
+          </table>
         </section>
 
         <section>
@@ -468,38 +467,38 @@
             <a>Configuration Subset Header</a> to apply to a specific
             configuration, or a <a>Function Subset Header</a> to apply to the
             set of interfaces comprising that function.
-
-            <table>
-              <tr>
-                <th>Offset</th>
-                <th>Field</th>
-                <th>Size</th>
-                <th>Value</th>
-                <th>Description</th>
-              </tr>
-              <tr>
-                <td>0</td>
-                <td>bLength</td>
-                <td>1</td>
-                <td>Number</td>
-                <td>Size of this descriptor.</td>
-              </tr>
-              <tr>
-                <td>1</td>
-                <td>bDescriptorType</td>
-                <td>1</td>
-                <td>Constant</td>
-                <td>WEBUSB_ORIGIN.</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>Origin</td>
-                <td>Variable</td>
-                <td>String</td>
-                <td>UTF-8 encoded URL.</td>
-              </tr>
-            </table>
           </p>
+
+          <table>
+            <tr>
+              <th>Offset</th>
+              <th>Field</th>
+              <th>Size</th>
+              <th>Value</th>
+              <th>Description</th>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>bLength</td>
+              <td>1</td>
+              <td>Number</td>
+              <td>Size of this descriptor.</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>bDescriptorType</td>
+              <td>1</td>
+              <td>Constant</td>
+              <td>WEBUSB_ORIGIN.</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Origin</td>
+              <td>Variable</td>
+              <td>String</td>
+              <td>UTF-8 encoded URL.</td>
+            </tr>
+          </table>
         </section>
       </section>
 
