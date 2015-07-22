@@ -810,7 +810,7 @@
           };
 
           dictionary USBOutTransferResult {
-            unsigned long length;
+            unsigned long bytesWritten;
             USBTransferStatus status;
           };
         </pre>
@@ -880,9 +880,9 @@
           controlTransferOut</a>(<var>setup</var>, <var>data</var>)</code> may
           send up to <code><var>data.length</var></code> bytes of data. The
           actual number of bytes transferred SHALL be stored in
-          <code><dfn>length</dfn></code>. <code><dfn>status</dfn></code> SHALL
-          have any of the values above or one of the following to indicate the
-          final disposition of the transfer:
+          <code><dfn>bytesWritten</dfn></code>. <code><dfn>status</dfn></code>
+          SHALL have any of the values above or one of the following to indicate
+          the final disposition of the transfer:
 
           <dl>
             <dt><code>"babble"</code></dt>
