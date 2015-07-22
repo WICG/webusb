@@ -612,9 +612,9 @@
           Promise&lt;void> setInterface(octet interfaceNumber, octet alternateSetting);
           Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
           Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
-          Promise&lt;void> clearHalt();
-          Promise&lt;ArrayBuffer> transferIn(unsigned long length);
-          Promise&lt;unsigned long> transferOut(BufferSource data);
+          Promise&lt;void> clearHalt(octet endpointNumber);
+          Promise&lt;ArrayBuffer> transferIn(octet endpointNumber, unsigned long length);
+          Promise&lt;unsigned long> transferOut(octet endpointNumber, BufferSource data);
           Promise&lt;void> reset();
         };
       </pre>
@@ -680,7 +680,7 @@
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>open</dfn>()</code> method prepares the device to handle
-        further requests for the API. A device must be opened before any
+        further requests for the API. A device MUST be opened before any
         subsequent operations may be performed on it or any of its interfaces.
       </p>
       <p dfn-for="USBDevice">
@@ -688,33 +688,48 @@
         releasing any claimed interfaces.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>setConfiguration</dfn>()</code> issues an appropriate
-        SET_CONFIGURATION control request to set the configuration with the
-        given <code>bConfigurationValue</code> as the device's current
-        configuration. The operating system MAY automatically select
-        configuration <code>1</code> when the device is enumerated.
+        The
+        <code><dfn>setConfiguration</dfn>(<var>configurationValue</var>)</code>
+        method issues an appropriate <code>SET_CONFIGURATION</code> control
+        request to set <code><var>configurationValue</var></code> as the
+        device's current configuration. The operating system MAY automatically
+        select configuration <code>1</code> when the device is enumerated. The
+        device MUST be opened before this method is called.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>claimInterface</dfn>()</code> method requests that
-        control over the interface with the given <code>bInterfaceNumber</code>
-        be granted to the UA.
+        The <code><dfn>claimInterface</dfn>(<var>interfaceNumber</var>)</code>
+        method requests that control over
+        <code><var>interfaceNumber</var></code> be granted to the UA. The device
+        MUST be opened before this method is called.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>releaseInterface</dfn>()</code> method releases the UA's
-        control over the interface if previously granted.
+        The <code><dfn>releaseInterface</dfn>(<var>interfaceNumber</var>)</code>
+        method releases the UA's control over the interface which MUST have been
+        previously claimed.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>setInterface</dfn>()</code> method issues a
-        <code>SET_INTERFACE</code> request to select an alternate setting on the
-        given interface. By default the alternate interface with
-        <code>alternateSetting</code> set to <code>0</code> is selected.
+        The <code><dfn>setInterface</dfn>(<var>interfaceNumber</var>,
+        <var>alternateSetting</var>)</code> method issues a
+        <code>SET_INTERFACE</code> request to activate the endpoints associated
+        with <code><var>alternateSetting</var></code> on
+        <code><var>interfaceNumber</var></code>. By default the endpoints on
+        alternate setting <code>0</code> are selected when the device is
+        enumerated or
+        <code>setConfiguration(<var>configurationValue</var>)</code> is called
+        and so it isn't necessary to call
+        <code>setInterface(<var>interfaceNumber</var>, 0)</code> before using
+        these endpoints. The specified interface MUST be claimed before this
+        method can be called.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>controlTransferIn</dfn>(<var>parameters</var>,
         <var>length</var>)</code> method issues a control transfer to the device
         through its default endpoint. If non-zero,
         <code><var>length</var></code> bytes of data will be read from the
-        device during the <code>IN</code> phase of the transaction.
+        device during the <code>IN</code> phase of the transaction. If the
+        <code><var>recipient</var></code> is <code>"interface"</code> or
+        <code>"endpoint"</code> then the target interface MUST be claimed before
+        this method is called.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>controlTransferOut</dfn>(<var>parameters</var>,
@@ -723,30 +738,40 @@
         <code><var>data</var></code> buffer will be sent to the device during
         the OUT phase of the transaction. The <code>wLength</code> field of the
         <code>SETUP</code> packet will be populated with the length of this
-        buffer.
+        buffer. If the <code><var>recipient</var></code> is
+        <code>"interface"</code> or <code>"endpoint"</code> then the target
+        interface MUST be claimed before this method is called.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>clearHalt</dfn>()</code> method clears a stall
-        condition on the given endpoint by issuing the appropriate
-        <code>CLEAR_FEATURE</code> control transfer.
+        The <code><dfn>clearHalt</dfn>(<var>endpointNumber</var>)</code> method
+        clears a stall condition on <code><var>endpointNumber</var></code> by
+        issuing the appropriate <code>CLEAR_FEATURE</code> control transfer. The
+        interface containing this endpoint MUST be claimed before this method is
+        called.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>transferIn</dfn>()</code> method enqueues a bulk or
-        interrupt IN transfer request for <code>length</code> bytes of data on
-        this endpoint. The promise returned will be resolved with the data
-        returned by the device which may be less than the amount requested if a
-        short packet or stall condition is encountered.
+        The <code><dfn>transferIn</dfn>(<var>endpointNumber</var>,
+        <var>length</var>)</code> method enqueues a bulk or interrupt IN
+        transfer request for <code><var>length</var></code> bytes of data to
+        <code><var>endpointNumber</var></code>. The promise returned will be
+        resolved with the data returned by the device which may be less than the
+        amount requested if a short packet or stall condition is encountered.
+        The interface containing this endpoint MUST be claimed before this
+        method is called.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>transferOut</dfn>()</code> method enqueues a bulk or
-        interrupt OUT transfer to transmit <code>data</code> on this endpoint.
-        The promise returned will be resolved when the data transfer is complete
-        with the amount of data that was successfully sent to the device. This
-        may be less than the amount provided if an error is encountered.
+        The <code><dfn>transferOut</dfn>(<var>endpointNumber</var>,
+        <var>data</var>)</code> method enqueues a bulk or interrupt OUT transfer
+        to transmit <code><var>data</var></code> to
+        <code><var>endpointNumber</var></code>. The promise returned will be
+        resolved when the data transfer is complete with the amount of data that
+        was successfully sent to the device. This may be less than the amount
+        provided if an error is encountered. The interface containing this
+        endpoint MUST be claimed before this method is called.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>reset</dfn>()</code> method performs a soft reset on the
-        device.
+        device. The device MUST be opened before this method is called.
       </p>
       <p class="issue">
         Concepts like transaction phases, packet contents, and device reset
