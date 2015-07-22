@@ -610,8 +610,8 @@
           Promise&lt;void> claimInterface(octet interfaceNumber);
           Promise&lt;void> releaseInterface(octet interfaceNumber);
           Promise&lt;void> setInterface(octet interfaceNumber, octet alternateSetting);
-          Promise&lt;USBInTransferResult> controlTransferIn(USBSetupPacket setup, unsigned short length);
-          Promise&lt;USBOutTransferResult> controlTransferOut(USBSetupPacket setup, optional BufferSource data);
+          Promise&lt;USBInTransferResult> controlTransferIn(USBControlTransferParameters setup, unsigned short length);
+          Promise&lt;USBOutTransferResult> controlTransferOut(USBControlTransferParameters setup, optional BufferSource data);
           Promise&lt;void> clearHalt(octet endpointNumber);
           Promise&lt;USBInTransferResult> transferIn(octet endpointNumber, unsigned long length);
           Promise&lt;USBOutTransferResult> transferOut(octet endpointNumber, BufferSource data);
@@ -796,7 +796,7 @@
             "babble"
           };
 
-          dictionary USBSetupPacket {
+          dictionary USBControlTransferParameters {
             required USBRequestType requestType;
             required USBRecipient recipient;
             required octet request;
@@ -825,26 +825,26 @@
           received from the device. In the <dfn>status stage</dfn> successful
           handling of the request is acknowledged or a failure is signaled.
         </p>
-        <p dfn-for="USBSetupPacket">
+        <p dfn-for="USBControlTransferParameters">
           The <code><dfn>requestType</dfn></code> attribute populates part of
           the <code>bmRequestType</code> field of the <a>setup packet</a> to
           indicate whether this request is part of the USB standard, a
           particular USB device class specification or a vendor-specific
           protocol.
         </p>
-        <p dfn-for="USBSetupPacket">
+        <p dfn-for="USBControlTransferParameters">
           The <code><dfn>recipient</dfn></code> attribute populates part of the
           <code>bmRequestType</code> field of the <a>setup packet</a> to
           indicate whether the control transfer is addressed to the entire
           device, or a specific interface or endpoint.
         </p>
-        <p dfn-for="USBSetupPacket">
+        <p dfn-for="USBControlTransferParameters">
           The <code><dfn>request</dfn></code> attribute populates the
           <code>bRequest</code> field of the <a>setup packet</a>. Valid requests
           are defined by the USB standard, USB device class specifications or
           the device vendor.
         </p>
-        <p dfn-for="USBSetupPacket">
+        <p dfn-for="USBControlTransferParameters">
           The <code><dfn>value</dfn></code> and <code><dfn>index</dfn></code>
           attributes populate the <code>wValue</code> and <code>wIndex</code>
           fields of the <a>setup packet</a> respectively. The meaning of these
