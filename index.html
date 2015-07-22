@@ -610,11 +610,11 @@
           Promise&lt;void> claimInterface(octet interfaceNumber);
           Promise&lt;void> releaseInterface(octet interfaceNumber);
           Promise&lt;void> setInterface(octet interfaceNumber, octet alternateSetting);
-          Promise&lt;ArrayBuffer> controlTransferIn(USBControlTransferParameters parameters, unsigned short length);
-          Promise&lt;void> controlTransferOut(USBControlTransferParameters parameters, optional BufferSource data);
+          Promise&lt;USBInTransferResult> controlTransferIn(USBSetupPacket setup, unsigned short length);
+          Promise&lt;USBOutTransferResult> controlTransferOut(USBSetupPacket setup, optional BufferSource data);
           Promise&lt;void> clearHalt(octet endpointNumber);
-          Promise&lt;ArrayBuffer> transferIn(octet endpointNumber, unsigned long length);
-          Promise&lt;unsigned long> transferOut(octet endpointNumber, BufferSource data);
+          Promise&lt;USBInTransferResult> transferIn(octet endpointNumber, unsigned long length);
+          Promise&lt;USBOutTransferResult> transferOut(octet endpointNumber, BufferSource data);
           Promise&lt;void> reset();
         };
       </pre>
@@ -714,31 +714,32 @@
         with <code><var>alternateSetting</var></code> on
         <code><var>interfaceNumber</var></code>. By default the endpoints on
         alternate setting <code>0</code> are selected when the device is
-        enumerated or
-        <code>setConfiguration(<var>configurationValue</var>)</code> is called
-        and so it isn't necessary to call
-        <code>setInterface(<var>interfaceNumber</var>, 0)</code> before using
+        enumerated or <code><a title="USBDevice.setConfiguration">
+        setConfiguration</a>(<var>configurationValue</var>)</code> is
+        called and so it isn't necessary to call
+        <code><a title="USBDevice.setInterface">
+        setInterface</a>(<var>interfaceNumber</var>, 0)</code> before using
         these endpoints. The specified interface MUST be claimed before this
         method can be called.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>controlTransferIn</dfn>(<var>parameters</var>,
+        The <code><dfn>controlTransferIn</dfn>(<var>setup</var>,
         <var>length</var>)</code> method issues a control transfer to the device
         through its default endpoint. If non-zero,
         <code><var>length</var></code> bytes of data will be read from the
-        device during the <code>IN</code> phase of the transaction. If the
-        <code><var>recipient</var></code> is <code>"interface"</code> or
+        device during the <a>data stage</a> of the transaction. If
+        <code><var>setup.recipient</var></code> is <code>"interface"</code> or
         <code>"endpoint"</code> then the target interface MUST be claimed before
         this method is called.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>controlTransferOut</dfn>(<var>parameters</var>,
+        The <code><dfn>controlTransferOut</dfn>(<var>setup</var>,
         <var>data</var>)</code> method issues a control transfer to the device
         through its default endpoint. If provided, the contents of the
         <code><var>data</var></code> buffer will be sent to the device during
-        the OUT phase of the transaction. The <code>wLength</code> field of the
-        <code>SETUP</code> packet will be populated with the length of this
-        buffer. If the <code><var>recipient</var></code> is
+        the <a>data stage</a> of the transaction. The <code>wLength</code> field
+        of the <a>setup packet</a> will be populated with the length of this
+        buffer. If <code><var>setup.recipient</var></code> is
         <code>"interface"</code> or <code>"endpoint"</code> then the target
         interface MUST be claimed before this method is called.
       </p>
@@ -754,37 +755,27 @@
         <var>length</var>)</code> method enqueues a bulk or interrupt IN
         transfer request for <code><var>length</var></code> bytes of data to
         <code><var>endpointNumber</var></code>. The promise returned will be
-        resolved with the data returned by the device which may be less than the
-        amount requested if a short packet or stall condition is encountered.
-        The interface containing this endpoint MUST be claimed before this
-        method is called.
+        resolved with <a>USBInTransferResult</a> containing the data returned by
+        the device. The interface containing this endpoint MUST be claimed
+        before this method is called.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>transferOut</dfn>(<var>endpointNumber</var>,
         <var>data</var>)</code> method enqueues a bulk or interrupt OUT transfer
         to transmit <code><var>data</var></code> to
         <code><var>endpointNumber</var></code>. The promise returned will be
-        resolved when the data transfer is complete with the amount of data that
-        was successfully sent to the device. This may be less than the amount
-        provided if an error is encountered. The interface containing this
-        endpoint MUST be claimed before this method is called.
+        resolved when the data transfer is complete with a
+        <a>USBOutTransferResult</a> indicating the amount of data that was
+        successfully sent to the device. The interface containing this endpoint
+        MUST be claimed before this method is called.
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>reset</dfn>()</code> method performs a soft reset on the
         device. The device MUST be opened before this method is called.
       </p>
-      <p class="issue">
-        Concepts like transaction phases, packet contents, and device reset
-        should be discussed in some additional detail with references to the
-        USB spec.
-      </p>
 
       <section>
-        <h3>Control Transfers</h3>
-        <p>
-          Control transfers are sent through the <em>default control endpoint
-          </em> which is given address <code>0</code>.
-        </p>
+        <h3>Transfers</h3>
         <pre class="idl">
           enum USBRequestType {
             "standard",
@@ -799,38 +790,107 @@
             "other"
           };
 
-          dictionary USBControlTransferParameters {
+          enum USBTransferStatus {
+            "ok",
+            "stall",
+            "babble"
+          };
+
+          dictionary USBSetupPacket {
             required USBRequestType requestType;
             required USBRecipient recipient;
             required octet request;
             required unsigned short value;
             required unsigned short index;
           };
+
+          dictionary USBInTransferResult {
+            ArrayBuffer data;
+            USBTransferStatus status;
+          };
+
+          dictionary USBOutTransferResult {
+            unsigned long length;
+            USBTransferStatus status;
+          };
         </pre>
-        <p dfn-for="USBControlTransferParameters">
+
+        <p>
+          A control transfer is a special class of USB traffic most commonly
+          used for configuring a device. It consists of three stages: setup,
+          data and status. In the <dfn>setup stage</dfn> a  <dfn>setup
+          packet</dfn> is transmitted to the device containing request
+          parameters including the transfer direction and size of the data to
+          follow. In the <dfn>data stage</dfn> that data is either sent to or
+          received from the device. In the <dfn>status stage</dfn> successful
+          handling of the request is acknowledged or a failure is signaled.
+        </p>
+        <p dfn-for="USBSetupPacket">
           The <code><dfn>requestType</dfn></code> attribute populates part of
-          the <code>bmRequestType</code> field of the <code>SETUP</code> packet
-          to indicate whether this request is part of the USB standard, a
+          the <code>bmRequestType</code> field of the <a>setup packet</a> to
+          indicate whether this request is part of the USB standard, a
           particular USB device class specification or a vendor-specific
           protocol.
         </p>
-        <p dfn-for="USBControlTransferParameters">
+        <p dfn-for="USBSetupPacket">
           The <code><dfn>recipient</dfn></code> attribute populates part of the
-          <code>bmRequestType</code> field of the <code>SETUP</code> packet to
+          <code>bmRequestType</code> field of the <a>setup packet</a> to
           indicate whether the control transfer is addressed to the entire
           device, or a specific interface or endpoint.
         </p>
-        <p dfn-for="USBControlTransferParameters">
+        <p dfn-for="USBSetupPacket">
           The <code><dfn>request</dfn></code> attribute populates the
-          <code>bRequest</code> field of the <code>SETUP</code> packet. Valid
-          requests are defined by the USB standard, USB device class
-          specifications or the device vendor.
+          <code>bRequest</code> field of the <a>setup packet</a>. Valid requests
+          are defined by the USB standard, USB device class specifications or
+          the device vendor.
         </p>
-        <p dfn-for="USBControlTransferParameters">
+        <p dfn-for="USBSetupPacket">
           The <code><dfn>value</dfn></code> and <code><dfn>index</dfn></code>
           attributes populate the <code>wValue</code> and <code>wIndex</code>
-          fields of the <code>SETUP</code> packet respectively. The meaning of
-          these field depends on the request being made.
+          fields of the <a>setup packet</a> respectively. The meaning of these
+          fields depends on the request being made.
+        </p>
+        <p dfn-for="USBInTransferResult">
+          A transfer initiated by <code><a title="USBDevice.transferIn">
+          transferIn</a>(<var>endpointNumber</var>, <var>length</var>)</code> or
+          <code><a title="USBDevice.controlTransferIn">
+          controlTransferOut</a>(<var>setup</var>, <var>length</var>)</code> may
+          receive up to <code><var>length</var></code> bytes of data which SHALL
+          be stored in <code><dfn>data</dfn></code>.
+          <code><dfn>status</dfn></code> SHALL have one of the following values
+          indicating the final disposition of the transfer:
+
+          <dl>
+            <dt><code>"ok"</code></dt>
+            <dd>the transfer completed with no errors.</dt>
+
+            <dt><code>"stall"</code></dt>
+            <dd>
+              the device stalled the pipe. If this is not a control transfer
+              <code><a title="USBDevice.clearHalt">clearHalt</a>(
+              <var>endpointNumber</var>)</code> must be called to clear the
+              failure.
+            </dd>
+          </dl>
+        </p>
+        <p dfn-for="USBOutTransferResult">
+          A transfer initiated by <code><a title="USBDevice.transferOut">
+          transferOut</a>(<var>endpointNumber</var>, <var>data</var>)</code> or
+          <code><a title="USBDevice.controlTransferOut">
+          controlTransferOut</a>(<var>setup</var>, <var>data</var>)</code> may
+          send up to <code><var>data.length</var></code> bytes of data. The
+          actual number of bytes transferred SHALL be stored in
+          <code><dfn>length</dfn></code>. <code><dfn>status</dfn></code> SHALL
+          have any of the values above or one of the following to indicate the
+          final disposition of the transfer:
+
+          <dl>
+            <dt><code>"babble"</code></dt>
+            <dd>
+              the device attempted to send more data than allowed by the maximum
+              packet size specified for the endpoint.
+            </dd>
+          </dl>
         </p>
       </section>
 
