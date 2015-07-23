@@ -804,14 +804,14 @@
             required unsigned short index;
           };
 
-          dictionary USBInTransferResult {
-            ArrayBuffer data;
-            USBTransferStatus status;
+          interface USBInTransferResult {
+            readonly attribute ArrayBuffer data;
+            readonly attribute USBTransferStatus status;
           };
 
-          dictionary USBOutTransferResult {
-            unsigned long bytesWritten;
-            USBTransferStatus status;
+          interface USBOutTransferResult {
+            readonly attribute unsigned long bytesWritten;
+            readonly attribute USBTransferStatus status;
           };
         </pre>
 
