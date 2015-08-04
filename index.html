@@ -1001,7 +1001,7 @@
             "isochronous"
           };
 
-          [Constructor(USBAlternateInterface alternate, USBDirection direction, octet endpointNumber)]
+          [Constructor(USBAlternateInterface alternate, octet endpointNumber, USBDirection direction)]
           interface USBEndpoint {
             readonly attribute octet endpointNumber;
             readonly attribute USBDirection direction;
@@ -1011,11 +1011,11 @@
         </pre>
         <p dfn-for="USBEndpoint">
           Each endpoint within a particular device configuration SHALL have a
-          unique combination of <code>direction</code> and
-          <code>endpointNumber</code>. The
-          <code><dfn>endpointNumber</dfn></code> MUST equal the 4 least
-          significant bits of the <code>bEndpointAddress</code> field of the
-          <a>endpoint descriptor</a> defining the endpoint.
+          unique combination of <code>endpointNumber</code> and
+          <code>direction</code>. The <code><dfn>endpointNumber</dfn></code>
+          MUST equal the 4 least significant bits of the
+          <code>bEndpointAddress</code> field of the <a>endpoint descriptor</a>
+          defining the endpoint.
         </p>
         <p dfn-for="USBEndpoint">
           The <code><dfn>direction</dfn></code> attribute declares the transfer
