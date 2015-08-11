@@ -531,13 +531,14 @@
           octet protocolCode;
         };
 
-        dictionary USBDeviceEnumerationOptions {
+        dictionary USBDeviceRequestOptions {
           required sequence&lt;USBDeviceFilter> filters;
         };
 
         [NoInterfaceObject]
         interface USB {
-          Promise&lt;sequence&lt;USBDevice>> getDevices(USBDeviceEnumerationOptions options);
+          Promise&lt;sequence&lt;USBDevice>> getDevices();
+          Promise&lt;USBDevice> requestDevice(USBDeviceRequestOptions options);
         };
 
         partial interface Navigator {
@@ -559,12 +560,63 @@
         a class is provided and a protocol MUST NOT be specified unless a
         subclass is also provided.
       </p>
+      <p>
+        The UA MUST maintain an <dfn>allowed devices set</dfn> for each origin.
+        Once a device is added to this set it SHALL remain in the set for a
+        period of time determined by the UA's ability to identify the device.
+      </p>
+      <ul>
+        <li>
+          For a device with a unique identifier such as a serial number or
+          container ID the device SHALL remain in the <a>allowed devices set</a>
+          until explicitly removed by the user. Vendor and product IDs MUST NOT
+          be considered uniquely identifying.
+        </li>
+        <li>
+          For a device without a unique identifier the device SHALL remain in
+          the <a>allowed devices set</a> until it becomes uncertain whether the
+          device connected to the host is still the device originally added to
+          the set. This MAY happen when the device is disconnected from the
+          host, when the UA exits or, if tracked by the host operating system,
+          when the host is shut down.
+        </li>
+      </ul>
       <p dfn-for="USB">
-        The <code><dfn>getDevices</dfn>(<var>options</var>)</code> method, when
-        invoked, MUST return a new promise <var>promise</var> and run the
+        The <code><dfn>getDevices</dfn>()</code> method, when
+        invoked, MUST return a new promise and run the following steps in
+        parallel:
+      </p>
+      <ol>
+        <li>
+          If the incumbent settings object is not a secure context, reject
+          <var>promise</var> with a <code>SecurityError</code> and abort these
+          steps.
+        </li>
+        <li>Let <var>devices</var> be a new array.</li>
+        <li>
+          For each <var>device</var> in the origin's <a>allowed devices set</a>
+          get the <a>USBDevice</a> object representing <var>device</var>, and
+          add the result to <var>devices</var>.
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>devices</var>.
+      </ol>
+      <p dfn-for="USB">
+        The <code><dfn>requestDevice</dfn>(<var>options</var>)</code> method,
+        when invoked, MUST return a new promise <var>promise</var> and run the
         following steps in parallel:
       </p>
       <ol>
+        <li>
+          If the incumbent settings object is not a secure context, reject
+          <var>promise</var> with a <code>SecurityError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the algorithm is not allowed to show a popup, reject
+          <var>promise</var> with a <code>SecurityError</code> and abort these
+          steps.
+        </li>
         <li>
           Enumerate all devices which individually match at least one of the
           filters in <code><var>options</var>.filters</code>.
@@ -578,11 +630,27 @@
             The UA MAY provide additional mechanisms for blacklisting or
             whitelisting specific devices for arbitrary origins.
           </p>
+          <p>Let <var>enumerationResult</var> be this result.</p>
         </li>
         <li>
-          Get the sequence of <a>USBDevice</a> objects representing all the
-          devices which passed the filtering stage and resolve
-          <var>promise</var> with that object.
+          Even if <var>enumerationResult</var> is empty, display a prompt to the
+          user requesting that the user select a device from it. The UA SHOULD
+          show a human-readable name of each device.
+        </li>
+        <li>
+          Wait for the user to have selected a <var>device</var> or cancelled
+          the prompt.
+        </li>
+        <li>
+          If the user cancels the prompt, reject <var>promise</var> with a
+          <code>NotFoundError</code> and abort these steps.
+        </li>
+        <li>
+          Add <var>device</var> to the origin's <a>allowed devices set</a>.
+        </li>
+        <li>
+          Get the <a>USBDevice</a> object representing <var>device</var> and
+          resolve <var>promise</var> with that object.
         </li>
       </ol>
     </section>
