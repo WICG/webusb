@@ -717,7 +717,6 @@
         lifetime of a device's connection to the USB host.
       </p>
       <p dfn-for="USBDevice">
-
         The <code><dfn>usbVersionMajor</dfn></code>,
         <code><dfn>usbVersionMinor</dfn></code> and
         <code><dfn>usbVersionSubminor</dfn></code> attributes declare the USB
@@ -726,7 +725,6 @@
         such that a value of <code>0xJJMN</code> has major version
         <code>JJ</code>, minor version <code>M</code> and subminor version
         <code>N</code>.
-
       </p>
       <p dfn-for="USBDevice">
         The <code><dfn>deviceClass</dfn></code>,
@@ -772,100 +770,498 @@
         each is available.
       </p>
       <p dfn-for="USBDevice">
-        The <code><dfn>open</dfn>()</code> method prepares the device to handle
-        further requests for the API. A device MUST be opened before any
-        subsequent operations may be performed on it or any of its interfaces.
+        The <code><dfn>open</dfn>()</code> method, when invoked, MUST return a
+        new promise <var>promise</var> and run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the device is already in the <a>open state</a>, reject
+          <var>promise</var> with a <code>InvalidStateError</code> and abort
+          these steps.
+        </li>
+        <li>
+          Perform the necessary platform-specific steps to begin a session with
+          the device. If these fail for any reason reject <var>promise</var>
+          with a <code>NetworkError</code> and abort these steps.
+        </li>
+        <li>
+          Consider the device to be in what will be referred to as the
+          <dfn>open state</dfn> and resolve <var>promise</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
-        The <code><dfn>close</dfn>()</code> method closes an opened device,
-        releasing any claimed interfaces.
+        The <code><dfn>close</dfn>()</code> method, when invoked, MUST return a
+        new promise <var>promise</var> and run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a>, reject
+          <var>promise</var> with a <code>InvalidStateError</code> and abort
+          these steps.
+        </li>
+        <li>
+          Abort all other algorithms currently running against this device and
+          reject their associated promises with an <code>AbortError</code>.
+        </li>
+        <li>
+          Perform the necessary platform-specific steps to release any claimed
+          interfaces as if <code><a data-lt="USBDevice.releaseInterface">
+          releaseInterface</a>(<var>interfaceNumber</var>)</code> had been
+          called for each claimed interface.
+        </li>
+        <li>
+          Perform the necessary platform-specific steps to end the session with
+          the device.
+        </li>
+        <li>
+          Take the device out of the <a>open state</a> and resolve
+          <var>promise</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The
         <code><dfn>setConfiguration</dfn>(<var>configurationValue</var>)</code>
-        method issues an appropriate <code>SET_CONFIGURATION</code> control
-        request to set <code><var>configurationValue</var></code> as the
-        device's current configuration. The operating system MAY automatically
-        select configuration <code>1</code> when the device is enumerated. The
-        device MUST be opened before this method is called.
+        method, when invoked, MUST return a new promise <var>promise</var> and
+        run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>configuration</var> be the device configuration with
+          <code>bConfigurationValue</code> equal to
+          <var>configurationValue</var>. If no such configuration exists, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a>, reject
+          <var>promise</var> with a <code>InvalidStateError</code> and abort
+          these steps.
+        </li>
+        <li>
+          Abort all transfers currently scheduled on endpoints other than the
+          <a>default control pipe</a> and reject their associated promises with
+          a <code>AbortError</code>.
+        </li>
+        <li>
+          Issue a <code>SET_CONFIGURATION</code> control transfer to the device
+          to set <code><var>configurationValue</var></code> as its <a>active
+          configuration</a>. If this step fails reject <var>promise</var> with a
+          <code>NetworkError</code> and abort these steps.
+        </li>
+        <li>
+          Resolve <var>promise</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The <code><dfn>claimInterface</dfn>(<var>interfaceNumber</var>)</code>
-        method requests that control over
-        <code><var>interfaceNumber</var></code> be granted to the UA. The device
-        MUST be opened before this method is called.
+        method, when invoked, MUST return a new promise and run the following
+        steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>interface</var> be the interface in the <a>active
+          configuration</a> with <code>bInterfaceNumber</code> equal to
+          <var>interfaceNumber</var>. If no such interface exists, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort
+          these steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or <var>interface</var>
+          is already in the <a>claimed state</a>, reject <var>promise</var> with
+          an <code>InvalidStateError</code> and abort these steps.
+        </li>
+        <li>
+          If the requester is not allowed to access <var>interface</var>, reject
+          <var>promise</var> with a <code>SecurityError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Perform the necessary platform-specific steps to request exclusive
+          control over <var>interface</var>. If this fails, reject
+          <var>promise</var> with a <code>NetworkError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Consider <var>interface</var> to be in what will be referred to as the
+          <dfn>claimed state</dfn> and resolve <var>promise</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The <code><dfn>releaseInterface</dfn>(<var>interfaceNumber</var>)</code>
-        method releases the UA's control over the interface which MUST have been
-        previously claimed.
+        method, when invoked, MUST return a new promise <var>promise</var> and
+        run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>interface</var> be the interface in the <a>active
+          configuration</a> with <code>bInterfaceNumber</code> equal to
+          <var>interfaceNumber</var>. If no such interface exists, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort
+          these steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or <var>interface</var>
+          is not in the <a>claimed state</a>, reject <var>promise</var> with an
+          <code>InvalidStateError</code> and abort these steps.
+        </li>
+        <li>
+          Perform the necessary platform-specific steps to reliquish exclusive
+          control over <var>interface</var>.
+        </li>
+        <li>
+          Take <var>interface</var> out of the <a>claimed state</a> and resolve
+          <var>promise</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The <code><dfn>setInterface</dfn>(<var>interfaceNumber</var>,
-        <var>alternateSetting</var>)</code> method issues a
-        <code>SET_INTERFACE</code> request to activate the endpoints associated
-        with <code><var>alternateSetting</var></code> on
-        <code><var>interfaceNumber</var></code>. By default the endpoints on
-        alternate setting <code>0</code> are selected when the device is
-        enumerated or <code><a data-lt="USBDevice.setConfiguration">
-        setConfiguration</a>(<var>configurationValue</var>)</code> is
-        called and so it isn't necessary to call
-        <code><a data-lt="USBDevice.setInterface">
-        setInterface</a>(<var>interfaceNumber</var>, 0)</code> before using
-        these endpoints. The specified interface MUST be claimed before this
-        method can be called.
+        <var>alternateSetting</var>)</code> method, when invoked, MUST return
+        a new promise <var>promise</var> and run the following steps in
+        parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>interface</var> be the interface in the <a>active
+          configuration</a> with <code>bInterfaceNumber</code> equal to
+          <var>interfaceNumber</var>. If no such interface exists, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort
+          these steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or <var>interface</var>
+          is not in the <a>claimed state</a>, reject <var>promise</var> with an
+          <code>InvalidStateError</code> and abort these steps.
+        </li>
+        <li>
+          Abort all transfers currently scheduled on endpoints associated with
+          the previously selected alternate setting of <var>interface</var> and
+          reject their associated promises with a <code>AbortError</code>.
+        </li>
+        <li>
+          Issue a <code>SET_INTERFACE</code> control transfer to the device
+          to set <code><var>alternateSetting</var></code> as the current
+          configuration of <var>interface</var>. If this step fails reject
+          <var>promise</var> with a <code>NetworkError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Resolve <var>promise</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The <code><dfn>controlTransferIn</dfn>(<var>setup</var>,
-        <var>length</var>)</code> method issues a control transfer to the device
-        through its default endpoint. If non-zero,
-        <code><var>length</var></code> bytes of data will be read from the
-        device during the <a>data stage</a> of the transaction. If
-        <code><var>setup.recipient</var></code> is <code>"interface"</code> or
-        <code>"endpoint"</code> then the target interface MUST be claimed before
-        this method is called.
+        <var>length</var>)</code> method, when invoked, MUST return
+        a new promise <var>promise</var> and run the following steps in
+        parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          <a>Check the validity of the control transfer parameters</a> and abort
+          these steps if <var>promise</var> is rejected.
+        </li>
+        <li>
+          If <var>length</var> is greater than the <code>wMaxPacketSize0</code>
+          field of the device's <a>device descriptor</a>, reject
+          <var>promise</var> with a <code>TypeError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>result</var> be a new <a>USBInTransferResult</a> and let
+          <var>buffer</var> be a new <code>ArrayBuffer</code> of
+          <var>length</var> bytes.
+        </li>
+        <li>
+          Issue a control transfer with the setup packet parameters provided in
+          <var>setup</var> and the data transfer direction in
+          <code>bmRequestType</code> set to "device to host" and
+          <code>wLength</code> set to <var>length</var>.
+        </li>
+        <li>
+          If the device responds with data, store the first <var>length</var>
+          bytes of this data in <var>buffer</var> and set <var>result.data</var>
+          to <var>buffer</var>.
+        </li>
+        <li>
+          If the device responds by stalling the default control pipe set
+          <var>result.status</var> to <code>"stall"</code>.
+        </li>
+        <li>
+          If more than <var>length</var> bytes are received set
+          <var>result.status</var> to <code>"babble"</code> and otherwise set it
+          to <code>"ok"</code>.
+        </li>
+        <li>
+          If the transfer fails for any other reason reject <var>promise</var>
+          with a <code>NetworkError</code> and abort these steps.
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>result</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The <code><dfn>controlTransferOut</dfn>(<var>setup</var>,
-        <var>data</var>)</code> method issues a control transfer to the device
-        through its default endpoint. If provided, the contents of the
-        <code><var>data</var></code> buffer will be sent to the device during
-        the <a>data stage</a> of the transaction. The <code>wLength</code> field
-        of the <a>setup packet</a> will be populated with the length of this
-        buffer. If <code><var>setup.recipient</var></code> is
-        <code>"interface"</code> or <code>"endpoint"</code> then the target
-        interface MUST be claimed before this method is called.
+        <var>data</var>)</code> method, when invoked, must return a new promise
+        <var>promise</var> and run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          <a>Check the validity of the control transfer parameters</a> and abort
+          these steps if <var>promise</var> is rejected.
+        </li>
+        <li>
+          If <var>data.length</var> is greater than the
+          <code>wMaxPacketSize0</code> field of the device's
+          <a>device descriptor</a>, reject <var>promise</var> with a
+          <code>TypeError</code> and abort these steps.
+        </li>
+        <li>
+          Issue a control transfer with the <a>setup packet</a> populated by
+          <var>setup</var> and the data transfer direction in
+          <code>bmRequestType</code> set to "host to device" and
+          <code>wLength</code> set to <var>data.length</var>. Transmit
+          <var>data</var> in the <a>data stage</a> of the transfer.
+        </li>
+        <li>
+          Let <var>result</var> be a new <a>USBOutTransferResult</a>.
+        </li>
+        <li>
+          If the device responds by stalling the default control pipe set
+          <var>result.status</var> to <code>"stall"</code>.
+        </li>
+        <li>
+          If the device acknowledges the transfer set <var>result.status</var>
+          to <code>"ok"</code> and <var>result.bytesWritten</var> to
+          <var>data.length</var>.
+        </li>
+        <li>
+          If the transfer fails for any other reason reject <var>promise</var>
+          with a <code>NetworkError</code> and abort these steps.
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>result</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
-        The <code><dfn>clearHalt</dfn>(<var>endpointNumber</var>)</code> method
-        clears a stall condition on <code><var>endpointNumber</var></code> by
-        issuing the appropriate <code>CLEAR_FEATURE</code> control transfer. The
-        interface containing this endpoint MUST be claimed before this method is
-        called.
+        The <code><dfn>clearHalt</dfn>(<var>direction</var>,
+        <var>endpointNumber</var>)</code> method, when invoked, MUST return a
+        new promise <var>promise</var> and run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>endpoint</var> be the endpoint in the <a>active
+          configuration</a> with <code>bEndpointAddress</code> corresponding to
+          <var>direction</var> and <var>endpointNumber</var>. If no such
+          endpoint exists reject <var>promise</var> and abort these steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or the interface
+          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          Issue a <code>CLEAR_FEATURE</code> control transfer to the device
+          to clear the stall condition on <var>endpoint</var>.
+        </li>
+        <li>
+          On failure reject <var>promise</var> with a <code>NetworkError</code>,
+          otherwise resolve <var>promise</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The <code><dfn>transferIn</dfn>(<var>endpointNumber</var>,
-        <var>length</var>)</code> method enqueues a bulk or interrupt IN
-        transfer request for <code><var>length</var></code> bytes of data to
-        <code><var>endpointNumber</var></code>. The promise returned will be
-        resolved with <a>USBInTransferResult</a> containing the data returned by
-        the device. The interface containing this endpoint MUST be claimed
-        before this method is called.
+        <var>length</var>)</code> method, when invoked, MUST return a new
+        promise <var>promise</var> and run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>endpoint</var> be the IN endpoint in the <a>active
+          configuration</a> with <code>bEndpointAddress</code> corresponding to
+          <var>endpointNumber</var>. If there is no such endpoint reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or the interface
+          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          As appropriate for <var>endpoint</var> enqueue a bulk or interrupt
+          IN transfer on <var>endpoint</var> with a buffer sufficient to receive
+          <var>length</var> bytes of data from the device.
+        </li>
+        <li>
+          Let <var>result</var> be a new <a>USBInTransferResult</a>.
+        </li>
+        <li>
+          If data is returned as part of this transfer let <var>buffer</var> be
+          a new ArrayBuffer of exactly the length of the data received and set
+          <var>result.data</var> to <var>buffer</var>.
+        </li>
+        <li>
+          If the device responds with more than <var>length</var> bytes of data
+          set <var>result.status</var> to <code>"babble"</code>.
+        <li>
+          If the transfer ends because <var>endpoint</var> is stalled set
+          <var>result.status</var> to <code>"stall"</code>.
+        </li>
+        <li>
+          If the device acknowledges the complete transfer set
+          <var>result.status</var> to <code>"ok"</code>.
+        </li>
+        <li>
+          If the transfer fails for any other reason reject <var>promise</var>
+          with a <code>NetworkError</code> and abort these steps.
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>result</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
         The <code><dfn>transferOut</dfn>(<var>endpointNumber</var>,
-        <var>data</var>)</code> method enqueues a bulk or interrupt OUT transfer
-        to transmit <code><var>data</var></code> to
-        <code><var>endpointNumber</var></code>. The promise returned will be
-        resolved when the data transfer is complete with a
-        <a>USBOutTransferResult</a> indicating the amount of data that was
-        successfully sent to the device. The interface containing this endpoint
-        MUST be claimed before this method is called.
+        <var>data</var>)</code> method, when invoked, MUST return a new promise
+        <var>promise</var> and run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>endpoint</var> be the OUT endpoint in the <a>active
+          configuration with <code>bEndpointAddress</code> corresponding to
+          <var>endpointNumber</var>. If there is no such endpoint reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or the interface
+          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          As appropriate for <var>endpoint</var> enqueue a bulk or interrupt
+          OUT transfer on <var>endpoint</var> to transmit <var>data</var> to the
+          device.
+        </li>
+        <li>
+          Let <var>result</var> be a new <a>USBOutTransferResult</a>.
+        </li>
+        <li>
+          Set <var>result.bytesWritten</var> to the amount of data successfully
+          sent to the device.
+        </li>
+        <li>
+          If the endpoint is stalled set <var>result.status</var> to
+          <code>"stall"</code>.
+        </li>
+        <li>
+          If the device acknowledges the complete transfer set
+          <var>result.status</var> to <code>"ok"</code>.
+        </li>
+        <li>
+          If the transfer fails for any other reason reject <var>promise</var>
+          with a <code>NetworkError</code> and abort these steps.
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>result</var>.
+        </li>
+      </ol>
       <p dfn-for="USBDevice">
-        The <code><dfn>reset</dfn>()</code> method performs a soft reset on the
-        device. The device MUST be opened before this method is called.
+        The <code><dfn>reset</dfn>()</code> method, when invoked, must return a
+        new promise <var>promise</var> and run the following steps in parallel:
       </p>
+      <ol>
+        <li>
+          If the device is not in the <a>open state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Abort all operations on the device and reject their associated
+          promises with an <code>AbortError</code>.
+        </li>
+        <li>
+          Perform the necessary platform-specific operation to soft reset the
+          device.
+        </li>
+        <li>
+          On failure reject <var>promise</var> with a <code>NetworkError</code>,
+          otherwise resolve <var>promise</var>.
+        </li>
+        <p class="issue">
+          What configuration is the device in after it resets?
+        </p>
+      </ol>
 
       <section>
         <h3>Transfers</h3>
@@ -909,14 +1305,18 @@
         </pre>
 
         <p>
-          A control transfer is a special class of USB traffic most commonly
-          used for configuring a device. It consists of three stages: setup,
-          data and status. In the <dfn>setup stage</dfn> a  <dfn>setup
+          A <dfn>control transfer</dfn> is a special class of USB traffic most
+          commonly used for configuring a device. It consists of three stages:
+          setup, data and status. In the <dfn>setup stage</dfn> a <dfn>setup
           packet</dfn> is transmitted to the device containing request
           parameters including the transfer direction and size of the data to
           follow. In the <dfn>data stage</dfn> that data is either sent to or
           received from the device. In the <dfn>status stage</dfn> successful
           handling of the request is acknowledged or a failure is signaled.
+        </p>
+        <p>
+          All USB devices MUST have a <dfn>default control pipe</dfn> which is
+          <var>endpointNumber</var> <code>0</code>.
         </p>
         <p dfn-for="USBControlTransferParameters">
           The <code><dfn>requestType</dfn></code> attribute populates part of
@@ -943,48 +1343,69 @@
           fields of the <a>setup packet</a> respectively. The meaning of these
           fields depends on the request being made.
         </p>
-        <p dfn-for="USBInTransferResult">
-          A transfer initiated by <code><a data-lt="USBDevice.transferIn">
-          transferIn</a>(<var>endpointNumber</var>, <var>length</var>)</code> or
-          <code><a data-lt="USBDevice.controlTransferIn">
-          controlTransferOut</a>(<var>setup</var>, <var>length</var>)</code> may
-          receive up to <code><var>length</var></code> bytes of data which SHALL
-          be stored in <code><dfn>data</dfn></code>.
-          <code><dfn>status</dfn></code> SHALL have one of the following values
-          indicating the final disposition of the transfer:
-
-          <dl>
-            <dt><code>"ok"</code></dt>
-            <dd>the transfer completed with no errors.</dt>
-
-            <dt><code>"stall"</code></dt>
-            <dd>
-              the device stalled the pipe. If this is not a control transfer
-              <code><a data-lt="USBDevice.clearHalt">clearHalt</a>(
-              <var>endpointNumber</var>)</code> must be called to clear the
-              failure.
-            </dd>
-          </dl>
+        <p>
+          To <dfn>check the validity of the control transfer parameters</dfn>
+          perform the following steps:
         </p>
-        <p dfn-for="USBOutTransferResult">
-          A transfer initiated by <code><a data-lt="USBDevice.transferOut">
-          transferOut</a>(<var>endpointNumber</var>, <var>data</var>)</code> or
-          <code><a data-lt="USBDevice.controlTransferOut">
-          controlTransferOut</a>(<var>setup</var>, <var>data</var>)</code> may
-          send up to <code><var>data.length</var></code> bytes of data. The
-          actual number of bytes transferred SHALL be stored in
-          <code><dfn>bytesWritten</dfn></code>. <code><dfn>status</dfn></code>
-          SHALL have any of the values above or one of the following to indicate
-          the final disposition of the transfer:
-
-          <dl>
-            <dt><code>"babble"</code></dt>
-            <dd>
-              the device attempted to send more data than allowed by the maximum
-              packet size specified for the endpoint.
-            </dd>
-          </dl>
-        </p>
+        <ol>
+          <li>
+            Let <var>setup</var> be the <a>USBControlTransferParameters</a>
+            created for the transfer.
+          </li>
+          <li>
+            Let <var>promise</var> be the promise created for the transfer.
+          </li>
+          <li>
+            If <var>setup.recipient</var> is <code>"interface"</code>, perform
+            the following steps:
+            <ol>
+              <li>
+                Let <var>interfaceNumber</var> be the lower 8 bits of
+                <var>setup.wIndex</var>.
+              </li>
+              <li>
+                Let <var>interface</var> be the interface in the <a>active
+                configuration</a> with <code>bInterfaceNumber</code> equal to
+                <var>interfaceNumber</var>. If no such
+                interface exists, reject <var>promise</var> with a
+                <code>NotFoundError</code> and abort these steps.
+              </li>
+              <li>
+                If <var>interface</var> is not in the <a>claimed state</a>,
+                reject <var>promise</var> with an
+                <code>InvalidStateError</code>.
+              </li>
+            </ol>
+          </li>
+          <li>
+            If <var>setup.recipient</var> is <code>"endpoint"</code>, run the
+            following steps:
+            <ol>
+              <li>
+                Let <var>endpointNumber</var> be defined as the lower 4 bits of
+                <var>setup.wIndex</var>.
+              </li>
+              <li>
+                Let <var>direction</var> be defined as <code>"in"</code> if the
+                8th bit of <var>setup.wIndex</var> is <code>1</code> and
+                <code>"out"</code> otherwise.
+              </li>
+              <li>
+                Let <var>endpoint</var> be the endpoint in the <a>active
+                configuration</a> with <code>bEndpointAddress</code>
+                corresponding to <var>direction</var> and
+                <var>endpointNumber</var>. If no such endpoint exists, reject
+                <var>promise</var> with a <code>NotFoundError</code> and abort
+                these steps.
+              </li>
+              <li>
+                If the interface in which <var>endpoint</var> is defined is not
+                in the <a>claimed state</a>, reject <var>promise</var> with an
+                <code>InvalidStateError</code>.
+              </li>
+            </ol>
+          </li>
+        </ol>
       </section>
 
       <section>
@@ -1075,6 +1496,26 @@
           descriptor</a> and the number of elements in this sequence SHALL match
           the value of the <code>bNumEndpoints</code> field of the <a>interface
           descriptor</a>.
+        </p>
+        <p>
+          A device's <dfn>active configuration</dfn> is the combination of the
+          <a>USBConfiguration</a> selected by calling
+          <code><a data-lt="USBDevice.setConfiguration">
+          setConfiguration</a>(<var>configurationValue</var>)</code> and the set
+          of <a>UsbAlternateInterface</a>s selected by calling
+          <code><a data-lt="USBDevice.setInterface">
+          setInterface</a>(<var>interfaceNumber</var>,
+          <var>alternateSetting</var>)</code>.
+          A device MAY, by default, be left in an unconfigured state, referred
+          to as configuration <code>0</code> or may automatically be set to
+          whatever configuration has <code>bConfigurationValue</code> equal to
+          <code>1</code>. When a configuration is set all interfaces within that
+          configuration automatically have the <a>USBAlternateInterface</a> with
+          <code>bAlternateSetting</code> equal to <code>0</code> selected by
+          default. It is therefore unnecessary to call
+          <code><a data-lt="USBDevice.setInterface">
+          setInterface</a>(<var>interfaceNumber</var>, 0)</code> for each
+          interface when opening a device.
         </p>
       </section>
 
