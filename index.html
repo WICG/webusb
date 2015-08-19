@@ -535,9 +535,12 @@
 
         [NoInterfaceObject]
         interface USB {
+          attribute EventHandler onconnect;
+          attribute EventHandler ondisconnect;
           Promise&lt;sequence&lt;USBDevice>> getDevices();
           Promise&lt;USBDevice> requestDevice(USBDeviceRequestOptions options);
         };
+        USB implements EventTarget;
 
         partial interface Navigator {
           readonly attribute USB usb;
@@ -571,9 +574,10 @@
         <code><a data-lt="USB.requestDevice">requestDevice</a>()</code> methods.
       </p>
       <p>
-        The UA MUST maintain an <dfn>allowed devices set</dfn> for each origin.
-        Once a device is added to this set it SHALL remain in the set for a
-        period of time determined by the UA's ability to identify the device.
+        The UA MUST maintain an <dfn>allowed devices set</dfn> for each script
+        execution environment. Once a device is added to this set it SHALL
+        remain in the set for a period of time determined by the UA's ability to
+        identify the device.
       </p>
       <ul>
         <li>
@@ -592,6 +596,14 @@
         </li>
       </ul>
       <p dfn-for="USB">
+        The <dfn>onconnect</dfn> attribute is an Event handler IDL attribute for
+        the <a>connect</a> event type.
+      </p>
+      <p dfn-for="USB">
+        The <dfn>ondisconnect</dfn> attribute is an Event handler IDL attribute
+        for the <a>disconnect</a> event type.
+      </p>
+      <p dfn-for="USB">
         The <code><dfn>getDevices</dfn>()</code> method, when
         invoked, MUST return a new promise and run the following steps in
         parallel:
@@ -608,7 +620,7 @@
         </li>
         <li>
           Remove all devices from <var>enumerationResult</var> that are not in
-          the origin's <a>allowed devices set</a>.
+          the current script execution environment's <a>allowed devices set</a>.
         </li>
         <li>
           For each remaining <var>device</var> in <var>enumerationResult</var>
@@ -668,13 +680,73 @@
           <code>NotFoundError</code> and abort these steps.
         </li>
         <li>
-          Add <var>device</var> to the origin's <a>allowed devices set</a>.
+          Add <var>device</var> to the current script execution environment's
+          <a>allowed devices set</a>.
         </li>
         <li>
           Get the <a>USBDevice</a> object representing <var>device</var> and
           resolve <var>promise</var> with that object.
         </li>
       </ol>
+
+      <section>
+        <h3>Events</h3>
+        <pre class="idl">
+          interface USBConnectionEvent : Event {
+            readonly attribute USBDevice device;
+          };
+        </pre>
+
+        <p>
+          When the UA detects a new USB device connected to the host it MUST
+          perform the following steps for each script execution environment:
+        </p>
+        <ol>
+          <li>
+            Let <var>device</var> be the <a>USBDevice</a> object representing
+            the device.
+          </li>
+          <li>
+            If <var>device</var> is not in the <a>allowed devices set</a> for
+            the current script execution environment abort these steps.
+          </li>
+          <li>
+            Let <var>event</var> be a new <a>USBConnectionEvent</a>, with the
+            <code>device</code> attribute set to <var>device</var>.
+          </li>
+          <li>
+            Fire an event named <dfn>connect</dfn> on <a>navigator.usb</a>,
+            using <var>event</var> as the event object.
+          </li>
+        </ol>
+        <p>
+          When the UA detects a previously connected USB device has been
+          disconnected from the host it MUST perform the following steps for
+          each script execution environment:
+        </p>
+        <ol>
+          <li>
+            Let <var>device</var> be the <a>USBDevice</a> object representing
+            the device.
+          </li>
+          <li>
+            If <var>device</var> is not in the <a>allowed devices set</a> for
+            the current script execution environment abort these steps.
+          </li>
+          <li>
+            Let <var>event</var> be a new <a>USBConnectionEvent</a>, with the
+            <code>device</code> attribute set to <var>device</var>.
+          </li>
+          <li>
+            Fire an event named <dfn>disconnect</dfn> on <a>navigator.usb</a>,
+            using <var>event</var> as the event object.
+          </li>
+          <li>
+            Consider removing <var>device</var> from the <a>allowed devices
+            set</a>.
+          </li>
+        </ol>
+      </section>
     </section>
 
     <section>
