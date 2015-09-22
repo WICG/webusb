@@ -24,7 +24,15 @@ var serial = {};
     };
 
     return this.device_.open()
-        .then(() => this.device_.setConfiguration(1))
+        .then(() => this.device_.getConfiguration()
+            .then(config => {
+              if (config.configurationValue == 1) {
+                return Promise.resolve();
+              } else {
+                return Promise.reject("Need to setConfiguration(1).");
+              }
+            })
+            .catch(error => this.device_.setConfiguration(1)))
         .then(() => this.device_.claimInterface(0))
         .then(() => this.device_.controlTransferOut({
             'requestType': 'class',

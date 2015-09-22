@@ -771,6 +771,7 @@
           readonly attribute FrozenArray&lt;USBConfiguration> configurations;
           Promise&lt;void> open();
           Promise&lt;void> close();
+          Promise&lt;USBConfiguration> getConfiguration();
           Promise&lt;void> setConfiguration(octet configurationValue);
           Promise&lt;void> claimInterface(octet interfaceNumber);
           Promise&lt;void> releaseInterface(octet interfaceNumber);
@@ -898,6 +899,26 @@
         <li>
           Take the device out of the <a>open state</a> and resolve
           <var>promise</var>.
+        </li>
+      </ol>
+      <p dfn-for="USBDevice">
+        The <code><dfn>getConfiguration</dfn>()</code> method, when invoked,
+        MUST return a new promise <var>promise</var> and run the following steps
+        in parallel:
+      </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>configuration</var> be the active device configuration. If
+          the device is unconfigured, reject <var>promise</var> with a
+          <code>NotFoundError</code> and abort these steps.
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>configuration</var>.
         </li>
       </ol>
       <p dfn-for="USBDevice">
