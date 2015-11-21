@@ -93,13 +93,17 @@
         to data about its environment or directly store user data.
       </p>
       <p>
-        For this reason two checks SHOULD be combined before a site is granted
-        access to a device. First, so that the device can protect itself from
-        malicious sites a set of allowed origins MUST be read from the device
-        (or from a public registry) and checked against the requesting origin.
-        Second, so that the user is protected from malicious sites the UA SHOULD
-        prompt the user for authorization to allow the site to detect the
-        presense of a device and connect to it.
+        For this reason this specification outlines to mechanisms that can be
+        combined by the UA before a site is granted access to a device. First,
+        so that the device can protect itself from malicious sites it can
+        provide a set of origins that are allowed to connect to it. These are
+        similar to the [[CORS]] mechanism and can conceptually be thought of as
+        treating USB devices as their own origins in the "usb" scheme.
+        For devices manufacturered before this specificiation is adopted
+        information about allowed origins and landing pages can also be provided
+        out of band by being published in a public registry. Second, so that the
+        user's privacy is protected the UA may prompt the user for authorization
+        to allow a site to detect the presense of a device and connect to it.
       </p>
       <p>
         To help ensure that only the entity the user approved for access
@@ -109,19 +113,18 @@
     </section>
 
     <section>
-      <h2>Device Requirements</h2>
+      <h2>WebUSB Descriptors and Requests</h2>
       <p>
-        To be supported by a page using this API a USB device MUST provide
-        information to the UA about the origins authorized to connect to it and
-        MAY also provide a landing page that the UA MAY direct the user to
-        navigate to in order to interact with the device.
+        This specification defines descriptors and commands the UA MAY use to
+        gather information about the device specific to implementing this API.
       </p>
 
       <section>
         <h3><dfn>WebUSB Platform Capability Descriptor</dfn></h3>
         <p>
-          Communication with a device starts with the UA finding the following
-          <a>Platform Descriptor</a> in the device's <a>Binary Object Store</a>:
+          A device announces support for the WebUSB command set by including the
+          following <a>Platform Descriptor</a> in its <a>Binary Object
+          Store</a>:
         </p>
 
         <table>
@@ -212,22 +215,39 @@
         </table>
 
         <section>
-          <h4>Get Allowed Origins</h4>
+          <h4><dfn>Get Allowed Origins</dfn></h4>
           <p>
             This request gets the set of origins allowed to access the device.
-            The device MUST return a <a>Descriptor Set Header</a> containing one
-            or more <a>URL Descriptors</a> possibly contained within a
-            combination of <a>Configuration Subset Headers</a> and
-            <a>Function Subset Headers</a> which limit their scope to particular
-            portions of the device.
+            It is analogous to the <code>Access-Control-Allow-Origin</code>
+            header defined by [[CORS]].
+          </p>
+
+          <p>
+            The device MUST respond with data beginning with a <a>Descriptor Set
+            Header</a> or stall the transfer.
           </p>
 
           <p>
             The URLs returned by this request MUST be interpreted as origins (as
             defined by [[RFC6454]]) and so content beyond the scheme/host/port
-            triple MAY be ignored.
+            triple MUST be ignored.
           </p>
 
+          <p>
+            If the UA chooses to enforce this policy then an origin <dfn>is
+            allowed to access a device</dfn> if there exists a <a>URL
+            descriptor</a> request matching that origin is in the top-level
+            <a>Descriptor Set Header</a> or any descriptors below it. An origin
+            <dfn data-lt="is allowed to access configuration">is allowed to
+            access a configuration</dfn> if a <a>URL descriptor</a> matching
+            that origin is within a matching <a>Configuration Subset Header</a>
+            or within the top-level <a>Descriptor Set Header</a>. An origin
+            <dfn data-lt="is allowed to access interface">is allowed to access
+            an interface</dfn> if there is a <a>URL descriptor</a> matching that
+            origin within a matching <a>Function Subset Header</a>, the
+            <a>Configuration Subset Header</a> containing it or the top-level
+            <a>Descriptor Set Header</a>.
+          </p>
           <table>
             <tr>
               <th>bmRequestType</td>
@@ -252,13 +272,12 @@
           <h4>Get Landing Page</h4>
           <p>
             This request gets the landing page to which the UA can be navigated
-            in order to interact with the device. While a device may be
-            accessible by multiple origins it MUST only have a single landing
-            page or none at all.
+            in order to interact with the device.
           </p>
 
           <p>
-            The data returned MUST be a single <a>URL Descriptor</a>.
+            The device MUST respond with a single <a>URL Descriptor</a> or stall
+            the transfer.
           </p>
 
           <table>
@@ -316,8 +335,13 @@
         <section>
           <h4><dfn>Descriptor Set Header</dfn></h4>
           <p>
-            A response referring to multiple origins MUST begin with this header
-            to identify the total length of the data to follow.
+            This descriptor defines the length of the set of descriptors that
+            will follow it. If a device response begins with this descriptor the
+            <code>wLength</code> value indicates the host has a large enough
+            buffer to receive it the device MUST respond with exactly
+            <code>wTotalLength</code> bytes of data. The entire content of this
+            response MUST consist of valid descriptors. There MUST NOT be unused
+            bytes at the end.
           </p>
 
           <table>
@@ -356,9 +380,9 @@
           <h4><dfn data-lt="configuration subset header|configuration subset headers">Configuration Subset Header</dfn></h4>
           <p>
             This header declares that the descriptors following it (up to
-            <code>wTotalLength</code> bytes) are scoped to the USB device
+            <code>wTotalLength</code> bytes) relate to the USB device
             configuration described by the <a>configuration descriptor</a>
-            with the given  <code>bConfigurationValue</code>.
+            with the given <code>bConfigurationValue</code>.
           </p>
           <p>
             This descriptor MUST be contained within a <a>Descriptor Set
@@ -410,15 +434,17 @@
           <h4><dfn data-lt="function subset header|function subset headers">Function Subset Header</dfn></h4>
           <p>
             This header declares that the descriptors following it (up to
-            <code>wTotalLength</code> bytes) are scoped to the USB device
-            configuration described by the <a>configuration descriptor</a>
-            with the given  <code>bConfigurationValue</code>.
+            <code>wTotalLength</code> bytes) relate to the USB device interface
+            described by the <a>interface descriptor</a> with a
+            <code>bInterfaceNumber</code> equal to
+            <code>bFirstInterfaceNumber</code> or the set of interfaces defined
+            as a function by an <a>interface association descriptor</a> with an
+            equal <code>bFirstInterfaceNumber</code>.
           </p>
           <p>
-            This descriptor MUST be contained within a <a>Descriptor Set
+            This descriptor MUST be contained within a <a>Configuration Subset
             Header</a>.
           </p>
-
           <table>
             <caption>WebUSB Function Subset Header</caption>
             <tr>
@@ -656,10 +682,10 @@
           at least one of the filters in
           <code><var>options</var>.filters</code>.
           <p>
-            The UA SHOULD apply additional origin-based filtering of available
+            The UA MAY apply additional origin-based filtering of available
             devices by consulting an authoritative list of device-origin
-            mappings or referring to the origin list specified in the device's
-            <a>Binary Object Store</a>.
+            mappings or referring to the origin list returned by the <a>Get
+            Allowed Origins</a> request.
           </p>
           <p>
             The UA MAY provide additional mechanisms for blacklisting or
@@ -946,6 +972,11 @@
           these steps.
         </li>
         <li>
+          The UA MAY check that the caller <a>is allowed to access
+          <var>configuration</var></a>, and if not reject <var>promise</var>
+          with a <code>SecurityError</code> and abort these steps.
+        </li>
+        <li>
           Abort all transfers currently scheduled on endpoints other than the
           <a>default control pipe</a> and reject their associated promises with
           a <code>AbortError</code>.
@@ -984,9 +1015,9 @@
           an <code>InvalidStateError</code> and abort these steps.
         </li>
         <li>
-          If the requester is not allowed to access <var>interface</var>, reject
-          <var>promise</var> with a <code>SecurityError</code> and abort these
-          steps.
+          The UA MAY check that the caller <a>is allowed to access
+          <var>interface</var></a>, and if not reject <var>promise</var> with a
+          <code>SecurityError</code> and abort these steps.
         </li>
         <li>
           Perform the necessary platform-specific steps to request exclusive
@@ -1449,6 +1480,17 @@
             Let <var>promise</var> be the promise created for the transfer.
           </li>
           <li>
+            Let <var>configuration</var> be the <a>active configuration</a>. If
+            the device is not configured abort these steps.
+          </li>
+          <li>
+            If <var>setup.recipient</var> is <code>"device"</code> or
+            <code>"other"</code> the UA MAY check that the caller <a>is allowed
+            to access <var>configuration</var></a>, and if not reject
+            <var>promise</var> with a <code>SecurityError</code> and abort these
+            steps.
+          </li>
+          <li>
             If <var>setup.recipient</var> is <code>"interface"</code>, perform
             the following steps:
             <ol>
@@ -1457,16 +1499,21 @@
                 <var>setup.wIndex</var>.
               </li>
               <li>
-                Let <var>interface</var> be the interface in the <a>active
-                configuration</a> with <code>bInterfaceNumber</code> equal to
-                <var>interfaceNumber</var>. If no such
-                interface exists, reject <var>promise</var> with a
-                <code>NotFoundError</code> and abort these steps.
+                Let <var>interface</var> be the interface in the <var>
+                configuration</var> with <code>bInterfaceNumber</code> equal to
+                <var>interfaceNumber</var>. If no such interface exists, reject
+                <var>promise</var> with a <code>NotFoundError</code> and abort
+                these steps.
               </li>
               <li>
                 If <var>interface</var> is not in the <a>claimed state</a>,
                 reject <var>promise</var> with an
-                <code>InvalidStateError</code>.
+                <code>InvalidStateError</code> and abort these steps.
+              </li>
+              <li>
+                The UA MAY check that the caller <a>is allowed to access
+                <var>interface</var></a>, and if not reject <var>promise</var>
+                with a <code>SecurityError</code>.
               </li>
             </ol>
           </li>
@@ -1492,9 +1539,15 @@
                 these steps.
               </li>
               <li>
-                If the interface in which <var>endpoint</var> is defined is not
+                Let <var>interface</var> be the interface in which
+                <var>endpoint</var> is defined. If <var>interface</var> is not
                 in the <a>claimed state</a>, reject <var>promise</var> with an
                 <code>InvalidStateError</code>.
+              </li>
+              <li>
+                The UA MAY check that the caller <a>is allowed to access
+                <var>interface</var></a>, and if not reject <var>promise</var>
+                with a <code>SecurityError</code>.
               </li>
             </ol>
           </li>
@@ -1694,6 +1747,12 @@
             describes the interface of a particular functional component of a
             device including its protocol and communication endpoints. Its
             fields are described in section 9.6.5 of [[USB31]].
+          </li>
+          <li>
+            An <dfn>interface association descriptor</dfn> creates an
+            association between multiple interfaces that are part of a single
+            functional unit of a device. Its fields are described in section
+            9.6.4 of [[USB31]].
           </li>
           <li>
             An <dfn>endpoint descriptor</dfn> describes a channel through which
