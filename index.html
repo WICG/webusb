@@ -63,15 +63,28 @@
     <section class="informative">
       <h2>Introduction</h2>
       <p>
-        Today when you connect a device to your computer you hope that somehow
-        it will find the right driver and it will Just Work&trade;. For lots of
-        devices it does because there are standardized drivers for things like
-        keyboards, mice, hard drives and webcams built into the operating
-        system. What about the long tail of unusual devices or the next
-        generation of gadgets that haven't been standardized yet? WebUSB takes
-        "plug and play" to the next level by connecting devices to the software
-        that drives them across any platform by harnessing the power of web
-        technologies.
+        The Universal Serial Bus (USB) is the de-facto standard for wired
+        peripherals. Most USB devices implement one of roughly a dozen standard
+        "device classes" which specify a way for the device to advertize the
+        features it supports and commands and data formats for using those
+        features. Standard device classes include keyboard, mice, audio, video
+        and storage devices. Operating systems support such devices using the
+        "class driver" provided by the OS vendor. There is however a long tail
+        of devices that do not fit into one of the standardized device classes.
+        These devices require hardware vendors to write native drivers and SDKs
+        in order for developers to take advantage of them and this native code
+        prevents these devices from being used by the web.
+      </p>
+      <p>
+        The WebUSB API provides a way to safely expose USB device services to
+        the web. It provides an API familiar to developers who have used
+        existing native USB libraries and exposes the device interfaces defined
+        by existing specifications. With this API hardware manufacturers will
+        have the ability to build cross-platform JavaScript SDKs for their
+        devices. This will be good for the web because, instead of waiting for a
+        new kind of device to be popular enough for browsers to provide a
+        specific API, new and innovative hardware can be built for the web from
+        day one.
       </p>
     </section>
 
