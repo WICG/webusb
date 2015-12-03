@@ -44,7 +44,7 @@
             console.error(error);
           };
         }, error => {
-          console.error(error);
+          statusDisplay.textContent = error;
         });
       }
     });
