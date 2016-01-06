@@ -54,6 +54,8 @@
         serial.requestPort().then(selectedPort => {
           port = selectedPort;
           connect();
+        }).catch(error => {
+          statusDisplay.textContent = error;
         });
       }
     });
