@@ -20,6 +20,22 @@
             companyUrl: "https://www.google.com/"
           }
         ],
+        otherLinks: [{
+          key: "Participate",
+          data: [{
+            value: "We are on GitHub",
+            href: "https://github.com/reillyeon/webusb"
+          }, {
+            value: "Issues list (bugs)",
+            href: "https://github.com/reillyeon/webusb/issues"
+          }, {
+            value: "File a bug",
+            href: "https://github.com/reillyeon/webusb/issues/new"
+          }, {
+            value: "Commit history",
+            href: "https://github.com/reillyeon/webusb/commits"
+          }]
+        }],
 
         localBiblio: {
           "USB31": {
@@ -106,7 +122,7 @@
         to data about its environment or directly store user data.
       </p>
       <p>
-        For this reason this specification outlines to mechanisms that can be
+        For this reason this specification outlines two mechanisms that can be
         combined by the UA before a site is granted access to a device. First,
         so that the device can protect itself from malicious sites it can
         provide a set of origins that are allowed to connect to it. These are
@@ -1739,7 +1755,7 @@
         This specification uses several terms taken from [[USB31]]. While
         reference is made to version 3.1 of the Universal Serial Bus many of
         these concepts exist in previous versions as well. Significant
-        differences between USB versions that have barring on this specification
+        differences between USB versions that have bearing on this specification
         will be called out explicitly.
       </p>
       <p>
