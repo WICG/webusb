@@ -1,3 +1,7 @@
+#include <WebUSB.h>
+
+#define Serial WebSerial
+
 const int redPin = 9;
 const int greenPin = 10;
 const int bluePin = 11;
@@ -8,8 +12,8 @@ void setup() {
   while (!Serial) {
     ;
   }
-  Serial.write("Sketch begins.\r\n");
   Serial.begin(9600);
+  Serial.write("Sketch begins.\r\n");
   index = 0;
 }
 
