@@ -169,7 +169,7 @@
             <td>bLength</td>
             <td>1</td>
             <td>Number</td>
-            <td>Size of this descriptor. Must be set to 23.</td>
+            <td>Size of this descriptor. Must be set to 24.</td>
           </tr>
           <tr>
             <td>1</td>
@@ -213,6 +213,13 @@
             <td>Number</td>
             <td>bRequest value used for issuing WebUSB requests.</td>
           </tr>
+          <tr>
+            <td>23</td>
+            <td>iLandingPage</td>
+            <td>1</td>
+            <td>Number</td>
+            <td>URL descriptor index of the device's landing page.</td>
+          </tr>
         </table>
       </section>
 
@@ -238,7 +245,7 @@
             <td>1</td>
           </tr>
           <tr>
-            <td>GET_LANDING_PAGE</td>
+            <td>GET_URL</td>
             <td>2</td>
           </tr>
         </table>
@@ -252,30 +259,30 @@
           </p>
 
           <p>
-            The device MUST respond with data beginning with a <a>Descriptor Set
-            Header</a> or stall the transfer.
+            The device MUST respond with data beginning with a <a>Allowed
+            Origins Header</a> or stall the transfer.
           </p>
 
           <p>
-            The URLs returned by this request MUST be interpreted as origins (as
-            defined by [[RFC6454]]) and so content beyond the scheme/host/port
-            triple MUST be ignored.
+            A <a>URL descriptor</a> referenced by the response MUST be
+            interpreted as an origin (as defined by [[RFC6454]]) and so content
+            beyond the scheme/host/port triple MUST be ignored.
           </p>
 
           <p>
             If the UA chooses to enforce this policy then an origin <dfn>is
-            allowed to access a device</dfn> if there exists a <a>URL
-            descriptor</a> request matching that origin is in the top-level
-            <a>Descriptor Set Header</a> or any descriptors below it. An origin
+            allowed to access a device</dfn> if it matches one of the origins in
+            the top-level <a>Allowed Origins Header</a> or any descriptors
+            following it. An origin
             <dfn data-lt="is allowed to access configuration">is allowed to
-            access a configuration</dfn> if a <a>URL descriptor</a> matching
-            that origin is within a matching <a>Configuration Subset Header</a>
-            or within the top-level <a>Descriptor Set Header</a>. An origin
+            access a configuration</dfn> if it matches one of the origins in
+            the corresponding <a>Configuration Subset Header</a> or in the
+            top-level <a>Allowed Origins Header</a>. An origin
             <dfn data-lt="is allowed to access interface">is allowed to access
-            an interface</dfn> if there is a <a>URL descriptor</a> matching that
-            origin within a matching <a>Function Subset Header</a>, the
-            <a>Configuration Subset Header</a> containing it or the top-level
-            <a>Descriptor Set Header</a>.
+            an interface</dfn> if it matches one of the origins in the
+            corresponding <a>Function Subset Header</a>, the <a>Configuration
+            Subset Header</a> containing it or the top-level <a>Allowed Origins
+            Header</a>.
           </p>
           <table>
             <tr>
@@ -298,15 +305,14 @@
         </section>
 
         <section>
-          <h4>Get Landing Page</h4>
+          <h4><dfn>Get URL</dfn></h4>
           <p>
-            This request gets the landing page to which the UA can be navigated
-            in order to interact with the device.
+            This request fetches the URL descriptor with the given index.
           </p>
 
           <p>
             The device MUST respond with a single <a>URL Descriptor</a> or stall
-            the transfer.
+            the transfer if the index is invalid.
           </p>
 
           <table>
@@ -322,7 +328,7 @@
               <td>11000000B</td>
               <td><code>bVendorCode</code></td>
               <td>Zero</td>
-              <td>GET_LANDING_PAGE</td>
+              <td>GET_URL</td>
               <td>Descriptor Length</td>
               <td>Descriptor</td>
             </tr>
@@ -362,15 +368,18 @@
         </table>
 
         <section>
-          <h4><dfn>Descriptor Set Header</dfn></h4>
+          <h4><dfn>Allowed Origins Header</dfn></h4>
           <p>
-            This descriptor defines the length of the set of descriptors that
-            will follow it. If a device response begins with this descriptor the
-            <code>wLength</code> value indicates the host has a large enough
-            buffer to receive it the device MUST respond with exactly
-            <code>wTotalLength</code> bytes of data. The entire content of this
-            response MUST consist of valid descriptors. There MUST NOT be unused
-            bytes at the end.
+            This header lists the set of origins allowed to access the entire
+            USB device. It MUST be followed by <code>bNumConfigurations</code>
+            <a>configuration subset headers</a> that control permission to
+            access particular configurations.
+          </p>
+
+          <p>
+            This descriptor MUST be the beginning of the response to the <a>Get
+            Allowed Origins</a> request. <code>wTotalLength</code> MUST be the
+            total length of the response.
           </p>
 
           <table>
@@ -386,7 +395,9 @@
               <td>bLength</td>
               <td>1</td>
               <td>Number</td>
-              <td>Size of this descriptor. Must be set to 4.</td>
+              <td>
+                Size of this descriptor. Must be set to <code>N + 5</code>.
+              </td>
             </tr>
             <tr>
               <td>1</td>
@@ -402,20 +413,38 @@
               <td>Number</td>
               <td>Total size of this and all following descriptors.</td>
             </tr>
+            <tr>
+              <td>4</td>
+              <td>bNumConfigurations</td>
+              <td>1</td>
+              <td>Number</td>
+              <td>
+                Number of <a>configuration subset headers</a> following this
+                descriptor.
+              </td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>iOrigin[<var>N</var>]</td>
+              <td><var>N</var> &times; 1</td>
+              <td>Number</td>
+              <td>Set of <code>bLength - 5</code> URL descriptor indicies.</td>
+            </tr>
           </table>
         </section>
 
         <section>
           <h4><dfn data-lt="configuration subset header|configuration subset headers">Configuration Subset Header</dfn></h4>
           <p>
-            This header declares that the descriptors following it (up to
-            <code>wTotalLength</code> bytes) relate to the USB device
-            configuration described by the <a>configuration descriptor</a>
-            with the given <code>bConfigurationValue</code>.
+            This header lists the set of origins allowed to access the USB
+            device configuration described by the <a>configuration
+            descriptor</a> with the given <code>bConfigurationValue</code>. It
+            MUST be followed by <code>bNumFunctions</code> <a>function subset
+            headers</a> that control permission to access functions within this
+            configuration.
           </p>
           <p>
-            This descriptor MUST be contained within a <a>Descriptor Set
-            Header</a>.
+            This descriptor MUST follow a <a>Allowed Origins Header</a>.
           </p>
           <table>
             <tr>
@@ -430,7 +459,9 @@
               <td>bLength</td>
               <td>1</td>
               <td>Number</td>
-              <td>Size of this descriptor. Must be set to 5.</td>
+              <td>
+                Size of this descriptor. Must be set to <code>N + 4</code>.
+              </td>
             </tr>
             <tr>
               <td>1</td>
@@ -448,13 +479,20 @@
             </tr>
             <tr>
               <td>3</td>
-              <td>wTotalLength</td>
-              <td>2</td>
+              <td>bNumFunctions</td>
+              <td>1</td>
               <td>Number</td>
               <td>
-                Total size of this and the following descriptors to which this
-                header applies.
+                Number of <a>function subset headers</a> following this
+                descriptor.
               </td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>iOrigin[<var>N</var>]</td>
+              <td><var>N</var> &times; 1</td>
+              <td>Number</td>
+              <td>Set of <code>bLength - 4</code> URL descriptor indicies.</td>
             </tr>
           </table>
         </section>
@@ -462,17 +500,15 @@
         <section>
           <h4><dfn data-lt="function subset header|function subset headers">Function Subset Header</dfn></h4>
           <p>
-            This header declares that the descriptors following it (up to
-            <code>wTotalLength</code> bytes) relate to the USB device interface
-            described by the <a>interface descriptor</a> with a
+            This header lists the set of origins allowed to access the USB
+            device interface described by the <a>interface descriptor</a> with a
             <code>bInterfaceNumber</code> equal to
             <code>bFirstInterfaceNumber</code> or the set of interfaces defined
             as a function by an <a>interface association descriptor</a> with an
             equal <code>bFirstInterfaceNumber</code>.
           </p>
           <p>
-            This descriptor MUST be contained within a <a>Configuration Subset
-            Header</a>.
+            This descriptor MUST follow a <a>Configuration Subset Header</a>.
           </p>
           <table>
             <caption>WebUSB Function Subset Header</caption>
@@ -488,7 +524,9 @@
               <td>bLength</td>
               <td>1</td>
               <td>Number</td>
-              <td>Size of this descriptor. Must be set to 5.</td>
+              <td>
+                Size of this descriptor. Must be set to <code>N + 3</code>.
+              </td>
             </tr>
             <tr>
               <td>1</td>
@@ -508,13 +546,10 @@
             </tr>
             <tr>
               <td>3</td>
-              <td>wTotalLength</td>
-              <td>2</td>
+              <td>iOrigin[<var>N</var>]</td>
+              <td><var>N</var> &times; 1</td>
               <td>Number</td>
-              <td>
-                Total size of this and the following descriptors to which this
-                header applies.
-              </td>
+              <td>Set of <code>bLength - 3</code> URL descriptor indicies.</td>
             </tr>
           </table>
         </section>
@@ -522,11 +557,8 @@
         <section>
           <h4><dfn data-lt="URL Descriptor|URL Descriptors">URL Descriptor</dfn></h4>
           <p>
-            This descriptor contains a single URL. It may be contained within a
-            <a>Descriptor Set Header</a> to apply to the entire device, a
-            <a>Configuration Subset Header</a> to apply to a specific
-            configuration, or a <a>Function Subset Header</a> to apply to the
-            set of interfaces comprising that function.
+            This descriptor contains a single URL and is returned by the
+            <a>Get URL</a> request.
           </p>
 
           <table>
@@ -553,10 +585,35 @@
             </tr>
             <tr>
               <td>2</td>
+              <td>bScheme</td>
+              <td>1</td>
+              <td>Number</td>
+              <td>URL scheme prefix.</td>
+            </tr>
+            <tr>
+              <td>3</td>
               <td>URL</td>
               <td>Variable</td>
               <td>String</td>
-              <td>UTF-8 encoded URL.</td>
+              <td>UTF-8 encoded URL (excluding the scheme prefix).</td>
+            </tr>
+          </table>
+
+          <p>The <code>bScheme</code> field MUST be one of these values:</p>
+
+          <table>
+            <caption>URL Prefixes</caption>
+            <tr>
+              <th>Value</th>
+              <th>Prefix</th>
+            </tr>
+            <tr>
+              <td>0</td>
+              <td>"http://"</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>"https://"</td>
             </tr>
           </table>
         </section>
