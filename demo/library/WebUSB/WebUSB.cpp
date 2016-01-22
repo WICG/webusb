@@ -29,14 +29,14 @@ const uint8_t BOS_DESCRIPTOR[29] PROGMEM= {
 0x8B, 0xFD, 0xA0, 0x76, 0x88, 0x15, 0xB6, 0x65, 0x00, 0x01, 0x01,
 };
 
-const uint8_t WEBUSB_LANDING_PAGE[28] PROGMEM = {
-0x1C, 0x03, 'h', 't', 't', 'p', 's', ':', '/', '/', 'c', 'r', 'e', 'a', 't',
-'e', '.', 'a', 'r', 'd', 'u', 'i', 'n', 'o', '.', 'c', 'c', '/'
+const uint8_t WEBUSB_LANDING_PAGE[27] PROGMEM = {
+0x1B, 0x03, 'h', 't', 't', 'p', 's', ':', '/', '/', 'c', 'r', 'e', 'a', 't',
+'e', '.', 'a', 'r', 'd', 'u', 'i', 'n', 'o', '.', 'c', 'c',
 };
 
-const uint8_t WEBUSB_ALLOWED_ORIGINS[56] PROGMEM = {
-0x04, 0x00, 0x38, 0x00, 0x1D, 0x03, 'h', 't', 't', 'p', 's', ':', '/', '/',
-'r', 'e', 'i', 'l', 'l', 'y', 'e', 'o', 'n', '.', 'g', 'i', 't', 'h', 'u',
+const uint8_t WEBUSB_ALLOWED_ORIGINS[55] PROGMEM = {
+0x04, 0x00, 0x37, 0x00, 0x1C, 0x03, 'h', 't', 't', 'p', 's', ':', '/', '/',
+'f', 'a', 'c', 'c', 'h', 'i', 'n', 'm', '.', 'g', 'i', 't', 'h', 'u',
 'b', '.', 'i', 'o', 0x17, 0x03, 'h', 't', 't', 'p', ':', '/', '/', 'l', 'o',
 'c', 'a', 'l', 'h', 'o', 's', 't', ':', '8', '0', '8', '0'
 };

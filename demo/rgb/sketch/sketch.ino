@@ -31,6 +31,7 @@ void loop() {
       Serial.print(", ");
       Serial.print(color[2]);
       Serial.print(".\r\n");
+      Serial.flush();
       index = 0;
     }
   }
