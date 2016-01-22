@@ -893,6 +893,8 @@
           Promise&lt;void> clearHalt(octet endpointNumber);
           Promise&lt;USBInTransferResult> transferIn(octet endpointNumber, unsigned long length);
           Promise&lt;USBOutTransferResult> transferOut(octet endpointNumber, BufferSource data);
+          Promise&lt;USBIsochronousInTransferResult> isochronousTransferIn(octet endpointNumber, sequence&lt;unsigned long> packetLengths);
+          Promise&lt;UsbIsochronousOutTransferResult> isochronousTransferOut(octet endpointNumber, BufferSource data, sequence&lt;unsigned long> packetLengths);
           Promise&lt;void> reset();
         };
       </pre>
@@ -1352,6 +1354,11 @@
           steps.
         </li>
         <li>
+          If <var>endpoint</var> is not a bulk or interrupt endpoint reject
+          <var>promise</var> with an <code>InvalidAccessError</code> and abort
+          these steps.
+        </li>
+        <li>
           If the device is not in the <a>open state</a> or the interface
           containing <var>endpoint</var> is not in the <a>claimed state</a>,
           reject <var>promise</var> with an <code>InvalidStateError</code> and
@@ -1373,6 +1380,7 @@
         <li>
           If the device responds with more than <var>length</var> bytes of data
           set <var>result.status</var> to <code>"babble"</code>.
+        </li>
         <li>
           If the transfer ends because <var>endpoint</var> is stalled set
           <var>result.status</var> to <code>"stall"</code>.
@@ -1406,6 +1414,11 @@
           <var>endpointNumber</var>. If there is no such endpoint reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
+        </li>
+        <li>
+          If <var>endpoint</var> is not a bulk or interrupt endpoint reject
+          <var>promise</var> with an <code>InvalidAccessError</code> and abort
+          these steps.
         </li>
         <li>
           If the device is not in the <a>open state</a> or the interface
@@ -1442,7 +1455,169 @@
         </li>
       </ol>
       <p dfn-for="USBDevice">
-        The <code><dfn>reset</dfn>()</code> method, when invoked, must return a
+        The <code><dfn>isochronousTransferIn</dfn>(<var>endpointNumber</var>,
+        <var>packetLengths</var>)</code> method, when
+        invoked, MUST return a new promise <var>promise</var> and run the
+        following steps in parallel:
+      </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>endpoint</var> be the IN endpoint in the <a>active
+          configuration</a> with <code>bEndpointAddress</code> corresponding to
+          <var>endpointNumber</var>. If there is no such endpoint reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If <var>endpoint</var> is not an isochronous endpoint reject
+          <var>promise</var> with an <code>InvalidAccessError</code> and abort
+          these steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or the interface
+          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          Let <var>length</var> be the sum of the elements of
+          <var>packetLengths</var>.
+        </li>
+        <li>
+          Let <var>buffer</var> be a new ArrayBuffer of <var>length</var> bytes.
+        </li>
+        <li>
+          Let <var>result</var> be a new <a>USBIsochronousInTransferResult</a>
+          and set <var>result.data</var> to <var>buffer</var>.
+        </li>
+        <li>
+          Enqueue an isochronous IN transfer on <var>endpoint</var> that will
+          write up to <var>length</var> bytes of data from the device into
+          <var>buffer</var>.
+        </li>
+        <li>
+          For each packet <var>i</var> from <code>0</code> to
+          <var>packetLengths.length - 1</var>:
+          <ol>
+            <li>
+              Let <var>packet</var> be a new
+              <a>USBIsochronousInTransferPacket</a> and set
+              <var>result.packets[i]</var> to <var>packet</var>.
+            </li>
+            <li>
+              Let <var>view</var> be a new <code>DataView</code> over the
+              portion of <var>buffer</var> containing the data received from
+              the device for this packet and set <var>packet.data</var> to
+              <var>view</var>.
+            </li>
+            <li>
+              If the device responds with more than <var>packetLengths[i]</var>
+              bytes of data set <var>packet.status</var> to
+              <code>"babble"</code>.
+            </li>
+            <li>
+              If the transfer ends because <var>endpoint</var> is stalled set
+              <var>packet.status</var> to <code>"stall"</code>.
+            </li>
+            <li>
+              If the device acknowledges the complete transfer set
+              <var>packet.status</var> to <code>"ok"</code>.
+            </li>
+            <li>
+              If the transfer fails for any other reason reject
+              <var>promise</var> with a <code>NetworkError</code> and abort
+              these steps.
+            </li>
+          </ol>
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>result</var>.
+        </li>
+      </ol>
+      <p dfn-for="USBDevice">
+        The <code><dfn>isochronousTransferOut</dfn>(<var>endpointNumber</var>,
+        <var>data</var>, <var>packetLengths</var>)</code> method, when
+        invoked, MUST return a new promise <var>promise</var> and run the
+        following steps in parallel:
+      </p>
+      <ol>
+        <li>
+          If the device is no longer connected to the system, reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          Let <var>endpoint</var> be the OUT endpoint in the <a>active
+          configuration</a> with <code>bEndpointAddress</code> corresponding to
+          <var>endpointNumber</var>. If there is no such endpoint reject
+          <var>promise</var> with a <code>NotFoundError</code> and abort these
+          steps.
+        </li>
+        <li>
+          If <var>endpoint</var> is not an isochronous endpoint reject
+          <var>promise</var> with an <code>InvalidAccessError</code> and abort
+          these steps.
+        </li>
+        <li>
+          If the device is not in the <a>open state</a> or the interface
+          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
+        </li>
+        <li>
+          Let <var>length</var> be the sum of the elements of
+          <var>packetLengths</var>.
+        </li>
+        <li>
+          Let <var>result</var> be a new <a>USBIsochronousOutTransferResult</a>.
+        </li>
+        <li>
+          Enqueue an isochronous OUT transfer on <var>endpoint</var> that will
+          write <var>buffer</var> to the device, divided into
+          <var>packetLength.length</var> packets of <var>packetLength[i]</var>
+          bytes (for packets <var>i</var> from <code>0</code> to
+          <var>packetLengths.length - 1</var>).
+        </li>
+        <li>
+          For each packet <var>i</var> from <code>0</code> to
+          <var>packetLengths.length - 1</var> the host attempts to send to the
+          device:
+          <ol>
+            <li>
+              Let <var>packet</var> be a new
+              <a>USBIsochronousOutTransferPacket</a> and set
+              <var>result.packets[i]</var> to <var>packet</var>.
+            </li>
+            <li>
+              Let <var>packet.bytesWritten</var> be the amount of data
+              successfully sent to the device as part of this packet.
+            </li>
+            <li>
+              If the transfer ends because <var>endpoint</var> is stalled set
+              <var>packet.status</var> to <code>"stall"</code>.
+            </li>
+            <li>
+              If the device acknowledges the complete transfer set
+              <var>packet.status</var> to <code>"ok"</code>.
+            </li>
+            <li>
+              If the transfer fails for any other reason reject
+              <var>promise</var> with a <code>NetworkError</code> and abort
+              these steps.
+            </li>
+          </ol>
+        </li>
+        <li>
+          Resolve <var>promise</var> with <var>result</var>.
+        </li>
+      </ol>
+      <p dfn-for="USBDevice">
+        The <code><dfn>reset</dfn>()</code> method, when invoked, MUST return a
         new promise <var>promise</var> and run the following steps in parallel:
       </p>
       <ol>
@@ -1511,6 +1686,25 @@
           interface USBOutTransferResult {
             readonly attribute unsigned long bytesWritten;
             readonly attribute USBTransferStatus status;
+          };
+
+          interface USBIsochronousInTransferPacket {
+            readonly attribute DataView data;
+            readonly attribute USBTransferStatus status;
+          };
+
+          interface USBIsochronousInTransferResult {
+            readonly attribute ArrayBuffer data;
+            readonly attribute FrozenArray&lt;USBIsochronousInTransferPacket> packets;
+          };
+
+          interface USBIsochronousOutTransferPacket {
+            readonly attribute unsigned long bytesWritten;
+            readonly attribute USBTransferStatus status;
+          };
+
+          interface USBIsochronousOutTransferResult {
+            readonly attribute FrozenArray&lt;USBIsochronousOutTransferPacket> packets;
           };
         </pre>
 
