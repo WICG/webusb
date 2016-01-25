@@ -50,7 +50,7 @@
           t.io.println('Connected.');
           port = ports[0];
           port.onReceive = data => {
-            t.io.print(ab2str(data));
+            t.io.print(ab2str(data.buffer));
           }
           port.onReceiveError = error => {
             t.io.println('Receive error: ' + error);

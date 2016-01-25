@@ -19,7 +19,7 @@
         connectButton.textContent = 'Disconnect';
 
         port.onReceive = data => {
-          console.log(ab2str(data));
+          console.log(ab2str(data.buffer));
         }
         port.onReceiveError = error => {
           console.error(error);
