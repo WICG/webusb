@@ -1231,7 +1231,7 @@
         <li>
           If the device responds with data, store the first <var>length</var>
           bytes of this data in <var>buffer</var> and set <var>result.data</var>
-          to <var>buffer</var>.
+          to a new <code>DataView</code> constructed over <var>buffer</var>.
         </li>
         <li>
           If the device responds by stalling the default control pipe set
@@ -1374,8 +1374,9 @@
         </li>
         <li>
           If data is returned as part of this transfer let <var>buffer</var> be
-          a new ArrayBuffer of exactly the length of the data received and set
-          <var>result.data</var> to <var>buffer</var>.
+          a new <code>ArrayBuffer</code> of exactly the length of the data
+          received and set <var>result.data</var> to a new <code>DataView</code>
+          constructed over <var>buffer</var>.
         </li>
         <li>
           If the device responds with more than <var>length</var> bytes of data
@@ -1489,11 +1490,13 @@
           <var>packetLengths</var>.
         </li>
         <li>
-          Let <var>buffer</var> be a new ArrayBuffer of <var>length</var> bytes.
+          Let <var>buffer</var> be a new <code>ArrayBuffer</code> of
+          <var>length</var> bytes.
         </li>
         <li>
           Let <var>result</var> be a new <a>USBIsochronousInTransferResult</a>
-          and set <var>result.data</var> to <var>buffer</var>.
+          and set <var>result.data</var> to a new <code>DataView</code>
+          constructed over <var>buffer</var>.
         </li>
         <li>
           Enqueue an isochronous IN transfer on <var>endpoint</var> that will
@@ -1679,7 +1682,7 @@
           };
 
           interface USBInTransferResult {
-            readonly attribute ArrayBuffer data;
+            readonly attribute DataView data;
             readonly attribute USBTransferStatus status;
           };
 
@@ -1694,7 +1697,7 @@
           };
 
           interface USBIsochronousInTransferResult {
-            readonly attribute ArrayBuffer data;
+            readonly attribute DataView data;
             readonly attribute FrozenArray&lt;USBIsochronousInTransferPacket> packets;
           };
 
