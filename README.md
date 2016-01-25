@@ -7,9 +7,9 @@ Documents
 ---------
 
 * [Explainer](explainer.md)
-* [Specification](https://reillyeon.github.io/webusb/) (Editor's Draft)
+* [Specification](https://wicg.github.io/webusb/) (Editor's Draft)
 
 Communication
 -------------
 
-* [Issue Tracker](https://github.com/reillyeon/webusb/issues)
+* [Issue Tracker](https://github.com/wicg/webusb/issues)
