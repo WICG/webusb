@@ -311,8 +311,8 @@
           </p>
 
           <p>
-            The device MUST respond with a single <a>URL Descriptor</a> or stall
-            the transfer if the index is invalid.
+            The device MUST respond with the <a>URL Descriptor</a> at the given
+            index or stall the transfer if the index is invalid.
           </p>
 
           <table>
@@ -327,7 +327,7 @@
             <tr>
               <td>11000000B</td>
               <td><code>bVendorCode</code></td>
-              <td>Zero</td>
+              <td>Descriptor Index</td>
               <td>GET_URL</td>
               <td>Descriptor Length</td>
               <td>Descriptor</td>
