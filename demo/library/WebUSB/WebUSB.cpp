@@ -20,25 +20,29 @@
 
 WebUSB WebSerial;
 
-const uint8_t BOS_DESCRIPTOR[29] PROGMEM= {
+const uint8_t BOS_DESCRIPTOR[30] PROGMEM = {
 // BOS descriptor header.
-0x05, 0x0F, 0x1C, 0x00, 0x01,
+0x05, 0x0F, 0x1D, 0x00, 0x01,
 
 // WebUSB Platform Capability descriptor (bVendorCode == 0x01).
-0x17, 0x10, 0x05, 0x00, 0x38, 0xB6, 0x08, 0x34, 0xA9, 0x09, 0xA0, 0x47,
-0x8B, 0xFD, 0xA0, 0x76, 0x88, 0x15, 0xB6, 0x65, 0x00, 0x01, 0x01,
+0x18, 0x10, 0x05, 0x00, 0x38, 0xB6, 0x08, 0x34, 0xA9, 0x09, 0xA0, 0x47,
+0x8B, 0xFD, 0xA0, 0x76, 0x88, 0x15, 0xB6, 0x65, 0x00, 0x01, 0x01, 0x01
 };
 
-const uint8_t WEBUSB_LANDING_PAGE[27] PROGMEM = {
-0x1B, 0x03, 'h', 't', 't', 'p', 's', ':', '/', '/', 'c', 'r', 'e', 'a', 't',
-'e', '.', 'a', 'r', 'd', 'u', 'i', 'n', 'o', '.', 'c', 'c',
+const uint8_t WEBUSB_ALLOWED_ORIGINS[7] PROGMEM = {
+0x07, 0x00, 0x07, 0x00, 0x00, 0x01, 0x02
 };
 
-const uint8_t WEBUSB_ALLOWED_ORIGINS[55] PROGMEM = {
-0x04, 0x00, 0x37, 0x00, 0x1C, 0x03, 'h', 't', 't', 'p', 's', ':', '/', '/',
-'f', 'a', 'c', 'c', 'h', 'i', 'n', 'm', '.', 'g', 'i', 't', 'h', 'u',
-'b', '.', 'i', 'o', 0x17, 0x03, 'h', 't', 't', 'p', ':', '/', '/', 'l', 'o',
-'c', 'a', 'l', 'h', 'o', 's', 't', ':', '8', '0', '8', '0'
+// This descriptor is also used as the landing page which is why it is more than
+// just an origin.
+const uint8_t WEBUSB_ORIGIN_1[30] PROGMEM = {
+0x1e, 0x03, 0x01, 'w', 'i', 'c', 'g', '.', 'g', 'i', 't', 'h', 'u', 'b', '.',
+'i', 'o', '/', 'w', 'e', 'b', 'u', 's', 'b', '/', 'd', 'e', 'm', 'o', '/'
+};
+
+const uint8_t WEBUSB_ORIGIN_2[17] PROGMEM = {
+0x11, 0x03, 0x00, 'l', 'o', 'c', 'a', 'l', 'h', 'o', 's', 't', ':', '8', '0',
+'0', '0'
 };
 
 typedef struct
@@ -90,10 +94,18 @@ bool WebUSB::VendorControlRequest(USBSetup& setup)
 			USB_SendControl(TRANSFER_PGM, &WEBUSB_ALLOWED_ORIGINS, sizeof(WEBUSB_ALLOWED_ORIGINS));
 			return true;
 		}
-		else if (setup.wIndex == WEBUSB_REQUEST_GET_LANDING_PAGE)
+		else if (setup.wIndex == WEBUSB_REQUEST_GET_URL)
 		{
-			USB_SendControl(TRANSFER_PGM, &WEBUSB_LANDING_PAGE, sizeof(WEBUSB_LANDING_PAGE));
-			return true;
+			if (setup.wValueL == 1)
+			{
+				USB_SendControl(TRANSFER_PGM, &WEBUSB_ORIGIN_1, sizeof(WEBUSB_ORIGIN_1));
+				return true;
+			}
+			else if (setup.wValueL == 2)
+			{
+				USB_SendControl(TRANSFER_PGM, &WEBUSB_ORIGIN_2, sizeof(WEBUSB_ORIGIN_2));
+				return true;
+			}
 		}
 	}
 	return false;
