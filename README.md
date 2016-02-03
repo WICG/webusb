@@ -13,3 +13,8 @@ Communication
 -------------
 
 * [Issue Tracker](https://github.com/wicg/webusb/issues)
+
+Demos
+----
+
+* [Arduino Integration](https://github.com/webusb/arduino/)
