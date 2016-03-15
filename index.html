@@ -880,14 +880,15 @@
           readonly attribute DOMString? manufacturerName;
           readonly attribute DOMString? productName;
           readonly attribute DOMString? serialNumber;
+          readonly attribute USBConfiguration? configuration;
           readonly attribute FrozenArray&lt;USBConfiguration> configurations;
+          readonly attribute boolean opened;
           Promise&lt;void> open();
           Promise&lt;void> close();
-          Promise&lt;USBConfiguration> getConfiguration();
-          Promise&lt;void> setConfiguration(octet configurationValue);
+          Promise&lt;void> selectConfiguration(octet configurationValue);
           Promise&lt;void> claimInterface(octet interfaceNumber);
           Promise&lt;void> releaseInterface(octet interfaceNumber);
-          Promise&lt;void> setInterface(octet interfaceNumber, octet alternateSetting);
+          Promise&lt;void> selectAlternateInterface(octet interfaceNumber, octet alternateSetting);
           Promise&lt;USBInTransferResult> controlTransferIn(USBControlTransferParameters setup, unsigned short length);
           Promise&lt;USBOutTransferResult> controlTransferOut(USBControlTransferParameters setup, optional BufferSource data);
           Promise&lt;void> clearHalt(octet endpointNumber);
@@ -941,6 +942,14 @@
         version <code>N</code>.
       </p>
       <p dfn-for="USBDevice">
+        The <code><dfn>configuration</dfn></code> attribute contains the
+        currently selected configuration for the device and SHALL be one of the
+        configurations listed in <a data-lt="USBDevice.configurations">
+        configurations</a>. It MAY be <code>null</code> if the device is in an
+        unconfigured state and MUST be updated by
+        <a data-lt="USBDevice.selectConfiguration">selectConfiguration</a>.
+      </p>
+      <p dfn-for="USBDevice">
         The <code><dfn>configurations</dfn></code> attribute contains a list of
         configurations supported by the device. These configurations SHALL be
         populated from the configuration descriptors reported by the device and
@@ -962,14 +971,16 @@
       </p>
       <ol>
         <li>
-          If the device is no longer connected to the system, reject
+          Let <var>device</var> be the target <a>USBDevice</a> object.
+        </li>
+        <li>
+          If <var>device</var> is no longer connected to the system, reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
         </li>
         <li>
-          If the device is already in the <a>open state</a>, reject
-          <var>promise</var> with a <code>InvalidStateError</code> and abort
-          these steps.
+          If <var>device.opened</var> is <code>true</code> resolve
+          <var>promise</var> and abort these steps.
         </li>
         <li>
           Perform the necessary platform-specific steps to begin a session with
@@ -977,8 +988,8 @@
           with a <code>NetworkError</code> and abort these steps.
         </li>
         <li>
-          Consider the device to be in what will be referred to as the
-          <dfn>open state</dfn> and resolve <var>promise</var>.
+          Set <code><var>device</var>.opened</code> to <code>true</code> and
+          resolve <var>promise</var>.
         </li>
       </ol>
       <p dfn-for="USBDevice">
@@ -987,14 +998,16 @@
       </p>
       <ol>
         <li>
-          If the device is no longer connected to the system, reject
+          Let <var>device</var> be the target <a>USBDevice</a> object.
+        </li>
+        <li>
+          If <var>device</var> is no longer connected to the system, reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a>, reject
-          <var>promise</var> with a <code>InvalidStateError</code> and abort
-          these steps.
+          If <code><var>device</var>.opened</code> is <code>false</code> resolve
+          <var>promise</var> and abort these steps.
         </li>
         <li>
           Abort all other algorithms currently running against this device and
@@ -1011,39 +1024,22 @@
           the device.
         </li>
         <li>
-          Take the device out of the <a>open state</a> and resolve
-          <var>promise</var>.
-        </li>
-      </ol>
-      <p dfn-for="USBDevice">
-        The <code><dfn>getConfiguration</dfn>()</code> method, when invoked,
-        MUST return a new promise <var>promise</var> and run the following steps
-        in parallel:
-      </p>
-      <ol>
-        <li>
-          If the device is no longer connected to the system, reject
-          <var>promise</var> with a <code>NotFoundError</code> and abort these
-          steps.
-        </li>
-        <li>
-          Let <var>configuration</var> be the active device configuration. If
-          the device is unconfigured, reject <var>promise</var> with a
-          <code>NotFoundError</code> and abort these steps.
-        </li>
-        <li>
-          Resolve <var>promise</var> with <var>configuration</var>.
+          Set <code><var>device</var>.opened</code> to <code>false</code> and
+          resolve <var>promise</var>.
         </li>
       </ol>
       <p dfn-for="USBDevice">
         The
-        <code><dfn>setConfiguration</dfn>(<var>configurationValue</var>)</code>
+        <code><dfn>selectConfiguration</dfn>(<var>configurationValue</var>)</code>
         method, when invoked, MUST return a new promise <var>promise</var> and
         run the following steps in parallel:
       </p>
       <ol>
         <li>
-          If the device is no longer connected to the system, reject
+          Let <var>device</var> be the target <a>USBDevice</a> object.
+        </li>
+        <li>
+          If <var>device</var> is no longer connected to the system, reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
         </li>
@@ -1055,9 +1051,9 @@
           steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a>, reject
-          <var>promise</var> with a <code>InvalidStateError</code> and abort
-          these steps.
+          If <code><var>device</var>.opened</code> is not equal to
+          <code>true</code> reject <var>promise</var> with an
+          <code>InvalidStateError</code> and abort these steps.
         </li>
         <li>
           The UA MAY check that the caller <a>is allowed to access
@@ -1076,7 +1072,8 @@
           <code>NetworkError</code> and abort these steps.
         </li>
         <li>
-          Resolve <var>promise</var>.
+          Set <code><var>device</var>.configuration</code> to
+          <var>configuration</var> and resolve <var>promise</var>.
         </li>
       </ol>
       <p dfn-for="USBDevice">
@@ -1098,9 +1095,10 @@
           these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or <var>interface</var>
-          is already in the <a>claimed state</a>, reject <var>promise</var> with
-          an <code>InvalidStateError</code> and abort these steps.
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
         </li>
         <li>
           The UA MAY check that the caller <a>is allowed to access
@@ -1114,8 +1112,8 @@
           steps.
         </li>
         <li>
-          Consider <var>interface</var> to be in what will be referred to as the
-          <dfn>claimed state</dfn> and resolve <var>promise</var>.
+          Set <code><var>interface</var>.claimed</code> to <code>true</code>
+          and resolve <var>promise</var>.
         </li>
       </ol>
       <p dfn-for="USBDevice">
@@ -1125,7 +1123,10 @@
       </p>
       <ol>
         <li>
-          If the device is no longer connected to the system, reject
+          Let <var>device</var> be the target <a>USBDevice</a> object.
+        </li>
+        <li>
+          If <var>device</var> is no longer connected to the system, reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
         </li>
@@ -1137,28 +1138,32 @@
           these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or <var>interface</var>
-          is not in the <a>claimed state</a>, reject <var>promise</var> with an
-          <code>InvalidStateError</code> and abort these steps.
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
         </li>
         <li>
           Perform the necessary platform-specific steps to reliquish exclusive
           control over <var>interface</var>.
         </li>
         <li>
-          Take <var>interface</var> out of the <a>claimed state</a> and resolve
-          <var>promise</var>.
+          Set <code><var>interface</var>.claimed</code> to <code>false</code>
+          and resolve <var>promise</var>.
         </li>
       </ol>
       <p dfn-for="USBDevice">
-        The <code><dfn>setInterface</dfn>(<var>interfaceNumber</var>,
+        The <code><dfn>selectAlternateInterface</dfn>(<var>interfaceNumber</var>,
         <var>alternateSetting</var>)</code> method, when invoked, MUST return
         a new promise <var>promise</var> and run the following steps in
         parallel:
       </p>
       <ol>
         <li>
-          If the device is no longer connected to the system, reject
+          Let <var>device</var> be the target <a>USBDevice</a> object.
+        </li>
+        <li>
+          If <var>device</var> is no longer connected to the system, reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
         </li>
@@ -1170,9 +1175,10 @@
           these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or <var>interface</var>
-          is not in the <a>claimed state</a>, reject <var>promise</var> with an
-          <code>InvalidStateError</code> and abort these steps.
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
+          reject <var>promise</var> with an <code>InvalidStateError</code> and
+          abort these steps.
         </li>
         <li>
           Abort all transfers currently scheduled on endpoints associated with
@@ -1198,14 +1204,17 @@
       </p>
       <ol>
         <li>
-          If the device is no longer connected to the system, reject
+          Let <var>device</var> be the target <a>USBDevice</a> object.
+        </li>
+        <li>
+          If <var>device</var> is no longer connected to the system, reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a>,
-          reject <var>promise</var> with an <code>InvalidStateError</code> and
-          abort these steps.
+          If <code><var>device</var>.opened</code> is not equal to
+          <code>true</code> reject <var>promise</var> with an
+          <code>InvalidStateError</code> and abort these steps.
         </li>
         <li>
           <a>Check the validity of the control transfer parameters</a> and abort
@@ -1262,9 +1271,9 @@
           steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a>,
-          reject <var>promise</var> with an <code>InvalidStateError</code> and
-          abort these steps.
+          If <code><var>device</var>.opened</code> is not equal to
+          <code>true</code> reject <var>promise</var> with an
+          <code>InvalidStateError</code> and abort these steps.
         </li>
         <li>
           <a>Check the validity of the control transfer parameters</a> and abort
@@ -1321,8 +1330,8 @@
           endpoint exists reject <var>promise</var> and abort these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or the interface
-          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
           reject <var>promise</var> with an <code>InvalidStateError</code> and
           abort these steps.
         </li>
@@ -1359,8 +1368,8 @@
           these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or the interface
-          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
           reject <var>promise</var> with an <code>InvalidStateError</code> and
           abort these steps.
         </li>
@@ -1422,8 +1431,8 @@
           these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or the interface
-          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
           reject <var>promise</var> with an <code>InvalidStateError</code> and
           abort these steps.
         </li>
@@ -1480,8 +1489,8 @@
           these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or the interface
-          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
           reject <var>promise</var> with an <code>InvalidStateError</code> and
           abort these steps.
         </li>
@@ -1567,8 +1576,8 @@
           these steps.
         </li>
         <li>
-          If the device is not in the <a>open state</a> or the interface
-          containing <var>endpoint</var> is not in the <a>claimed state</a>,
+          If <code><var>device</var>.opened</code> or
+          <code><var>interface</var>.claimed</code> is not <code>true</code>,
           reject <var>promise</var> with an <code>InvalidStateError</code> and
           abort these steps.
         </li>
@@ -1625,14 +1634,17 @@
       </p>
       <ol>
         <li>
-          If the device is not in the <a>open state</a>,
-          reject <var>promise</var> with an <code>InvalidStateError</code> and
-          abort these steps.
+          Let <var>device</var> be the target <a>USBDevice</a> object.
         </li>
         <li>
-          If the device is no longer connected to the system, reject
+          If <var>device</var> is no longer connected to the system, reject
           <var>promise</var> with a <code>NotFoundError</code> and abort these
           steps.
+        </li>
+        <li>
+          If <code><var>device</var>.opened</code> is not equal to
+          <code>true</code> reject <var>promise</var> with an
+          <code>InvalidStateError</code> and abort these steps.
         </li>
         <li>
           Abort all operations on the device and reject their associated
@@ -1789,8 +1801,8 @@
                 these steps.
               </li>
               <li>
-                If <var>interface</var> is not in the <a>claimed state</a>,
-                reject <var>promise</var> with an
+                If <code><var>interface</var>.claimed</code> is not equal to
+                <code>true</code>, reject <var>promise</var> with an
                 <code>InvalidStateError</code> and abort these steps.
               </li>
               <li>
@@ -1823,8 +1835,9 @@
               </li>
               <li>
                 Let <var>interface</var> be the interface in which
-                <var>endpoint</var> is defined. If <var>interface</var> is not
-                in the <a>claimed state</a>, reject <var>promise</var> with an
+                <var>endpoint</var> is defined. If
+                <code><var>interface</var>.claimed</code> is not equal to
+                <code>true</code>, reject <var>promise</var> with an
                 <code>InvalidStateError</code>.
               </li>
               <li>
@@ -1876,7 +1889,9 @@
           [Constructor(USBConfiguration configuration, octet interfaceNumber)]
           interface USBInterface {
             readonly attribute octet interfaceNumber;
+            readonly attribute USBAlternateInterface alternate;
             readonly attribute FrozenArray&lt;USBAlternateInterface> alternates;
+            readonly attribute boolean claimed;
           };
 
           [Constructor(USBInterface deviceInterface, octet alternateSetting)]
@@ -1896,6 +1911,12 @@
           <a>interface descriptors</a>. The
           <code><dfn>interfaceNumber</dfn></code> attribute MUST match this
           field.
+        </p>
+        <p dfn-for="USBInterface">
+          The <code><dfn>alternate</dfn></code> attribute SHALL be set to the
+          <a>USBAlternateInterface</a> that is currently selected for this
+          interface, which by default SHALL be the one with
+          <code>bAlternateSetting</code> equal to <code>0</code>.
         </p>
         <p dfn-for="USBAlternateInterface">
           Each alternative interface configuration SHALL have a unique
@@ -1929,11 +1950,11 @@
         <p>
           A device's <dfn>active configuration</dfn> is the combination of the
           <a>USBConfiguration</a> selected by calling
-          <code><a data-lt="USBDevice.setConfiguration">
-          setConfiguration</a>(<var>configurationValue</var>)</code> and the set
-          of <a>UsbAlternateInterface</a>s selected by calling
-          <code><a data-lt="USBDevice.setInterface">
-          setInterface</a>(<var>interfaceNumber</var>,
+          <code><a data-lt="USBDevice.selectConfiguration">
+          selectConfiguration</a>(<var>configurationValue</var>)</code> and the
+          set of <a>UsbAlternateInterface</a>s selected by calling
+          <code><a data-lt="USBDevice.selectAlternateInterface">
+          selectAlternateInterface</a>(<var>interfaceNumber</var>,
           <var>alternateSetting</var>)</code>.
           A device MAY, by default, be left in an unconfigured state, referred
           to as configuration <code>0</code> or may automatically be set to
@@ -1942,9 +1963,9 @@
           configuration automatically have the <a>USBAlternateInterface</a> with
           <code>bAlternateSetting</code> equal to <code>0</code> selected by
           default. It is therefore unnecessary to call
-          <code><a data-lt="USBDevice.setInterface">
-          setInterface</a>(<var>interfaceNumber</var>, 0)</code> for each
-          interface when opening a device.
+          <code><a data-lt="USBDevice.selectAlternateInterface">
+          selectAlternateInterface</a>(<var>interfaceNumber</var>, 0)</code> for
+          each interface when opening a device.
         </p>
       </section>
 
