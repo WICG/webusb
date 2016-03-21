@@ -8,6 +8,15 @@ WebUSB does not attempt to provide a general mechanism for any web page to conne
 
 Instead USB devices will be associated with a web origin and can only be connected to from a page from the same origin. New devices (or firmware updates) may include a list of acceptable origins that the user agent can query, similar to the CORS mechanism for HTTP requests. Device vendors may enable existing devices by registering them in an open directory mapping device IDs to acceptable origins.
 
+## An example: Web support for 3-D printers
+3D printers are all the rage these days but you can’t go on Thingiverse and hit `Ctrl-P` to print out any of the designs because user agents and the operating systems they run on have not implemented 3-D printer support.
+
+First, a manufacturer like MakerBot can build their device setup and calibration software directly into their website. When the excited new user plugs the USB cable into their computer they are greeted by a friendly notification, “MakerBot Replicator II detected. Go to setup.makerbot.com/replicator2 to connect.” When they visit this site it will ask for permission to connect to their new printer and can then guide them through the rest of the setup and calibration process.
+
+On Thingiverse all they need to do to support MakerBot printers is include an `<iframe>` tag that loads a page from `https://api.makerbot.com`. This origin is also on the printer’s list of approved sites. The two origins, `https://www.thingiverse.com` and `https://api.makerbot.com` remain isolated because the browser doesn’t allow a top-level frame to modify the content of a 3rd party iframe. Thingiverse can, however use Window.postMessage() to communicate with it. The MessageEvent received by the "driver iframe" contains the unforgeable origin of the message, which allows the driver to implement any authorization scheme it would like. This mechanism would likely be encapsulated in a Javascript library that can be included by the web app to create the iframe and wrap the messaging interface in a friendlier API.
+
+WebUSB thus replaces native code and native SDKs with cross-platform hardware support and web-ready libraries.
+
 ## Appendix: A Brief Introduction to USB
 USB is a network but it's very different from traditional TCP/IP networks. It is really more like an RPC system. All traffic is directed by the *host*, that is, your computer. Though some devices like smartphones can act as both a USB host and USB client they can only take on one role at a time.
 
