@@ -595,7 +595,7 @@ The {{USB/onconnect}} attribute is an Event handler IDL attribute for the
 The {{USB/ondisconnect}} attribute is an Event handler IDL attribute for the
 <a>disconnect</a> event type.
 
-The {{USB/getDevices()}} method, when invoked, MUST return a new promise and
+The {{USB/getDevices()}} method, when invoked, MUST return a new {{Promise}} and
 run the following steps in parallel:
 
   1. If the incumbent settings object is not a secure context, reject
@@ -609,7 +609,7 @@ run the following steps in parallel:
      result to |devices|.
   5. Resolve |promise| with |devices|.
 
-The {{USB/requestDevice()}} method, when invoked, MUST return a new promise
+The {{USB/requestDevice()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps in parallel:
 
   1. If the incumbent settings object is not a secure context, reject
@@ -757,7 +757,7 @@ descriptors referenced by the <code>iManufacturer</code>, <code>iProduct</code>
 and <code>iSerialNumber</code> fields of the <a>device descriptor</a> if each
 is available.
 
-The {{USBDevice/open()}} method, when invoked, MUST return a new promise
+The {{USBDevice/open()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps in parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
@@ -771,7 +771,7 @@ The {{USBDevice/open()}} method, when invoked, MUST return a new promise
   5. Set <code>|device|.opened</code> to <code>true</code> and resolve
      |promise|.
 
-The {{USBDevice/close()}} method, when invoked, MUST return a new promise
+The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps in parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
@@ -790,7 +790,7 @@ The {{USBDevice/close()}} method, when invoked, MUST return a new promise
      |promise|.
 
 The {{USBDevice/selectConfiguration(configurationValue)}} method, when invoked,
-MUST return a new promise |promise| and run the following steps in
+MUST return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
@@ -815,7 +815,7 @@ parallel:
      |promise|.
 
 The {{USBDevice/claimInterface(interfaceNumber)}} method, when invoked, MUST
-return a new promise and run the following steps in parallel:
+return a new {{Promise}} and run the following steps in parallel:
 
   1. If the device is no longer connected to the system, reject |promise| with a
      {{NotFoundError}} and abort these steps.
@@ -835,7 +835,7 @@ return a new promise and run the following steps in parallel:
      |promise|.
 
 The {{USBDevice/releaseInterface(interfaceNumber)}} method, when invoked, MUST
-return a new promise |promise| and run the following steps in
+return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
@@ -854,7 +854,7 @@ parallel:
      |promise|.
 
 The {{USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)}}
-method, when invoked, MUST return a new promise |promise| and run the
+method, when invoked, MUST return a new {{Promise}} |promise| and run the
 following steps in parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
@@ -876,7 +876,7 @@ following steps in parallel:
   7. Resolve |promise|.
 
 The {{USBDevice/controlTransferIn(setup, length)}} method, when invoked, MUST
-return a new promise |promise| and run the following steps in
+return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
@@ -906,7 +906,7 @@ parallel:
   12. Resolve |promise| with |result|.
 
 The {{USBDevice/controlTransferOut(setup, data)}} method, when invoked, must
-return a new promise |promise| and run the following steps in parallel:
+return a new {{Promise}} |promise| and run the following steps in parallel:
 
   1. If the device is no longer connected to the system, reject |promise| with a
      {{NotFoundError}} and abort these steps.
@@ -933,7 +933,7 @@ return a new promise |promise| and run the following steps in parallel:
   10. Resolve |promise| with |result|.
 
 The {{USBDevice/clearHalt(direction, endpointNumber)}} method, when invoked,
-MUST return a new promise |promise| and run the following steps in parallel:
+MUST return a new {{Promise}} |promise| and run the following steps in parallel:
 
   1. If the device is no longer connected to the system, reject |promise| with a
      {{NotFoundError}} and abort these steps.
@@ -950,7 +950,7 @@ MUST return a new promise |promise| and run the following steps in parallel:
      |promise|.
 
 The {{USBDevice/transferIn(endpointNumber, length)}} method, when invoked, MUST
-return a new promise |promise| and run the following steps in parallel:
+return a new {{Promise}} |promise| and run the following steps in parallel:
 
   1. If the device is no longer connected to the system, reject |promise| with a
      {{NotFoundError}} and abort these steps.
@@ -981,7 +981,7 @@ return a new promise |promise| and run the following steps in parallel:
   12. Resolve |promise| with |result|.
 
 The {{USBDevice/transferOut(endpointNumber, data)}} method, when invoked, MUST
-return a new promise |promise| and run the following steps in
+return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. If the device is no longer connected to the system, reject |promise| with a
@@ -1010,8 +1010,8 @@ parallel:
   11. Resolve |promise| with |result|.
 
 The {{USBDevice/isochronousTransferIn(endpointNumber, packetLengths)}} method,
-when invoked, MUST return a new promise |promise| and run the following steps
-in parallel:
+when invoked, MUST return a new {{Promise}} |promise| and run the following
+steps in parallel:
 
   1. If the device is no longer connected to the system, reject |promise| with a
      {{NotFoundError}} and abort these steps.
@@ -1050,8 +1050,8 @@ in parallel:
   10. Resolve |promise| with |result|.
 
 The {{USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)}}
-method, when invoked, MUST return a new promise |promise| and run the following
-steps in parallel:
+method, when invoked, MUST return a new {{Promise}} |promise| and run the
+following steps in parallel:
 
   1. If the device is no longer connected to the system, reject |promise| with a
      {{NotFoundError}} and abort these steps.
@@ -1085,7 +1085,7 @@ steps in parallel:
           {{NetworkError}} and abort these steps.
   9. Resolve |promise| with |result|.
 
-The {{USBDevice/reset()}} method, when invoked, MUST return a new promise
+The {{USBDevice/reset()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps in parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
@@ -1423,4 +1423,14 @@ Object Store is described in section 9.6.2 of [[USB31]].
     "date": "26 July 2013"
   }
 }
+</pre>
+
+<pre class="anchors">
+spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
+    type: interface
+        text: Promise; url:sec-promise-objects
+        text: TypeError; url: sec-native-error-types-used-in-this-standard-typeerror
+spec: WebIDL; urlPrefix: https://heycam.github.io/webidl/#
+    type: typedef
+        text: BufferSource; url: common-BufferSource
 </pre>

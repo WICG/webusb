@@ -1914,7 +1914,7 @@ or, if tracked by the host operating system, when the host is shut down.</p>
    </ul>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-onconnect" id="ref-for-dom-usb-onconnect-1">onconnect</a></code> attribute is an Event handler IDL attribute for the <a data-link-type="dfn" href="#connect" id="ref-for-connect-1">connect</a> event type.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-ondisconnect" id="ref-for-dom-usb-ondisconnect-1">ondisconnect</a></code> attribute is an Event handler IDL attribute for the <a data-link-type="dfn" href="#disconnect" id="ref-for-disconnect-1">disconnect</a> event type.</p>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices-2">getDevices()</a></code> method, when invoked, MUST return a new promise and
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices-2">getDevices()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> and
 run the following steps in parallel:</p>
    <ol>
     <li data-md="">
@@ -1931,7 +1931,7 @@ run the following steps in parallel:</p>
     <li data-md="">
      <p>Resolve <var>promise</var> with <var>devices</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-2">requestDevice()</a></code> method, when invoked, MUST return a new promise <var>promise</var> and run the following steps in parallel:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-2">requestDevice()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>If the incumbent settings object is not a secure context, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these steps.</p>
@@ -2022,12 +2022,12 @@ environment:</p>
   Promise&lt;void> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="releaseInterface(interfaceNumber)" id="dom-usbdevice-releaseinterface">releaseInterface<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-releaseinterface">#dom-usbdevice-releaseinterface</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-releaseinterface-1">4. Device Usage</a> <a href="#ref-for-dom-usbdevice-releaseinterface-2">(2)</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/releaseInterface(interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbdevice-releaseinterface-interfacenumber-interfacenumber">interfaceNumber<a class="self-link" href="#dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"></a></dfn>);
   Promise&lt;void> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="selectAlternateInterface(interfaceNumber, alternateSetting)" id="dom-usbdevice-selectalternateinterface">selectAlternateInterface<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-selectalternateinterface">#dom-usbdevice-selectalternateinterface</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-selectalternateinterface-1">4. Device Usage</a></span><span><a href="#ref-for-dom-usbdevice-selectalternateinterface-2">4.3. Interfaces</a> <a href="#ref-for-dom-usbdevice-selectalternateinterface-3">(2)</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)" data-dfn-type="argument" data-export="" id="dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber">interfaceNumber<a class="self-link" href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber"></a></dfn>, octet <dfn class="idl-code" data-dfn-for="USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)" data-dfn-type="argument" data-export="" id="dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting">alternateSetting<a class="self-link" href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting"></a></dfn>);
   Promise&lt;<a data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult-1">USBInTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="controlTransferIn(setup, length)" id="dom-usbdevice-controltransferin">controlTransferIn<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-controltransferin">#dom-usbdevice-controltransferin</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-controltransferin-1">4. Device Usage</a></span></span></dfn>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters-1">USBControlTransferParameters</a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferIn(setup, length)" data-dfn-type="argument" data-export="" id="dom-usbdevice-controltransferin-setup-length-setup">setup<a class="self-link" href="#dom-usbdevice-controltransferin-setup-length-setup"></a></dfn>, unsigned short <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferIn(setup, length)" data-dfn-type="argument" data-export="" id="dom-usbdevice-controltransferin-setup-length-length">length<a class="self-link" href="#dom-usbdevice-controltransferin-setup-length-length"></a></dfn>);
-  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult-1">USBOutTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="controlTransferOut(setup, data)|controlTransferOut(setup)" id="dom-usbdevice-controltransferout">controlTransferOut<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-controltransferout">#dom-usbdevice-controltransferout</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-controltransferout-1">4. Device Usage</a></span></span></dfn>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters-2">USBControlTransferParameters</a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export="" id="dom-usbdevice-controltransferout-setup-data-setup">setup<a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-setup"></a></dfn>, optional <a data-link-type="idl-name">BufferSource</a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export="" id="dom-usbdevice-controltransferout-setup-data-data">data<a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-data"></a></dfn>);
+  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult-1">USBOutTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="controlTransferOut(setup, data)|controlTransferOut(setup)" id="dom-usbdevice-controltransferout">controlTransferOut<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-controltransferout">#dom-usbdevice-controltransferout</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-controltransferout-1">4. Device Usage</a></span></span></dfn>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters-2">USBControlTransferParameters</a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export="" id="dom-usbdevice-controltransferout-setup-data-setup">setup<a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-setup"></a></dfn>, optional <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-BufferSource">BufferSource</a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export="" id="dom-usbdevice-controltransferout-setup-data-data">data<a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-data"></a></dfn>);
   Promise&lt;void> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="clearHalt(direction, endpointNumber)" id="dom-usbdevice-clearhalt">clearHalt<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-clearhalt">#dom-usbdevice-clearhalt</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-clearhalt-1">4. Device Usage</a></span></span></dfn>(<a data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection-1">USBDirection</a> <dfn class="idl-code" data-dfn-for="USBDevice/clearHalt(direction, endpointNumber)" data-dfn-type="argument" data-export="" id="dom-usbdevice-clearhalt-direction-endpointnumber-direction">direction<a class="self-link" href="#dom-usbdevice-clearhalt-direction-endpointnumber-direction"></a></dfn>, octet <dfn class="idl-code" data-dfn-for="USBDevice/clearHalt(direction, endpointNumber)" data-dfn-type="argument" data-export="" id="dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber">endpointNumber<a class="self-link" href="#dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber"></a></dfn>);
   Promise&lt;<a data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult-2">USBInTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="transferIn(endpointNumber, length)" id="dom-usbdevice-transferin">transferIn<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-transferin">#dom-usbdevice-transferin</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-transferin-1">4. Device Usage</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/transferIn(endpointNumber, length)" data-dfn-type="argument" data-export="" id="dom-usbdevice-transferin-endpointnumber-length-endpointnumber">endpointNumber<a class="self-link" href="#dom-usbdevice-transferin-endpointnumber-length-endpointnumber"></a></dfn>, unsigned long <dfn class="idl-code" data-dfn-for="USBDevice/transferIn(endpointNumber, length)" data-dfn-type="argument" data-export="" id="dom-usbdevice-transferin-endpointnumber-length-length">length<a class="self-link" href="#dom-usbdevice-transferin-endpointnumber-length-length"></a></dfn>);
-  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult-2">USBOutTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="transferOut(endpointNumber, data)" id="dom-usbdevice-transferout">transferOut<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-transferout">#dom-usbdevice-transferout</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-transferout-1">4. Device Usage</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export="" id="dom-usbdevice-transferout-endpointnumber-data-endpointnumber">endpointNumber<a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber"></a></dfn>, <a data-link-type="idl-name">BufferSource</a> <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export="" id="dom-usbdevice-transferout-endpointnumber-data-data">data<a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-data"></a></dfn>);
+  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult-2">USBOutTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="transferOut(endpointNumber, data)" id="dom-usbdevice-transferout">transferOut<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-transferout">#dom-usbdevice-transferout</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-transferout-1">4. Device Usage</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export="" id="dom-usbdevice-transferout-endpointnumber-data-endpointnumber">endpointNumber<a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber"></a></dfn>, <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-BufferSource">BufferSource</a> <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export="" id="dom-usbdevice-transferout-endpointnumber-data-data">data<a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-data"></a></dfn>);
   Promise&lt;<a data-link-type="idl-name" href="#usbisochronousintransferresult" id="ref-for-usbisochronousintransferresult-1">USBIsochronousInTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="isochronousTransferIn(endpointNumber, packetLengths)" id="dom-usbdevice-isochronoustransferin">isochronousTransferIn<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-isochronoustransferin">#dom-usbdevice-isochronoustransferin</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-isochronoustransferin-1">4. Device Usage</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferIn(endpointNumber, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber">endpointNumber<a class="self-link" href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber"></a></dfn>, sequence&lt;unsigned long> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferIn(endpointNumber, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths">packetLengths<a class="self-link" href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths"></a></dfn>);
-  Promise&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferresult" id="ref-for-usbisochronousouttransferresult-1">USBIsochronousOutTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="isochronousTransferOut(endpointNumber, data, packetLengths)" id="dom-usbdevice-isochronoustransferout">isochronousTransferOut<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-isochronoustransferout">#dom-usbdevice-isochronoustransferout</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-isochronoustransferout-1">4. Device Usage</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber">endpointNumber<a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"></a></dfn>, <a data-link-type="idl-name">BufferSource</a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data">data<a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"></a></dfn>, sequence&lt;unsigned long> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths">packetLengths<a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"></a></dfn>);
+  Promise&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferresult" id="ref-for-usbisochronousouttransferresult-1">USBIsochronousOutTransferResult</a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="isochronousTransferOut(endpointNumber, data, packetLengths)" id="dom-usbdevice-isochronoustransferout">isochronousTransferOut<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-isochronoustransferout">#dom-usbdevice-isochronoustransferout</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-isochronoustransferout-1">4. Device Usage</a></span></span></dfn>(octet <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber">endpointNumber<a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"></a></dfn>, <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-BufferSource">BufferSource</a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data">data<a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"></a></dfn>, sequence&lt;unsigned long> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export="" id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths">packetLengths<a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"></a></dfn>);
   Promise&lt;void> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="reset()" id="dom-usbdevice-reset">reset<span class="dfn-panel" data-deco=""><b><a href="#dom-usbdevice-reset">#dom-usbdevice-reset</a></b><b>Referenced in:</b><span><a href="#ref-for-dom-usbdevice-reset-1">4. Device Usage</a></span></span></dfn>();
 };
 </pre>
@@ -2056,7 +2056,7 @@ the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descrip
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-manufacturername" id="ref-for-dom-usbdevice-manufacturername-1">manufacturerName</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-productname" id="ref-for-dom-usbdevice-productname-1">productName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-serialnumber" id="ref-for-dom-usbdevice-serialnumber-1">serialNumber</a></code> attributes SHOULD contain the values of the string
 descriptors referenced by the <code>iManufacturer</code>, <code>iProduct</code> and <code>iSerialNumber</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-6">device descriptor</a> if each
 is available.</p>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open-1">open()</a></code> method, when invoked, MUST return a new promise <var>promise</var> and run the following steps in parallel:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open-1">open()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-8">USBDevice</a></code> object.</p>
@@ -2071,7 +2071,7 @@ is available.</p>
     <li data-md="">
      <p>Set <code><var>device</var>.opened</code> to <code>true</code> and resolve <var>promise</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-close" id="ref-for-dom-usbdevice-close-1">close()</a></code> method, when invoked, MUST return a new promise <var>promise</var> and run the following steps in parallel:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-close" id="ref-for-dom-usbdevice-close-1">close()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-9">USBDevice</a></code> object.</p>
@@ -2094,7 +2094,7 @@ is available.</p>
      <p>Set <code><var>device</var>.opened</code> to <code>false</code> and resolve <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration-2">selectConfiguration(configurationValue)</a></code> method, when invoked,
-MUST return a new promise <var>promise</var> and run the following steps in
+MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md="">
@@ -2119,7 +2119,7 @@ parallel:</p>
      <p>Set <code><var>device</var>.configuration</code> to <var>configuration</var> and resolve <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface-1">claimInterface(interfaceNumber)</a></code> method, when invoked, MUST
-return a new promise and run the following steps in parallel:</p>
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>If the device is no longer connected to the system, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
@@ -2140,7 +2140,7 @@ return a new promise and run the following steps in parallel:</p>
      <p>Set <code><var>interface</var>.claimed</code> to <code>true</code> and resolve <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-releaseinterface" id="ref-for-dom-usbdevice-releaseinterface-2">releaseInterface(interfaceNumber)</a></code> method, when invoked, MUST
-return a new promise <var>promise</var> and run the following steps in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md="">
@@ -2160,7 +2160,7 @@ parallel:</p>
     <li data-md="">
      <p>Set <code><var>interface</var>.claimed</code> to <code>false</code> and resolve <var>promise</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface-1">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code> method, when invoked, MUST return a new promise <var>promise</var> and run the
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface-1">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the
 following steps in parallel:</p>
    <ol>
     <li data-md="">
@@ -2185,7 +2185,7 @@ following steps in parallel:</p>
      <p>Resolve <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-controltransferin" id="ref-for-dom-usbdevice-controltransferin-1">controlTransferIn(setup, length)</a></code> method, when invoked, MUST
-return a new promise <var>promise</var> and run the following steps in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md="">
@@ -2199,7 +2199,7 @@ parallel:</p>
  these steps if <var>promise</var> is rejected.</p>
     <li data-md="">
      <p>If <var>length</var> is greater than the <code>wMaxPacketSize0</code> field of the
- device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-7">device descriptor</a>, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl">TypeError</a></code> and abort these steps.</p>
+ device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-7">device descriptor</a>, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a></code> and abort these steps.</p>
     <li data-md="">
      <p>Let <var>result</var> be a new <code class="idl"><a data-link-type="idl" href="#usbintransferresult" id="ref-for-usbintransferresult-3">USBInTransferResult</a></code> and let <var>buffer</var> be a new <code class="idl"><a data-link-type="idl" href="https://www.khronos.org/registry/typedarray/specs/latest/#ArrayBuffer">ArrayBuffer</a></code> of <var>length</var> bytes.</p>
     <li data-md="">
@@ -2218,7 +2218,7 @@ parallel:</p>
      <p>Resolve <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-controltransferout" id="ref-for-dom-usbdevice-controltransferout-1">controlTransferOut(setup, data)</a></code> method, when invoked, must
-return a new promise <var>promise</var> and run the following steps in parallel:</p>
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>If the device is no longer connected to the system, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
@@ -2229,7 +2229,7 @@ return a new promise <var>promise</var> and run the following steps in parallel:
  these steps if <var>promise</var> is rejected.</p>
     <li data-md="">
      <p>If <code><var>data</var>.length</code> is greater than the <code>wMaxPacketSize0</code> field of the device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-8">device
- descriptor</a>, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl">TypeError</a></code> and abort these
+ descriptor</a>, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>Issue a control transfer with the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet-1">setup packet</a> populated by <var>setup</var> and the data transfer direction in <code>bmRequestType</code> set to "host
@@ -2247,7 +2247,7 @@ return a new promise <var>promise</var> and run the following steps in parallel:
      <p>Resolve <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-clearhalt" id="ref-for-dom-usbdevice-clearhalt-1">clearHalt(direction, endpointNumber)</a></code> method, when invoked,
-MUST return a new promise <var>promise</var> and run the following steps in parallel:</p>
+MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>If the device is no longer connected to the system, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
@@ -2264,7 +2264,7 @@ MUST return a new promise <var>promise</var> and run the following steps in para
      <p>On failure reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror">NetworkError</a></code>, otherwise resolve <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-transferin" id="ref-for-dom-usbdevice-transferin-1">transferIn(endpointNumber, length)</a></code> method, when invoked, MUST
-return a new promise <var>promise</var> and run the following steps in parallel:</p>
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>If the device is no longer connected to the system, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
@@ -2296,7 +2296,7 @@ return a new promise <var>promise</var> and run the following steps in parallel:
      <p>Resolve <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-transferout" id="ref-for-dom-usbdevice-transferout-1">transferOut(endpointNumber, data)</a></code> method, when invoked, MUST
-return a new promise <var>promise</var> and run the following steps in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md="">
@@ -2329,8 +2329,8 @@ parallel:</p>
      <p>Resolve <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferin" id="ref-for-dom-usbdevice-isochronoustransferin-1">isochronousTransferIn(endpointNumber, packetLengths)</a></code> method,
-when invoked, MUST return a new promise <var>promise</var> and run the following steps
-in parallel:</p>
+when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following
+steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>If the device is no longer connected to the system, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
@@ -2371,8 +2371,8 @@ in parallel:</p>
     <li data-md="">
      <p>Resolve <var>promise</var> with <var>result</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferout" id="ref-for-dom-usbdevice-isochronoustransferout-1">isochronousTransferOut(endpointNumber, data, packetLengths)</a></code> method, when invoked, MUST return a new promise <var>promise</var> and run the following
-steps in parallel:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferout" id="ref-for-dom-usbdevice-isochronoustransferout-1">isochronousTransferOut(endpointNumber, data, packetLengths)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the
+following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>If the device is no longer connected to the system, reject <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
@@ -2410,7 +2410,7 @@ steps in parallel:</p>
     <li data-md="">
      <p>Resolve <var>promise</var> with <var>result</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset-1">reset()</a></code> method, when invoked, MUST return a new promise <var>promise</var> and run the following steps in parallel:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset-1">reset()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in parallel:</p>
    <ol>
     <li data-md="">
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-14">USBDevice</a></code> object.</p>
@@ -3011,6 +3011,17 @@ allowed to access a device</a><span>, in §2.2.1</span>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
+    <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
+    <ul>
+     <li><a href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a>
+     <li><a href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[WebIDL-1]</a> defines the following terms:
+    <ul>
+     <li><a href="https://heycam.github.io/webidl/#common-BufferSource">BufferSource</a>
+    </ul>
+   <li>
     <a data-link-type="biblio">[WHATWG-DOM]</a> defines the following terms:
     <ul>
      <li><a href="https://dom.spec.whatwg.org/#event">Event</a>
@@ -3042,6 +3053,8 @@ allowed to access a device</a><span>, in §2.2.1</span>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-ecmascript">[ECMASCRIPT]
+   <dd><a href="https://tc39.github.io/ecma262/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.github.io/ecma262/">https://tc39.github.io/ecma262/</a>
    <dt id="biblio-html">[HTML]
    <dd>Ian Hickson. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]
@@ -3120,12 +3133,12 @@ interface <a href="#usbdevice">USBDevice</a> {
   Promise&lt;void> <a href="#dom-usbdevice-releaseinterface">releaseInterface</a>(octet <a href="#dom-usbdevice-releaseinterface-interfacenumber-interfacenumber">interfaceNumber</a>);
   Promise&lt;void> <a href="#dom-usbdevice-selectalternateinterface">selectAlternateInterface</a>(octet <a href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber">interfaceNumber</a>, octet <a href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting">alternateSetting</a>);
   Promise&lt;<a data-link-type="idl-name" href="#usbintransferresult">USBInTransferResult</a>> <a href="#dom-usbdevice-controltransferin">controlTransferIn</a>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters">USBControlTransferParameters</a> <a href="#dom-usbdevice-controltransferin-setup-length-setup">setup</a>, unsigned short <a href="#dom-usbdevice-controltransferin-setup-length-length">length</a>);
-  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult">USBOutTransferResult</a>> <a href="#dom-usbdevice-controltransferout">controlTransferOut</a>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters">USBControlTransferParameters</a> <a href="#dom-usbdevice-controltransferout-setup-data-setup">setup</a>, optional <a data-link-type="idl-name">BufferSource</a> <a href="#dom-usbdevice-controltransferout-setup-data-data">data</a>);
+  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult">USBOutTransferResult</a>> <a href="#dom-usbdevice-controltransferout">controlTransferOut</a>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters">USBControlTransferParameters</a> <a href="#dom-usbdevice-controltransferout-setup-data-setup">setup</a>, optional <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-BufferSource">BufferSource</a> <a href="#dom-usbdevice-controltransferout-setup-data-data">data</a>);
   Promise&lt;void> <a href="#dom-usbdevice-clearhalt">clearHalt</a>(<a data-link-type="idl-name" href="#enumdef-usbdirection">USBDirection</a> <a href="#dom-usbdevice-clearhalt-direction-endpointnumber-direction">direction</a>, octet <a href="#dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber">endpointNumber</a>);
   Promise&lt;<a data-link-type="idl-name" href="#usbintransferresult">USBInTransferResult</a>> <a href="#dom-usbdevice-transferin">transferIn</a>(octet <a href="#dom-usbdevice-transferin-endpointnumber-length-endpointnumber">endpointNumber</a>, unsigned long <a href="#dom-usbdevice-transferin-endpointnumber-length-length">length</a>);
-  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult">USBOutTransferResult</a>> <a href="#dom-usbdevice-transferout">transferOut</a>(octet <a href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber">endpointNumber</a>, <a data-link-type="idl-name">BufferSource</a> <a href="#dom-usbdevice-transferout-endpointnumber-data-data">data</a>);
+  Promise&lt;<a data-link-type="idl-name" href="#usbouttransferresult">USBOutTransferResult</a>> <a href="#dom-usbdevice-transferout">transferOut</a>(octet <a href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber">endpointNumber</a>, <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-BufferSource">BufferSource</a> <a href="#dom-usbdevice-transferout-endpointnumber-data-data">data</a>);
   Promise&lt;<a data-link-type="idl-name" href="#usbisochronousintransferresult">USBIsochronousInTransferResult</a>> <a href="#dom-usbdevice-isochronoustransferin">isochronousTransferIn</a>(octet <a href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber">endpointNumber</a>, sequence&lt;unsigned long> <a href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths">packetLengths</a>);
-  Promise&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferresult">USBIsochronousOutTransferResult</a>> <a href="#dom-usbdevice-isochronoustransferout">isochronousTransferOut</a>(octet <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber">endpointNumber</a>, <a data-link-type="idl-name">BufferSource</a> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data">data</a>, sequence&lt;unsigned long> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths">packetLengths</a>);
+  Promise&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferresult">USBIsochronousOutTransferResult</a>> <a href="#dom-usbdevice-isochronoustransferout">isochronousTransferOut</a>(octet <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber">endpointNumber</a>, <a data-link-type="idl-name" href="https://heycam.github.io/webidl/#common-BufferSource">BufferSource</a> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data">data</a>, sequence&lt;unsigned long> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths">packetLengths</a>);
   Promise&lt;void> <a href="#dom-usbdevice-reset">reset</a>();
 };
 
