@@ -88,7 +88,7 @@ contexts as described in [[powerful-features]] can access USB devices.
 This specification defines descriptors and commands the UA MAY use to
 gather information about the device specific to implementing this API.
 
-<h3 dfn id="platform-capability-descriptor">WebUSB Platform Capability Descriptor</h3>
+<h3 dfn>WebUSB Platform Capability Descriptor</h3>
 
 A device announces support for the WebUSB command set by including the
 following <a>Platform Descriptor</a> in its <a>Binary Object
@@ -185,7 +185,7 @@ specified in the <code>wIndex</code> field.
   </tr>
 </table>
 
-<h4 dfn id="get-allowed-origins">Get Allowed Origins</h4>
+<h4 dfn>Get Allowed Origins</h4>
 
 This request gets the set of origins allowed to access the device.
 It is analogous to the <code>Access-Control-Allow-Origin</code>
@@ -231,7 +231,7 @@ Header</a>.
   </tr>
 </table>
 
-<h4 dfn id="get-url">Get URL</h4>
+<h4 dfn>Get URL</h4>
 
 This request fetches the URL descriptor with the given index.
 
@@ -286,7 +286,7 @@ specification.
   </tr>
 </table>
 
-<h4 dfn id="allowed-origins-header">Allowed Origins Header</h4>
+<h4 dfn>Allowed Origins Header</h4>
 
 This header lists the set of origins allowed to access the entire
 USB device. It MUST be followed by <code>bNumConfigurations</code>
@@ -344,7 +344,7 @@ total length of the response.
   </tr>
 </table>
 
-<h4 dfn id="configuration-subset-header">Configuration Subset Header</h4>
+<h4 dfn>Configuration Subset Header</h4>
 
 This header lists the set of origins allowed to access the USB
 device configuration described by the <a>configuration
@@ -405,7 +405,7 @@ This descriptor MUST follow a <a>Allowed Origins Header</a>.
   </tr>
 </table>
 
-<h4 dfn id="function-subset-header">Function Subset Header</h4>
+<h4 dfn>Function Subset Header</h4>
 
 This header lists the set of origins allowed to access the USB
 device interface described by the <a>interface descriptor</a> with a
@@ -457,7 +457,7 @@ This descriptor MUST follow a <a>Configuration Subset Header</a>.
   </tr>
 </table>
 
-<h4 dfn id="url-descriptor">URL Descriptor</h4>
+<h4 dfn>URL Descriptor</h4>
 
 This descriptor contains a single URL and is returned by the <a>Get URL</a>
 request.

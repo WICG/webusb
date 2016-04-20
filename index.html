@@ -1407,7 +1407,7 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
     <li>
      <a href="#webusb-descriptors-and-requests"><span class="secno">2</span> <span class="content">WebUSB Descriptors and Requests</span></a>
      <ol class="toc">
-      <li><a href="#platform-capability-descriptor"><span class="secno">2.1</span> <span class="content">WebUSB Platform Capability Descriptor</span></a>
+      <li><a href="#webusb-platform-capability-descriptor"><span class="secno">2.1</span> <span class="content">WebUSB Platform Capability Descriptor</span></a>
       <li>
        <a href="#device-requests"><span class="secno">2.2</span> <span class="content">WebUSB Device Requests</span></a>
        <ol class="toc">
@@ -1506,7 +1506,7 @@ contexts as described in <a data-link-type="biblio" href="#biblio-powerful-featu
    <h2 class="heading settled" data-level="2" id="webusb-descriptors-and-requests"><span class="secno">2. </span><span class="content">WebUSB Descriptors and Requests</span><a class="self-link" href="#webusb-descriptors-and-requests"></a></h2>
    <p>This specification defines descriptors and commands the UA MAY use to
 gather information about the device specific to implementing this API.</p>
-   <h3 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.1" data-lt="WebUSB Platform Capability Descriptor" data-noexport="" id="platform-capability-descriptor"><span class="secno">2.1. </span><span class="content">WebUSB Platform Capability Descriptor</span><span class="dfn-panel" data-deco=""><b><a href="#platform-capability-descriptor">#platform-capability-descriptor</a></b><b>Referenced in:</b><span><a href="#ref-for-platform-capability-descriptor-1">2.2. WebUSB Device Requests</a></span><span><a href="#ref-for-platform-capability-descriptor-2">2.4. Public Device Registry</a></span></span></h3>
+   <h3 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.1" data-lt="WebUSB Platform Capability Descriptor" data-noexport="" id="webusb-platform-capability-descriptor"><span class="secno">2.1. </span><span class="content">WebUSB Platform Capability Descriptor</span><span class="dfn-panel" data-deco=""><b><a href="#webusb-platform-capability-descriptor">#webusb-platform-capability-descriptor</a></b><b>Referenced in:</b><span><a href="#ref-for-webusb-platform-capability-descriptor-1">2.2. WebUSB Device Requests</a></span><span><a href="#ref-for-webusb-platform-capability-descriptor-2">2.4. Public Device Registry</a></span></span></h3>
    <p>A device announces support for the WebUSB command set by including the
 following <a data-link-type="dfn" href="#platform-descriptor" id="ref-for-platform-descriptor-1">Platform Descriptor</a> in its <a data-link-type="dfn" href="#binary-object-store" id="ref-for-binary-object-store-1">Binary Object
 Store</a>:</p>
@@ -1570,7 +1570,7 @@ Store</a>:</p>
    <h3 class="heading settled" data-level="2.2" id="device-requests"><span class="secno">2.2. </span><span class="content">WebUSB Device Requests</span><a class="self-link" href="#device-requests"></a></h3>
    <p>All control transfers defined by this specification are considered to
 be vendor-specific requests. The <code>bVendorCode</code> value found
-in the <a data-link-type="dfn" href="#platform-capability-descriptor" id="ref-for-platform-capability-descriptor-1">WebUSB Platform Capability Descriptor</a> provides the UA
+in the <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor-1">WebUSB Platform Capability Descriptor</a> provides the UA
 with the <code>bRequest</code> the device expects the host to use when
 issuing control transfers these requests. The request type is then
 specified in the <code>wIndex</code> field.</p>
@@ -1850,7 +1850,7 @@ equal <code>bFirstInterfaceNumber</code>.</p>
       <td>"https://"
    </table>
    <h3 class="heading settled" data-level="2.4" id="public-device-registry"><span class="secno">2.4. </span><span class="content">Public Device Registry</span><a class="self-link" href="#public-device-registry"></a></h3>
-   <p>The <a data-link-type="dfn" href="#platform-capability-descriptor" id="ref-for-platform-capability-descriptor-2">WebUSB Platform Capability Descriptor</a> and descriptors
+   <p>The <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor-2">WebUSB Platform Capability Descriptor</a> and descriptors
 returned by the requests defined above can be elided by publishing
 this information in a public registry of supported USB devices. This
 will allow device manufacturers to support WebUSB on existing devices.</p>
@@ -3006,7 +3006,7 @@ allowed to access a device</a><span>, in §2.2.1</span>
      <li><a href="#dom-usbdevicefilter-vendorid">dict-member for USBDeviceFilter</a><span>, in §3</span>
      <li><a href="#dom-usbdevice-vendorid">attribute for USBDevice</a><span>, in §4</span>
     </ul>
-   <li><a href="#platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §2</span>
+   <li><a href="#webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §2</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
