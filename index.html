@@ -1407,20 +1407,20 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
     <li>
      <a href="#webusb-descriptors-and-requests"><span class="secno">2</span> <span class="content">WebUSB Descriptors and Requests</span></a>
      <ol class="toc">
-      <li><a href="#platform-capability-descriptor"><span class="secno">2.1</span> <span class="content"><span>WebUSB Platform Capability Descriptor</span></span></a>
+      <li><a href="#platform-capability-descriptor"><span class="secno">2.1</span> <span class="content">WebUSB Platform Capability Descriptor</span></a>
       <li>
        <a href="#device-requests"><span class="secno">2.2</span> <span class="content">WebUSB Device Requests</span></a>
        <ol class="toc">
-        <li><a href="#get-allowed-origins-section"><span class="secno">2.2.1</span> <span class="content"><span>Get Allowed Origins</span></span></a>
-        <li><a href="#get-url-request"><span class="secno">2.2.2</span> <span class="content"><span>Get URL</span></span></a>
+        <li><a href="#get-allowed-origins"><span class="secno">2.2.1</span> <span class="content">Get Allowed Origins</span></a>
+        <li><a href="#get-url"><span class="secno">2.2.2</span> <span class="content">Get URL</span></a>
        </ol>
       <li>
        <a href="#webusb-descriptors"><span class="secno">2.3</span> <span class="content">WebUSB Descriptors</span></a>
        <ol class="toc">
-        <li><a href="#allowed-origins"><span class="secno">2.3.1</span> <span class="content"><span>Allowed Origins Header</span></span></a>
-        <li><a href="#configuration-subset"><span class="secno">2.3.2</span> <span class="content"><span>Configuration Subset Header</span></span></a>
-        <li><a href="#function-subset"><span class="secno">2.3.3</span> <span class="content"><span>Function Subset Header</span></span></a>
-        <li><a href="#url-descriptor-section"><span class="secno">2.3.4</span> <span class="content"><span>URL Descriptor</span></span></a>
+        <li><a href="#allowed-origins-header"><span class="secno">2.3.1</span> <span class="content">Allowed Origins Header</span></a>
+        <li><a href="#configuration-subset-header"><span class="secno">2.3.2</span> <span class="content">Configuration Subset Header</span></a>
+        <li><a href="#function-subset-header"><span class="secno">2.3.3</span> <span class="content">Function Subset Header</span></a>
+        <li><a href="#url-descriptor"><span class="secno">2.3.4</span> <span class="content">URL Descriptor</span></a>
        </ol>
       <li><a href="#public-device-registry"><span class="secno">2.4</span> <span class="content">Public Device Registry</span></a>
      </ol>
@@ -1506,7 +1506,7 @@ contexts as described in <a data-link-type="biblio" href="#biblio-powerful-featu
    <h2 class="heading settled" data-level="2" id="webusb-descriptors-and-requests"><span class="secno">2. </span><span class="content">WebUSB Descriptors and Requests</span><a class="self-link" href="#webusb-descriptors-and-requests"></a></h2>
    <p>This specification defines descriptors and commands the UA MAY use to
 gather information about the device specific to implementing this API.</p>
-   <h3 class="heading settled" data-level="2.1" id="platform-capability-descriptor"><span class="secno">2.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="WebUSB Platform Capability Descriptor" data-noexport="" id="webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor<span class="dfn-panel" data-deco=""><b><a href="#webusb-platform-capability-descriptor">#webusb-platform-capability-descriptor</a></b><b>Referenced in:</b><span><a href="#ref-for-webusb-platform-capability-descriptor-1">2.2. WebUSB Device Requests</a></span><span><a href="#ref-for-webusb-platform-capability-descriptor-2">2.4. Public Device Registry</a></span></span></dfn></span><a class="self-link" href="#platform-capability-descriptor"></a></h3>
+   <h3 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.1" data-lt="WebUSB Platform Capability Descriptor" data-noexport="" id="platform-capability-descriptor"><span class="secno">2.1. </span><span class="content">WebUSB Platform Capability Descriptor</span><span class="dfn-panel" data-deco=""><b><a href="#platform-capability-descriptor">#platform-capability-descriptor</a></b><b>Referenced in:</b><span><a href="#ref-for-platform-capability-descriptor-1">2.2. WebUSB Device Requests</a></span><span><a href="#ref-for-platform-capability-descriptor-2">2.4. Public Device Registry</a></span></span></h3>
    <p>A device announces support for the WebUSB command set by including the
 following <a data-link-type="dfn" href="#platform-descriptor" id="ref-for-platform-descriptor-1">Platform Descriptor</a> in its <a data-link-type="dfn" href="#binary-object-store" id="ref-for-binary-object-store-1">Binary Object
 Store</a>:</p>
@@ -1570,7 +1570,7 @@ Store</a>:</p>
    <h3 class="heading settled" data-level="2.2" id="device-requests"><span class="secno">2.2. </span><span class="content">WebUSB Device Requests</span><a class="self-link" href="#device-requests"></a></h3>
    <p>All control transfers defined by this specification are considered to
 be vendor-specific requests. The <code>bVendorCode</code> value found
-in the <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor-1">WebUSB Platform Capability Descriptor</a> provides the UA
+in the <a data-link-type="dfn" href="#platform-capability-descriptor" id="ref-for-platform-capability-descriptor-1">WebUSB Platform Capability Descriptor</a> provides the UA
 with the <code>bRequest</code> the device expects the host to use when
 issuing control transfers these requests. The request type is then
 specified in the <code>wIndex</code> field.</p>
@@ -1587,7 +1587,7 @@ specified in the <code>wIndex</code> field.</p>
       <td>GET_URL
       <td>2
    </table>
-   <h4 class="heading settled" data-level="2.2.1" id="get-allowed-origins-section"><span class="secno">2.2.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Get Allowed Origins" data-noexport="" id="get-allowed-origins">Get Allowed Origins<span class="dfn-panel" data-deco=""><b><a href="#get-allowed-origins">#get-allowed-origins</a></b><b>Referenced in:</b><span><a href="#ref-for-get-allowed-origins-1">2.3.1. Allowed Origins Header</a></span><span><a href="#ref-for-get-allowed-origins-2">3. Device Enumeration</a></span></span></dfn></span><a class="self-link" href="#get-allowed-origins-section"></a></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.2.1" data-lt="Get Allowed Origins" data-noexport="" id="get-allowed-origins"><span class="secno">2.2.1. </span><span class="content">Get Allowed Origins</span><span class="dfn-panel" data-deco=""><b><a href="#get-allowed-origins">#get-allowed-origins</a></b><b>Referenced in:</b><span><a href="#ref-for-get-allowed-origins-1">2.3.1. Allowed Origins Header</a></span><span><a href="#ref-for-get-allowed-origins-2">3. Device Enumeration</a></span></span></h4>
    <p>This request gets the set of origins allowed to access the device.
 It is analogous to the <code>Access-Control-Allow-Origin</code> header defined by <a data-link-type="biblio" href="#biblio-cors">[CORS]</a>.</p>
    <p>The device MUST respond with data beginning with a <a data-link-type="dfn" href="#allowed-origins-header" id="ref-for-allowed-origins-header-1">Allowed
@@ -1623,7 +1623,7 @@ Header</a>.</p>
       <td>Descriptor Length
       <td>Descriptor
    </table>
-   <h4 class="heading settled" data-level="2.2.2" id="get-url-request"><span class="secno">2.2.2. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Get URL" data-noexport="" id="get-url">Get URL<span class="dfn-panel" data-deco=""><b><a href="#get-url">#get-url</a></b><b>Referenced in:</b><span><a href="#ref-for-get-url-1">2.3.4. URL Descriptor</a></span></span></dfn></span><a class="self-link" href="#get-url-request"></a></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.2.2" data-lt="Get URL" data-noexport="" id="get-url"><span class="secno">2.2.2. </span><span class="content">Get URL</span><span class="dfn-panel" data-deco=""><b><a href="#get-url">#get-url</a></b><b>Referenced in:</b><span><a href="#ref-for-get-url-1">2.3.4. URL Descriptor</a></span></span></h4>
    <p>This request fetches the URL descriptor with the given index.</p>
    <p>The device MUST respond with the <a data-link-type="dfn" href="#url-descriptor" id="ref-for-url-descriptor-2">URL Descriptor</a> at the given
 index or stall the transfer if the index is invalid.</p>
@@ -1666,7 +1666,7 @@ specification.</p>
       <td>WEBUSB_URL
       <td>3
    </table>
-   <h4 class="heading settled" data-level="2.3.1" id="allowed-origins"><span class="secno">2.3.1. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Allowed Origins Header" data-noexport="" id="allowed-origins-header">Allowed Origins Header<span class="dfn-panel" data-deco=""><b><a href="#allowed-origins-header">#allowed-origins-header</a></b><b>Referenced in:</b><span><a href="#ref-for-allowed-origins-header-1">2.2.1. Get Allowed Origins</a> <a href="#ref-for-allowed-origins-header-2">(2)</a> <a href="#ref-for-allowed-origins-header-3">(3)</a> <a href="#ref-for-allowed-origins-header-4">(4)</a></span><span><a href="#ref-for-allowed-origins-header-5">2.3.2. Configuration Subset Header</a></span></span></dfn></span><a class="self-link" href="#allowed-origins"></a></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.3.1" data-lt="Allowed Origins Header" data-noexport="" id="allowed-origins-header"><span class="secno">2.3.1. </span><span class="content">Allowed Origins Header</span><span class="dfn-panel" data-deco=""><b><a href="#allowed-origins-header">#allowed-origins-header</a></b><b>Referenced in:</b><span><a href="#ref-for-allowed-origins-header-1">2.2.1. Get Allowed Origins</a> <a href="#ref-for-allowed-origins-header-2">(2)</a> <a href="#ref-for-allowed-origins-header-3">(3)</a> <a href="#ref-for-allowed-origins-header-4">(4)</a></span><span><a href="#ref-for-allowed-origins-header-5">2.3.2. Configuration Subset Header</a></span></span></h4>
    <p>This header lists the set of origins allowed to access the entire
 USB device. It MUST be followed by <code>bNumConfigurations</code> <a data-link-type="dfn" href="#configuration-subset-header" id="ref-for-configuration-subset-header-3">configuration subset headers</a> that control permission to
 access particular configurations.</p>
@@ -1712,7 +1712,7 @@ total length of the response.</p>
       <td>Number
       <td>Set of <code>bLength - 5</code> URL descriptor indicies.
    </table>
-   <h4 class="heading settled" data-level="2.3.2" id="configuration-subset"><span class="secno">2.3.2. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Configuration Subset Header" data-noexport="" id="configuration-subset-header">Configuration Subset Header<span class="dfn-panel" data-deco=""><b><a href="#configuration-subset-header">#configuration-subset-header</a></b><b>Referenced in:</b><span><a href="#ref-for-configuration-subset-header-1">2.2.1. Get Allowed Origins</a> <a href="#ref-for-configuration-subset-header-2">(2)</a></span><span><a href="#ref-for-configuration-subset-header-3">2.3.1. Allowed Origins Header</a> <a href="#ref-for-configuration-subset-header-4">(2)</a></span><span><a href="#ref-for-configuration-subset-header-5">2.3.3. Function Subset Header</a></span></span></dfn></span><a class="self-link" href="#configuration-subset"></a></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.3.2" data-lt="Configuration Subset Header" data-noexport="" id="configuration-subset-header"><span class="secno">2.3.2. </span><span class="content">Configuration Subset Header</span><span class="dfn-panel" data-deco=""><b><a href="#configuration-subset-header">#configuration-subset-header</a></b><b>Referenced in:</b><span><a href="#ref-for-configuration-subset-header-1">2.2.1. Get Allowed Origins</a> <a href="#ref-for-configuration-subset-header-2">(2)</a></span><span><a href="#ref-for-configuration-subset-header-3">2.3.1. Allowed Origins Header</a> <a href="#ref-for-configuration-subset-header-4">(2)</a></span><span><a href="#ref-for-configuration-subset-header-5">2.3.3. Function Subset Header</a></span></span></h4>
    <p>This header lists the set of origins allowed to access the USB
 device configuration described by the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-1">configuration
 descriptor</a> with the given <code>bConfigurationValue</code>. It
@@ -1760,7 +1760,7 @@ configuration.</p>
       <td>Number
       <td>Set of <code>bLength - 4</code> URL descriptor indicies.
    </table>
-   <h4 class="heading settled" data-level="2.3.3" id="function-subset"><span class="secno">2.3.3. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="Function Subset Header" data-noexport="" id="function-subset-header">Function Subset Header<span class="dfn-panel" data-deco=""><b><a href="#function-subset-header">#function-subset-header</a></b><b>Referenced in:</b><span><a href="#ref-for-function-subset-header-1">2.2.1. Get Allowed Origins</a></span><span><a href="#ref-for-function-subset-header-2">2.3.2. Configuration Subset Header</a> <a href="#ref-for-function-subset-header-3">(2)</a></span></span></dfn></span><a class="self-link" href="#function-subset"></a></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.3.3" data-lt="Function Subset Header" data-noexport="" id="function-subset-header"><span class="secno">2.3.3. </span><span class="content">Function Subset Header</span><span class="dfn-panel" data-deco=""><b><a href="#function-subset-header">#function-subset-header</a></b><b>Referenced in:</b><span><a href="#ref-for-function-subset-header-1">2.2.1. Get Allowed Origins</a></span><span><a href="#ref-for-function-subset-header-2">2.3.2. Configuration Subset Header</a> <a href="#ref-for-function-subset-header-3">(2)</a></span></span></h4>
    <p>This header lists the set of origins allowed to access the USB
 device interface described by the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-1">interface descriptor</a> with a <code>bInterfaceNumber</code> equal to <code>bFirstInterfaceNumber</code> or the set of interfaces defined
 as a function by an <a data-link-type="dfn" href="#interface-association-descriptor" id="ref-for-interface-association-descriptor-1">interface association descriptor</a> with an
@@ -1800,7 +1800,7 @@ equal <code>bFirstInterfaceNumber</code>.</p>
       <td>Number
       <td>Set of <code>bLength - 3</code> URL descriptor indicies.
    </table>
-   <h4 class="heading settled" data-level="2.3.4" id="url-descriptor-section"><span class="secno">2.3.4. </span><span class="content"><dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="URL Descriptor" data-noexport="" id="url-descriptor">URL Descriptor<span class="dfn-panel" data-deco=""><b><a href="#url-descriptor">#url-descriptor</a></b><b>Referenced in:</b><span><a href="#ref-for-url-descriptor-1">2.2.1. Get Allowed Origins</a></span><span><a href="#ref-for-url-descriptor-2">2.2.2. Get URL</a></span></span></dfn></span><a class="self-link" href="#url-descriptor-section"></a></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="2.3.4" data-lt="URL Descriptor" data-noexport="" id="url-descriptor"><span class="secno">2.3.4. </span><span class="content">URL Descriptor</span><span class="dfn-panel" data-deco=""><b><a href="#url-descriptor">#url-descriptor</a></b><b>Referenced in:</b><span><a href="#ref-for-url-descriptor-1">2.2.1. Get Allowed Origins</a></span><span><a href="#ref-for-url-descriptor-2">2.2.2. Get URL</a></span></span></h4>
    <p>This descriptor contains a single URL and is returned by the <a data-link-type="dfn" href="#get-url" id="ref-for-get-url-1">Get URL</a> request.</p>
    <table>
     <tbody>
@@ -1850,7 +1850,7 @@ equal <code>bFirstInterfaceNumber</code>.</p>
       <td>"https://"
    </table>
    <h3 class="heading settled" data-level="2.4" id="public-device-registry"><span class="secno">2.4. </span><span class="content">Public Device Registry</span><a class="self-link" href="#public-device-registry"></a></h3>
-   <p>The <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor-2">WebUSB Platform Capability Descriptor</a> and descriptors
+   <p>The <a data-link-type="dfn" href="#platform-capability-descriptor" id="ref-for-platform-capability-descriptor-2">WebUSB Platform Capability Descriptor</a> and descriptors
 returned by the requests defined above can be elided by publishing
 this information in a public registry of supported USB devices. This
 will allow device manufacturers to support WebUSB on existing devices.</p>
@@ -2836,7 +2836,7 @@ Object Store is described in section 9.6.2 of <a data-link-type="biblio" href="#
   <ul class="index">
    <li><a href="#active-configuration">active configuration</a><span>, in §4.3</span>
    <li><a href="#allowed-devices-set">allowed devices set</a><span>, in §3</span>
-   <li><a href="#allowed-origins-header">Allowed Origins Header</a><span>, in §2.3.1</span>
+   <li><a href="#allowed-origins-header">Allowed Origins Header</a><span>, in §2.3</span>
    <li><a href="#dom-usbinterface-alternate">alternate</a><span>, in §4.3</span>
    <li><a href="#dom-usbinterface-alternates">alternates</a><span>, in §4.3</span>
    <li><a href="#dom-usbalternateinterface-alternatesetting">alternateSetting</a><span>, in §4.3</span>
@@ -2860,7 +2860,7 @@ Object Store is described in section 9.6.2 of <a data-link-type="biblio" href="#
    <li><a href="#configuration-descriptor">configuration descriptor</a><span>, in §5</span>
    <li><a href="#dom-usbconfiguration-configurationname">configurationName</a><span>, in §4.2</span>
    <li><a href="#dom-usbdevice-configurations">configurations</a><span>, in §4</span>
-   <li><a href="#configuration-subset-header">Configuration Subset Header</a><span>, in §2.3.2</span>
+   <li><a href="#configuration-subset-header">Configuration Subset Header</a><span>, in §2.3.1</span>
    <li><a href="#dom-usbconfiguration-configurationvalue">configurationValue</a><span>, in §4.2</span>
    <li><a href="#connect">connect</a><span>, in §3.1</span>
    <li><a href="#control-transfer">control transfer</a><span>, in §4.1</span>
@@ -2894,10 +2894,10 @@ Object Store is described in section 9.6.2 of <a data-link-type="biblio" href="#
    <li><a href="#dom-usbalternateinterface-endpoints">endpoints</a><span>, in §4.3</span>
    <li><a href="#enumerate-all-devices-attached-to-the-system">enumerate all devices attached to the system</a><span>, in §3</span>
    <li><a href="#dom-usbdevicerequestoptions-filters">filters</a><span>, in §3</span>
-   <li><a href="#function-subset-header">Function Subset Header</a><span>, in §2.3.3</span>
-   <li><a href="#get-allowed-origins">Get Allowed Origins</a><span>, in §2.2.1</span>
+   <li><a href="#function-subset-header">Function Subset Header</a><span>, in §2.3.2</span>
+   <li><a href="#get-allowed-origins">Get Allowed Origins</a><span>, in §2.2</span>
    <li><a href="#dom-usb-getdevices">getDevices()</a><span>, in §3</span>
-   <li><a href="#get-url">Get URL</a><span>, in §2.2.2</span>
+   <li><a href="#get-url">Get URL</a><span>, in §2.2.1</span>
    <li><a href="#dom-usbdevice-guid">guid</a><span>, in §4</span>
    <li><a href="#dom-usbdirection-in">"in"</a><span>, in §4.4</span>
    <li><a href="#dom-usbcontroltransferparameters-index">index</a><span>, in §4.1</span>
@@ -2968,7 +2968,7 @@ allowed to access a device</a><span>, in §2.2.1</span>
    <li><a href="#dom-usbdevice-transferin">transferIn(endpointNumber, length)</a><span>, in §4</span>
    <li><a href="#dom-usbdevice-transferout">transferOut(endpointNumber, data)</a><span>, in §4</span>
    <li><a href="#dom-usbendpoint-type">type</a><span>, in §4.4</span>
-   <li><a href="#url-descriptor">URL Descriptor</a><span>, in §2.3.4</span>
+   <li><a href="#url-descriptor">URL Descriptor</a><span>, in §2.3.3</span>
    <li><a href="#dom-navigator-usb">usb</a><span>, in §3</span>
    <li><a href="#usb">USB</a><span>, in §3</span>
    <li><a href="#usbalternateinterface">USBAlternateInterface</a><span>, in §4.3</span>
@@ -3006,7 +3006,7 @@ allowed to access a device</a><span>, in §2.2.1</span>
      <li><a href="#dom-usbdevicefilter-vendorid">dict-member for USBDeviceFilter</a><span>, in §3</span>
      <li><a href="#dom-usbdevice-vendorid">attribute for USBDevice</a><span>, in §4</span>
     </ul>
-   <li><a href="#webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §2.1</span>
+   <li><a href="#platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §2</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
