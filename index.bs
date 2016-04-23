@@ -6,7 +6,7 @@ Shortname: webusb
 Level: 1
 Editor: Reilly Grant, Google Inc., reillyg@google.com
 Editor: Ken Rockot, Google Inc., rockot@google.com
-Abstract: This document describes an API for direct access to Universal Serial Bus devices from web pages.
+Abstract: This document describes an API for securely providing access to Universal Serial Bus devices from web pages.
 Group: wicg
 </pre>
 
@@ -30,63 +30,105 @@ table td, table th {
 
 # Introduction # {#introduction}
 
-The Universal Serial Bus (USB) is the de-facto standard for wired
-peripherals. Most USB devices implement one of roughly a dozen standard
-"device classes" which specify a way for the device to advertize the
-features it supports and commands and data formats for using those
-features. Standard device classes include keyboard, mice, audio, video
-and storage devices. Operating systems support such devices using the
-"class driver" provided by the OS vendor. There is however a long tail
-of devices that do not fit into one of the standardized device classes.
-These devices require hardware vendors to write native drivers and SDKs
-in order for developers to take advantage of them and this native code
+The Universal Serial Bus (USB) is the de-facto standard for wired peripherals.
+Most USB devices implement one of roughly a dozen standard "device classes"
+which specify a way for the device to advertize the features it supports and
+commands and data formats for using those features. Standard device classes
+include keyboard, mice, audio, video and storage devices. Operating systems
+support such devices using the "class driver" provided by the OS vendor. There
+is however a long tail of devices that do not fit into one of the standardized
+device classes.  These devices require hardware vendors to write native drivers
+and SDKs in order for developers to take advantage of them and this native code
 prevents these devices from being used by the web.
 
-The WebUSB API provides a way to safely expose USB device services to
-the web. It provides an API familiar to developers who have used
-existing native USB libraries and exposes the device interfaces defined
-by existing specifications. With this API hardware manufacturers will
-have the ability to build cross-platform JavaScript SDKs for their
-devices. This will be good for the web because, instead of waiting for a
-new kind of device to be popular enough for browsers to provide a
-specific API, new and innovative hardware can be built for the web from
-day one.
+The WebUSB API provides a way to safely expose USB device services to the web.
+It provides an API familiar to developers who have used existing native USB
+libraries and exposes the device interfaces defined by existing specifications.
+With this API hardware manufacturers will have the ability to build
+cross-platform JavaScript SDKs for their devices. This will be good for the web
+because, instead of waiting for a new kind of device to be popular enough for
+browsers to provide a specific API, new and innovative hardware can be built
+for the web from day one.
 
-## Security and Privacy Considerations ## {#security-and-privacy}
+# Security and Privacy Considerations # {#security-and-privacy}
 
-USB hosts and devices historically trust each other. There are published
-attacks against USB devices that will accept unsigned firmware updates.
-These vulnerabilities permit an attacker to gain a foothold in the
-device and attack the original host or any other host to which they are
-later connected. For this reason WebUSB does not attempt to provide a
-mechanism for any web page to connect to arbitrary devices.
+The WebUSB API is a powerful feature and has the possibility to expose users to
+a number of new privacy and security risks. These risks can be broadly divided
+into three catagories that will be described in the sections below.
 
-Direct access to peripherals also poses a privacy risk. Knowing the make
-and model of connected devices provides additional bits of entropy for
-fingerprinting. If devices also posess some form of serial number then
-they can be uniquely identifying. Additionally a device may have access
-to data about its environment or directly store user data.
+## Abusing Access to a Device ## {#abusing-a-device}
 
-For this reason this specification outlines two mechanisms that can be
-combined by the UA before a site is granted access to a device. First,
-so that the device can protect itself from malicious sites it can
-provide a set of origins that are allowed to connect to it. These are
-similar to the [[CORS]] mechanism and can conceptually be thought of as
-treating USB devices as their own origins in the "usb" scheme.
-For devices manufacturered before this specificiation is adopted
-information about allowed origins and landing pages can also be provided
-out of band by being published in a public registry. Second, so that the
-user's privacy is protected the UA may prompt the user for authorization
-to allow a site to detect the presense of a device and connect to it.
+Peripheral devices can serve a number of purposes. They may store data, as a
+flash drive does. They may collect information about the outside world as a
+camera or microphone does. They may manipulate objects in the outside world as
+a printer does. Each of the examples above have high-level APIs in the web
+platform with security features that aim to prevent their abuse by a malicious
+website. Storing data to or from an external drive requires the user to select
+the file manually. Turning on the microphone or camera requires permission from
+the user and may activate an indicator to let the user know data collection is
+in progress. Printing a document requires explicit action as well. This API
+provides a generic mechanism to connect to devices not covered by these
+existing high-level APIs and so it requires a similarly generic mechanism for
+preventing a malicious page from abusing a device.
 
-To help ensure that only the entity the user approved for access
-actually has access, this specification requires that only secure
-contexts as described in [[powerful-features]] can access USB devices.
+The first of these protections is the {{USB/requestDevice()}} function. The UA
+may display a permission prompt when this function is called. Even for a
+non-malicous page this action also preserves user privacy by preventing a site
+from connecting to a device before the user is aware that such a connection is
+possible. The UA may also display an indicator when a device connection is
+active.
+
+Secondly, this specification requires that only secure contexts as described
+in [[powerful-features]] can access USB devices. This ensures both the
+authenticity of the code executing on behalf of the origin and that data read
+from the device may not be intercepted in transit.
+
+## Attacking a Device ## {#attacking-a-device}
+
+Historically, unless they were created for high security applications, USB
+devices have been designed to trust the host they are connected to and so the
+host is the traditional guardian of access to the capabilities a device
+provides. In the development of this specification two possibilities were
+considered. First, the UA could notify the device of the origin from which a
+request originated. This would be similar to the <code>Referrer</code> header
+included in HTTP request.  The difficulty of this approach is that it places
+the burden of access control on the device. Devices often have very limited
+processing and storage capabilities and so an effort was made to limit the
+amount of work necessary on the part of the device. The approach chosen by this
+specification is to instead require that the UA control access. This is done
+though a mechanism similiar to [[CORS]]. This specification defines a way for
+the device to provide the UA with a set of static data structures defining a
+set of origins that are allowed to connect to it. For devices manufactured
+before this specification is adopted information about allowed origins can also
+be provided out of band through a <a>public device registry</a>.
+
+A downside of this approach is that it provides no mechanism for third-party
+developers to use this API with a device. We encourage device manufacturers to
+enable software ecosystems to develop around their devices by providing a
+high-level API on top of the trusted code running on their own origin. Such an
+API could be accessed by embedding the manufacturer's trusted origin as an
+iframe within the developer's own site. The trusted origin retains control over
+the device through its ability to restrict the commands the third-party site
+can send through it.
+
+## Attacking the Host ## {#attacking-the-host}
+
+If a device is compromised then in addition to abusing its own capabilities
+the attacker may also use it to in turn attack the host to which it is connected
+or if the exploit is persistent any host it is connected to later. The methods
+above are the ways in which this specification attempts to mitigate this attack
+vector for once the device is under the control of an attacker (for example, by
+uploading a malicious firmware image) there is nothing that can be done by the
+UA to prevent further damage.
+
+This specification recommends device manufacturers practice defense in depth by
+designing their devices to only accept signed firmware updates and/or require
+physical access to the device in order to apply some configuration changes.
 
 # WebUSB Descriptors and Requests # {#webusb-descriptors-and-requests}
 
-This specification defines descriptors and commands the UA MAY use to
-gather information about the device specific to implementing this API.
+This specification defines descriptors and commands the UA MAY use to gather
+information about the device specific to implementing this API.
 
 <h3 dfn>WebUSB Platform Capability Descriptor</h3>
 
@@ -518,7 +560,7 @@ The <code>bScheme</code> field MUST be one of these values:
   </tr>
 </table>
 
-## Public Device Registry ## {#public-device-registry}
+<h3 dfn>Public Device Registry</h3>
 
 The <a>WebUSB Platform Capability Descriptor</a> and descriptors
 returned by the requests defined above can be elided by publishing
