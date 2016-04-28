@@ -1475,7 +1475,4 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
     type: interface
         text: Promise; url:sec-promise-objects
         text: TypeError; url: sec-native-error-types-used-in-this-standard-typeerror
-spec: WebIDL; urlPrefix: https://heycam.github.io/webidl/#
-    type: typedef
-        text: BufferSource; url: common-BufferSource
 </pre>
