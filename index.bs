@@ -974,12 +974,12 @@ The {{USBDevice/open()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps <a>in parallel</a>:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   3. If <code>|device|.opened</code> is <code>true</code> resolve |promise| and
      abort these steps.
   4. Perform the necessary platform-specific steps to begin a session with the
-     device. If these fail for any reason reject |promise| with a
+     device. If these fail for any reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
   5. Set <code>|device|.opened</code> to <code>true</code> and resolve
      |promise|.
@@ -988,12 +988,12 @@ The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps <a>in parallel</a>:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   3. If <code>|device|.opened</code> is <code>false</code> resolve |promise| and
      abort these steps.
-  4. Abort all other algorithms currently running against this device and reject
-     their associated promises with an {{AbortError}}.
+  4. Abort all other algorithms currently running against this device and
+     <a>reject</a> their associated promises with an {{AbortError}}.
   5. Perform the necessary platform-specific steps to release any claimed
      interfaces as if {{USBDevice/releaseInterface(interfaceNumber)}} had been
      called for each claimed interface.
@@ -1007,43 +1007,46 @@ MUST return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   3. Let |configuration| be the device configuration with
      <code>bConfigurationValue</code> equal to |configurationValue|. If no such
-     configuration exists, reject |promise| with a {{NotFoundError}} and abort
-     these steps.
-  4. If <code>|device|.opened</code> is not equal to <code>true</code> reject
-     |promise| with an {{InvalidStateError}} and abort these steps.
+     configuration exists, <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
+  4. If <code>|device|.opened</code> is not equal to <code>true</code>
+     <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
+     steps.
   5. The UA MAY check that the caller <a>is allowed to access
-     |configuration|</a>, and if not reject |promise| with a {{SecurityError}}
-     and abort these steps.
+     |configuration|</a>, and if not <a>reject</a> |promise| with a
+     {{SecurityError}} and abort these steps.
   6. Abort all transfers currently scheduled on endpoints other than the
-     <a>default control pipe</a> and reject their associated promises with a
-     {{AbortError}}.
+     <a>default control pipe</a> and <a>reject</a> their associated promises
+     with a {{AbortError}}.
   7. Issue a <code>SET_CONFIGURATION</code> control transfer to the device to
      set |configurationValue| as its <a>active configuration</a>.  If this step
-     fails reject |promise| with a {{NetworkError}} and abort these steps.
+     fails <a>reject</a> |promise| with a {{NetworkError}} and abort these
+     steps.
   8. Set <code>|device|.configuration</code> to |configuration| and resolve
      |promise|.
 
 The {{USBDevice/claimInterface(interfaceNumber)}} method, when invoked, MUST
 return a new {{Promise}} and run the following steps <a>in parallel</a>:
 
-  1. If the device is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   2. Let |interface| be the interface in the <a>active configuration</a> with
      <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
-     interface exists, reject |promise| with a {{NotFoundError}} and abort these
-     steps.
+     interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
   3. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
-  4. The UA MAY check that the caller <a>is allowed to access |interface|</a>,
-     and if not reject |promise| with a {{SecurityError}} and abort these steps.
-  5. Perform the necessary platform-specific steps to request exclusive control
-     over |interface|. If this fails, reject |promise| with a {{NetworkError}}
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
      and abort these steps.
+  4. The UA MAY check that the caller <a>is allowed to access |interface|</a>,
+     and if not <a>reject</a> |promise| with a {{SecurityError}} and abort these
+     steps.
+  5. Perform the necessary platform-specific steps to request exclusive control
+     over |interface|. If this fails, <a>reject</a> |promise| with a
+     {{NetworkError}} and abort these steps.
   6. Set <code>|interface|.claimed</code> to <code>true</code> and resolve
      |promise|.
 
@@ -1052,15 +1055,15 @@ return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   3. Let |interface| be the interface in the <a>active configuration</a> with
      <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
-     interface exists, reject |promise| with a {{NotFoundError}} and abort these
-     steps.
+     interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
   4. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
+     and abort these steps.
   5. Perform the necessary platform-specific steps to reliquish exclusive
      control over |interface|.
   6. Set <code>|interface|.claimed</code> to <code>false</code> and resolve
@@ -1071,21 +1074,22 @@ method, when invoked, MUST return a new {{Promise}} |promise| and run the
 following steps <a>in parallel</a>:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   3. Let |interface| be the interface in the <a>active configuration</a> with
      <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
-     interface exists, reject |promise| with a {{NotFoundError}} and abort these
-     steps.
+     interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
   4. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
+     and abort these steps.
   5. Abort all transfers currently scheduled on endpoints associated with the
-     previously selected alternate setting of |interface| and reject their
-     associated promises with a {{AbortError}}.
+     previously selected alternate setting of |interface| and <a>reject</a>
+     their associated promises with a {{AbortError}}.
   6. Issue a <code>SET_INTERFACE</code> control transfer to the device to set
      |alternateSetting| as the current configuration of |interface|. If this
-     step fails reject |promise| with a {{NetworkError}} and abort these steps.
+     step fails <a>reject</a> |promise| with a {{NetworkError}} and abort these
+     steps.
   7. Resolve |promise|.
 
 The {{USBDevice/controlTransferIn(setup, length)}} method, when invoked, MUST
@@ -1093,15 +1097,16 @@ return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
-  3. If <code>|device|.opened</code> is not equal to <code>true</code> reject
-     |promise| with an {{InvalidStateError}} and abort these steps.
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
+  3. If <code>|device|.opened</code> is not equal to <code>true</code>
+     <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
+     steps.
   4. <a>Check the validity of the control transfer parameters</a> and abort
      these steps if |promise| is rejected.
   5. If |length| is greater than the <code>wMaxPacketSize0</code> field of the
-     device's <a>device descriptor</a>, reject |promise| with a {{TypeError}}
-     and abort these steps.
+     device's <a>device descriptor</a>, <a>reject</a> |promise| with a
+     {{TypeError}} and abort these steps.
   6. Let |result| be a new {{USBInTransferResult}} and let |buffer| be a new
      {{ArrayBuffer}} of |length| bytes.
   7. Issue a control transfer with the setup packet parameters provided in
@@ -1114,23 +1119,24 @@ parallel:
      <code>|result|.status</code> to {{"stall"}}.
   10. If more than |length| bytes are received set <code>|result|.status</code>
       to {{"babble"}} and otherwise set it to {{"ok"}}.
-  11. If the transfer fails for any other reason reject |promise| with a
+  11. If the transfer fails for any other reason <a>reject</a> |promise| with a
       {{NetworkError}} and abort these steps.
   12. Resolve |promise| with |result|.
 
 The {{USBDevice/controlTransferOut(setup, data)}} method, when invoked, must
 return a new {{Promise}} |promise| and run the following steps <a>in parallel</a>:
 
-  1. If the device is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
-  2. If <code>|device|.opened</code> is not equal to <code>true</code> reject
-     |promise| with an {{InvalidStateError}} and abort these steps.
+  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
+  2. If <code>|device|.opened</code> is not equal to <code>true</code>
+     <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
+     steps.
   3. <a>Check the validity of the control transfer parameters</a> and abort
      these steps if |promise| is rejected.
   4. If <code>|data|.length</code> is greater than the
      <code>wMaxPacketSize0</code> field of the device's <a>device
-     descriptor</a>, reject |promise| with a {{TypeError}} and abort these
-     steps.
+     descriptor</a>, <a>reject</a> |promise| with a {{TypeError}} and abort
+     these steps.
   5. Issue a control transfer with the <a>setup packet</a> populated by |setup|
      and the data transfer direction in <code>bmRequestType</code> set to "host
      to device" and <code>wLength</code> set to <code>|data|.length</code>.
@@ -1141,41 +1147,41 @@ return a new {{Promise}} |promise| and run the following steps <a>in parallel</a
   8. If the device acknowledges the transfer set <code>|result|.status</code> to
      {{"ok"}} and <code>|result|.bytesWritten</code> to
      <code>|data|.length</code>.
-  9. If the transfer fails for any other reason reject |promise| with a
+  9. If the transfer fails for any other reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
   10. Resolve |promise| with |result|.
 
 The {{USBDevice/clearHalt(direction, endpointNumber)}} method, when invoked,
 MUST return a new {{Promise}} |promise| and run the following steps <a>in parallel</a>:
 
-  1. If the device is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   2. Let |endpoint| be the endpoint in the <a>active configuration</a> with
      <code>bEndpointAddress</code> corresponding to |direction| and
-     |endpointNumber|. If no such endpoint exists reject |promise| and abort
-     these steps.
+     |endpointNumber|. If no such endpoint exists <a>reject</a> |promise| and
+     abort these steps.
   3. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
+     and abort these steps.
   4. Issue a <code>CLEAR_FEATURE</code> control transfer to the device to clear
      the stall condition on |endpoint|.
-  5. On failure reject |promise| with a {{NetworkError}}, otherwise resolve
-     |promise|.
+  5. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
+     resolve |promise|.
 
 The {{USBDevice/transferIn(endpointNumber, length)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps <a>in parallel</a>:
 
-  1. If the device is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   2. Let |endpoint| be the IN endpoint in the <a>active configuration</a> with
      <code>bEndpointAddress</code> corresponding to |endpointNumber|. If there
-     is no such endpoint reject |promise| with a {{NotFoundError}} and abort
-     these steps.
-  3. If |endpoint| is not a bulk or interrupt endpoint reject |promise| with an
-     {{InvalidAccessError}} and abort these steps.
+     is no such endpoint <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
+  3. If |endpoint| is not a bulk or interrupt endpoint <a>reject</a> |promise|
+     with an {{InvalidAccessError}} and abort these steps.
   4. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
+     and abort these steps.
   5. As appropriate for |endpoint| enqueue a bulk or interrupt IN transfer on
      |endpoint| with a buffer sufficient to receive |length| bytes of data from
      the device.
@@ -1189,7 +1195,7 @@ return a new {{Promise}} |promise| and run the following steps <a>in parallel</a
      <code>|result|.status</code> to {{"stall"}}.
   10. If the device acknowledges the complete transfer set
       <code>|result|.status</code> to {{"ok"}}.
-  11. If the transfer fails for any other reason reject |promise| with a
+  11. If the transfer fails for any other reason <a>reject</a> |promise| with a
       {{NetworkError}} and abort these steps.
   12. Resolve |promise| with |result|.
 
@@ -1197,17 +1203,17 @@ The {{USBDevice/transferOut(endpointNumber, data)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
-  1. If the device is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   2. Let |endpoint| be the OUT endpoint in the <a>active configuration</a> with
      <code>bEndpointAddress</code> corresponding to |endpointNumber|. If there
-     is no such endpoint reject |promise| with a {{NotFoundError}} and abort
-     these steps.
-  3. If |endpoint| is not a bulk or interrupt endpoint reject |promise| with an
-     {{InvalidAccessError}} and abort these steps.
+     is no such endpoint <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
+  3. If |endpoint| is not a bulk or interrupt endpoint <a>reject</a> |promise|
+     with an {{InvalidAccessError}} and abort these steps.
   4. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
+     and abort these steps.
   5. As appropriate for |endpoint| enqueue a bulk or interrupt
      OUT transfer on |endpoint| to transmit |data| to the
      device.
@@ -1218,7 +1224,7 @@ parallel:
      {{"stall"}}.
   9. If the device acknowledges the complete transfer set
      <code>|result|.status</code> to {{"ok"}}.
-  10. If the transfer fails for any other reason reject |promise| with a
+  10. If the transfer fails for any other reason <a>reject</a> |promise| with a
       {{NetworkError}} and abort these steps.
   11. Resolve |promise| with |result|.
 
@@ -1226,17 +1232,17 @@ The {{USBDevice/isochronousTransferIn(endpointNumber, packetLengths)}} method,
 when invoked, MUST return a new {{Promise}} |promise| and run the following
 steps <a>in parallel</a>:
 
-  1. If the device is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   2. Let |endpoint| be the IN endpoint in the <a>active configuration</a> with
      <code>bEndpointAddress</code> corresponding to |endpointNumber|. If there
-     is no such endpoint reject |promise| with a {{NotFoundError}} and abort
-     these steps.
-  3. If |endpoint| is not an isochronous endpoint reject |promise| with an
-     {{InvalidAccessError}} and abort these steps.
+     is no such endpoint <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
+  3. If |endpoint| is not an isochronous endpoint <a>reject</a> |promise| with
+     an {{InvalidAccessError}} and abort these steps.
   4. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
+     and abort these steps.
   5. Let |length| be the sum of the elements of |packetLengths|.
   6. Let |buffer| be a new {{ArrayBuffer}} of |length| bytes.
   7. Let |result| be a new {{USBIsochronousInTransferResult}} and set
@@ -1258,25 +1264,25 @@ steps <a>in parallel</a>:
           <code>|packet|.status</code> to {{"stall"}}.
        5. If the device acknowledges the complete transfer set
           <code>|packet|.status</code> to {{"ok"}}.
-       6. If the transfer fails for any other reason reject |promise| with a
-          {{NetworkError}} and abort these steps.
+       6. If the transfer fails for any other reason <a>reject</a> |promise|
+          with a {{NetworkError}} and abort these steps.
   10. Resolve |promise| with |result|.
 
 The {{USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)}}
 method, when invoked, MUST return a new {{Promise}} |promise| and run the
 following steps <a>in parallel</a>:
 
-  1. If the device is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
+  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
   2. Let |endpoint| be the OUT endpoint in the <a>active configuration</a> with
      <code>bEndpointAddress</code> corresponding to |endpointNumber|. If there
-     is no such endpoint reject |promise| with a {{NotFoundError}} and abort
-     these steps.
-  3. If |endpoint| is not an isochronous endpoint reject |promise| with an
-     {{InvalidAccessError}} and abort these steps.
+     is no such endpoint <a>reject</a> |promise| with a {{NotFoundError}} and
+     abort these steps.
+  3. If |endpoint| is not an isochronous endpoint <a>reject</a> |promise| with
+     an {{InvalidAccessError}} and abort these steps.
   4. If <code>|device|.opened</code> or <code>|interface|.claimed</code> is not
-     <code>true</code>, reject |promise| with an {{InvalidStateError}} and abort
-     these steps.
+     <code>true</code>, <a>reject</a> |promise| with an {{InvalidStateError}}
+     and abort these steps.
   5. Let |length| be the sum of the elements of |packetLengths|.
   6. Let |result| be a new {{USBIsochronousOutTransferResult}}.
   7. Enqueue an isochronous OUT transfer on |endpoint| that will write |buffer|
@@ -1294,22 +1300,23 @@ following steps <a>in parallel</a>:
           <code>|packet|.status</code> to {{"stall"}}.
        4. If the device acknowledges the complete transfer set
           <code>|packet|.status</code> to {{"ok"}}.
-       5. If the transfer fails for any other reason reject |promise| with a
-          {{NetworkError}} and abort these steps.
+       5. If the transfer fails for any other reason <a>reject</a> |promise|
+          with a {{NetworkError}} and abort these steps.
   9. Resolve |promise| with |result|.
 
 The {{USBDevice/reset()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps <a>in parallel</a>:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, reject |promise| with a
-     {{NotFoundError}} and abort these steps.
-  3. If <code>|device|.opened</code> is not equal to <code>true</code> reject
-     |promise| with an {{InvalidStateError}} and abort these steps.
-  4. Abort all operations on the device and reject their associated promises
-     with an {{AbortError}}.
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+     with a {{NotFoundError}} and abort these steps.
+  3. If <code>|device|.opened</code> is not equal to <code>true</code>
+     <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
+     steps.
+  4. Abort all operations on the device and <a>reject</a> their associated
+     promises with an {{AbortError}}.
   5. Perform the necessary platform-specific operation to soft reset the device.
-  6. On failure reject |promise| with a {{NetworkError}}, otherwise
+  6. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
      resolve |promise|.
 
 Issue(36):
@@ -1416,19 +1423,21 @@ perform the following steps:
      not configured abort these steps.
   4. If <code>|setup|.recipient</code> is {{"device"}} or {{"other"}} the UA MAY
      check that the caller <a>is allowed to access |configuration|</a>, and if
-     not reject |promise| with a {{SecurityError}} and abort these steps.
+     not <a>reject</a> |promise| with a {{SecurityError}} and abort these steps.
   5. If <code>|setup|.recipient</code> is {{"interface"}}, perform the following
      steps:
        1. Let |interfaceNumber| be the lower 8 bits of
           <code>|setup|.index</code>.
        2. Let |interface| be the interface in the | configuration| with
           <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
-          interface exists, reject |promise| with a {{NotFoundError}} and abort
-          these steps.
+          interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
+          abort these steps.
        3. If <code>|interface|.claimed</code> is not equal to <code>true</code>,
-          reject |promise| with an {{InvalidStateError}} and abort these steps.
+          <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
+          steps.
        4. The UA MAY check that the caller <a>is allowed to access
-          |interface|</a>, and if not reject |promise| with a {{SecurityError}}.
+          |interface|</a>, and if not <a>reject</a> |promise| with a
+          {{SecurityError}}.
   6. If <code>|setup|.recipient</code> is {{"endpoint"}}, run the following
      steps:
        1. Let |endpointNumber| be defined as the lower 4 bits of
@@ -1438,14 +1447,14 @@ perform the following steps:
           otherwise.
        3. Let |endpoint| be the endpoint in the <a>active configuration</a> with
           <code>bEndpointAddress</code> corresponding to |direction| and
-          |endpointNumber|. If no such endpoint exists, reject |promise| with a
-          {{NotFoundError}} and abort these steps.
+          |endpointNumber|. If no such endpoint exists, <a>reject</a> |promise|
+          with a {{NotFoundError}} and abort these steps.
        4. Let |interface| be the interface in which |endpoint| is defined. If
           <code>|interface|.claimed</code> is not equal to <code>true</code>,
-          reject |promise| with an {{InvalidStateError}}.
+          <a>reject</a> |promise| with an {{InvalidStateError}}.
        5. The UA MAY check that the caller <a>is allowed to access
-          |interface|</a>, and if not reject |promise|
-          with a {{SecurityError}}.
+          |interface|</a>, and if not <a>reject</a> |promise| with a
+          {{SecurityError}}.
 
 ## Configurations ## {#configurations}
 
