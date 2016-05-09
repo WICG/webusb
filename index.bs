@@ -976,12 +976,12 @@ The {{USBDevice/open()}} method, when invoked, MUST return a new {{Promise}}
   1. Let |device| be the target {{USBDevice}} object.
   2. If |device| is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  3. If <code>|device|.opened</code> is <code>true</code> resolve |promise| and
-     abort these steps.
+  3. If <code>|device|.opened</code> is <code>true</code> <a>resolve</a>
+     |promise| and abort these steps.
   4. Perform the necessary platform-specific steps to begin a session with the
      device. If these fail for any reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
-  5. Set <code>|device|.opened</code> to <code>true</code> and resolve
+  5. Set <code>|device|.opened</code> to <code>true</code> and <a>resolve</a>
      |promise|.
 
 The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
@@ -990,8 +990,8 @@ The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
   1. Let |device| be the target {{USBDevice}} object.
   2. If |device| is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  3. If <code>|device|.opened</code> is <code>false</code> resolve |promise| and
-     abort these steps.
+  3. If <code>|device|.opened</code> is <code>false</code> <a>resolve</a>
+     |promise| and abort these steps.
   4. Abort all other algorithms currently running against this device and
      <a>reject</a> their associated promises with an {{AbortError}}.
   5. Perform the necessary platform-specific steps to release any claimed
@@ -999,7 +999,7 @@ The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
      called for each claimed interface.
   6. Perform the necessary platform-specific steps to end the session with the
      device.
-  7. Set <code>|device|.opened</code> to <code>false</code> and resolve
+  7. Set <code>|device|.opened</code> to <code>false</code> and <a>resolve</a>
      |promise|.
 
 The {{USBDevice/selectConfiguration(configurationValue)}} method, when invoked,
@@ -1026,8 +1026,8 @@ parallel:
      set |configurationValue| as its <a>active configuration</a>.  If this step
      fails <a>reject</a> |promise| with a {{NetworkError}} and abort these
      steps.
-  8. Set <code>|device|.configuration</code> to |configuration| and resolve
-     |promise|.
+  8. Set <code>|device|.configuration</code> to |configuration| and
+     <a>resolve</a> |promise|.
 
 The {{USBDevice/claimInterface(interfaceNumber)}} method, when invoked, MUST
 return a new {{Promise}} and run the following steps <a>in parallel</a>:
@@ -1047,8 +1047,8 @@ return a new {{Promise}} and run the following steps <a>in parallel</a>:
   5. Perform the necessary platform-specific steps to request exclusive control
      over |interface|. If this fails, <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
-  6. Set <code>|interface|.claimed</code> to <code>true</code> and resolve
-     |promise|.
+  6. Set <code>|interface|.claimed</code> to <code>true</code> and
+     <a>resolve</a> |promise|.
 
 The {{USBDevice/releaseInterface(interfaceNumber)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps in
@@ -1066,8 +1066,8 @@ parallel:
      and abort these steps.
   5. Perform the necessary platform-specific steps to reliquish exclusive
      control over |interface|.
-  6. Set <code>|interface|.claimed</code> to <code>false</code> and resolve
-     |promise|.
+  6. Set <code>|interface|.claimed</code> to <code>false</code> and
+     <a>resolve</a> |promise|.
 
 The {{USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)}}
 method, when invoked, MUST return a new {{Promise}} |promise| and run the
@@ -1090,7 +1090,7 @@ following steps <a>in parallel</a>:
      |alternateSetting| as the current configuration of |interface|. If this
      step fails <a>reject</a> |promise| with a {{NetworkError}} and abort these
      steps.
-  7. Resolve |promise|.
+  7. <a>Resolve</a> |promise|.
 
 The {{USBDevice/controlTransferIn(setup, length)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps in
@@ -1121,7 +1121,7 @@ parallel:
       to {{"babble"}} and otherwise set it to {{"ok"}}.
   11. If the transfer fails for any other reason <a>reject</a> |promise| with a
       {{NetworkError}} and abort these steps.
-  12. Resolve |promise| with |result|.
+  12. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/controlTransferOut(setup, data)}} method, when invoked, must
 return a new {{Promise}} |promise| and run the following steps <a>in parallel</a>:
@@ -1149,7 +1149,7 @@ return a new {{Promise}} |promise| and run the following steps <a>in parallel</a
      <code>|data|.length</code>.
   9. If the transfer fails for any other reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
-  10. Resolve |promise| with |result|.
+  10. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/clearHalt(direction, endpointNumber)}} method, when invoked,
 MUST return a new {{Promise}} |promise| and run the following steps <a>in parallel</a>:
@@ -1166,7 +1166,7 @@ MUST return a new {{Promise}} |promise| and run the following steps <a>in parall
   4. Issue a <code>CLEAR_FEATURE</code> control transfer to the device to clear
      the stall condition on |endpoint|.
   5. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
-     resolve |promise|.
+     <a>resolve</a> |promise|.
 
 The {{USBDevice/transferIn(endpointNumber, length)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps <a>in parallel</a>:
@@ -1197,7 +1197,7 @@ return a new {{Promise}} |promise| and run the following steps <a>in parallel</a
       <code>|result|.status</code> to {{"ok"}}.
   11. If the transfer fails for any other reason <a>reject</a> |promise| with a
       {{NetworkError}} and abort these steps.
-  12. Resolve |promise| with |result|.
+  12. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/transferOut(endpointNumber, data)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps in
@@ -1226,7 +1226,7 @@ parallel:
      <code>|result|.status</code> to {{"ok"}}.
   10. If the transfer fails for any other reason <a>reject</a> |promise| with a
       {{NetworkError}} and abort these steps.
-  11. Resolve |promise| with |result|.
+  11. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/isochronousTransferIn(endpointNumber, packetLengths)}} method,
 when invoked, MUST return a new {{Promise}} |promise| and run the following
@@ -1266,7 +1266,7 @@ steps <a>in parallel</a>:
           <code>|packet|.status</code> to {{"ok"}}.
        6. If the transfer fails for any other reason <a>reject</a> |promise|
           with a {{NetworkError}} and abort these steps.
-  10. Resolve |promise| with |result|.
+  10. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)}}
 method, when invoked, MUST return a new {{Promise}} |promise| and run the
@@ -1302,7 +1302,7 @@ following steps <a>in parallel</a>:
           <code>|packet|.status</code> to {{"ok"}}.
        5. If the transfer fails for any other reason <a>reject</a> |promise|
           with a {{NetworkError}} and abort these steps.
-  9. Resolve |promise| with |result|.
+  9. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/reset()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps <a>in parallel</a>:
@@ -1317,7 +1317,7 @@ The {{USBDevice/reset()}} method, when invoked, MUST return a new {{Promise}}
      promises with an {{AbortError}}.
   5. Perform the necessary platform-specific operation to soft reset the device.
   6. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
-     resolve |promise|.
+     <a>resolve</a> |promise|.
 
 Issue(36):
 What configuration is the device in after it resets?
