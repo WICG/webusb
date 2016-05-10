@@ -1,6 +1,6 @@
 <pre class="metadata">
 Title: WebUSB API
-Status: UD
+Status: ED
 ED: https://wicg.github.io/webusb
 Shortname: webusb
 Level: 1
