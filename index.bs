@@ -1050,8 +1050,8 @@ return a new {{Promise}} and run the following steps <a>in parallel</a>:
      <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
      interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
      abort these steps.
-  3. If <code>|device|.{{USBDevice/opened}}</code> or
-     <code>|interface|.{{USBInterface/claimed}}</code> is not <code>true</code>,
+  3. If <code>|device|.{{USBDevice/opened}}</code> is not <code>true</code> and
+     <code>|interface|.{{USBInterface/claimed}}</code> is not <code>false</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
   4. The UA MAY check that the caller <a>is allowed to access |interface|</a>,
