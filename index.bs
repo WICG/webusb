@@ -787,8 +787,13 @@ the UA MUST run the following steps:
 ## Events ## {#events}
 
 <pre class="idl">
+dictionary USBConnectionEventInit : EventInit {
+    required USBDevice device;
+};
+
+[Constructor(DOMString type, USBConnectionEventInit eventInitDict)]
 interface USBConnectionEvent : Event {
-  readonly attribute USBDevice device;
+  [SameObject] readonly attribute USBDevice device;
 };
 </pre>
 
