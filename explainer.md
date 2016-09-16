@@ -6,7 +6,7 @@ Today when you connect a device to your computer you hope that somehow it will f
 ## What is it not?
 WebUSB does not attempt to provide a general mechanism for any web page to connect to any USB device. Historically USB hosts and devices have trusted each other too much to let arbitrary pages connect to them. There are published attacks against USB devices that will accept unsigned firmware updates that cause them to become malicious and attack the host they are connected to; exploiting the trust relationship in both directions.
 
-Instead USB devices will be associated with a web origin and can only be connected to from a page from the same origin. New devices (or firmware updates) may include a list of acceptable origins that the user agent can query, similar to the CORS mechanism for HTTP requests. Device vendors may enable existing devices by registering them in an open directory mapping device IDs to acceptable origins.
+Instead, USB devices will be associated with a web origin and can only be connected to a page from the same origin. New devices (or firmware updates) may include a list of acceptable origins that the user agent can query, similar to the CORS mechanism for HTTP requests. Device vendors may enable existing devices by registering them in an open directory mapping device IDs to acceptable origins.
 
 ## An example: Web support for 3-D printers
 3D printers are all the rage these days but you can’t go on Thingiverse and hit `Ctrl-P` to print out any of the designs because user agents and the operating systems they run on have not implemented 3-D printer support.
