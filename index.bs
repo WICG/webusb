@@ -586,16 +586,15 @@ will allow device manufacturers to support WebUSB on existing devices.
   };
 
   [NoInterfaceObject]
-  interface USB {
+  interface USB : EventTarget {
     attribute EventHandler onconnect;
     attribute EventHandler ondisconnect;
     Promise&lt;sequence&lt;USBDevice>> getDevices();
     Promise&lt;USBDevice> requestDevice(USBDeviceRequestOptions options);
   };
-  USB implements EventTarget;
 
   partial interface Navigator {
-    readonly attribute USB usb;
+    [SameObject] readonly attribute USB usb;
   };
 </pre>
 
