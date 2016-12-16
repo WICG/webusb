@@ -585,7 +585,6 @@ will allow device manufacturers to support WebUSB on existing devices.
     required sequence&lt;USBDeviceFilter> filters;
   };
 
-  [NoInterfaceObject]
   interface USB : EventTarget {
     attribute EventHandler onconnect;
     attribute EventHandler ondisconnect;
