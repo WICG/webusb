@@ -579,6 +579,7 @@ will allow device manufacturers to support WebUSB on existing devices.
     octet classCode;
     octet subclassCode;
     octet protocolCode;
+    DOMString serialNumber;
   };
 
   dictionary USBDeviceRequestOptions {
@@ -614,16 +615,16 @@ A USB device |device| <dfn data-lt="match a filter">matches a filter</dfn>
        1. Let |desc| be |interface|'s <a>interface descriptor</a>.
        2. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present
           then, if <code>|desc|.bInterfaceClass</code> is not equal to
-          <code>|filter|.{{USBDeviceFilter/classCode}}</code>, return
-          <code>mismatch</code>.
+          <code>|filter|.{{USBDeviceFilter/classCode}}</code>, continue to
+          the next interface.
        3. If <code>|filter|.{{USBDeviceFilter/subclassCode}}</code> is present
           then, if <code>|desc|.bInterfaceSubClass</code> is not equal to
-          <code>|filter|.{{USBDeviceFilter/subclassCode}}</code>, return
-          <code>mismatch</code>.
+          <code>|filter|.{{USBDeviceFilter/subclassCode}}</code>, continue to
+          the next interface.
        4. If <code>|filter|.{{USBDeviceFilter/protocolCode}}</code> is present
           then, if <code>|desc|.bInterfaceProtocol</code> is not equal to
-          <code>|filter|.{{USBDeviceFilter/protocolCode}}</code>, return
-          <code>mismatch</code>.
+          <code>|filter|.{{USBDeviceFilter/protocolCode}}</code>, continue to
+          the next interface.
        5. Return <code>match</code>.
   5. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present then, if
      <code>|deviceDesc|.bDeviceClass</code> is not equal to
@@ -637,7 +638,13 @@ A USB device |device| <dfn data-lt="match a filter">matches a filter</dfn>
      if <code>|deviceDesc|.bDeviceProtocol</code> is not equal to
      <code>|filter|.{{USBDeviceFilter/protocolCode}}</code>, return
      <code>mismatch</code>.
-  8. Return <code>match</code>.
+  8. If <code>|filter|.{{USBDeviceFilter/serialNumber}}</code> is present then,
+     let |serialNumber| be the <a>string descriptor</a> with index
+     <code>|deviceDesc|.iSerialNumber</code>. If |device| returns an error when
+     requesting |serialNumber| or |serialNumber| is not equal to
+     <code>|filter|.{{USBDeviceFilter/serialNumber}}</code>, return
+     <code>mismatch</code>.
+  9. Return <code>match</code>.
 
 A {{USBDeviceFilter}} |filter|
 <dfn data-lt="is not a valid filter">is valid</dfn> if the following steps

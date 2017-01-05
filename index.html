@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 190a4fcba8ed9462253188b3415e5074949e11bd" name="generator">
+  <meta content="Bikeshed version 176d39d5a285c04f57d2f0e078fa69273028eb45" name="generator">
 <style>
 table {
   border-collapse: collapse;
@@ -1440,12 +1440,13 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2016-12-15">15 December 2016</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-01-05">5 January 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://wicg.github.io/webusb">https://wicg.github.io/webusb</a>
      <dt>Issue Tracking:
+     <dd><a href="https://github.com/wicg/webusb/issues/">GitHub</a>
      <dd><a href="#issues-index">Inline In Spec</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:reillyg@google.com">Reilly Grant</a> (<span class="p-org org">Google Inc.</span>)
@@ -1981,13 +1982,13 @@ will allow device manufacturers to support WebUSB on existing devices.</p>
   <span class="kt">octet</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export="" data-type="octet " id="dom-usbdevicefilter-classcode">classCode</dfn>;
   <span class="kt">octet</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export="" data-type="octet " id="dom-usbdevicefilter-subclasscode">subclassCode</dfn>;
   <span class="kt">octet</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export="" data-type="octet " id="dom-usbdevicefilter-protocolcode">protocolCode</dfn>;
+  <span class="kt">DOMString</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-usbdevicefilter-serialnumber">serialNumber</dfn>;
 };
 
 <span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbdevicerequestoptions">USBDeviceRequestOptions</dfn> {
   <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter-1">USBDeviceFilter</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceRequestOptions" data-dfn-type="dict-member" data-export="" data-type="sequence<USBDeviceFilter> " id="dom-usbdevicerequestoptions-filters">filters</dfn>;
 };
 
-[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NoInterfaceObject">NoInterfaceObject</a>]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usb">USB</dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="attribute" data-export="" data-type="EventHandler" id="dom-usb-onconnect">onconnect</dfn>;
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="attribute" data-export="" data-type="EventHandler" id="dom-usb-ondisconnect">ondisconnect</dfn>;
@@ -2015,13 +2016,16 @@ will allow device manufacturers to support WebUSB on existing devices.</p>
        <p>Let <var>desc</var> be <var>interface</var>’s <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-2">interface descriptor</a>.</p>
       <li data-md="">
        <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode-2">classCode</a></code></code> is present
-  then, if <code><var>desc</var>.bInterfaceClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode-3">classCode</a></code></code>, return <code>mismatch</code>.</p>
+  then, if <code><var>desc</var>.bInterfaceClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode-3">classCode</a></code></code>, continue to
+  the next interface.</p>
       <li data-md="">
        <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode-1">subclassCode</a></code></code> is present
-  then, if <code><var>desc</var>.bInterfaceSubClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode-2">subclassCode</a></code></code>, return <code>mismatch</code>.</p>
+  then, if <code><var>desc</var>.bInterfaceSubClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode-2">subclassCode</a></code></code>, continue to
+  the next interface.</p>
       <li data-md="">
        <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode-1">protocolCode</a></code></code> is present
-  then, if <code><var>desc</var>.bInterfaceProtocol</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode-2">protocolCode</a></code></code>, return <code>mismatch</code>.</p>
+  then, if <code><var>desc</var>.bInterfaceProtocol</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode-2">protocolCode</a></code></code>, continue to
+  the next interface.</p>
       <li data-md="">
        <p>Return <code>match</code>.</p>
      </ol>
@@ -2033,6 +2037,10 @@ will allow device manufacturers to support WebUSB on existing devices.</p>
     <li data-md="">
      <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode-3">protocolCode</a></code></code> is present then,
  if <code><var>deviceDesc</var>.bDeviceProtocol</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode-4">protocolCode</a></code></code>, return <code>mismatch</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-serialnumber" id="ref-for-dom-usbdevicefilter-serialnumber-1">serialNumber</a></code></code> is present then,
+ let <var>serialNumber</var> be the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-1">string descriptor</a> with index <code><var>deviceDesc</var>.iSerialNumber</code>. If <var>device</var> returns an error when
+ requesting <var>serialNumber</var> or <var>serialNumber</var> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-serialnumber" id="ref-for-dom-usbdevicefilter-serialnumber-2">serialNumber</a></code></code>, return <code>mismatch</code>.</p>
     <li data-md="">
      <p>Return <code>match</code>.</p>
    </ol>
@@ -2349,7 +2357,7 @@ supported by the device. These configurations SHALL be populated from the
 configuration descriptors reported by the device and the number of elements in
 this list SHALL match the value of the <code>bNumConfigurations</code> field of
 the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-5">device descriptor</a>.</p>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-manufacturername" id="ref-for-dom-usbdevice-manufacturername-1">manufacturerName</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-productname" id="ref-for-dom-usbdevice-productname-1">productName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-serialnumber" id="ref-for-dom-usbdevice-serialnumber-1">serialNumber</a></code> attributes SHOULD contain the values of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-1">string
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-manufacturername" id="ref-for-dom-usbdevice-manufacturername-1">manufacturerName</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-productname" id="ref-for-dom-usbdevice-productname-1">productName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-serialnumber" id="ref-for-dom-usbdevice-serialnumber-1">serialNumber</a></code> attributes SHOULD contain the values of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-2">string
 descriptors</a> indexed by the <code>iManufacturer</code>, <code>iProduct</code> and <code>iSerialNumber</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-6">device descriptor</a> if each is
 defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open-1">open()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
@@ -2730,7 +2738,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md="">
      <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
    </ol>
-   <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets?</p>
+   <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/wicg/webusb/issues/36">&lt;https://github.com/wicg/webusb/issues/36></a></p>
    <h3 class="heading settled" data-level="5.1" id="transfers"><span class="secno">5.1. </span><span class="content">Transfers</span><a class="self-link" href="#transfers"></a></h3>
 <pre class="idl highlight def"><span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbrequesttype">USBRequestType</dfn> {
   <dfn class="s idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" data-lt="&quot;standard&quot;|standard" id="dom-usbrequesttype-standard">"standard"<a class="self-link" href="#dom-usbrequesttype-standard"></a></dfn>,
@@ -2859,11 +2867,11 @@ vendor.</p>
    <p>Each device configuration SHALL have a unique
 {{USBConfiguration/configurationValue} that matches the <code>bConfigurationValue</code> fields of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-2">configuration descriptor</a> that defines it.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-configurationname" id="ref-for-dom-usbconfiguration-configurationname-1">configurationName</a></code> attribute SHOULD contain the value
-of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-2">string descriptor</a> referenced by the <code>iConfiguration</code> field of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-3">configuration descriptor</a>, if defined.</p>
+of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-3">string descriptor</a> referenced by the <code>iConfiguration</code> field of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-3">configuration descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces-1">interfaces</a></code> attribute SHALL contain a list of
 interfaces exposed by this device configuration. These interfaces SHALL by
 populated from the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-3">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-4">configuration descriptor</a>.</p>
-   <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations.</p>
+   <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/wicg/webusb/issues/46">&lt;https://github.com/wicg/webusb/issues/46></a></p>
    <h3 class="heading settled" data-level="5.3" id="interfaces"><span class="secno">5.3. </span><span class="content">Interfaces</span><a class="self-link" href="#interfaces"></a></h3>
 <pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="constructor" data-export="" data-lt="USBInterface(configuration, interfaceNumber)" id="dom-usbinterface-usbinterface">Constructor<a class="self-link" href="#dom-usbinterface-usbinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration-3">USBConfiguration</a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-configuration">configuration<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"></a></dfn>, <span class="kt">octet</span> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber">interfaceNumber<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbinterface">USBInterface</dfn> {
@@ -2897,7 +2905,7 @@ communication interface supported by the interface. They MUST correspond
 respectively to the values of the <code>bInterfaceClass</code>, <code>bInterfaceSubClass</code> and <code>bInterfaceProtocol</code> fields of
 the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-6">interface descriptor</a>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfacename" id="ref-for-dom-usbalternateinterface-interfacename-1">interfaceName</a></code> attribute SHOULD contain the value
-of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-3">string descriptor</a> indexed by the <code>iInterface</code> field of
+of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-4">string descriptor</a> indexed by the <code>iInterface</code> field of
 the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-7">interface descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-endpoints" id="ref-for-dom-usbalternateinterface-endpoints-1">endpoints</a></code> attribute SHALL contain a list of
 endpoints exposed by this interface. These endpoints SHALL by populated from
@@ -2991,7 +2999,7 @@ one or more <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for
 assigned to the device manufacturer by the USB-IF and is stored in the <code>idVendor</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-10">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="product ID" data-noexport="" id="product-id">product
 ID</dfn> is assigned by the manufacturer and is stored in the <code>idProduct</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-11">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="serial number" data-noexport="" id="serial-number">serial
 number</dfn> is an optional property that is defined if the <code>iSerialNumber</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-12">device descriptor</a> is not equal
-to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-4">string descriptor</a> referred to by that index.</p>
+to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-5">string descriptor</a> referred to by that index.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -3294,6 +3302,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <li>
     serialNumber
     <ul>
+     <li><a href="#dom-usbdevicefilter-serialnumber">dict-member for USBDeviceFilter</a><span>, in §4</span>
      <li><a href="#dom-allowedusbdevice-serialnumber">dict-member for AllowedUSBDevice</a><span>, in §4.2</span>
      <li><a href="#dom-usbdevice-serialnumber">attribute for USBDevice</a><span>, in §5</span>
     </ul>
@@ -3427,7 +3436,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a>
      <li><a href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a>
      <li><a href="https://heycam.github.io/webidl/#networkerror">NetworkError</a>
-     <li><a href="https://heycam.github.io/webidl/#NoInterfaceObject">NoInterfaceObject</a>
      <li><a href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a>
      <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
      <li><a href="https://heycam.github.io/webidl/#securityerror">SecurityError</a>
@@ -3469,13 +3477,13 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <span class="kt">octet</span> <a class="nv" data-type="octet " href="#dom-usbdevicefilter-classcode">classCode</a>;
   <span class="kt">octet</span> <a class="nv" data-type="octet " href="#dom-usbdevicefilter-subclasscode">subclassCode</a>;
   <span class="kt">octet</span> <a class="nv" data-type="octet " href="#dom-usbdevicefilter-protocolcode">protocolCode</a>;
+  <span class="kt">DOMString</span> <a class="nv" data-type="DOMString " href="#dom-usbdevicefilter-serialnumber">serialNumber</a>;
 };
 
 <span class="kt">dictionary</span> <a class="nv" href="#dictdef-usbdevicerequestoptions">USBDeviceRequestOptions</a> {
   <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter">USBDeviceFilter</a>> <a class="nv" data-type="sequence<USBDeviceFilter> " href="#dom-usbdevicerequestoptions-filters">filters</a>;
 };
 
-[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#NoInterfaceObject">NoInterfaceObject</a>]
 <span class="kt">interface</span> <a class="nv" href="#usb">USB</a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="nv" data-type="EventHandler" href="#dom-usb-onconnect">onconnect</a>;
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <a class="nv" data-type="EventHandler" href="#dom-usb-ondisconnect">ondisconnect</a>;
@@ -3651,8 +3659,8 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
 </pre>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
-   <div class="issue"> What configuration is the device in after it resets?<a href="#issue-0de671a3"> ↵ </a></div>
-   <div class="issue"> Include some non-normative information about device configurations.<a href="#issue-7197531b"> ↵ </a></div>
+   <div class="issue"> What configuration is the device in after it resets? <a href="https://github.com/wicg/webusb/issues/36">&lt;https://github.com/wicg/webusb/issues/36></a><a href="#issue-0de671a3"> ↵ </a></div>
+   <div class="issue"> Include some non-normative information about device configurations. <a href="https://github.com/wicg/webusb/issues/46">&lt;https://github.com/wicg/webusb/issues/46></a><a href="#issue-7197531b"> ↵ </a></div>
   </div>
   <aside class="dfn-panel" data-for="webusb-platform-capability-descriptor">
    <b><a href="#webusb-platform-capability-descriptor">#webusb-platform-capability-descriptor</a></b><b>Referenced in:</b>
@@ -3758,6 +3766,12 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <b><a href="#dom-usbdevicefilter-protocolcode">#dom-usbdevicefilter-protocolcode</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-usbdevicefilter-protocolcode-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbdevicefilter-protocolcode-2">(2)</a> <a href="#ref-for-dom-usbdevicefilter-protocolcode-3">(3)</a> <a href="#ref-for-dom-usbdevicefilter-protocolcode-4">(4)</a> <a href="#ref-for-dom-usbdevicefilter-protocolcode-5">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-usbdevicefilter-serialnumber">
+   <b><a href="#dom-usbdevicefilter-serialnumber">#dom-usbdevicefilter-serialnumber</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevicefilter-serialnumber-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbdevicefilter-serialnumber-2">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-usbdevicerequestoptions">
@@ -4565,10 +4579,11 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <aside class="dfn-panel" data-for="string-descriptor">
    <b><a href="#string-descriptor">#string-descriptor</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-string-descriptor-1">5. Device Usage</a>
-    <li><a href="#ref-for-string-descriptor-2">5.2. Configurations</a>
-    <li><a href="#ref-for-string-descriptor-3">5.3. Interfaces</a>
-    <li><a href="#ref-for-string-descriptor-4">6. Terminology</a>
+    <li><a href="#ref-for-string-descriptor-1">4. Device Enumeration</a>
+    <li><a href="#ref-for-string-descriptor-2">5. Device Usage</a>
+    <li><a href="#ref-for-string-descriptor-3">5.2. Configurations</a>
+    <li><a href="#ref-for-string-descriptor-4">5.3. Interfaces</a>
+    <li><a href="#ref-for-string-descriptor-5">6. Terminology</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="binary-object-store">
