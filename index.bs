@@ -974,6 +974,12 @@ of the <code>bcdDevice</code> field of the <a>device descriptor</a> such that a
 value of <code>0xJJMN</code> has major version <code>JJ</code>, minor version
 <code>M</code> and subminor version <code>N</code>.
 
+The {{USBDevice/manufacturerName}}, {{USBDevice/productName}} and
+{{USBDevice/serialNumber}} attributes SHOULD contain the values of the <a>string
+descriptors</a> indexed by the <code>iManufacturer</code>, <code>iProduct</code>
+and <code>iSerialNumber</code> fields of the <a>device descriptor</a> if each is
+defined.
+
 The {{USBDevice/configuration}} attribute contains the currently selected
 configuration for the device and SHALL be one of the configurations listed in
 {{USBDevice/configurations}}. It MAY be <code>null</code> if the device is in
@@ -986,11 +992,9 @@ configuration descriptors reported by the device and the number of elements in
 this list SHALL match the value of the <code>bNumConfigurations</code> field of
 the <a>device descriptor</a>.
 
-The {{USBDevice/manufacturerName}}, {{USBDevice/productName}} and
-{{USBDevice/serialNumber}} attributes SHOULD contain the values of the <a>string
-descriptors</a> indexed by the <code>iManufacturer</code>, <code>iProduct</code>
-and <code>iSerialNumber</code> fields of the <a>device descriptor</a> if each is
-defined.
+The {{USBDevice/opened}} attribute SHALL be set to <code>true</code> when the
+device is opened by the current execution context and SHALL be set to
+<code>false</code> otherwise.
 
 The {{USBDevice/open()}} method, when invoked, MUST return a new {{Promise}}
 |promise| and run the following steps <a>in parallel</a>:
@@ -1517,7 +1521,7 @@ perform the following steps:
 </pre>
 
 Each device configuration SHALL have a unique
-{{USBConfiguration/configurationValue} that matches the
+{{USBConfiguration/configurationValue}} that matches the
 <code>bConfigurationValue</code> fields of the <a>configuration descriptor</a>
 that defines it.
 
@@ -1527,8 +1531,9 @@ field of the <a>configuration descriptor</a>, if defined.
 
 The {{USBConfiguration/interfaces}} attribute SHALL contain a list of
 interfaces exposed by this device configuration. These interfaces SHALL by
-populated from the <a>interface descriptors</a> contained within this
-<a>configuration descriptor</a>.
+populated by collecting the <a>interface descriptors</a> contained within this
+<a>configuration descriptor</a> and organizing them by
+<code>bInterfaceNumber</code>.
 
 Issue(46):
 Include some non-normative information about device configurations.
@@ -1564,6 +1569,13 @@ The {{USBInterface/alternate}} attribute SHALL be set to the
 {{USBAlternateInterface}} that is currently selected for this interface, which
 by default SHALL be the one with <code>bAlternateSetting</code> equal to
 <code>0</code>.
+
+The {{USBInterface/alternates}} attribute SHALL contain a list of all alternate
+interface configurations available for this interface.
+
+The {{USBInterface/claimed}} attribute SHALL be set to <code>true</code> when
+the interface is claimed by the current execution context and SHALL be set to
+<code>false</code> otherwise.
 
 Each alternative interface configuration SHALL have a unique
 {{USBAlternateInterface/alternateSetting}} within a given interface that

@@ -1440,7 +1440,7 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-01-05">5 January 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-01-20">20 January 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2349,6 +2349,9 @@ device’s <a data-link-type="dfn" href="#vendor-id" id="ref-for-vendor-id-3">ve
 number as defined by the device manufacturer. It SHALL correspond to the value
 of the <code>bcdDevice</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-4">device descriptor</a> such that a
 value of <code>0xJJMN</code> has major version <code>JJ</code>, minor version <code>M</code> and subminor version <code>N</code>.</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-manufacturername" id="ref-for-dom-usbdevice-manufacturername-1">manufacturerName</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-productname" id="ref-for-dom-usbdevice-productname-1">productName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-serialnumber" id="ref-for-dom-usbdevice-serialnumber-1">serialNumber</a></code> attributes SHOULD contain the values of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-2">string
+descriptors</a> indexed by the <code>iManufacturer</code>, <code>iProduct</code> and <code>iSerialNumber</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-5">device descriptor</a> if each is
+defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration-1">configuration</a></code> attribute contains the currently selected
 configuration for the device and SHALL be one of the configurations listed in <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configurations" id="ref-for-dom-usbdevice-configurations-1">configurations</a></code>. It MAY be <code>null</code> if the device is in
 an unconfigured state and MUST be updated by <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration-1">selectConfiguration()</a></code>.</p>
@@ -2356,10 +2359,9 @@ an unconfigured state and MUST be updated by <code class="idl"><a data-link-type
 supported by the device. These configurations SHALL be populated from the
 configuration descriptors reported by the device and the number of elements in
 this list SHALL match the value of the <code>bNumConfigurations</code> field of
-the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-5">device descriptor</a>.</p>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-manufacturername" id="ref-for-dom-usbdevice-manufacturername-1">manufacturerName</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-productname" id="ref-for-dom-usbdevice-productname-1">productName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-serialnumber" id="ref-for-dom-usbdevice-serialnumber-1">serialNumber</a></code> attributes SHOULD contain the values of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-2">string
-descriptors</a> indexed by the <code>iManufacturer</code>, <code>iProduct</code> and <code>iSerialNumber</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-6">device descriptor</a> if each is
-defined.</p>
+the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-6">device descriptor</a>.</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-1">opened</a></code> attribute SHALL be set to <code>true</code> when the
+device is opened by the current execution context and SHALL be set to <code>false</code> otherwise.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open-1">open()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
@@ -2367,12 +2369,12 @@ defined.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-1">opened</a></code></code> is <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var> and abort these steps.</p>
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-2">opened</a></code></code> is <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var> and abort these steps.</p>
     <li data-md="">
      <p>Perform the necessary platform-specific steps to begin a session with the
  device. If these fail for any reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror">NetworkError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-2">opened</a></code></code> to <code>true</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
+     <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-3">opened</a></code></code> to <code>true</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-close" id="ref-for-dom-usbdevice-close-1">close()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
@@ -2381,7 +2383,7 @@ defined.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-3">opened</a></code></code> is <code>false</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var> and abort these steps.</p>
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-4">opened</a></code></code> is <code>false</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var> and abort these steps.</p>
     <li data-md="">
      <p>Abort all other algorithms currently running against this device and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> their associated promises with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror">AbortError</a></code>.</p>
     <li data-md="">
@@ -2392,7 +2394,7 @@ defined.</p>
      <p>Perform the necessary platform-specific steps to end the session with the
  device.</p>
     <li data-md="">
-     <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-4">opened</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
+     <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-5">opened</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration-2">selectConfiguration(configurationValue)</a></code> method, when invoked,
 MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in
@@ -2407,7 +2409,7 @@ parallel:</p>
  configuration exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-5">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-6">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and
  abort these steps.</p>
     <li data-md="">
      <p>The UA MAY check that the caller <a data-link-type="dfn" href="#is-allowed-to-access-configuration" id="ref-for-is-allowed-to-access-configuration-1">is allowed to access <var>configuration</var></a>, and if not <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these steps.</p>
@@ -2432,7 +2434,7 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
  interface exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-6">opened</a></code></code> is not <code>true</code> and <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-1">claimed</a></code></code> is not <code>false</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-7">opened</a></code></code> is not <code>true</code> and <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-1">claimed</a></code></code> is not <code>false</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>The UA MAY check that the caller <a data-link-type="dfn" href="#is-allowed-to-access-interface" id="ref-for-is-allowed-to-access-interface-1">is allowed to access <var>interface</var></a>,
@@ -2457,7 +2459,7 @@ parallel:</p>
  interface exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-7">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-3">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-8">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-3">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>Perform the necessary platform-specific steps to reliquish exclusive
@@ -2477,7 +2479,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
  interface exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-8">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-5">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-9">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-5">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>Abort all transfers currently scheduled on endpoints associated with the
@@ -2498,7 +2500,7 @@ parallel:</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-9">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-10">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="#check-the-validity-of-the-control-transfer-parameters" id="ref-for-check-the-validity-of-the-control-transfer-parameters-1">Check the validity of the control transfer parameters</a> and abort
  these steps if <var>promise</var> is rejected.</p>
@@ -2530,7 +2532,7 @@ parallel</a>:</p>
     <li data-md="">
      <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-10">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-11">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and
  abort these
  steps.</p>
     <li data-md="">
@@ -2565,7 +2567,7 @@ parallel</a>:</p>
      <p>Let <var>endpoint</var> be the endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration-5">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>direction</var> and <var>endpointNumber</var>. If no such endpoint exists <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> and
  abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-11">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-6">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-12">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-6">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>Issue a <code>CLEAR_FEATURE</code> control transfer to the device to clear
@@ -2586,7 +2588,7 @@ parallel</a>:</p>
     <li data-md="">
      <p>If <var>endpoint</var> is not a bulk or interrupt endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-12">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-7">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-13">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-7">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>As appropriate for <var>endpoint</var> enqueue a bulk or interrupt IN transfer on <var>endpoint</var> with a buffer sufficient to receive <var>length</var> bytes of data from
@@ -2619,7 +2621,7 @@ parallel:</p>
     <li data-md="">
      <p>If <var>endpoint</var> is not a bulk or interrupt endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-13">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-8">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-14">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-8">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>As appropriate for <var>endpoint</var> enqueue a bulk or interrupt OUT transfer on <var>endpoint</var> to transmit <var>data</var> to the device.</p>
@@ -2651,7 +2653,7 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
      <p>If <var>endpoint</var> is not an isochronous endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with
  an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-14">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-9">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-15">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-9">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>Let <var>length</var> be the sum of the elements of <var>packetLengths</var>.</p>
@@ -2694,7 +2696,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
      <p>If <var>endpoint</var> is not an isochronous endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with
  an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-15">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-10">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-16">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-10">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
      <p>Let <var>length</var> be the sum of the elements of <var>packetLengths</var>.</p>
@@ -2728,7 +2730,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-16">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-17">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and
  abort these steps.</p>
     <li data-md="">
      <p>Abort all operations on the device and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> their associated
@@ -2859,25 +2861,24 @@ vendor.</p>
    <h3 class="heading settled" data-level="5.2" id="configurations"><span class="secno">5.2. </span><span class="content">Configurations</span><a class="self-link" href="#configurations"></a></h3>
 <pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export="" data-lt="USBConfiguration(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration">Constructor<a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-18">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device">device<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <span class="kt">octet</span> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue">configurationValue<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbconfiguration">USBConfiguration</dfn> {
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">octet</span> <dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbconfiguration-configurationvalue">configurationValue<a class="self-link" href="#dom-usbconfiguration-configurationvalue"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">octet</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbconfiguration-configurationvalue">configurationValue</dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">DOMString</span>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString?" id="dom-usbconfiguration-configurationname">configurationName</dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface-1">USBInterface</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="FrozenArray<USBInterface>" id="dom-usbconfiguration-interfaces">interfaces</dfn>;
 };
 </pre>
-   <p>Each device configuration SHALL have a unique
-{{USBConfiguration/configurationValue} that matches the <code>bConfigurationValue</code> fields of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-2">configuration descriptor</a> that defines it.</p>
+   <p>Each device configuration SHALL have a unique <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-configurationvalue" id="ref-for-dom-usbconfiguration-configurationvalue-1">configurationValue</a></code> that matches the <code>bConfigurationValue</code> fields of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-2">configuration descriptor</a> that defines it.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-configurationname" id="ref-for-dom-usbconfiguration-configurationname-1">configurationName</a></code> attribute SHOULD contain the value
 of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-3">string descriptor</a> referenced by the <code>iConfiguration</code> field of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-3">configuration descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces-1">interfaces</a></code> attribute SHALL contain a list of
 interfaces exposed by this device configuration. These interfaces SHALL by
-populated from the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-3">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-4">configuration descriptor</a>.</p>
+populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-3">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-4">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
    <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/wicg/webusb/issues/46">&lt;https://github.com/wicg/webusb/issues/46></a></p>
    <h3 class="heading settled" data-level="5.3" id="interfaces"><span class="secno">5.3. </span><span class="content">Interfaces</span><a class="self-link" href="#interfaces"></a></h3>
 <pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="constructor" data-export="" data-lt="USBInterface(configuration, interfaceNumber)" id="dom-usbinterface-usbinterface">Constructor<a class="self-link" href="#dom-usbinterface-usbinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration-3">USBConfiguration</a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-configuration">configuration<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"></a></dfn>, <span class="kt">octet</span> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber">interfaceNumber<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbinterface">USBInterface</dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">octet</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbinterface-interfacenumber">interfaceNumber</dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface-1">USBAlternateInterface</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBAlternateInterface" id="dom-usbinterface-alternate">alternate</dfn>;
-  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface-2">USBAlternateInterface</a>> <dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="FrozenArray<USBAlternateInterface>" id="dom-usbinterface-alternates">alternates<a class="self-link" href="#dom-usbinterface-alternates"></a></dfn>;
+  <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface-2">USBAlternateInterface</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="FrozenArray<USBAlternateInterface>" id="dom-usbinterface-alternates">alternates</dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">boolean</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-usbinterface-claimed">claimed</dfn>;
 };
 
@@ -2897,6 +2898,10 @@ descriptors</a>. The <code class="idl"><a data-link-type="idl" href="#dom-usbint
 field.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternate" id="ref-for-dom-usbinterface-alternate-1">alternate</a></code> attribute SHALL be set to the <code class="idl"><a data-link-type="idl" href="#usbalternateinterface" id="ref-for-usbalternateinterface-3">USBAlternateInterface</a></code> that is currently selected for this interface, which
 by default SHALL be the one with <code>bAlternateSetting</code> equal to <code>0</code>.</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates-1">alternates</a></code> attribute SHALL contain a list of all alternate
+interface configurations available for this interface.</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-13">claimed</a></code> attribute SHALL be set to <code>true</code> when
+the interface is claimed by the current execution context and SHALL be set to <code>false</code> otherwise.</p>
    <p>Each alternative interface configuration SHALL have a unique <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-alternatesetting" id="ref-for-dom-usbalternateinterface-alternatesetting-1">alternateSetting</a></code> within a given interface that
 matches the <code>bAlternateSetting</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-5">interface
 descriptor</a> that defines it.</p>
@@ -4072,7 +4077,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <aside class="dfn-panel" data-for="dom-usbdevice-opened">
    <b><a href="#dom-usbdevice-opened">#dom-usbdevice-opened</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbdevice-opened-1">5. Device Usage</a> <a href="#ref-for-dom-usbdevice-opened-2">(2)</a> <a href="#ref-for-dom-usbdevice-opened-3">(3)</a> <a href="#ref-for-dom-usbdevice-opened-4">(4)</a> <a href="#ref-for-dom-usbdevice-opened-5">(5)</a> <a href="#ref-for-dom-usbdevice-opened-6">(6)</a> <a href="#ref-for-dom-usbdevice-opened-7">(7)</a> <a href="#ref-for-dom-usbdevice-opened-8">(8)</a> <a href="#ref-for-dom-usbdevice-opened-9">(9)</a> <a href="#ref-for-dom-usbdevice-opened-10">(10)</a> <a href="#ref-for-dom-usbdevice-opened-11">(11)</a> <a href="#ref-for-dom-usbdevice-opened-12">(12)</a> <a href="#ref-for-dom-usbdevice-opened-13">(13)</a> <a href="#ref-for-dom-usbdevice-opened-14">(14)</a> <a href="#ref-for-dom-usbdevice-opened-15">(15)</a> <a href="#ref-for-dom-usbdevice-opened-16">(16)</a>
+    <li><a href="#ref-for-dom-usbdevice-opened-1">5. Device Usage</a> <a href="#ref-for-dom-usbdevice-opened-2">(2)</a> <a href="#ref-for-dom-usbdevice-opened-3">(3)</a> <a href="#ref-for-dom-usbdevice-opened-4">(4)</a> <a href="#ref-for-dom-usbdevice-opened-5">(5)</a> <a href="#ref-for-dom-usbdevice-opened-6">(6)</a> <a href="#ref-for-dom-usbdevice-opened-7">(7)</a> <a href="#ref-for-dom-usbdevice-opened-8">(8)</a> <a href="#ref-for-dom-usbdevice-opened-9">(9)</a> <a href="#ref-for-dom-usbdevice-opened-10">(10)</a> <a href="#ref-for-dom-usbdevice-opened-11">(11)</a> <a href="#ref-for-dom-usbdevice-opened-12">(12)</a> <a href="#ref-for-dom-usbdevice-opened-13">(13)</a> <a href="#ref-for-dom-usbdevice-opened-14">(14)</a> <a href="#ref-for-dom-usbdevice-opened-15">(15)</a> <a href="#ref-for-dom-usbdevice-opened-16">(16)</a> <a href="#ref-for-dom-usbdevice-opened-17">(17)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevice-open">
@@ -4394,6 +4399,12 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     <li><a href="#ref-for-usbconfiguration-3">5.3. Interfaces</a> <a href="#ref-for-usbconfiguration-4">(2)</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="dom-usbconfiguration-configurationvalue">
+   <b><a href="#dom-usbconfiguration-configurationvalue">#dom-usbconfiguration-configurationvalue</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbconfiguration-configurationvalue-1">5.2. Configurations</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="dom-usbconfiguration-configurationname">
    <b><a href="#dom-usbconfiguration-configurationname">#dom-usbconfiguration-configurationname</a></b><b>Referenced in:</b>
    <ul>
@@ -4425,11 +4436,18 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     <li><a href="#ref-for-dom-usbinterface-alternate-1">5.3. Interfaces</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="dom-usbinterface-alternates">
+   <b><a href="#dom-usbinterface-alternates">#dom-usbinterface-alternates</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbinterface-alternates-1">5.3. Interfaces</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="dom-usbinterface-claimed">
    <b><a href="#dom-usbinterface-claimed">#dom-usbinterface-claimed</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-usbinterface-claimed-1">5. Device Usage</a> <a href="#ref-for-dom-usbinterface-claimed-2">(2)</a> <a href="#ref-for-dom-usbinterface-claimed-3">(3)</a> <a href="#ref-for-dom-usbinterface-claimed-4">(4)</a> <a href="#ref-for-dom-usbinterface-claimed-5">(5)</a> <a href="#ref-for-dom-usbinterface-claimed-6">(6)</a> <a href="#ref-for-dom-usbinterface-claimed-7">(7)</a> <a href="#ref-for-dom-usbinterface-claimed-8">(8)</a> <a href="#ref-for-dom-usbinterface-claimed-9">(9)</a> <a href="#ref-for-dom-usbinterface-claimed-10">(10)</a>
     <li><a href="#ref-for-dom-usbinterface-claimed-11">5.1. Transfers</a> <a href="#ref-for-dom-usbinterface-claimed-12">(2)</a>
+    <li><a href="#ref-for-dom-usbinterface-claimed-13">5.3. Interfaces</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="usbalternateinterface">
