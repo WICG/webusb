@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 176d39d5a285c04f57d2f0e078fa69273028eb45" name="generator">
+  <meta content="Bikeshed version 8ced20b1ada534532c822aed50a7dcb3d8dbe809" name="generator">
 <style>
 table {
   border-collapse: collapse;
@@ -1440,13 +1440,13 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-01-20">20 January 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-01-27">27 January 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://wicg.github.io/webusb">https://wicg.github.io/webusb</a>
      <dt>Issue Tracking:
-     <dd><a href="https://github.com/wicg/webusb/issues/">GitHub</a>
+     <dd><a href="https://github.com/WICG/webusb/issues/">GitHub</a>
      <dd><a href="#issues-index">Inline In Spec</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:reillyg@google.com">Reilly Grant</a> (<span class="p-org org">Google Inc.</span>)
@@ -2740,7 +2740,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md="">
      <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
    </ol>
-   <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/wicg/webusb/issues/36">&lt;https://github.com/wicg/webusb/issues/36></a></p>
+   <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">&lt;https://github.com/WICG/webusb/issues/36></a></p>
    <h3 class="heading settled" data-level="5.1" id="transfers"><span class="secno">5.1. </span><span class="content">Transfers</span><a class="self-link" href="#transfers"></a></h3>
 <pre class="idl highlight def"><span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbrequesttype">USBRequestType</dfn> {
   <dfn class="s idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" data-lt="&quot;standard&quot;|standard" id="dom-usbrequesttype-standard">"standard"<a class="self-link" href="#dom-usbrequesttype-standard"></a></dfn>,
@@ -2872,7 +2872,7 @@ of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-desc
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces-1">interfaces</a></code> attribute SHALL contain a list of
 interfaces exposed by this device configuration. These interfaces SHALL by
 populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-3">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-4">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
-   <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/wicg/webusb/issues/46">&lt;https://github.com/wicg/webusb/issues/46></a></p>
+   <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/WICG/webusb/issues/46">&lt;https://github.com/WICG/webusb/issues/46></a></p>
    <h3 class="heading settled" data-level="5.3" id="interfaces"><span class="secno">5.3. </span><span class="content">Interfaces</span><a class="self-link" href="#interfaces"></a></h3>
 <pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="constructor" data-export="" data-lt="USBInterface(configuration, interfaceNumber)" id="dom-usbinterface-usbinterface">Constructor<a class="self-link" href="#dom-usbinterface-usbinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration-3">USBConfiguration</a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-configuration">configuration<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"></a></dfn>, <span class="kt">octet</span> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber">interfaceNumber<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbinterface">USBInterface</dfn> {
@@ -2892,13 +2892,13 @@ populated by collecting the <a data-link-type="dfn" href="#interface-descriptor"
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbendpoint" id="ref-for-usbendpoint-1">USBEndpoint</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBAlternateInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="FrozenArray<USBEndpoint>" id="dom-usbalternateinterface-endpoints">endpoints</dfn>;
 };
 </pre>
-   <p>Each interface provides a collection of {{USBInterface/alternates} identified
+   <p>Each interface provides a collection of <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates-1">alternates</a></code> identified
 by a single <code>bInterfaceNumber</code> field found in their <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-4">interface
 descriptors</a>. The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-interfacenumber" id="ref-for-dom-usbinterface-interfacenumber-1">interfaceNumber</a></code> attribute MUST match this
 field.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternate" id="ref-for-dom-usbinterface-alternate-1">alternate</a></code> attribute SHALL be set to the <code class="idl"><a data-link-type="idl" href="#usbalternateinterface" id="ref-for-usbalternateinterface-3">USBAlternateInterface</a></code> that is currently selected for this interface, which
 by default SHALL be the one with <code>bAlternateSetting</code> equal to <code>0</code>.</p>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates-1">alternates</a></code> attribute SHALL contain a list of all alternate
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates-2">alternates</a></code> attribute SHALL contain a list of all alternate
 interface configurations available for this interface.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-13">claimed</a></code> attribute SHALL be set to <code>true</code> when
 the interface is claimed by the current execution context and SHALL be set to <code>false</code> otherwise.</p>
@@ -3664,8 +3664,8 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
 </pre>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
-   <div class="issue"> What configuration is the device in after it resets? <a href="https://github.com/wicg/webusb/issues/36">&lt;https://github.com/wicg/webusb/issues/36></a><a href="#issue-0de671a3"> ↵ </a></div>
-   <div class="issue"> Include some non-normative information about device configurations. <a href="https://github.com/wicg/webusb/issues/46">&lt;https://github.com/wicg/webusb/issues/46></a><a href="#issue-7197531b"> ↵ </a></div>
+   <div class="issue"> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">&lt;https://github.com/WICG/webusb/issues/36></a><a href="#issue-0de671a3"> ↵ </a></div>
+   <div class="issue"> Include some non-normative information about device configurations. <a href="https://github.com/WICG/webusb/issues/46">&lt;https://github.com/WICG/webusb/issues/46></a><a href="#issue-7197531b"> ↵ </a></div>
   </div>
   <aside class="dfn-panel" data-for="webusb-platform-capability-descriptor">
    <b><a href="#webusb-platform-capability-descriptor">#webusb-platform-capability-descriptor</a></b><b>Referenced in:</b>
@@ -4439,7 +4439,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <aside class="dfn-panel" data-for="dom-usbinterface-alternates">
    <b><a href="#dom-usbinterface-alternates">#dom-usbinterface-alternates</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbinterface-alternates-1">5.3. Interfaces</a>
+    <li><a href="#ref-for-dom-usbinterface-alternates-1">5.3. Interfaces</a> <a href="#ref-for-dom-usbinterface-alternates-2">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbinterface-claimed">

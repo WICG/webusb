@@ -1560,7 +1560,7 @@ Include some non-normative information about device configurations.
   };
 </pre>
 
-Each interface provides a collection of {{USBInterface/alternates} identified
+Each interface provides a collection of {{USBInterface/alternates}} identified
 by a single <code>bInterfaceNumber</code> field found in their <a>interface
 descriptors</a>. The {{USBInterface/interfaceNumber}} attribute MUST match this
 field.
