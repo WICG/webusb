@@ -9,8 +9,8 @@ Editor: Ken Rockot, Google Inc., rockot@google.com
 Abstract: This document describes an API for securely providing access to Universal Serial Bus devices from web pages.
 Group: wicg
 !Participate: <a href="https://www.w3.org/community/wicg/">Join the W3C Community Group</a>
-!Participate: <a href="https://github.com/WICG/webusb">Fix the text through GitHub</a>
-!Participate: <a href="irc://irc.w3.org:6665/#webusb">IRC: #webusb on W3C's IRC</a>
+!Participate: <a href="https://github.com/WICG/webusb">File Issues, send changes, through GitHub</a>
+!Participate: <a href="irc://irc.w3.org:6665/#webusb">IRC: #webusb on W3C's IRC</a> (Stay around for an answer, it make take a while)
 </pre>
 
 <style>
