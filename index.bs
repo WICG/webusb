@@ -593,6 +593,7 @@ will allow device manufacturers to support WebUSB on existing devices.
     Promise&lt;USBDevice> requestDevice(USBDeviceRequestOptions options);
   };
 
+  [SecureContext]
   partial interface Navigator {
     [SameObject] readonly attribute USB usb;
   };
@@ -676,12 +677,10 @@ The {{USB/ondisconnect}} attribute is an Event handler IDL attribute for the
 The {{USB/getDevices()}} method, when invoked, MUST return a new {{Promise}} and
 run the following steps <a>in parallel</a>:
 
-  1. If the <a>incumbent settings object</a> is not a <a>secure context</a>,
-     <a>reject</a> |promise| with a {{SecurityError}} and abort these steps.
-  2. <a>Enumerate all devices attached to the system</a>. Let this result be
+  1. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
-  3. Let |devices| be a new empty {{Array}}.
-  4. For each |device| in |enumerationResult|:
+  2. Let |devices| be a new empty {{Array}}.
+  3. For each |device| in |enumerationResult|:
      1. If this is the first call to this method, <a>check permissions for
         |device|</a>.
      2. Search for an element |allowedDevice| in
@@ -689,7 +688,7 @@ run the following steps <a>in parallel</a>:
         |device| is in |allowedDevice|@{{[[devices]]}}. If no such element
         exists, continue to the next |device|.
      3. Add the {{USBDevice}} object representing |device| to |devices|.
-  5. <a>Resolve</a> |promise| with |devices|.
+  4. <a>Resolve</a> |promise| with |devices|.
 
 The {{USB/requestDevice()}} method, when invoked, MUST run the following steps:
 
@@ -717,19 +716,17 @@ steps <a>in parallel</a>:
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
      <a>is not a valid filter</a> <a>reject</a> |promise| with a {{TypeError}}
      and abort these steps.
-  2. If the <a>incumbent settings object</a> is not a <a>secure context</a>,
-     <a>reject</a> |promise| with a {{SecurityError}} and abort these steps.
-  3. If the algorithm is not <a>allowed to show a popup</a>, <a>reject</a>
+  2. If the algorithm is not <a>allowed to show a popup</a>, <a>reject</a>
      |promise| with a {{SecurityError}} and abort these steps.
-  4. Set <code>|status|.{{PermissionStatus/state}}</code> to
+  3. Set <code>|status|.{{PermissionStatus/state}}</code> to
      <code>|storage|.{{PermissionStorage/state}}</code>.
-  5. If <code>|status|.{{PermissionStatus/state}}</code> is {{"denied"}}, set
+  4. If <code>|status|.{{PermissionStatus/state}}</code> is {{"denied"}}, set
      <code>|status|.{{USBPermissionResult/devices}}</code> to an empty
      {{FrozenArray}}, <a>resolve</a> |promise| with <code>undefined</code>,
      and abort these steps.
-  6. <a>Enumerate all devices attached to the system</a>. Let this result be
+  5. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
-  7. Remove devices from |enumerationResult| if they do not <a>match a
+  6. Remove devices from |enumerationResult| if they do not <a>match a
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
 
      The UA MAY apply additional origin-based filtering of available devices by
@@ -738,20 +735,20 @@ steps <a>in parallel</a>:
 
      The UA MAY provide additional mechanisms for blacklisting or whitelisting
      specific devices for arbitrary origins.
-  8. Display a prompt to the user requesting they select a device from
+  7. Display a prompt to the user requesting they select a device from
      |enumerationResult|. The UA SHOULD show a human-readable name for each
      device.
-  9. Wait for the user to have selected a |device| or cancelled the
+  8. Wait for the user to have selected a |device| or cancelled the
      prompt.
-  10. If the user cancels the prompt, set
-      <code>|status|.{{USBPermissionResult/devices}}</code> to an empty
-      {{FrozenArray}}, <a>resolve</a> |promise| with <code>undefined</code>,
-      and abort these steps.
-  11. <a>Add |device| to |storage|</a>.
-  12. Let |deviceObj| be the {{USBDevice}} object representing |device|.
-  13. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
+  9. If the user cancels the prompt, set
+     <code>|status|.{{USBPermissionResult/devices}}</code> to an empty
+     {{FrozenArray}}, <a>resolve</a> |promise| with <code>undefined</code>,
+     and abort these steps.
+  10. <a>Add |device| to |storage|</a>.
+  11. Let |deviceObj| be the {{USBDevice}} object representing |device|.
+  12. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
       {{FrozenArray}} containing |deviceObj| as its only element.
-  14. <a>Resolve</a> |promise| with <code>undefined</code>.
+  13. <a>Resolve</a> |promise| with <code>undefined</code>.
 
 To <dfn data-lt="add device to storage">add an allowed <a>USB device</a></dfn>
 |device| to {{USBPermissionStorage}} |storage|, the UA MUST run the following
