@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 8ced20b1ada534532c822aed50a7dcb3d8dbe809" name="generator">
+  <meta content="Bikeshed version 176d39d5a285c04f57d2f0e078fa69273028eb45" name="generator">
 <style>
 table {
   border-collapse: collapse;
@@ -1440,21 +1440,21 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-01-27">27 January 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-02-11">11 February 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://wicg.github.io/webusb">https://wicg.github.io/webusb</a>
      <dt>Issue Tracking:
-     <dd><a href="https://github.com/WICG/webusb/issues/">GitHub</a>
+     <dd><a href="https://github.com/wicg/webusb/issues/">GitHub</a>
      <dd><a href="#issues-index">Inline In Spec</a>
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:reillyg@google.com">Reilly Grant</a> (<span class="p-org org">Google Inc.</span>)
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:rockot@google.com">Ken Rockot</a> (<span class="p-org org">Google Inc.</span>)
      <dt>Participate:
      <dd><span><a href="https://www.w3.org/community/wicg/">Join the W3C Community Group</a></span>
-     <dd><span><a href="https://github.com/WICG/webusb">Fix the text through GitHub</a></span>
-     <dd><span><a href="irc://irc.w3.org:6665/#webusb">IRC: #webusb on W3C’s IRC</a></span>
+     <dd><span><a href="https://github.com/WICG/webusb">File Issues, send changes, through GitHub</a></span>
+     <dd><span><a href="irc://irc.w3.org:6665/#webusb">IRC: #webusb on W3C’s IRC</a> (Stay around for an answer, it make take a while)</span>
     </dl>
    </div>
    <div data-fill-with="warning"></div>
@@ -1996,6 +1996,7 @@ will allow device manufacturers to support WebUSB on existing devices.</p>
   <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-2">USBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="method" data-export="" data-lt="requestDevice(options)" id="dom-usb-requestdevice">requestDevice</dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions-1">USBDeviceRequestOptions</a> <dfn class="nv idl-code" data-dfn-for="USB/requestDevice(options)" data-dfn-type="argument" data-export="" id="dom-usb-requestdevice-options-options">options<a class="self-link" href="#dom-usb-requestdevice-options-options"></a></dfn>);
 };
 
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>]
 <span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a> {
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb-1">USB</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USB" id="dom-navigator-usb">usb</dfn>;
 };
@@ -2072,8 +2073,6 @@ the <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref
 run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
-     <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#incumbent-settings-object">incumbent settings object</a> is not a <a data-link-type="dfn" href="https://w3c.github.io/webappsec-secure-contexts/#secure-context">secure context</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these steps.</p>
-    <li data-md="">
      <p><a data-link-type="dfn" href="#enumerate-all-devices-attached-to-the-system" id="ref-for-enumerate-all-devices-attached-to-the-system-1">Enumerate all devices attached to the system</a>. Let this result be <var>enumerationResult</var>.</p>
     <li data-md="">
      <p>Let <var>devices</var> be a new empty <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-array-objects">Array</a></code>.</p>
@@ -2119,8 +2118,6 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
     <li data-md="">
      <p>For each <var>filter</var> in <code><var>options</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-1">filters</a></code></code> if <var>filter</var> <a data-link-type="dfn" href="#is-not-a-valid-filter" id="ref-for-is-not-a-valid-filter-1">is not a valid filter</a> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a></code> and abort these steps.</p>
     <li data-md="">
-     <p>If the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#incumbent-settings-object">incumbent settings object</a> is not a <a data-link-type="dfn" href="https://w3c.github.io/webappsec-secure-contexts/#secure-context">secure context</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these steps.</p>
-    <li data-md="">
      <p>If the algorithm is not <a data-link-type="dfn">allowed to show a popup</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these steps.</p>
     <li data-md="">
      <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/permissions/#dom-permissionstatus-state">state</a></code></code> to <code><var>storage</var>.<code class="idl"><a data-link-type="idl">state</a></code></code>.</p>
@@ -2145,7 +2142,7 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
  prompt.</p>
     <li data-md="">
      <p>If the user cancels the prompt, set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionresult-devices" id="ref-for-dom-usbpermissionresult-devices-4">devices</a></code></code> to an empty <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a></code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var> with <code>undefined</code>,
-  and abort these steps.</p>
+ and abort these steps.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="#add-device-to-storage" id="ref-for-add-device-to-storage-1">Add <var>device</var> to <var>storage</var></a>.</p>
     <li data-md="">
@@ -2740,7 +2737,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md="">
      <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
    </ol>
-   <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">&lt;https://github.com/WICG/webusb/issues/36></a></p>
+   <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/wicg/webusb/issues/36">&lt;https://github.com/wicg/webusb/issues/36></a></p>
    <h3 class="heading settled" data-level="5.1" id="transfers"><span class="secno">5.1. </span><span class="content">Transfers</span><a class="self-link" href="#transfers"></a></h3>
 <pre class="idl highlight def"><span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbrequesttype">USBRequestType</dfn> {
   <dfn class="s idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" data-lt="&quot;standard&quot;|standard" id="dom-usbrequesttype-standard">"standard"<a class="self-link" href="#dom-usbrequesttype-standard"></a></dfn>,
@@ -2872,7 +2869,7 @@ of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-desc
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces-1">interfaces</a></code> attribute SHALL contain a list of
 interfaces exposed by this device configuration. These interfaces SHALL by
 populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-3">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-4">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
-   <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/WICG/webusb/issues/46">&lt;https://github.com/WICG/webusb/issues/46></a></p>
+   <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/wicg/webusb/issues/46">&lt;https://github.com/wicg/webusb/issues/46></a></p>
    <h3 class="heading settled" data-level="5.3" id="interfaces"><span class="secno">5.3. </span><span class="content">Interfaces</span><a class="self-link" href="#interfaces"></a></h3>
 <pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="constructor" data-export="" data-lt="USBInterface(configuration, interfaceNumber)" id="dom-usbinterface-usbinterface">Constructor<a class="self-link" href="#dom-usbinterface-usbinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration-3">USBConfiguration</a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-configuration">configuration<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"></a></dfn>, <span class="kt">octet</span> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber">interfaceNumber<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbinterface">USBInterface</dfn> {
@@ -3403,7 +3400,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a>
      <li><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#incumbent-settings-object">incumbent settings object</a>
     </ul>
    <li>
     <a data-link-type="biblio">[permissions]</a> defines the following terms:
@@ -3426,11 +3422,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#transforming-by">transforming</a>
     </ul>
    <li>
-    <a data-link-type="biblio">[powerful-features]</a> defines the following terms:
-    <ul>
-     <li><a href="https://w3c.github.io/webappsec-secure-contexts/#secure-context">secure context</a>
-    </ul>
-   <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
      <li><a href="https://heycam.github.io/webidl/#aborterror">AbortError</a>
@@ -3443,6 +3434,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="https://heycam.github.io/webidl/#networkerror">NetworkError</a>
      <li><a href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a>
      <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
+     <li><a href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>
      <li><a href="https://heycam.github.io/webidl/#securityerror">SecurityError</a>
     </ul>
   </ul>
@@ -3455,8 +3447,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-permissions">[PERMISSIONS]
    <dd>Mounir Lamouri; Marcos Caceres. <a href="https://w3c.github.io/permissions/">The Permissions API</a>. URL: <a href="https://w3c.github.io/permissions/">https://w3c.github.io/permissions/</a>
-   <dt id="biblio-powerful-features">[POWERFUL-FEATURES]
-   <dd>Mike West. <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Contexts</a>. URL: <a href="https://w3c.github.io/webappsec-secure-contexts/">https://w3c.github.io/webappsec-secure-contexts/</a>
    <dt id="biblio-promises-guide">[PROMISES-GUIDE]
    <dd>Domenic Denicola. <a href="https://www.w3.org/2001/tag/doc/promises-guide">Writing Promise-Using Specifications</a>. 16 February 2016. Finding of the W3C TAG. URL: <a href="https://www.w3.org/2001/tag/doc/promises-guide">https://www.w3.org/2001/tag/doc/promises-guide</a>
    <dt id="biblio-rfc2119">[RFC2119]
@@ -3470,6 +3460,8 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <dl>
    <dt id="biblio-cors">[CORS]
    <dd>Anne van Kesteren. <a href="https://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a>. 16 January 2014. REC. URL: <a href="https://www.w3.org/TR/cors/">https://www.w3.org/TR/cors/</a>
+   <dt id="biblio-powerful-features">[POWERFUL-FEATURES]
+   <dd>Mike West. <a href="https://w3c.github.io/webappsec-secure-contexts/">Secure Contexts</a>. URL: <a href="https://w3c.github.io/webappsec-secure-contexts/">https://w3c.github.io/webappsec-secure-contexts/</a>
    <dt id="biblio-rfc6454">[RFC6454]
    <dd>A. Barth. <a href="https://tools.ietf.org/html/rfc6454">The Web Origin Concept</a>. December 2011. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc6454">https://tools.ietf.org/html/rfc6454</a>
    <dt id="biblio-usb31">[USB31]
@@ -3496,6 +3488,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice">USBDevice</a>> <a class="nv" href="#dom-usb-requestdevice">requestDevice</a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions">USBDeviceRequestOptions</a> <a class="nv" href="#dom-usb-requestdevice-options-options">options</a>);
 };
 
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>]
 <span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a> {
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb">USB</a> <a class="nv" data-readonly="" data-type="USB" href="#dom-navigator-usb">usb</a>;
 };
@@ -3664,8 +3657,8 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
 </pre>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
-   <div class="issue"> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">&lt;https://github.com/WICG/webusb/issues/36></a><a href="#issue-0de671a3"> ↵ </a></div>
-   <div class="issue"> Include some non-normative information about device configurations. <a href="https://github.com/WICG/webusb/issues/46">&lt;https://github.com/WICG/webusb/issues/46></a><a href="#issue-7197531b"> ↵ </a></div>
+   <div class="issue"> What configuration is the device in after it resets? <a href="https://github.com/wicg/webusb/issues/36">&lt;https://github.com/wicg/webusb/issues/36></a><a href="#issue-0de671a3"> ↵ </a></div>
+   <div class="issue"> Include some non-normative information about device configurations. <a href="https://github.com/wicg/webusb/issues/46">&lt;https://github.com/wicg/webusb/issues/46></a><a href="#issue-7197531b"> ↵ </a></div>
   </div>
   <aside class="dfn-panel" data-for="webusb-platform-capability-descriptor">
    <b><a href="#webusb-platform-capability-descriptor">#webusb-platform-capability-descriptor</a></b><b>Referenced in:</b>
