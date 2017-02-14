@@ -1400,31 +1400,37 @@ What configuration is the device in after it resets?
     required unsigned short index;
   };
 
+  [Constructor(DataView data, USBTransferStatus status)]
   interface USBInTransferResult {
     readonly attribute DataView data;
     readonly attribute USBTransferStatus status;
   };
 
+  [Constructor(unsigned long bytesWritten, USBTransferStatus status)]
   interface USBOutTransferResult {
     readonly attribute unsigned long bytesWritten;
     readonly attribute USBTransferStatus status;
   };
 
+  [Constructor(DataView data, USBTransferStatus status)]
   interface USBIsochronousInTransferPacket {
     readonly attribute DataView data;
     readonly attribute USBTransferStatus status;
   };
 
+  [Constructor(DataView data, sequence&lt;USBIsochronousInTransferPacket> packets)]
   interface USBIsochronousInTransferResult {
     readonly attribute DataView data;
     readonly attribute FrozenArray&lt;USBIsochronousInTransferPacket> packets;
   };
 
+  [Constructor(unsigned long bytesWritten, USBTransferStatus status)]
   interface USBIsochronousOutTransferPacket {
     readonly attribute unsigned long bytesWritten;
     readonly attribute USBTransferStatus status;
   };
 
+  [Constructor(sequence&lt;USBIsochronousOutTransferPacket> packets)]
   interface USBIsochronousOutTransferResult {
     readonly attribute FrozenArray&lt;USBIsochronousOutTransferPacket> packets;
   };
