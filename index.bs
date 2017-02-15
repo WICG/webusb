@@ -1402,7 +1402,7 @@ What configuration is the device in after it resets?
 
   [Constructor(USBTransferStatus status, optional DataView? data)]
   interface USBInTransferResult {
-    readonly attribute DataView data;
+    readonly attribute DataView? data;
     readonly attribute USBTransferStatus status;
   };
 
@@ -1414,13 +1414,13 @@ What configuration is the device in after it resets?
 
   [Constructor(USBTransferStatus status, optional DataView? data)]
   interface USBIsochronousInTransferPacket {
-    readonly attribute DataView data;
+    readonly attribute DataView? data;
     readonly attribute USBTransferStatus status;
   };
 
   [Constructor(sequence&lt;USBIsochronousInTransferPacket> packets, optional DataView? data)]
   interface USBIsochronousInTransferResult {
-    readonly attribute DataView data;
+    readonly attribute DataView? data;
     readonly attribute FrozenArray&lt;USBIsochronousInTransferPacket> packets;
   };
 
