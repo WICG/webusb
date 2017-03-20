@@ -692,7 +692,7 @@ run the following steps <a>in parallel</a>:
 
 The {{USB/requestDevice()}} method, when invoked, MUST run the following steps:
 
-  1. <a>Request a permission</a>, passing:
+  1. <a>Request permission to use</a> the following descriptor,
      <pre highlight="js">
        {
          name: "usb"
@@ -716,17 +716,12 @@ steps <a>in parallel</a>:
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
      <a>is not a valid filter</a> <a>reject</a> |promise| with a {{TypeError}}
      and abort these steps.
-  2. If the algorithm is not <a>allowed to show a popup</a>, <a>reject</a>
+  2. If the algorithm is not <a>triggered by user activation</a>, <a>reject</a>
      |promise| with a {{SecurityError}} and abort these steps.
-  3. Set <code>|status|.{{PermissionStatus/state}}</code> to
-     <code>|storage|.{{PermissionStorage/state}}</code>.
-  4. If <code>|status|.{{PermissionStatus/state}}</code> is {{"denied"}}, set
-     <code>|status|.{{USBPermissionResult/devices}}</code> to an empty
-     {{FrozenArray}}, <a>resolve</a> |promise| with <code>undefined</code>,
-     and abort these steps.
-  5. <a>Enumerate all devices attached to the system</a>. Let this result be
+  3. Set <code>|status|.{{PermissionStatus/state}}</code> to `"ask"`.
+  4. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
-  6. Remove devices from |enumerationResult| if they do not <a>match a
+  5. Remove devices from |enumerationResult| if they do not <a>match a
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
 
      The UA MAY apply additional origin-based filtering of available devices by
@@ -838,7 +833,7 @@ host it MUST perform the following steps for each script execution environment:
 The [[permissions]] API provides a uniform way for websites to request
 permissions from users and query which permissions they have.
 
-The <dfn enum-value for="PermissionName">"usb"</dfn> <a>permission</a> is
+The <dfn enum-value for="PermissionName">"usb"</dfn> <a>powerful feature</a> is
 defined as follows:
 
 <dl>
@@ -850,7 +845,7 @@ defined as follows:
       };
     </pre>
   </dd>
-  <dt><a>permission storage type</a></dt>
+  <dt><a>extra permission data type</a></dt>
   <dd>
     {{USBPermissionStorage}}, defined as:
     <pre class="idl">
@@ -860,7 +855,7 @@ defined as follows:
         DOMString serialNumber;
       };
 
-      dictionary USBPermissionStorage : PermissionStorage {
+      dictionary USBPermissionStorage {
         required sequence&lt;AllowedUSBDevice> allowedDevices = [];
       };
     </pre>
@@ -1735,7 +1730,7 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 <pre class="link-defaults">
 spec: html
     type: dfn
-        text: allowed to show a popup
+        text: triggered by user activation
         text: in parallel
         text: incumbent settings object
 </pre>
