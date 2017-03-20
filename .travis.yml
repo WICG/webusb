@@ -1,0 +1,7 @@
+language: generic
+
+script: bash ./deploy.sh
+
+env:
+  global:
+    - SPECS="index"
