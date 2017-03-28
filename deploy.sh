@@ -20,6 +20,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" -o "$TRAVIS_BRANCH" != "$SOURCE_BRANCH" ]
 fi
 
 # Load the encrypted deploy key so we can push to $TARGET_BRANCH.
+openssl aes-256-cbc -K $encrypted_2a342fc881c5_key -iv $encrypted_2a342fc881c5_iv -in deploy_key.enc -out deploy_key -d
 chmod 600 deploy_key
 eval `ssh-agent -s`
 ssh-add deploy_key
