@@ -1,9 +1,6 @@
 language: generic
 sudo: false
 
-before_install:
-  - openssl aes-256-cbc -K $encrypted_2a342fc881c5_key -iv $encrypted_2a342fc881c5_iv -in deploy_key.enc -out deploy_key -d
-
 script: bash ./deploy.sh
 
 env:
