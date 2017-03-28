@@ -94,25 +94,31 @@ host is the traditional guardian of access to the capabilities a device
 provides. In the development of this specification two possibilities were
 considered. First, the UA could notify the device of the origin from which a
 request originated. This would be similar to the <code>Referrer</code> header
-included in HTTP request.  The difficulty of this approach is that it places
+included in HTTP request. The difficulty of this approach is that it places
 the burden of access control on the device. Devices often have very limited
 processing and storage capabilities and so an effort was made to limit the
-amount of work necessary on the part of the device. The approach chosen by this
-specification is to instead require that the UA control access. This is done
-though a mechanism similiar to [[CORS]]. This specification defines a way for
-the device to provide the UA with a set of static data structures defining a
-set of origins that are allowed to connect to it. For devices manufactured
-before this specification is adopted information about allowed origins can also
-be provided out of band through a <a>public device registry</a>.
+amount of work necessary on the part of the device.
 
-A downside of this approach is that it provides no mechanism for third-party
-developers to use this API with a device. We encourage device manufacturers to
-enable software ecosystems to develop around their devices by providing a
-high-level API on top of the trusted code running on their own origin. Such an
-API could be accessed by embedding the manufacturer's trusted origin as an
-iframe within the developer's own site. The trusted origin retains control over
-the device through its ability to restrict the commands the third-party site
-can send through it.
+The approach initially chosen during drafting of this specification was to
+instead require that the UA control access though a mechanism similiar to
+[[CORS]]. The device could provide the UA with a set of static data structures
+defining a set of origins that are allowed to connect to it. To support a
+transition period for existing devices it was proposed that information about
+allowed origins could also be provided out of band through some kind of public
+registry.
+
+A downside of this approach was two-fold. First, it required vendors to build
+new devices with WebUSB in mind or rely on a public registry system that proved
+difficult to specify. Product development cycles are long and as only an
+Editor's Draft this specification does not have the clout necessary to influence
+product planning. Second, it provided no mechanism for third-party developers to
+use this API with a device. This limited innovation and the number of developers
+who could take advantage of this new capability.
+
+After considering these options the authors have decided that the permission
+prompt encouraged by the {{USB/requestDevice()}} method and the integration with
+[[#feature-policy]] provide adequate protection against unwanted access to a
+device.
 
 ## Attacking the Host ## {#attacking-the-host}
 
@@ -221,58 +227,12 @@ specified in the <code>wIndex</code> field.
     <th>Value</th>
   </tr>
   <tr>
-    <td>GET_ALLOWED_ORIGINS</td>
+    <td>(Reserved)</td>
     <td>1</td>
   </tr>
   <tr>
     <td>GET_URL</td>
     <td>2</td>
-  </tr>
-</table>
-
-<h4 dfn>Get Allowed Origins</h4>
-
-This request gets the set of origins allowed to access the device.
-It is analogous to the <code>Access-Control-Allow-Origin</code>
-header defined by [[CORS]].
-
-The device MUST respond with data beginning with a <a>Allowed
-Origins Header</a> or stall the transfer.
-
-A <a>URL descriptor</a> referenced by the response MUST be
-interpreted as an origin (as defined by [[RFC6454]]) and so content
-beyond the scheme/host/port triple MUST be ignored.
-
-If the UA chooses to enforce this policy then an origin <dfn>is
-allowed to access a device</dfn> if it matches one of the origins in
-the top-level <a>Allowed Origins Header</a> or any descriptors
-following it. An origin
-<dfn data-lt="is allowed to access configuration">is allowed to
-access a configuration</dfn> if it matches one of the origins in
-the corresponding <a>Configuration Subset Header</a> or in the
-top-level <a>Allowed Origins Header</a>. An origin
-<dfn data-lt="is allowed to access interface">is allowed to access
-an interface</dfn> if it matches one of the origins in the
-corresponding <a>Function Subset Header</a>, the <a>Configuration
-Subset Header</a> containing it or the top-level <a>Allowed Origins
-Header</a>.
-
-<table>
-  <tr>
-    <th>bmRequestType</td>
-    <th>bRequest</th>
-    <th>wValue</th>
-    <th>wIndex</th>
-    <th>wLength</th>
-    <th>Data</th>
-  </tr>
-  <tr>
-    <td>11000000B</td>
-    <td><code>bVendorCode</code></td>
-    <td>Zero</td>
-    <td>GET_ALLOWED_ORIGINS</td>
-    <td>Descriptor Length</td>
-    <td>Descriptor</td>
   </tr>
 </table>
 
@@ -314,191 +274,12 @@ specification.
     <th>Value</th>
   </tr>
   <tr>
-    <td>WEBUSB_DESCRIPTOR_SET_HEADER</td>
-    <td>0</td>
-  </tr>
-  <tr>
-    <td>WEBUSB_CONFIGURATION_SUBSET_HEADER</td>
-    <td>1</td>
-  </tr>
-  <tr>
-    <td>WEBUSB_FUNCTION_SUBSET_HEADER</td>
-    <td>2</td>
+    <td>(Reserved)</td>
+    <td>0-2</td>
   </tr>
   <tr>
     <td>WEBUSB_URL</td>
     <td>3</td>
-  </tr>
-</table>
-
-<h4 dfn>Allowed Origins Header</h4>
-
-This header lists the set of origins allowed to access the entire
-USB device. It MUST be followed by <code>bNumConfigurations</code>
-<a>configuration subset headers</a> that control permission to
-access particular configurations.
-
-This descriptor MUST be the beginning of the response to the <a>Get
-Allowed Origins</a> request. <code>wTotalLength</code> MUST be the
-total length of the response.
-
-<table>
-  <tr>
-    <th>Offset</th>
-    <th>Field</th>
-    <th>Size</th>
-    <th>Value</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>bLength</td>
-    <td>1</td>
-    <td>Number</td>
-    <td>Size of this descriptor. Must be set to <code>N + 5</code>.</td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>bDescriptorType</td>
-    <td>1</td>
-    <td>Constant</td>
-    <td>WEBUSB_DESCRIPTOR_SET_HEADER.</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>wTotalLength</td>
-    <td>2</td>
-    <td>Number</td>
-    <td>Total size of this and all following descriptors.</td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>bNumConfigurations</td>
-    <td>1</td>
-    <td>Number</td>
-    <td>
-      Number of <a>configuration subset headers</a> following this descriptor.
-    </td>
-  </tr>
-  <tr>
-    <td>5</td>
-    <td>iOrigin[|N|]</td>
-    <td>|N| &times; 1</td>
-    <td>Number</td>
-    <td>Set of <code>bLength - 5</code> URL descriptor indicies.</td>
-  </tr>
-</table>
-
-<h4 dfn>Configuration Subset Header</h4>
-
-This header lists the set of origins allowed to access the USB
-device configuration described by the <a>configuration
-descriptor</a> with the given <code>bConfigurationValue</code>. It
-MUST be followed by <code>bNumFunctions</code> <a>function subset
-headers</a> that control permission to access functions within this
-configuration.
-
-This descriptor MUST follow a <a>Allowed Origins Header</a>.
-
-<table>
-  <tr>
-    <th>Offset</th>
-    <th>Field</th>
-    <th>Size</th>
-    <th>Value</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>bLength</td>
-    <td>1</td>
-    <td>Number</td>
-    <td>
-      Size of this descriptor. Must be set to <code>N + 4</code>.
-    </td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>bDescriptorType</td>
-    <td>1</td>
-    <td>Constant</td>
-    <td>WEBUSB_CONFIGURATION_SUBSET_HEADER.</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>bConfigurationValue</td>
-    <td>1</td>
-    <td>Number</td>
-    <td>Configuration to which this section applies.</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>bNumFunctions</td>
-    <td>1</td>
-    <td>Number</td>
-    <td>
-      Number of <a>function subset headers</a> following this
-      descriptor.
-    </td>
-  </tr>
-  <tr>
-    <td>4</td>
-    <td>iOrigin[|N|]</td>
-    <td>|N| &times; 1</td>
-    <td>Number</td>
-    <td>Set of <code>bLength - 4</code> URL descriptor indicies.</td>
-  </tr>
-</table>
-
-<h4 dfn>Function Subset Header</h4>
-
-This header lists the set of origins allowed to access the USB
-device interface described by the <a>interface descriptor</a> with a
-<code>bInterfaceNumber</code> equal to
-<code>bFirstInterfaceNumber</code> or the set of interfaces defined
-as a function by an <a>interface association descriptor</a> with an
-equal <code>bFirstInterfaceNumber</code>.
-
-This descriptor MUST follow a <a>Configuration Subset Header</a>.
-
-<table>
-  <caption>WebUSB Function Subset Header</caption>
-  <tr>
-    <th>Offset</th>
-    <th>Field</th>
-    <th>Size</th>
-    <th>Value</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>0</td>
-    <td>bLength</td>
-    <td>1</td>
-    <td>Number</td>
-    <td>
-      Size of this descriptor. Must be set to <code>N + 3</code>.
-    </td>
-  </tr>
-  <tr>
-    <td>1</td>
-    <td>bDescriptorType</td>
-    <td>1</td>
-    <td>Constant</td>
-    <td>WEBUSB_FUNCTION_SUBSET_HEADER.</td>
-  </tr>
-  <tr>
-    <td>2</td>
-    <td>bFirstInterfaceNumber</td>
-    <td>1</td>
-    <td>Number</td>
-    <td>First interface of the function to which this section applies.</td>
-  </tr>
-  <tr>
-    <td>3</td>
-    <td>iOrigin[|N|]</td>
-    <td>|N| &times; 1</td>
-    <td>Number</td>
-    <td>Set of <code>bLength - 3</code> URL descriptor indicies.</td>
   </tr>
 </table>
 
@@ -562,13 +343,6 @@ The <code>bScheme</code> field MUST be one of these values:
     <td>"https://"</td>
   </tr>
 </table>
-
-<h3 dfn>Public Device Registry</h3>
-
-The <a>WebUSB Platform Capability Descriptor</a> and descriptors
-returned by the requests defined above can be elided by publishing
-this information in a public registry of supported USB devices. This
-will allow device manufacturers to support WebUSB on existing devices.
 
 # Device Enumeration # {#enumeration}
 
@@ -723,27 +497,20 @@ steps <a>in parallel</a>:
      |enumerationResult|.
   5. Remove devices from |enumerationResult| if they do not <a>match a
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
-
-     The UA MAY apply additional origin-based filtering of available devices by
-     consulting an authoritative list of device-origin mappings or referring to
-     the origin list returned by the <a>Get Allowed Origins</a> request.
-
-     The UA MAY provide additional mechanisms for blacklisting or whitelisting
-     specific devices for arbitrary origins.
-  7. Display a prompt to the user requesting they select a device from
+  6. Display a prompt to the user requesting they select a device from
      |enumerationResult|. The UA SHOULD show a human-readable name for each
      device.
-  8. Wait for the user to have selected a |device| or cancelled the
+  7. Wait for the user to have selected a |device| or cancelled the
      prompt.
-  9. If the user cancels the prompt, set
+  8. If the user cancels the prompt, set
      <code>|status|.{{USBPermissionResult/devices}}</code> to an empty
      {{FrozenArray}}, <a>resolve</a> |promise| with <code>undefined</code>,
      and abort these steps.
-  10. <a>Add |device| to |storage|</a>.
-  11. Let |deviceObj| be the {{USBDevice}} object representing |device|.
-  12. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
+  9. <a>Add |device| to |storage|</a>.
+  10. Let |deviceObj| be the {{USBDevice}} object representing |device|.
+  11. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
       {{FrozenArray}} containing |deviceObj| as its only element.
-  13. <a>Resolve</a> |promise| with <code>undefined</code>.
+  12. <a>Resolve</a> |promise| with <code>undefined</code>.
 
 To <dfn data-lt="add device to storage">add an allowed <a>USB device</a></dfn>
 |device| to {{USBPermissionStorage}} |storage|, the UA MUST run the following
@@ -827,83 +594,6 @@ host it MUST perform the following steps for each script execution environment:
      attribute set to |device|.
   7. Fire an event named <dfn>disconnect</dfn> on {{Navigator/usb}}, using
      |event| as the event object.
-
-## Permission API Integration ## {#permission-api}
-
-The [[permissions]] API provides a uniform way for websites to request
-permissions from users and query which permissions they have.
-
-The <dfn enum-value for="PermissionName">"usb"</dfn> <a>powerful feature</a> is
-defined as follows:
-
-<dl>
-  <dt><a>permission descriptor type</a></dt>
-  <dd>
-    <pre class="idl">
-      dictionary USBPermissionDescriptor : PermissionDescriptor {
-        sequence&lt;USBDeviceFilter> filters;
-      };
-    </pre>
-  </dd>
-  <dt><a>extra permission data type</a></dt>
-  <dd>
-    {{USBPermissionStorage}}, defined as:
-    <pre class="idl">
-      dictionary AllowedUSBDevice {
-        required octet vendorId;
-        required octet productId;
-        DOMString serialNumber;
-      };
-
-      dictionary USBPermissionStorage {
-        required sequence&lt;AllowedUSBDevice> allowedDevices = [];
-      };
-    </pre>
-
-    {{AllowedUSBDevice}} instances have an internal slot
-    <dfn attribute for="AllowedUSBDevice">\[[devices]]</dfn> that holds an
-    array of <a>USB devices</a>.
-  </dd>
-  <dt><a>permission result type</a></dt>
-  <dd>
-    <pre class="idl">
-      interface USBPermissionResult : PermissionStatus {
-        attribute FrozenArray&lt;USBDevice> devices;
-      };
-    </pre>
-  </dd>
-  <dt><a>permission query algorithm</a></dt>
-  <dd>
-    To <dfn>query the "usb" permission</dfn> with a {{USBPermissionDescriptor}}
-    |desc|, a {{USBPermissionStorage}} |storage|, and a {{USBPermissionResult}}
-    |status|, the UA must:
-
-      1. If <code>|desc|.{{USBPermissionDescriptor/filters}}</code> is set then,
-         for each |filter| in
-         <code>|desc|.{{USBPermissionDescriptor/filters}}</code> if |filter|
-         <a>is not a valid filter</a> then raise a {{TypeError}} and abort these
-         steps.
-      2. Set <code>|status|.{{PermissionStatus/state}}</code> to
-         {{"prompt"}}.
-      3. Let |matchingDevices| be a new {{Array}}.
-      4. For each |allowedDevice| in
-         <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code> and
-         for each |device| in <code>|allowedDevice|@{{[[devices]]}}</code>, run
-         the following substeps:
-
-           1. If <code>|desc|.{{USBPermissionDescriptor/filters}}</code> is set
-              and |device| does not <a>match a filter</a> in
-              <code>|desc|.{{USBPermissionDescriptor/filters}}</code>, continue
-              to the next |device|.
-           2. Get the {{USBDevice}} representing |device| and add it to
-              |matchingDevices|.
-
-      5. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
-         {{FrozenArray}} whose contents are |matchingDevices|.
-  </dd>
-  <dt><a>permission request algorithm</a></dt>
-  <dd><a>Request the "usb" permission</a>.</dd>
-</dl>
 
 # Device Usage # {#device-usage}
 
@@ -1034,17 +724,14 @@ parallel:
   4. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
      <code>true</code> <a>reject</a> |promise| with an {{InvalidStateError}} and
      abort these steps.
-  5. The UA MAY check that the caller <a>is allowed to access
-     |configuration|</a>, and if not <a>reject</a> |promise| with a
-     {{SecurityError}} and abort these steps.
-  6. Abort all transfers currently scheduled on endpoints other than the
+  5. Abort all transfers currently scheduled on endpoints other than the
      <a>default control pipe</a> and <a>reject</a> their associated promises
      with a {{AbortError}}.
-  7. Issue a <code>SET_CONFIGURATION</code> control transfer to the device to
+  6. Issue a <code>SET_CONFIGURATION</code> control transfer to the device to
      set |configurationValue| as its <a>active configuration</a>.  If this step
      fails <a>reject</a> |promise| with a {{NetworkError}} and abort these
      steps.
-  8. Set <code>|device|.{{USBDevice/configuration}}</code> to |configuration|
+  7. Set <code>|device|.{{USBDevice/configuration}}</code> to |configuration|
      and <a>resolve</a> |promise|.
 
 The {{USBDevice/claimInterface(interfaceNumber)}} method, when invoked, MUST
@@ -1060,13 +747,10 @@ return a new {{Promise}} and run the following steps <a>in parallel</a>:
      <code>|interface|.{{USBInterface/claimed}}</code> is not <code>false</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  4. The UA MAY check that the caller <a>is allowed to access |interface|</a>,
-     and if not <a>reject</a> |promise| with a {{SecurityError}} and abort these
-     steps.
-  5. Perform the necessary platform-specific steps to request exclusive control
+  4. Perform the necessary platform-specific steps to request exclusive control
      over |interface|. If this fails, <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
-  6. Set <code>|interface|.{{USBInterface/claimed}}</code> to <code>true</code>
+  5. Set <code>|interface|.{{USBInterface/claimed}}</code> to <code>true</code>
      and <a>resolve</a> |promise|.
 
 The {{USBDevice/releaseInterface(interfaceNumber)}} method, when invoked, MUST
@@ -1471,10 +1155,6 @@ perform the following steps:
   3. Let |configuration| be the <a>active configuration</a>. If the device is
      not configured abort these steps.
   4. If <code>|setup|.{{USBControlTransferParameters/recipient}}</code> is
-     {{"device"}} or {{"other"}} the UA MAY check that the caller <a>is allowed
-     to access |configuration|</a>, and if not <a>reject</a> |promise| with a
-     {{SecurityError}} and abort these steps.
-  5. If <code>|setup|.{{USBControlTransferParameters/recipient}}</code> is
      {{"interface"}}, perform the following steps:
        1. Let |interfaceNumber| be the lower 8 bits of
           <code>|setup|.{{USBControlTransferParameters/index}}</code>.
@@ -1485,10 +1165,7 @@ perform the following steps:
        3. If <code>|interface|.{{USBInterface/claimed}}</code> is not equal to
           <code>true</code>, <a>reject</a> |promise| with an
           {{InvalidStateError}} and abort these steps.
-       4. The UA MAY check that the caller <a>is allowed to access
-          |interface|</a>, and if not <a>reject</a> |promise| with a
-          {{SecurityError}}.
-  6. If <code>|setup|.{{USBControlTransferParameters/recipient}}</code> is
+  5. If <code>|setup|.{{USBControlTransferParameters/recipient}}</code> is
      {{"endpoint"}}, run the following steps:
        1. Let |endpointNumber| be defined as the lower 4 bits of
           <code>|setup|.{{USBControlTransferParameters/index}}</code>.
@@ -1503,9 +1180,6 @@ perform the following steps:
           <code>|interface|.{{USBInterface/claimed}}</code> is not equal to
           <code>true</code>, <a>reject</a> |promise| with an
           {{InvalidStateError}}.
-       5. The UA MAY check that the caller <a>is allowed to access
-          |interface|</a>, and if not <a>reject</a> |promise| with a
-          {{SecurityError}}.
 
 ## Configurations ## {#configurations}
 
@@ -1660,6 +1334,94 @@ multiple transactions per microframe. In a SuperSpeed device this value will
 include the multiplication factor provided by the <code>bMaxBurst</code> field
 of the SuperSpeed Endpoint Companion descriptor.
 
+# Integrations # {#integrations}
+
+## Feature Policy ## {#feature-policy}
+
+This specification defines a <a>feature</a> that controls whether the
+{{Navigator/usb}} attribute is exposed on the {{Navigator}} object.
+
+The <a>feature name</a> for this feature is <code>"usb"</code>.
+
+The <a>default allowlist</a> for this feature is <code>["self"]</code>.
+
+## Permission API ## {#permission-api}
+
+The [[permissions]] API provides a uniform way for websites to request
+permissions from users and query which permissions they have.
+
+The <dfn enum-value for="PermissionName">"usb"</dfn> <a>powerful feature</a> is
+defined as follows:
+
+<dl>
+  <dt><a>permission descriptor type</a></dt>
+  <dd>
+    <pre class="idl">
+      dictionary USBPermissionDescriptor : PermissionDescriptor {
+        sequence&lt;USBDeviceFilter> filters;
+      };
+    </pre>
+  </dd>
+  <dt><a>extra permission data type</a></dt>
+  <dd>
+    {{USBPermissionStorage}}, defined as:
+    <pre class="idl">
+      dictionary AllowedUSBDevice {
+        required octet vendorId;
+        required octet productId;
+        DOMString serialNumber;
+      };
+
+      dictionary USBPermissionStorage {
+        required sequence&lt;AllowedUSBDevice> allowedDevices = [];
+      };
+    </pre>
+
+    {{AllowedUSBDevice}} instances have an internal slot
+    <dfn attribute for="AllowedUSBDevice">\[[devices]]</dfn> that holds an
+    array of <a>USB devices</a>.
+  </dd>
+  <dt><a>permission result type</a></dt>
+  <dd>
+    <pre class="idl">
+      interface USBPermissionResult : PermissionStatus {
+        attribute FrozenArray&lt;USBDevice> devices;
+      };
+    </pre>
+  </dd>
+  <dt><a>permission query algorithm</a></dt>
+  <dd>
+    To <dfn>query the "usb" permission</dfn> with a {{USBPermissionDescriptor}}
+    |desc|, a {{USBPermissionStorage}} |storage|, and a {{USBPermissionResult}}
+    |status|, the UA must:
+
+      1. If <code>|desc|.{{USBPermissionDescriptor/filters}}</code> is set then,
+         for each |filter| in
+         <code>|desc|.{{USBPermissionDescriptor/filters}}</code> if |filter|
+         <a>is not a valid filter</a> then raise a {{TypeError}} and abort these
+         steps.
+      2. Set <code>|status|.{{PermissionStatus/state}}</code> to
+         {{"prompt"}}.
+      3. Let |matchingDevices| be a new {{Array}}.
+      4. For each |allowedDevice| in
+         <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code> and
+         for each |device| in <code>|allowedDevice|@{{[[devices]]}}</code>, run
+         the following substeps:
+
+           1. If <code>|desc|.{{USBPermissionDescriptor/filters}}</code> is set
+              and |device| does not <a>match a filter</a> in
+              <code>|desc|.{{USBPermissionDescriptor/filters}}</code>, continue
+              to the next |device|.
+           2. Get the {{USBDevice}} representing |device| and add it to
+              |matchingDevices|.
+
+      5. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
+         {{FrozenArray}} whose contents are |matchingDevices|.
+  </dd>
+  <dt><a>permission request algorithm</a></dt>
+  <dd><a>Request the "usb" permission</a>.</dd>
+</dl>
+
 # Terminology # {#terminology}
 
 This specification uses several terms taken from [[USB31]]. While
@@ -1725,6 +1487,11 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
         text: Array; url: sec-array-objects
         text: Promise; url:sec-promise-objects
         text: TypeError; url: sec-native-error-types-used-in-this-standard-typeerror
+spec: Feature Policy; urlPrefix: https://wicg.github.io/feature-policy/#
+    type: dfn
+        text: default allowlist
+        text: feature
+        text: feature name
 </pre>
 
 <pre class="link-defaults">
