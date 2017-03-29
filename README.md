@@ -3,7 +3,7 @@ WebUSB
 
 Connecting hardware to the web.
 
-![Build status](https://travis-ci.org/WICG/webusb.svg?branch=master)
+[![Build status](https://travis-ci.org/WICG/webusb.svg?branch=master)](https://travis-ci.org/WICG/webusb?branch=master)
 
 Documents
 ---------
