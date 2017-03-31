@@ -1496,24 +1496,18 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
       <li>
        <a href="#device-requests"><span class="secno">3.2</span> <span class="content">WebUSB Device Requests</span></a>
        <ol class="toc">
-        <li><a href="#get-allowed-origins"><span class="secno">3.2.1</span> <span class="content">Get Allowed Origins</span></a>
-        <li><a href="#get-url"><span class="secno">3.2.2</span> <span class="content">Get URL</span></a>
+        <li><a href="#get-url"><span class="secno">3.2.1</span> <span class="content">Get URL</span></a>
        </ol>
       <li>
        <a href="#webusb-descriptors"><span class="secno">3.3</span> <span class="content">WebUSB Descriptors</span></a>
        <ol class="toc">
-        <li><a href="#allowed-origins-header"><span class="secno">3.3.1</span> <span class="content">Allowed Origins Header</span></a>
-        <li><a href="#configuration-subset-header"><span class="secno">3.3.2</span> <span class="content">Configuration Subset Header</span></a>
-        <li><a href="#function-subset-header"><span class="secno">3.3.3</span> <span class="content">Function Subset Header</span></a>
-        <li><a href="#url-descriptor"><span class="secno">3.3.4</span> <span class="content">URL Descriptor</span></a>
+        <li><a href="#url-descriptor"><span class="secno">3.3.1</span> <span class="content">URL Descriptor</span></a>
        </ol>
-      <li><a href="#public-device-registry"><span class="secno">3.4</span> <span class="content">Public Device Registry</span></a>
      </ol>
     <li>
      <a href="#enumeration"><span class="secno">4</span> <span class="content">Device Enumeration</span></a>
      <ol class="toc">
       <li><a href="#events"><span class="secno">4.1</span> <span class="content">Events</span></a>
-      <li><a href="#permission-api"><span class="secno">4.2</span> <span class="content">Permission API Integration</span></a>
      </ol>
     <li>
      <a href="#device-usage"><span class="secno">5</span> <span class="content">Device Usage</span></a>
@@ -1523,7 +1517,13 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
       <li><a href="#interfaces"><span class="secno">5.3</span> <span class="content">Interfaces</span></a>
       <li><a href="#endpoints"><span class="secno">5.4</span> <span class="content">Endpoints</span></a>
      </ol>
-    <li><a href="#terminology"><span class="secno">6</span> <span class="content">Terminology</span></a>
+    <li>
+     <a href="#integrations"><span class="secno">6</span> <span class="content">Integrations</span></a>
+     <ol class="toc">
+      <li><a href="#feature-policy"><span class="secno">6.1</span> <span class="content">Feature Policy</span></a>
+      <li><a href="#permission-api"><span class="secno">6.2</span> <span class="content">Permission API</span></a>
+     </ol>
+    <li><a href="#terminology"><span class="secno">7</span> <span class="content">Terminology</span></a>
     <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
@@ -1595,24 +1595,26 @@ host is the traditional guardian of access to the capabilities a device
 provides. In the development of this specification two possibilities were
 considered. First, the UA could notify the device of the origin from which a
 request originated. This would be similar to the <code>Referrer</code> header
-included in HTTP request.  The difficulty of this approach is that it places
+included in HTTP request. The difficulty of this approach is that it places
 the burden of access control on the device. Devices often have very limited
 processing and storage capabilities and so an effort was made to limit the
-amount of work necessary on the part of the device. The approach chosen by this
-specification is to instead require that the UA control access. This is done
-though a mechanism similiar to <a data-link-type="biblio" href="#biblio-cors">[CORS]</a>. This specification defines a way for
-the device to provide the UA with a set of static data structures defining a
-set of origins that are allowed to connect to it. For devices manufactured
-before this specification is adopted information about allowed origins can also
-be provided out of band through a <a data-link-type="dfn" href="#public-device-registry" id="ref-for-public-device-registry-1">public device registry</a>.</p>
-   <p>A downside of this approach is that it provides no mechanism for third-party
-developers to use this API with a device. We encourage device manufacturers to
-enable software ecosystems to develop around their devices by providing a
-high-level API on top of the trusted code running on their own origin. Such an
-API could be accessed by embedding the manufacturer’s trusted origin as an
-iframe within the developer’s own site. The trusted origin retains control over
-the device through its ability to restrict the commands the third-party site
-can send through it.</p>
+amount of work necessary on the part of the device.</p>
+   <p>The approach initially chosen during drafting of this specification was to
+instead require that the UA control access though a mechanism similiar to <a data-link-type="biblio" href="#biblio-cors">[CORS]</a>. The device could provide the UA with a set of static data structures
+defining a set of origins that are allowed to connect to it. To support a
+transition period for existing devices it was proposed that information about
+allowed origins could also be provided out of band through some kind of public
+registry.</p>
+   <p>A downside of this approach was two-fold. First, it required vendors to build
+new devices with WebUSB in mind or rely on a public registry system that proved
+difficult to specify. Product development cycles are long and as only an
+Editor’s Draft this specification does not have the clout necessary to influence
+product planning. Second, it provided no mechanism for third-party developers to
+use this API with a device. This limited innovation and the number of developers
+who could take advantage of this new capability.</p>
+   <p>After considering these options the authors have decided that the permission
+prompt encouraged by the <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-2">requestDevice()</a></code> method and the integration with <a href="#feature-policy">§6.1 Feature Policy</a> provide adequate protection against unwanted access to a
+device.</p>
    <h3 class="heading settled" data-level="2.3" id="attacking-the-host"><span class="secno">2.3. </span><span class="content">Attacking the Host</span><a class="self-link" href="#attacking-the-host"></a></h3>
    <p>If a device is compromised then in addition to abusing its own capabilities
 the attacker may also use it to in turn attack the host to which it is connected
@@ -1702,51 +1704,15 @@ specified in the <code>wIndex</code> field.</p>
       <th>Constant
       <th>Value
      <tr>
-      <td>GET_ALLOWED_ORIGINS
+      <td>(Reserved)
       <td>1
      <tr>
       <td>GET_URL
       <td>2
    </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.2.1" data-lt="Get Allowed Origins" data-noexport="" id="get-allowed-origins"><span class="secno">3.2.1. </span><span class="content">Get Allowed Origins</span></h4>
-   <p>This request gets the set of origins allowed to access the device.
-It is analogous to the <code>Access-Control-Allow-Origin</code> header defined by <a data-link-type="biblio" href="#biblio-cors">[CORS]</a>.</p>
-   <p>The device MUST respond with data beginning with a <a data-link-type="dfn" href="#allowed-origins-header" id="ref-for-allowed-origins-header-1">Allowed
-Origins Header</a> or stall the transfer.</p>
-   <p>A <a data-link-type="dfn" href="#url-descriptor" id="ref-for-url-descriptor-1">URL descriptor</a> referenced by the response MUST be
-interpreted as an origin (as defined by <a data-link-type="biblio" href="#biblio-rfc6454">[RFC6454]</a>) and so content
-beyond the scheme/host/port triple MUST be ignored.</p>
-   <p>If the UA chooses to enforce this policy then an origin <dfn data-dfn-type="dfn" data-lt="is allowed to access a device" data-noexport="" id="is-allowed-to-access-a-device">is
-allowed to access a device<a class="self-link" href="#is-allowed-to-access-a-device"></a></dfn> if it matches one of the origins in
-the top-level <a data-link-type="dfn" href="#allowed-origins-header" id="ref-for-allowed-origins-header-2">Allowed Origins Header</a> or any descriptors
-following it. An origin <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="is allowed to access configuration" data-noexport="" id="is-allowed-to-access-configuration">is allowed to
-access a configuration</dfn> if it matches one of the origins in
-the corresponding <a data-link-type="dfn" href="#configuration-subset-header" id="ref-for-configuration-subset-header-1">Configuration Subset Header</a> or in the
-top-level <a data-link-type="dfn" href="#allowed-origins-header" id="ref-for-allowed-origins-header-3">Allowed Origins Header</a>. An origin <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="is allowed to access interface" data-noexport="" id="is-allowed-to-access-interface">is allowed to access
-an interface</dfn> if it matches one of the origins in the
-corresponding <a data-link-type="dfn" href="#function-subset-header" id="ref-for-function-subset-header-1">Function Subset Header</a>, the <a data-link-type="dfn" href="#configuration-subset-header" id="ref-for-configuration-subset-header-2">Configuration
-Subset Header</a> containing it or the top-level <a data-link-type="dfn" href="#allowed-origins-header" id="ref-for-allowed-origins-header-4">Allowed Origins
-Header</a>.</p>
-   <table>
-    <tbody>
-     <tr>
-      <th>bmRequestType 
-      <th>bRequest
-      <th>wValue
-      <th>wIndex
-      <th>wLength
-      <th>Data
-     <tr>
-      <td>11000000B
-      <td><code>bVendorCode</code>
-      <td>Zero
-      <td>GET_ALLOWED_ORIGINS
-      <td>Descriptor Length
-      <td>Descriptor
-   </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.2.2" data-lt="Get URL" data-noexport="" id="get-url"><span class="secno">3.2.2. </span><span class="content">Get URL</span></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.2.1" data-lt="Get URL" data-noexport="" id="get-url"><span class="secno">3.2.1. </span><span class="content">Get URL</span></h4>
    <p>This request fetches the URL descriptor with the given index.</p>
-   <p>The device MUST respond with the <a data-link-type="dfn" href="#url-descriptor" id="ref-for-url-descriptor-2">URL Descriptor</a> at the given
+   <p>The device MUST respond with the <a data-link-type="dfn" href="#url-descriptor" id="ref-for-url-descriptor-1">URL Descriptor</a> at the given
 index or stall the transfer if the index is invalid.</p>
    <table>
     <tbody>
@@ -1775,153 +1741,13 @@ specification.</p>
       <th>Constant
       <th>Value
      <tr>
-      <td>WEBUSB_DESCRIPTOR_SET_HEADER
-      <td>0
-     <tr>
-      <td>WEBUSB_CONFIGURATION_SUBSET_HEADER
-      <td>1
-     <tr>
-      <td>WEBUSB_FUNCTION_SUBSET_HEADER
-      <td>2
+      <td>(Reserved)
+      <td>0-2
      <tr>
       <td>WEBUSB_URL
       <td>3
    </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.3.1" data-lt="Allowed Origins Header" data-noexport="" id="allowed-origins-header"><span class="secno">3.3.1. </span><span class="content">Allowed Origins Header</span></h4>
-   <p>This header lists the set of origins allowed to access the entire
-USB device. It MUST be followed by <code>bNumConfigurations</code> <a data-link-type="dfn" href="#configuration-subset-header" id="ref-for-configuration-subset-header-3">configuration subset headers</a> that control permission to
-access particular configurations.</p>
-   <p>This descriptor MUST be the beginning of the response to the <a data-link-type="dfn" href="#get-allowed-origins" id="ref-for-get-allowed-origins-1">Get
-Allowed Origins</a> request. <code>wTotalLength</code> MUST be the
-total length of the response.</p>
-   <table>
-    <tbody>
-     <tr>
-      <th>Offset
-      <th>Field
-      <th>Size
-      <th>Value
-      <th>Description
-     <tr>
-      <td>0
-      <td>bLength
-      <td>1
-      <td>Number
-      <td>Size of this descriptor. Must be set to <code>N + 5</code>.
-     <tr>
-      <td>1
-      <td>bDescriptorType
-      <td>1
-      <td>Constant
-      <td>WEBUSB_DESCRIPTOR_SET_HEADER.
-     <tr>
-      <td>2
-      <td>wTotalLength
-      <td>2
-      <td>Number
-      <td>Total size of this and all following descriptors.
-     <tr>
-      <td>4
-      <td>bNumConfigurations
-      <td>1
-      <td>Number
-      <td> Number of <a data-link-type="dfn" href="#configuration-subset-header" id="ref-for-configuration-subset-header-4">configuration subset headers</a> following this descriptor. 
-     <tr>
-      <td>5
-      <td>iOrigin[<var>N</var>]
-      <td><var>N</var> × 1
-      <td>Number
-      <td>Set of <code>bLength - 5</code> URL descriptor indicies.
-   </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.3.2" data-lt="Configuration Subset Header" data-noexport="" id="configuration-subset-header"><span class="secno">3.3.2. </span><span class="content">Configuration Subset Header</span></h4>
-   <p>This header lists the set of origins allowed to access the USB
-device configuration described by the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-1">configuration
-descriptor</a> with the given <code>bConfigurationValue</code>. It
-MUST be followed by <code>bNumFunctions</code> <a data-link-type="dfn" href="#function-subset-header" id="ref-for-function-subset-header-2">function subset
-headers</a> that control permission to access functions within this
-configuration.</p>
-   <p>This descriptor MUST follow a <a data-link-type="dfn" href="#allowed-origins-header" id="ref-for-allowed-origins-header-5">Allowed Origins Header</a>.</p>
-   <table>
-    <tbody>
-     <tr>
-      <th>Offset
-      <th>Field
-      <th>Size
-      <th>Value
-      <th>Description
-     <tr>
-      <td>0
-      <td>bLength
-      <td>1
-      <td>Number
-      <td> Size of this descriptor. Must be set to <code>N + 4</code>. 
-     <tr>
-      <td>1
-      <td>bDescriptorType
-      <td>1
-      <td>Constant
-      <td>WEBUSB_CONFIGURATION_SUBSET_HEADER.
-     <tr>
-      <td>2
-      <td>bConfigurationValue
-      <td>1
-      <td>Number
-      <td>Configuration to which this section applies.
-     <tr>
-      <td>3
-      <td>bNumFunctions
-      <td>1
-      <td>Number
-      <td> Number of <a data-link-type="dfn" href="#function-subset-header" id="ref-for-function-subset-header-3">function subset headers</a> following this
-      descriptor. 
-     <tr>
-      <td>4
-      <td>iOrigin[<var>N</var>]
-      <td><var>N</var> × 1
-      <td>Number
-      <td>Set of <code>bLength - 4</code> URL descriptor indicies.
-   </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.3.3" data-lt="Function Subset Header" data-noexport="" id="function-subset-header"><span class="secno">3.3.3. </span><span class="content">Function Subset Header</span></h4>
-   <p>This header lists the set of origins allowed to access the USB
-device interface described by the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-1">interface descriptor</a> with a <code>bInterfaceNumber</code> equal to <code>bFirstInterfaceNumber</code> or the set of interfaces defined
-as a function by an <a data-link-type="dfn" href="#interface-association-descriptor" id="ref-for-interface-association-descriptor-1">interface association descriptor</a> with an
-equal <code>bFirstInterfaceNumber</code>.</p>
-   <p>This descriptor MUST follow a <a data-link-type="dfn" href="#configuration-subset-header" id="ref-for-configuration-subset-header-5">Configuration Subset Header</a>.</p>
-   <table>
-    <caption>WebUSB Function Subset Header</caption>
-    <tbody>
-     <tr>
-      <th>Offset
-      <th>Field
-      <th>Size
-      <th>Value
-      <th>Description
-     <tr>
-      <td>0
-      <td>bLength
-      <td>1
-      <td>Number
-      <td> Size of this descriptor. Must be set to <code>N + 3</code>. 
-     <tr>
-      <td>1
-      <td>bDescriptorType
-      <td>1
-      <td>Constant
-      <td>WEBUSB_FUNCTION_SUBSET_HEADER.
-     <tr>
-      <td>2
-      <td>bFirstInterfaceNumber
-      <td>1
-      <td>Number
-      <td>First interface of the function to which this section applies.
-     <tr>
-      <td>3
-      <td>iOrigin[<var>N</var>]
-      <td><var>N</var> × 1
-      <td>Number
-      <td>Set of <code>bLength - 3</code> URL descriptor indicies.
-   </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.3.4" data-lt="URL Descriptor" data-noexport="" id="url-descriptor"><span class="secno">3.3.4. </span><span class="content">URL Descriptor</span></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.3.1" data-lt="URL Descriptor" data-noexport="" id="url-descriptor"><span class="secno">3.3.1. </span><span class="content">URL Descriptor</span></h4>
    <p>This descriptor contains a single URL and is returned by the <a data-link-type="dfn" href="#get-url" id="ref-for-get-url-1">Get URL</a> request.</p>
    <table>
     <tbody>
@@ -1970,11 +1796,6 @@ equal <code>bFirstInterfaceNumber</code>.</p>
       <td>1
       <td>"https://"
    </table>
-   <h3 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="3.4" data-lt="Public Device Registry" data-noexport="" id="public-device-registry"><span class="secno">3.4. </span><span class="content">Public Device Registry</span></h3>
-   <p>The <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor-2">WebUSB Platform Capability Descriptor</a> and descriptors
-returned by the requests defined above can be elided by publishing
-this information in a public registry of supported USB devices. This
-will allow device manufacturers to support WebUSB on existing devices.</p>
    <h2 class="heading settled" data-level="4" id="enumeration"><span class="secno">4. </span><span class="content">Device Enumeration</span><a class="self-link" href="#enumeration"></a></h2>
 <pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbdevicefilter">USBDeviceFilter</dfn> {
   <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><span class="kt">unsigned</span> <span class="kt">short</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export="" data-type="unsigned short " id="dom-usbdevicefilter-vendorid">vendorId</dfn>;
@@ -2014,7 +1835,7 @@ will allow device manufacturers to support WebUSB on existing devices.</p>
  for each of <var>device</var>’s interface’s <var>interface</var> run the following steps:</p>
      <ol>
       <li data-md="">
-       <p>Let <var>desc</var> be <var>interface</var>’s <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-2">interface descriptor</a>.</p>
+       <p>Let <var>desc</var> be <var>interface</var>’s <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-1">interface descriptor</a>.</p>
       <li data-md="">
        <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode-2">classCode</a></code></code> is present
   then, if <code><var>desc</var>.bInterfaceClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode-3">classCode</a></code></code>, continue to
@@ -2066,7 +1887,7 @@ it performs and then begin monitoring for device connection and disconnection
 events, adding connected devices to its cached enumeration and removing
 disconnected devices. This mode of operation is preferred as it reduces the
 number of operating system calls made and amount of bus traffic generated by
-the <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices-1">getDevices()</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-2">requestDevice()</a></code> methods.</p>
+the <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices-1">getDevices()</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-3">requestDevice()</a></code> methods.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-onconnect" id="ref-for-dom-usb-onconnect-1">onconnect</a></code> attribute is an Event handler IDL attribute for the <a data-link-type="dfn" href="#connect" id="ref-for-connect-1">connect</a> event type.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-ondisconnect" id="ref-for-dom-usb-ondisconnect-1">ondisconnect</a></code> attribute is an Event handler IDL attribute for the <a data-link-type="dfn" href="#disconnect" id="ref-for-disconnect-1">disconnect</a> event type.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices-2">getDevices()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> and
@@ -2090,7 +1911,7 @@ exists, continue to the next <var>device</var>.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">Resolve</a> <var>promise</var> with <var>devices</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-3">requestDevice()</a></code> method, when invoked, MUST run the following steps:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-4">requestDevice()</a></code> method, when invoked, MUST run the following steps:</p>
    <ol>
     <li data-md="">
      <p><a data-link-type="dfn" href="https://w3c.github.io/permissions/#request-permission-to-use">Request permission to use</a> the following descriptor,</p>
@@ -2126,11 +1947,6 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
     <li data-md="">
      <p>Remove devices from <var>enumerationResult</var> if they do not <a data-link-type="dfn" href="#match-a-filter" id="ref-for-match-a-filter-1">match a
  filter</a> in <code><var>options</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-2">filters</a></code></code>.</p>
-     <p>The UA MAY apply additional origin-based filtering of available devices by
- consulting an authoritative list of device-origin mappings or referring to
- the origin list returned by the <a data-link-type="dfn" href="#get-allowed-origins" id="ref-for-get-allowed-origins-2">Get Allowed Origins</a> request.</p>
-     <p>The UA MAY provide additional mechanisms for blacklisting or whitelisting
- specific devices for arbitrary origins.</p>
     <li data-md="">
      <p>Display a prompt to the user requesting they select a device from <var>enumerationResult</var>. The UA SHOULD show a human-readable name for each
  device.</p>
@@ -2235,69 +2051,6 @@ host it MUST perform the following steps for each script execution environment:<
     <li data-md="">
      <p>Fire an event named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="disconnect">disconnect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb-2">usb</a></code>, using <var>event</var> as the event object.</p>
    </ol>
-   <h3 class="heading settled" data-level="4.2" id="permission-api"><span class="secno">4.2. </span><span class="content">Permission API Integration</span><a class="self-link" href="#permission-api"></a></h3>
-   <p>The <a data-link-type="biblio" href="#biblio-permissions">[permissions]</a> API provides a uniform way for websites to request
-permissions from users and query which permissions they have.</p>
-   <p>The <dfn class="idl-code" data-dfn-for="PermissionName" data-dfn-type="enum-value" data-export="" id="dom-permissionname-usb">"usb"<a class="self-link" href="#dom-permissionname-usb"></a></dfn> <a data-link-type="dfn" href="https://w3c.github.io/permissions/#powerful-feature">powerful feature</a> is
-defined as follows:</p>
-   <dl>
-    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-descriptor-type">permission descriptor type</a>
-    <dd>
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbpermissiondescriptor">USBPermissionDescriptor</dfn> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor">PermissionDescriptor</a> {
-  <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter-3">USBDeviceFilter</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBPermissionDescriptor" data-dfn-type="dict-member" data-export="" data-type="sequence<USBDeviceFilter> " id="dom-usbpermissiondescriptor-filters">filters</dfn>;
-};
-</pre>
-    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#extra-permission-data-type">extra permission data type</a>
-    <dd>
-      <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage-6">USBPermissionStorage</a></code>, defined as: 
-<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-allowedusbdevice">AllowedUSBDevice</dfn> {
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export="" data-type="octet " id="dom-allowedusbdevice-vendorid">vendorId</dfn>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export="" data-type="octet " id="dom-allowedusbdevice-productid">productId</dfn>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><span class="kt">DOMString</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-allowedusbdevice-serialnumber">serialNumber</dfn>;
-};
-
-<span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbpermissionstorage">USBPermissionStorage</dfn> {
-  <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice-1">AllowedUSBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-default="None" data-dfn-for="USBPermissionStorage" data-dfn-type="dict-member" data-export="" data-type="sequence<AllowedUSBDevice> " id="dom-usbpermissionstorage-alloweddevices">allowedDevices</dfn> = [];
-};
-</pre>
-     <p><code class="idl"><a data-link-type="idl" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice-2">AllowedUSBDevice</a></code> instances have an internal slot <dfn class="dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="attribute" data-export="" id="dom-allowedusbdevice-devices-slot">[[devices]]</dfn> that holds an
-    array of <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device-5">USB devices</a>.</p>
-    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-result-type">permission result type</a>
-    <dd>
-<pre class="idl highlight def"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbpermissionresult">USBPermissionResult</dfn> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus">PermissionStatus</a> {
-  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-9">USBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBPermissionResult" data-dfn-type="attribute" data-export="" data-type="FrozenArray<USBDevice>" id="dom-usbpermissionresult-devices">devices</dfn>;
-};
-</pre>
-    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-query-algorithm">permission query algorithm</a>
-    <dd>
-      To <dfn data-dfn-type="dfn" data-noexport="" id="query-the-usb-permission">query the "usb" permission<a class="self-link" href="#query-the-usb-permission"></a></dfn> with a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissiondescriptor" id="ref-for-dictdef-usbpermissiondescriptor-2">USBPermissionDescriptor</a></code> <var>desc</var>, a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage-7">USBPermissionStorage</a></code> <var>storage</var>, and a <code class="idl"><a data-link-type="idl" href="#usbpermissionresult" id="ref-for-usbpermissionresult-2">USBPermissionResult</a></code> <var>status</var>, the UA must: 
-     <ol>
-      <li data-md="">
-       <p>If <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-3">filters</a></code></code> is set then,
- for each <var>filter</var> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-4">filters</a></code></code> if <var>filter</var> <a data-link-type="dfn" href="#is-not-a-valid-filter" id="ref-for-is-not-a-valid-filter-2">is not a valid filter</a> then raise a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a></code> and abort these
- steps.</p>
-      <li data-md="">
-       <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/permissions/#dom-permissionstatus-state">state</a></code></code> to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/permissions/#dom-permissionstate-prompt">"prompt"</a></code>.</p>
-      <li data-md="">
-       <p>Let <var>matchingDevices</var> be a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-array-objects">Array</a></code>.</p>
-      <li data-md="">
-       <p>For each <var>allowedDevice</var> in <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices-7">allowedDevices</a></code></code> and
- for each <var>device</var> in <code><var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot-8">[[devices]]</a></code></code>, run
- the following substeps:</p>
-       <ol>
-        <li data-md="">
-         <p>If <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-5">filters</a></code></code> is set
-  and <var>device</var> does not <a data-link-type="dfn" href="#match-a-filter" id="ref-for-match-a-filter-2">match a filter</a> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-6">filters</a></code></code>, continue
-  to the next <var>device</var>.</p>
-        <li data-md="">
-         <p>Get the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-10">USBDevice</a></code> representing <var>device</var> and add it to <var>matchingDevices</var>.</p>
-       </ol>
-      <li data-md="">
-       <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionresult-devices" id="ref-for-dom-usbpermissionresult-devices-5">devices</a></code></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a></code> whose contents are <var>matchingDevices</var>.</p>
-     </ol>
-    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-request-algorithm">permission request algorithm</a>
-    <dd><a data-link-type="dfn" href="#request-the-usb-permission" id="ref-for-request-the-usb-permission-1">Request the "usb" permission</a>.
-   </dl>
    <h2 class="heading settled" data-level="5" id="device-usage"><span class="secno">5. </span><span class="content">Device Usage</span><a class="self-link" href="#device-usage"></a></h2>
 <pre class="idl highlight def"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbdevice">USBDevice</dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbdevice-usbversionmajor">usbVersionMajor</dfn>;
@@ -2359,7 +2112,7 @@ device is opened by the current execution context and SHALL be set to <code>fals
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open-1">open()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-11">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-9">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2373,7 +2126,7 @@ device is opened by the current execution context and SHALL be set to <code>fals
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-close" id="ref-for-dom-usbdevice-close-1">close()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-12">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-10">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2395,7 +2148,7 @@ MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.g
 parallel:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-13">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-11">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2405,8 +2158,6 @@ parallel:</p>
     <li data-md="">
      <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-6">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and
  abort these steps.</p>
-    <li data-md="">
-     <p>The UA MAY check that the caller <a data-link-type="dfn" href="#is-allowed-to-access-configuration" id="ref-for-is-allowed-to-access-configuration-1">is allowed to access <var>configuration</var></a>, and if not <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these steps.</p>
     <li data-md="">
      <p>Abort all transfers currently scheduled on endpoints other than the <a data-link-type="dfn" href="#default-control-pipe" id="ref-for-default-control-pipe-1">default control pipe</a> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> their associated promises
  with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror">AbortError</a></code>.</p>
@@ -2431,10 +2182,6 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
      <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-7">opened</a></code></code> is not <code>true</code> and <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-1">claimed</a></code></code> is not <code>false</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
-     <p>The UA MAY check that the caller <a data-link-type="dfn" href="#is-allowed-to-access-interface" id="ref-for-is-allowed-to-access-interface-1">is allowed to access <var>interface</var></a>,
- and if not <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these
- steps.</p>
-    <li data-md="">
      <p>Perform the necessary platform-specific steps to request exclusive control
  over <var>interface</var>. If this fails, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror">NetworkError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2445,7 +2192,7 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
 parallel:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-14">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-12">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2465,7 +2212,7 @@ parallel:</p>
 following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-15">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-13">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2490,7 +2237,7 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
 parallel:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-16">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-14">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2720,7 +2467,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset-1">reset()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-17">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-15">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2743,10 +2490,10 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
 };
 
 <span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbrecipient">USBRecipient</dfn> {
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;device&quot;|device" id="dom-usbrecipient-device">"device"</dfn>,
+  <dfn class="s idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;device&quot;|device" id="dom-usbrecipient-device">"device"<a class="self-link" href="#dom-usbrecipient-device"></a></dfn>,
   <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;interface&quot;|interface" id="dom-usbrecipient-interface">"interface"</dfn>,
   <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;endpoint&quot;|endpoint" id="dom-usbrecipient-endpoint">"endpoint"</dfn>,
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;other&quot;|other" id="dom-usbrecipient-other">"other"</dfn>
+  <dfn class="s idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;other&quot;|other" id="dom-usbrecipient-other">"other"<a class="self-link" href="#dom-usbrecipient-other"></a></dfn>
 };
 
 <span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbtransferstatus">USBTransferStatus</dfn> {
@@ -2827,10 +2574,7 @@ vendor.</p>
      <p>Let <var>configuration</var> be the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration-10">active configuration</a>. If the device is
  not configured abort these steps.</p>
     <li data-md="">
-     <p>If <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient-2">recipient</a></code></code> is <code class="idl"><a data-link-type="idl" href="#dom-usbrecipient-device" id="ref-for-dom-usbrecipient-device-1">"device"</a></code> or <code class="idl"><a data-link-type="idl" href="#dom-usbrecipient-other" id="ref-for-dom-usbrecipient-other-1">"other"</a></code> the UA MAY check that the caller <a data-link-type="dfn" href="#is-allowed-to-access-configuration" id="ref-for-is-allowed-to-access-configuration-2">is allowed
- to access <var>configuration</var></a>, and if not <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code> and abort these steps.</p>
-    <li data-md="">
-     <p>If <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient-3">recipient</a></code></code> is <code class="idl"><a data-link-type="idl" href="#dom-usbrecipient-interface" id="ref-for-dom-usbrecipient-interface-1">"interface"</a></code>, perform the following steps:</p>
+     <p>If <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient-2">recipient</a></code></code> is <code class="idl"><a data-link-type="idl" href="#dom-usbrecipient-interface" id="ref-for-dom-usbrecipient-interface-1">"interface"</a></code>, perform the following steps:</p>
      <ol>
       <li data-md="">
        <p>Let <var>interfaceNumber</var> be the lower 8 bits of <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-index" id="ref-for-dom-usbcontroltransferparameters-index-2">index</a></code></code>.</p>
@@ -2840,11 +2584,9 @@ vendor.</p>
   abort these steps.</p>
       <li data-md="">
        <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-11">claimed</a></code></code> is not equal to <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code> and abort these steps.</p>
-      <li data-md="">
-       <p>The UA MAY check that the caller <a data-link-type="dfn" href="#is-allowed-to-access-interface" id="ref-for-is-allowed-to-access-interface-2">is allowed to access <var>interface</var></a>, and if not <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code>.</p>
      </ol>
     <li data-md="">
-     <p>If <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient-4">recipient</a></code></code> is <code class="idl"><a data-link-type="idl" href="#dom-usbrecipient-endpoint" id="ref-for-dom-usbrecipient-endpoint-1">"endpoint"</a></code>, run the following steps:</p>
+     <p>If <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient-3">recipient</a></code></code> is <code class="idl"><a data-link-type="idl" href="#dom-usbrecipient-endpoint" id="ref-for-dom-usbrecipient-endpoint-1">"endpoint"</a></code>, run the following steps:</p>
      <ol>
       <li data-md="">
        <p>Let <var>endpointNumber</var> be defined as the lower 4 bits of <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-index" id="ref-for-dom-usbcontroltransferparameters-index-3">index</a></code></code>.</p>
@@ -2854,24 +2596,22 @@ vendor.</p>
        <p>Let <var>endpoint</var> be the endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration-11">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>direction</var> and <var>endpointNumber</var>. If no such endpoint exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
       <li data-md="">
        <p>Let <var>interface</var> be the interface in which <var>endpoint</var> is defined. If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-12">claimed</a></code></code> is not equal to <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a></code>.</p>
-      <li data-md="">
-       <p>The UA MAY check that the caller <a data-link-type="dfn" href="#is-allowed-to-access-interface" id="ref-for-is-allowed-to-access-interface-3">is allowed to access <var>interface</var></a>, and if not <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#securityerror">SecurityError</a></code>.</p>
      </ol>
    </ol>
    <h3 class="heading settled" data-level="5.2" id="configurations"><span class="secno">5.2. </span><span class="content">Configurations</span><a class="self-link" href="#configurations"></a></h3>
-<pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export="" data-lt="USBConfiguration(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration">Constructor<a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-18">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device">device<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue">configurationValue<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>)]
+<pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export="" data-lt="USBConfiguration(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration">Constructor<a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-16">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device">device<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue">configurationValue<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbconfiguration">USBConfiguration</dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbconfiguration-configurationvalue">configurationValue</dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><span class="kt">DOMString</span></a>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString?" id="dom-usbconfiguration-configurationname">configurationName</dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface-1">USBInterface</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="FrozenArray<USBInterface>" id="dom-usbconfiguration-interfaces">interfaces</dfn>;
 };
 </pre>
-   <p>Each device configuration SHALL have a unique <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-configurationvalue" id="ref-for-dom-usbconfiguration-configurationvalue-1">configurationValue</a></code> that matches the <code>bConfigurationValue</code> fields of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-2">configuration descriptor</a> that defines it.</p>
+   <p>Each device configuration SHALL have a unique <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-configurationvalue" id="ref-for-dom-usbconfiguration-configurationvalue-1">configurationValue</a></code> that matches the <code>bConfigurationValue</code> fields of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-1">configuration descriptor</a> that defines it.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-configurationname" id="ref-for-dom-usbconfiguration-configurationname-1">configurationName</a></code> attribute SHOULD contain the value
-of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-3">string descriptor</a> referenced by the <code>iConfiguration</code> field of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-3">configuration descriptor</a>, if defined.</p>
+of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-3">string descriptor</a> referenced by the <code>iConfiguration</code> field of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-2">configuration descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces-1">interfaces</a></code> attribute SHALL contain a list of
 interfaces exposed by this device configuration. These interfaces SHALL by
-populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-3">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-4">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
+populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-2">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-3">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
    <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations.</p>
    <h3 class="heading settled" data-level="5.3" id="interfaces"><span class="secno">5.3. </span><span class="content">Interfaces</span><a class="self-link" href="#interfaces"></a></h3>
 <pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="constructor" data-export="" data-lt="USBInterface(configuration, interfaceNumber)" id="dom-usbinterface-usbinterface">Constructor<a class="self-link" href="#dom-usbinterface-usbinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration-3">USBConfiguration</a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-configuration">configuration<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber">interfaceNumber<a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"></a></dfn>)]
@@ -2893,7 +2633,7 @@ populated by collecting the <a data-link-type="dfn" href="#interface-descriptor"
 };
 </pre>
    <p>Each interface provides a collection of <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates-1">alternates</a></code> identified
-by a single <code>bInterfaceNumber</code> field found in their <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-4">interface
+by a single <code>bInterfaceNumber</code> field found in their <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-3">interface
 descriptors</a>. The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-interfacenumber" id="ref-for-dom-usbinterface-interfacenumber-1">interfaceNumber</a></code> attribute MUST match this
 field.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternate" id="ref-for-dom-usbinterface-alternate-1">alternate</a></code> attribute SHALL be set to the <code class="idl"><a data-link-type="idl" href="#usbalternateinterface" id="ref-for-usbalternateinterface-3">USBAlternateInterface</a></code> that is currently selected for this interface, which
@@ -2903,19 +2643,19 @@ interface configurations available for this interface.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed-13">claimed</a></code> attribute SHALL be set to <code>true</code> when
 the interface is claimed by the current execution context and SHALL be set to <code>false</code> otherwise.</p>
    <p>Each alternative interface configuration SHALL have a unique <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-alternatesetting" id="ref-for-dom-usbalternateinterface-alternatesetting-1">alternateSetting</a></code> within a given interface that
-matches the <code>bAlternateSetting</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-5">interface
+matches the <code>bAlternateSetting</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-4">interface
 descriptor</a> that defines it.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfaceclass" id="ref-for-dom-usbalternateinterface-interfaceclass-1">interfaceClass</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfacesubclass" id="ref-for-dom-usbalternateinterface-interfacesubclass-1">interfaceSubclass</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfaceprotocol" id="ref-for-dom-usbalternateinterface-interfaceprotocol-1">interfaceProtocol</a></code> attributes declare the
 communication interface supported by the interface. They MUST correspond
 respectively to the values of the <code>bInterfaceClass</code>, <code>bInterfaceSubClass</code> and <code>bInterfaceProtocol</code> fields of
-the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-6">interface descriptor</a>.</p>
+the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-5">interface descriptor</a>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfacename" id="ref-for-dom-usbalternateinterface-interfacename-1">interfaceName</a></code> attribute SHOULD contain the value
 of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor-4">string descriptor</a> indexed by the <code>iInterface</code> field of
-the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-7">interface descriptor</a>, if defined.</p>
+the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-6">interface descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-endpoints" id="ref-for-dom-usbalternateinterface-endpoints-1">endpoints</a></code> attribute SHALL contain a list of
 endpoints exposed by this interface. These endpoints SHALL by populated from
-the endpoint descriptors contained within this <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-8">interface descriptor</a> and
-the number of elements in this sequence SHALL match the value of the <code>bNumEndpoints</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-9">interface descriptor</a>.</p>
+the endpoint descriptors contained within this <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-7">interface descriptor</a> and
+the number of elements in this sequence SHALL match the value of the <code>bNumEndpoints</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor-8">interface descriptor</a>.</p>
    <p>A device’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="active-configuration">active configuration</dfn> is the combination of the <code class="idl"><a data-link-type="idl" href="#usbconfiguration" id="ref-for-usbconfiguration-4">USBConfiguration</a></code> selected by calling <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration-3">selectConfiguration(configurationValue)</a></code> and the set of <code class="idl"><a data-link-type="idl" href="#usbalternateinterface" id="ref-for-usbalternateinterface-4">USBAlternateInterface</a></code>s selected by calling <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface-2">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code>.  A
 device MAY, by default, be left in an unconfigured state, referred to as
 configuration <code>0</code> or may automatically be set to whatever
@@ -2959,7 +2699,75 @@ endpoint this value will include the multiplication factor provided by issuing
 multiple transactions per microframe. In a SuperSpeed device this value will
 include the multiplication factor provided by the <code>bMaxBurst</code> field
 of the SuperSpeed Endpoint Companion descriptor.</p>
-   <h2 class="heading settled" data-level="6" id="terminology"><span class="secno">6. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
+   <h2 class="heading settled" data-level="6" id="integrations"><span class="secno">6. </span><span class="content">Integrations</span><a class="self-link" href="#integrations"></a></h2>
+   <h3 class="heading settled" data-level="6.1" id="feature-policy"><span class="secno">6.1. </span><span class="content">Feature Policy</span><a class="self-link" href="#feature-policy"></a></h3>
+   <p>This specification defines a <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#feature">feature</a> that controls whether the <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb-3">usb</a></code> attribute is exposed on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/webappapis.html#navigator">Navigator</a></code> object.</p>
+   <p>The <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#feature-name">feature name</a> for this feature is <code>"usb"</code>.</p>
+   <p>The <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#default-allowlist">default allowlist</a> for this feature is <code>["self"]</code>.</p>
+   <h3 class="heading settled" data-level="6.2" id="permission-api"><span class="secno">6.2. </span><span class="content">Permission API</span><a class="self-link" href="#permission-api"></a></h3>
+   <p>The <a data-link-type="biblio" href="#biblio-permissions">[permissions]</a> API provides a uniform way for websites to request
+permissions from users and query which permissions they have.</p>
+   <p>The <dfn class="idl-code" data-dfn-for="PermissionName" data-dfn-type="enum-value" data-export="" id="dom-permissionname-usb">"usb"<a class="self-link" href="#dom-permissionname-usb"></a></dfn> <a data-link-type="dfn" href="https://w3c.github.io/permissions/#powerful-feature">powerful feature</a> is
+defined as follows:</p>
+   <dl>
+    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-descriptor-type">permission descriptor type</a>
+    <dd>
+<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbpermissiondescriptor">USBPermissionDescriptor</dfn> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor">PermissionDescriptor</a> {
+  <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter-3">USBDeviceFilter</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBPermissionDescriptor" data-dfn-type="dict-member" data-export="" data-type="sequence<USBDeviceFilter> " id="dom-usbpermissiondescriptor-filters">filters</dfn>;
+};
+</pre>
+    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#extra-permission-data-type">extra permission data type</a>
+    <dd>
+      <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage-6">USBPermissionStorage</a></code>, defined as: 
+<pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-allowedusbdevice">AllowedUSBDevice</dfn> {
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export="" data-type="octet " id="dom-allowedusbdevice-vendorid">vendorId</dfn>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export="" data-type="octet " id="dom-allowedusbdevice-productid">productId</dfn>;
+  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><span class="kt">DOMString</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export="" data-type="DOMString " id="dom-allowedusbdevice-serialnumber">serialNumber</dfn>;
+};
+
+<span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbpermissionstorage">USBPermissionStorage</dfn> {
+  <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice-1">AllowedUSBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-default="None" data-dfn-for="USBPermissionStorage" data-dfn-type="dict-member" data-export="" data-type="sequence<AllowedUSBDevice> " id="dom-usbpermissionstorage-alloweddevices">allowedDevices</dfn> = [];
+};
+</pre>
+     <p><code class="idl"><a data-link-type="idl" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice-2">AllowedUSBDevice</a></code> instances have an internal slot <dfn class="dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="attribute" data-export="" id="dom-allowedusbdevice-devices-slot">[[devices]]</dfn> that holds an
+    array of <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device-5">USB devices</a>.</p>
+    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-result-type">permission result type</a>
+    <dd>
+<pre class="idl highlight def"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbpermissionresult">USBPermissionResult</dfn> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus">PermissionStatus</a> {
+  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-17">USBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBPermissionResult" data-dfn-type="attribute" data-export="" data-type="FrozenArray<USBDevice>" id="dom-usbpermissionresult-devices">devices</dfn>;
+};
+</pre>
+    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-query-algorithm">permission query algorithm</a>
+    <dd>
+      To <dfn data-dfn-type="dfn" data-noexport="" id="query-the-usb-permission">query the "usb" permission<a class="self-link" href="#query-the-usb-permission"></a></dfn> with a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissiondescriptor" id="ref-for-dictdef-usbpermissiondescriptor-2">USBPermissionDescriptor</a></code> <var>desc</var>, a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage-7">USBPermissionStorage</a></code> <var>storage</var>, and a <code class="idl"><a data-link-type="idl" href="#usbpermissionresult" id="ref-for-usbpermissionresult-2">USBPermissionResult</a></code> <var>status</var>, the UA must: 
+     <ol>
+      <li data-md="">
+       <p>If <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-3">filters</a></code></code> is set then,
+ for each <var>filter</var> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-4">filters</a></code></code> if <var>filter</var> <a data-link-type="dfn" href="#is-not-a-valid-filter" id="ref-for-is-not-a-valid-filter-2">is not a valid filter</a> then raise a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a></code> and abort these
+ steps.</p>
+      <li data-md="">
+       <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/permissions/#dom-permissionstatus-state">state</a></code></code> to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/permissions/#dom-permissionstate-prompt">"prompt"</a></code>.</p>
+      <li data-md="">
+       <p>Let <var>matchingDevices</var> be a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-array-objects">Array</a></code>.</p>
+      <li data-md="">
+       <p>For each <var>allowedDevice</var> in <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices-7">allowedDevices</a></code></code> and
+ for each <var>device</var> in <code><var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot-8">[[devices]]</a></code></code>, run
+ the following substeps:</p>
+       <ol>
+        <li data-md="">
+         <p>If <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-5">filters</a></code></code> is set
+  and <var>device</var> does not <a data-link-type="dfn" href="#match-a-filter" id="ref-for-match-a-filter-2">match a filter</a> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-6">filters</a></code></code>, continue
+  to the next <var>device</var>.</p>
+        <li data-md="">
+         <p>Get the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-18">USBDevice</a></code> representing <var>device</var> and add it to <var>matchingDevices</var>.</p>
+       </ol>
+      <li data-md="">
+       <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionresult-devices" id="ref-for-dom-usbpermissionresult-devices-5">devices</a></code></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a></code> whose contents are <var>matchingDevices</var>.</p>
+     </ol>
+    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-request-algorithm">permission request algorithm</a>
+    <dd><a data-link-type="dfn" href="#request-the-usb-permission" id="ref-for-request-the-usb-permission-1">Request the "usb" permission</a>.
+   </dl>
+   <h2 class="heading settled" data-level="7" id="terminology"><span class="secno">7. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
    <p>This specification uses several terms taken from <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>. While
 reference is made to version 3.1 of the Universal Serial Bus many of
 these concepts exist in previous versions as well. Significant
@@ -2980,7 +2788,7 @@ Its fields are described in section 9.6.3 of <a data-link-type="biblio" href="#b
 functional component of a device including its protocol and communication
 endpoints. Its fields are described in section 9.6.5 of <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>.</p>
     <li data-md="">
-     <p>An <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="interface-association-descriptor">interface association descriptor</dfn> creates an
+     <p>An <dfn data-dfn-type="dfn" data-noexport="" id="interface-association-descriptor">interface association descriptor<a class="self-link" href="#interface-association-descriptor"></a></dfn> creates an
 association between multiple interfaces that are part of a single
 functional unit of a device. Its fields are described in section
 9.6.4 of <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>.</p>
@@ -3000,7 +2808,7 @@ allows third parties (such as this specification) to declare their own
 types of descriptors. Each of these is identified by a UUID. The Binary
 Object Store is described in section 9.6.2 of <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>.</p>
    <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="usb-device">USB device</dfn> has a single <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-9">device descriptor</a> which links to
-one or more <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-5">configuration descriptors</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="vendor-id">vendor ID</dfn> is
+one or more <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor-4">configuration descriptors</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="vendor-id">vendor ID</dfn> is
 assigned to the device manufacturer by the USB-IF and is stored in the <code>idVendor</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-10">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="product ID" data-noexport="" id="product-id">product
 ID</dfn> is assigned by the manufacturer and is stored in the <code>idProduct</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-11">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="serial number" data-noexport="" id="serial-number">serial
 number</dfn> is an optional property that is defined if the <code>iSerialNumber</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor-12">device descriptor</a> is not equal
@@ -3157,15 +2965,14 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <ul class="index">
    <li><a href="#active-configuration">active configuration</a><span>, in §5.3</span>
    <li><a href="#add-device-to-storage">add device to storage</a><span>, in §4</span>
-   <li><a href="#dom-usbpermissionstorage-alloweddevices">allowedDevices</a><span>, in §4.2</span>
-   <li><a href="#allowed-origins-header">Allowed Origins Header</a><span>, in §3.3</span>
-   <li><a href="#dictdef-allowedusbdevice">AllowedUSBDevice</a><span>, in §4.2</span>
+   <li><a href="#dom-usbpermissionstorage-alloweddevices">allowedDevices</a><span>, in §6.2</span>
+   <li><a href="#dictdef-allowedusbdevice">AllowedUSBDevice</a><span>, in §6.2</span>
    <li><a href="#dom-usbinterface-alternate">alternate</a><span>, in §5.3</span>
    <li><a href="#dom-usbinterface-alternates">alternates</a><span>, in §5.3</span>
    <li><a href="#dom-usbalternateinterface-alternatesetting">alternateSetting</a><span>, in §5.3</span>
    <li><a href="#dom-usbtransferstatus-babble">babble</a><span>, in §5.1</span>
    <li><a href="#dom-usbtransferstatus-babble">"babble"</a><span>, in §5.1</span>
-   <li><a href="#binary-object-store">Binary Object Store</a><span>, in §6</span>
+   <li><a href="#binary-object-store">Binary Object Store</a><span>, in §7</span>
    <li><a href="#dom-usbendpointtype-bulk">"bulk"</a><span>, in §5.4</span>
    <li><a href="#dom-usbendpointtype-bulk">bulk</a><span>, in §5.4</span>
    <li>
@@ -3184,10 +2991,9 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <li><a href="#dom-usbdevice-clearhalt">clearHalt(direction, endpointNumber)</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-close">close()</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-configuration">configuration</a><span>, in §5</span>
-   <li><a href="#configuration-descriptor">configuration descriptor</a><span>, in §6</span>
+   <li><a href="#configuration-descriptor">configuration descriptor</a><span>, in §7</span>
    <li><a href="#dom-usbconfiguration-configurationname">configurationName</a><span>, in §5.2</span>
    <li><a href="#dom-usbdevice-configurations">configurations</a><span>, in §5</span>
-   <li><a href="#configuration-subset-header">Configuration Subset Header</a><span>, in §3.3.1</span>
    <li><a href="#dom-usbconfiguration-configurationvalue">configurationValue</a><span>, in §5.2</span>
    <li><a href="#connect">connect</a><span>, in §4.1</span>
    <li><a href="#control-transfer">control transfer</a><span>, in §5.1</span>
@@ -3203,7 +3009,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     </ul>
    <li><a href="#data-stage">data stage</a><span>, in §5.1</span>
    <li><a href="#default-control-pipe">default control pipe</a><span>, in §5.1</span>
-   <li><a href="#descriptors">Descriptors</a><span>, in §6</span>
+   <li><a href="#descriptors">Descriptors</a><span>, in §7</span>
    <li><a href="#dom-usbrecipient-device">"device"</a><span>, in §5.1</span>
    <li>
     device
@@ -3213,19 +3019,19 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="#dom-usbrecipient-device">enum-value for USBRecipient</a><span>, in §5.1</span>
     </ul>
    <li><a href="#dom-usbdevice-deviceclass">deviceClass</a><span>, in §5</span>
-   <li><a href="#device-descriptor">device descriptor</a><span>, in §6</span>
+   <li><a href="#device-descriptor">device descriptor</a><span>, in §7</span>
    <li><a href="#dom-usbdevice-deviceprotocol">deviceProtocol</a><span>, in §5</span>
-   <li><a href="#dom-usbpermissionresult-devices">devices</a><span>, in §4.2</span>
-   <li><a href="#dom-allowedusbdevice-devices-slot">[[devices]]</a><span>, in §4.2</span>
+   <li><a href="#dom-usbpermissionresult-devices">devices</a><span>, in §6.2</span>
+   <li><a href="#dom-allowedusbdevice-devices-slot">[[devices]]</a><span>, in §6.2</span>
    <li><a href="#dom-usbdevice-devicesubclass">deviceSubclass</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-deviceversionmajor">deviceVersionMajor</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-deviceversionminor">deviceVersionMinor</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-deviceversionsubminor">deviceVersionSubminor</a><span>, in §5</span>
    <li><a href="#dom-usbendpoint-direction">direction</a><span>, in §5.4</span>
    <li><a href="#disconnect">disconnect</a><span>, in §4.1</span>
-   <li><a href="#dom-usbrecipient-endpoint">endpoint</a><span>, in §5.1</span>
    <li><a href="#dom-usbrecipient-endpoint">"endpoint"</a><span>, in §5.1</span>
-   <li><a href="#endpoint-descriptor">endpoint descriptor</a><span>, in §6</span>
+   <li><a href="#dom-usbrecipient-endpoint">endpoint</a><span>, in §5.1</span>
+   <li><a href="#endpoint-descriptor">endpoint descriptor</a><span>, in §7</span>
    <li><a href="#dom-usbendpoint-endpointnumber">endpointNumber</a><span>, in §5.4</span>
    <li><a href="#dom-usbalternateinterface-endpoints">endpoints</a><span>, in §5.3</span>
    <li><a href="#enumerate-all-devices-attached-to-the-system">enumerate all devices attached to the system</a><span>, in §4</span>
@@ -3233,20 +3039,18 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     filters
     <ul>
      <li><a href="#dom-usbdevicerequestoptions-filters">dict-member for USBDeviceRequestOptions</a><span>, in §4</span>
-     <li><a href="#dom-usbpermissiondescriptor-filters">dict-member for USBPermissionDescriptor</a><span>, in §4.2</span>
+     <li><a href="#dom-usbpermissiondescriptor-filters">dict-member for USBPermissionDescriptor</a><span>, in §6.2</span>
     </ul>
-   <li><a href="#function-subset-header">Function Subset Header</a><span>, in §3.3.2</span>
-   <li><a href="#get-allowed-origins">Get Allowed Origins</a><span>, in §3.2</span>
    <li><a href="#dom-usb-getdevices">getDevices()</a><span>, in §4</span>
-   <li><a href="#get-url">Get URL</a><span>, in §3.2.1</span>
+   <li><a href="#get-url">Get URL</a><span>, in §3.2</span>
    <li><a href="#dom-usbdirection-in">"in"</a><span>, in §5.4</span>
    <li><a href="#dom-usbdirection-in">in</a><span>, in §5.4</span>
    <li><a href="#dom-usbcontroltransferparameters-index">index</a><span>, in §5.1</span>
    <li><a href="#dom-usbrecipient-interface">interface</a><span>, in §5.1</span>
    <li><a href="#dom-usbrecipient-interface">"interface"</a><span>, in §5.1</span>
-   <li><a href="#interface-association-descriptor">interface association descriptor</a><span>, in §6</span>
+   <li><a href="#interface-association-descriptor">interface association descriptor</a><span>, in §7</span>
    <li><a href="#dom-usbalternateinterface-interfaceclass">interfaceClass</a><span>, in §5.3</span>
-   <li><a href="#interface-descriptor">interface descriptor</a><span>, in §6</span>
+   <li><a href="#interface-descriptor">interface descriptor</a><span>, in §7</span>
    <li><a href="#dom-usbalternateinterface-interfacename">interfaceName</a><span>, in §5.3</span>
    <li><a href="#dom-usbinterface-interfacenumber">interfaceNumber</a><span>, in §5.3</span>
    <li><a href="#dom-usbalternateinterface-interfaceprotocol">interfaceProtocol</a><span>, in §5.3</span>
@@ -3254,9 +3058,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <li><a href="#dom-usbalternateinterface-interfacesubclass">interfaceSubclass</a><span>, in §5.3</span>
    <li><a href="#dom-usbendpointtype-interrupt">interrupt</a><span>, in §5.4</span>
    <li><a href="#dom-usbendpointtype-interrupt">"interrupt"</a><span>, in §5.4</span>
-   <li><a href="#is-allowed-to-access-a-device">is allowed to access a device</a><span>, in §3.2.1</span>
-   <li><a href="#is-allowed-to-access-configuration">is allowed to access configuration</a><span>, in §3.2.1</span>
-   <li><a href="#is-allowed-to-access-interface">is allowed to access interface</a><span>, in §3.2.1</span>
    <li><a href="#is-not-a-valid-filter">is not a valid filter</a><span>, in §4</span>
    <li><a href="#dom-usbendpointtype-isochronous">"isochronous"</a><span>, in §5.4</span>
    <li><a href="#dom-usbendpointtype-isochronous">isochronous</a><span>, in §5.4</span>
@@ -3281,19 +3082,18 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="#dom-usbisochronousouttransferresult-packets">attribute for USBIsochronousOutTransferResult</a><span>, in §5.1</span>
     </ul>
    <li><a href="#dom-usbendpoint-packetsize">packetSize</a><span>, in §5.4</span>
-   <li><a href="#platform-descriptor">Platform Descriptor</a><span>, in §6</span>
-   <li><a href="#product-id">product ID</a><span>, in §6</span>
+   <li><a href="#platform-descriptor">Platform Descriptor</a><span>, in §7</span>
    <li>
     productId
     <ul>
      <li><a href="#dom-usbdevicefilter-productid">dict-member for USBDeviceFilter</a><span>, in §4</span>
-     <li><a href="#dom-allowedusbdevice-productid">dict-member for AllowedUSBDevice</a><span>, in §4.2</span>
      <li><a href="#dom-usbdevice-productid">attribute for USBDevice</a><span>, in §5</span>
+     <li><a href="#dom-allowedusbdevice-productid">dict-member for AllowedUSBDevice</a><span>, in §6.2</span>
     </ul>
+   <li><a href="#product-id">product ID</a><span>, in §7</span>
    <li><a href="#dom-usbdevice-productname">productName</a><span>, in §5</span>
    <li><a href="#dom-usbdevicefilter-protocolcode">protocolCode</a><span>, in §4</span>
-   <li><a href="#public-device-registry">Public Device Registry</a><span>, in §3.3.4</span>
-   <li><a href="#query-the-usb-permission">query the "usb" permission</a><span>, in §4.2</span>
+   <li><a href="#query-the-usb-permission">query the "usb" permission</a><span>, in §6.2</span>
    <li><a href="#dom-usbcontroltransferparameters-recipient">recipient</a><span>, in §5.1</span>
    <li><a href="#dom-usbdevice-releaseinterface">releaseInterface(interfaceNumber)</a><span>, in §5</span>
    <li><a href="#dom-usbcontroltransferparameters-request">request</a><span>, in §5.1</span>
@@ -3303,13 +3103,13 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <li><a href="#dom-usbdevice-reset">reset()</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-selectalternateinterface">selectAlternateInterface(interfaceNumber, alternateSetting)</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-selectconfiguration">selectConfiguration(configurationValue)</a><span>, in §5</span>
-   <li><a href="#serial-number">serial number</a><span>, in §6</span>
+   <li><a href="#serial-number">serial number</a><span>, in §7</span>
    <li>
     serialNumber
     <ul>
      <li><a href="#dom-usbdevicefilter-serialnumber">dict-member for USBDeviceFilter</a><span>, in §4</span>
-     <li><a href="#dom-allowedusbdevice-serialnumber">dict-member for AllowedUSBDevice</a><span>, in §4.2</span>
      <li><a href="#dom-usbdevice-serialnumber">attribute for USBDevice</a><span>, in §5</span>
+     <li><a href="#dom-allowedusbdevice-serialnumber">dict-member for AllowedUSBDevice</a><span>, in §6.2</span>
     </ul>
    <li><a href="#setup-packet">setup packet</a><span>, in §5.1</span>
    <li><a href="#setup-stage">setup stage</a><span>, in §5.1</span>
@@ -3326,13 +3126,13 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="#dom-usbisochronousouttransferpacket-status">attribute for USBIsochronousOutTransferPacket</a><span>, in §5.1</span>
     </ul>
    <li><a href="#status-stage">status stage</a><span>, in §5.1</span>
-   <li><a href="#string-descriptor">string descriptor</a><span>, in §6</span>
+   <li><a href="#string-descriptor">string descriptor</a><span>, in §7</span>
    <li><a href="#dom-usbdevicefilter-subclasscode">subclassCode</a><span>, in §4</span>
    <li><a href="#dom-usbdevice-transferin">transferIn(endpointNumber, length)</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-transferout">transferOut(endpointNumber, data)</a><span>, in §5</span>
    <li><a href="#dom-usbendpoint-type">type</a><span>, in §5.4</span>
-   <li><a href="#url-descriptor">URL Descriptor</a><span>, in §3.3.3</span>
-   <li><a href="#dom-permissionname-usb">"usb"</a><span>, in §4.2</span>
+   <li><a href="#url-descriptor">URL Descriptor</a><span>, in §3.3</span>
+   <li><a href="#dom-permissionname-usb">"usb"</a><span>, in §6.2</span>
    <li><a href="#dom-navigator-usb">usb</a><span>, in §4</span>
    <li><a href="#usb">USB</a><span>, in §4</span>
    <li><a href="#usbalternateinterface">USBAlternateInterface</a><span>, in §5.3</span>
@@ -3343,7 +3143,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <li><a href="#dictdef-usbconnectioneventinit">USBConnectionEventInit</a><span>, in §4.1</span>
    <li><a href="#dom-usbconnectionevent-usbconnectionevent">USBConnectionEvent(type, eventInitDict)</a><span>, in §4.1</span>
    <li><a href="#dictdef-usbcontroltransferparameters">USBControlTransferParameters</a><span>, in §5.1</span>
-   <li><a href="#usb-device">USB device</a><span>, in §6</span>
+   <li><a href="#usb-device">USB device</a><span>, in §7</span>
    <li><a href="#usbdevice">USBDevice</a><span>, in §5</span>
    <li><a href="#dictdef-usbdevicefilter">USBDeviceFilter</a><span>, in §4</span>
    <li><a href="#dictdef-usbdevicerequestoptions">USBDeviceRequestOptions</a><span>, in §4</span>
@@ -3370,9 +3170,9 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <li><a href="#usbouttransferresult">USBOutTransferResult</a><span>, in §5.1</span>
    <li><a href="#dom-usbouttransferresult-usbouttransferresult">USBOutTransferResult(status)</a><span>, in §5.1</span>
    <li><a href="#dom-usbouttransferresult-usbouttransferresult">USBOutTransferResult(status, bytesWritten)</a><span>, in §5.1</span>
-   <li><a href="#dictdef-usbpermissiondescriptor">USBPermissionDescriptor</a><span>, in §4.2</span>
-   <li><a href="#usbpermissionresult">USBPermissionResult</a><span>, in §4.2</span>
-   <li><a href="#dictdef-usbpermissionstorage">USBPermissionStorage</a><span>, in §4.2</span>
+   <li><a href="#dictdef-usbpermissiondescriptor">USBPermissionDescriptor</a><span>, in §6.2</span>
+   <li><a href="#usbpermissionresult">USBPermissionResult</a><span>, in §6.2</span>
+   <li><a href="#dictdef-usbpermissionstorage">USBPermissionStorage</a><span>, in §6.2</span>
    <li><a href="#enumdef-usbrecipient">USBRecipient</a><span>, in §5.1</span>
    <li><a href="#enumdef-usbrequesttype">USBRequestType</a><span>, in §5.1</span>
    <li><a href="#enumdef-usbtransferstatus">USBTransferStatus</a><span>, in §5.1</span>
@@ -3386,10 +3186,10 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     vendorId
     <ul>
      <li><a href="#dom-usbdevicefilter-vendorid">dict-member for USBDeviceFilter</a><span>, in §4</span>
-     <li><a href="#dom-allowedusbdevice-vendorid">dict-member for AllowedUSBDevice</a><span>, in §4.2</span>
      <li><a href="#dom-usbdevice-vendorid">attribute for USBDevice</a><span>, in §5</span>
+     <li><a href="#dom-allowedusbdevice-vendorid">dict-member for AllowedUSBDevice</a><span>, in §6.2</span>
     </ul>
-   <li><a href="#vendor-id">vendor ID</a><span>, in §6</span>
+   <li><a href="#vendor-id">vendor ID</a><span>, in §7</span>
    <li><a href="#webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §3</span>
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
@@ -3407,6 +3207,13 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="https://tc39.github.io/ecma262/#sec-array-objects">Array</a>
      <li><a href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a>
      <li><a href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a>
+    </ul>
+   <li>
+    <a data-link-type="biblio">[feature policy]</a> defines the following terms:
+    <ul>
+     <li><a href="https://wicg.github.io/feature-policy/#default-allowlist">default allowlist</a>
+     <li><a href="https://wicg.github.io/feature-policy/#feature">feature</a>
+     <li><a href="https://wicg.github.io/feature-policy/#feature-name">feature name</a>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
@@ -3484,8 +3291,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <dd>Anne van Kesteren. <a href="https://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a>. 16 January 2014. REC. URL: <a href="https://www.w3.org/TR/cors/">https://www.w3.org/TR/cors/</a>
    <dt id="biblio-powerful-features">[POWERFUL-FEATURES]
    <dd>Mike West. <a href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a>. URL: <a href="https://www.w3.org/TR/secure-contexts/">https://www.w3.org/TR/secure-contexts/</a>
-   <dt id="biblio-rfc6454">[RFC6454]
-   <dd>A. Barth. <a href="https://tools.ietf.org/html/rfc6454">The Web Origin Concept</a>. December 2011. Proposed Standard. URL: <a href="https://tools.ietf.org/html/rfc6454">https://tools.ietf.org/html/rfc6454</a>
    <dt id="biblio-usb31">[USB31]
    <dd><a href="http://www.usb.org/developers/docs/">Universal Serial Bus 3.1 Specification</a>. 26 July 2013. URL: <a href="http://www.usb.org/developers/docs/">http://www.usb.org/developers/docs/</a>
   </dl>
@@ -3522,24 +3327,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
 [<a class="nv" href="#dom-usbconnectionevent-usbconnectionevent">Constructor</a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><span class="kt">DOMString</span></a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type">type</a>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit">USBConnectionEventInit</a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict">eventInitDict</a>)]
 <span class="kt">interface</span> <a class="nv" href="#usbconnectionevent">USBConnectionEvent</a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event">Event</a> {
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbdevice">USBDevice</a> <a class="nv" data-readonly="" data-type="USBDevice" href="#dom-usbconnectionevent-device">device</a>;
-};
-
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-usbpermissiondescriptor">USBPermissionDescriptor</a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor">PermissionDescriptor</a> {
-  <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter">USBDeviceFilter</a>> <a class="nv" data-type="sequence<USBDeviceFilter> " href="#dom-usbpermissiondescriptor-filters">filters</a>;
-};
-
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-allowedusbdevice">AllowedUSBDevice</a> {
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <a class="nv" data-type="octet " href="#dom-allowedusbdevice-vendorid">vendorId</a>;
-  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <a class="nv" data-type="octet " href="#dom-allowedusbdevice-productid">productId</a>;
-  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><span class="kt">DOMString</span></a> <a class="nv" data-type="DOMString " href="#dom-allowedusbdevice-serialnumber">serialNumber</a>;
-};
-
-<span class="kt">dictionary</span> <a class="nv" href="#dictdef-usbpermissionstorage">USBPermissionStorage</a> {
-  <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice">AllowedUSBDevice</a>> <a class="nv" data-default="None" data-type="sequence<AllowedUSBDevice> " href="#dom-usbpermissionstorage-alloweddevices">allowedDevices</a> = [];
-};
-
-<span class="kt">interface</span> <a class="nv" href="#usbpermissionresult">USBPermissionResult</a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus">PermissionStatus</a> {
-  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice">USBDevice</a>> <a class="nv" data-type="FrozenArray<USBDevice>" href="#dom-usbpermissionresult-devices">devices</a>;
 };
 
 <span class="kt">interface</span> <a class="nv" href="#usbdevice">USBDevice</a> {
@@ -3682,6 +3469,24 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><span class="kt">unsigned</span> <span class="kt">long</span></a> <a class="nv" data-readonly="" data-type="unsigned long" href="#dom-usbendpoint-packetsize">packetSize</a>;
 };
 
+<span class="kt">dictionary</span> <a class="nv" href="#dictdef-usbpermissiondescriptor">USBPermissionDescriptor</a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor">PermissionDescriptor</a> {
+  <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter">USBDeviceFilter</a>> <a class="nv" data-type="sequence<USBDeviceFilter> " href="#dom-usbpermissiondescriptor-filters">filters</a>;
+};
+
+<span class="kt">dictionary</span> <a class="nv" href="#dictdef-allowedusbdevice">AllowedUSBDevice</a> {
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <a class="nv" data-type="octet " href="#dom-allowedusbdevice-vendorid">vendorId</a>;
+  <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <a class="nv" data-type="octet " href="#dom-allowedusbdevice-productid">productId</a>;
+  <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><span class="kt">DOMString</span></a> <a class="nv" data-type="DOMString " href="#dom-allowedusbdevice-serialnumber">serialNumber</a>;
+};
+
+<span class="kt">dictionary</span> <a class="nv" href="#dictdef-usbpermissionstorage">USBPermissionStorage</a> {
+  <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice">AllowedUSBDevice</a>> <a class="nv" data-default="None" data-type="sequence<AllowedUSBDevice> " href="#dom-usbpermissionstorage-alloweddevices">allowedDevices</a> = [];
+};
+
+<span class="kt">interface</span> <a class="nv" href="#usbpermissionresult">USBPermissionResult</a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus">PermissionStatus</a> {
+  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice">USBDevice</a>> <a class="nv" data-type="FrozenArray<USBDevice>" href="#dom-usbpermissionresult-devices">devices</a>;
+};
+
 </pre>
   <h2 class="no-num no-ref heading settled" id="issues-index"><span class="content">Issues Index</span><a class="self-link" href="#issues-index"></a></h2>
   <div style="counter-reset:issue">
@@ -3692,76 +3497,25 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <b><a href="#webusb-platform-capability-descriptor">#webusb-platform-capability-descriptor</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-webusb-platform-capability-descriptor-1">3.2. WebUSB Device Requests</a>
-    <li><a href="#ref-for-webusb-platform-capability-descriptor-2">3.4. Public Device Registry</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="get-allowed-origins">
-   <b><a href="#get-allowed-origins">#get-allowed-origins</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-get-allowed-origins-1">3.3.1. Allowed Origins Header</a>
-    <li><a href="#ref-for-get-allowed-origins-2">4. Device Enumeration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="is-allowed-to-access-configuration">
-   <b><a href="#is-allowed-to-access-configuration">#is-allowed-to-access-configuration</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-is-allowed-to-access-configuration-1">5. Device Usage</a>
-    <li><a href="#ref-for-is-allowed-to-access-configuration-2">5.1. Transfers</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="is-allowed-to-access-interface">
-   <b><a href="#is-allowed-to-access-interface">#is-allowed-to-access-interface</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-is-allowed-to-access-interface-1">5. Device Usage</a>
-    <li><a href="#ref-for-is-allowed-to-access-interface-2">5.1. Transfers</a> <a href="#ref-for-is-allowed-to-access-interface-3">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="get-url">
    <b><a href="#get-url">#get-url</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-get-url-1">3.3.4. URL Descriptor</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="allowed-origins-header">
-   <b><a href="#allowed-origins-header">#allowed-origins-header</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-allowed-origins-header-1">3.2.1. Get Allowed Origins</a> <a href="#ref-for-allowed-origins-header-2">(2)</a> <a href="#ref-for-allowed-origins-header-3">(3)</a> <a href="#ref-for-allowed-origins-header-4">(4)</a>
-    <li><a href="#ref-for-allowed-origins-header-5">3.3.2. Configuration Subset Header</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="configuration-subset-header">
-   <b><a href="#configuration-subset-header">#configuration-subset-header</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-configuration-subset-header-1">3.2.1. Get Allowed Origins</a> <a href="#ref-for-configuration-subset-header-2">(2)</a>
-    <li><a href="#ref-for-configuration-subset-header-3">3.3.1. Allowed Origins Header</a> <a href="#ref-for-configuration-subset-header-4">(2)</a>
-    <li><a href="#ref-for-configuration-subset-header-5">3.3.3. Function Subset Header</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="function-subset-header">
-   <b><a href="#function-subset-header">#function-subset-header</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-function-subset-header-1">3.2.1. Get Allowed Origins</a>
-    <li><a href="#ref-for-function-subset-header-2">3.3.2. Configuration Subset Header</a> <a href="#ref-for-function-subset-header-3">(2)</a>
+    <li><a href="#ref-for-get-url-1">3.3.1. URL Descriptor</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="url-descriptor">
    <b><a href="#url-descriptor">#url-descriptor</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-url-descriptor-1">3.2.1. Get Allowed Origins</a>
-    <li><a href="#ref-for-url-descriptor-2">3.2.2. Get URL</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="public-device-registry">
-   <b><a href="#public-device-registry">#public-device-registry</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-public-device-registry-1">2.2. Attacking a Device</a>
+    <li><a href="#ref-for-url-descriptor-1">3.2.1. Get URL</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-usbdevicefilter">
    <b><a href="#dictdef-usbdevicefilter">#dictdef-usbdevicefilter</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-usbdevicefilter-1">4. Device Enumeration</a> <a href="#ref-for-dictdef-usbdevicefilter-2">(2)</a>
-    <li><a href="#ref-for-dictdef-usbdevicefilter-3">4.2. Permission API Integration</a>
+    <li><a href="#ref-for-dictdef-usbdevicefilter-3">6.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevicefilter-vendorid">
@@ -3840,27 +3594,29 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <b><a href="#dom-usb-requestdevice">#dom-usb-requestdevice</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-usb-requestdevice-1">2.1. Abusing Access to a Device</a>
-    <li><a href="#ref-for-dom-usb-requestdevice-2">4. Device Enumeration</a> <a href="#ref-for-dom-usb-requestdevice-3">(2)</a>
+    <li><a href="#ref-for-dom-usb-requestdevice-2">2.2. Attacking a Device</a>
+    <li><a href="#ref-for-dom-usb-requestdevice-3">4. Device Enumeration</a> <a href="#ref-for-dom-usb-requestdevice-4">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-navigator-usb">
    <b><a href="#dom-navigator-usb">#dom-navigator-usb</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-navigator-usb-1">4.1. Events</a> <a href="#ref-for-dom-navigator-usb-2">(2)</a>
+    <li><a href="#ref-for-dom-navigator-usb-3">6.1. Feature Policy</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="match-a-filter">
    <b><a href="#match-a-filter">#match-a-filter</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-match-a-filter-1">4. Device Enumeration</a>
-    <li><a href="#ref-for-match-a-filter-2">4.2. Permission API Integration</a>
+    <li><a href="#ref-for-match-a-filter-2">6.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="is-not-a-valid-filter">
    <b><a href="#is-not-a-valid-filter">#is-not-a-valid-filter</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-is-not-a-valid-filter-1">4. Device Enumeration</a>
-    <li><a href="#ref-for-is-not-a-valid-filter-2">4.2. Permission API Integration</a>
+    <li><a href="#ref-for-is-not-a-valid-filter-2">6.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumerate-all-devices-attached-to-the-system">
@@ -3872,7 +3628,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <aside class="dfn-panel" data-for="request-the-usb-permission">
    <b><a href="#request-the-usb-permission">#request-the-usb-permission</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-request-the-usb-permission-1">4.2. Permission API Integration</a>
+    <li><a href="#ref-for-request-the-usb-permission-1">6.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="add-device-to-storage">
@@ -3912,91 +3668,14 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     <li><a href="#ref-for-disconnect-1">4. Device Enumeration</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dictdef-usbpermissiondescriptor">
-   <b><a href="#dictdef-usbpermissiondescriptor">#dictdef-usbpermissiondescriptor</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-usbpermissiondescriptor-1">4. Device Enumeration</a>
-    <li><a href="#ref-for-dictdef-usbpermissiondescriptor-2">4.2. Permission API Integration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-usbpermissiondescriptor-filters">
-   <b><a href="#dom-usbpermissiondescriptor-filters">#dom-usbpermissiondescriptor-filters</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbpermissiondescriptor-filters-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-2">(2)</a>
-    <li><a href="#ref-for-dom-usbpermissiondescriptor-filters-3">4.2. Permission API Integration</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-4">(2)</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-5">(3)</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-6">(4)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-allowedusbdevice">
-   <b><a href="#dictdef-allowedusbdevice">#dictdef-allowedusbdevice</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-allowedusbdevice-1">4.2. Permission API Integration</a> <a href="#ref-for-dictdef-allowedusbdevice-2">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-allowedusbdevice-vendorid">
-   <b><a href="#dom-allowedusbdevice-vendorid">#dom-allowedusbdevice-vendorid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-allowedusbdevice-vendorid-1">4. Device Enumeration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-allowedusbdevice-productid">
-   <b><a href="#dom-allowedusbdevice-productid">#dom-allowedusbdevice-productid</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-allowedusbdevice-productid-1">4. Device Enumeration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-allowedusbdevice-serialnumber">
-   <b><a href="#dom-allowedusbdevice-serialnumber">#dom-allowedusbdevice-serialnumber</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-allowedusbdevice-serialnumber-1">4. Device Enumeration</a>
-    <li><a href="#ref-for-dom-allowedusbdevice-serialnumber-2">4.1. Events</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dictdef-usbpermissionstorage">
-   <b><a href="#dictdef-usbpermissionstorage">#dictdef-usbpermissionstorage</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-usbpermissionstorage-1">4. Device Enumeration</a> <a href="#ref-for-dictdef-usbpermissionstorage-2">(2)</a> <a href="#ref-for-dictdef-usbpermissionstorage-3">(3)</a>
-    <li><a href="#ref-for-dictdef-usbpermissionstorage-4">4.1. Events</a> <a href="#ref-for-dictdef-usbpermissionstorage-5">(2)</a>
-    <li><a href="#ref-for-dictdef-usbpermissionstorage-6">4.2. Permission API Integration</a> <a href="#ref-for-dictdef-usbpermissionstorage-7">(2)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-usbpermissionstorage-alloweddevices">
-   <b><a href="#dom-usbpermissionstorage-alloweddevices">#dom-usbpermissionstorage-alloweddevices</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-2">(2)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-3">(3)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-4">(4)</a>
-    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices-5">4.1. Events</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-6">(2)</a>
-    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices-7">4.2. Permission API Integration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-allowedusbdevice-devices-slot">
-   <b><a href="#dom-allowedusbdevice-devices-slot">#dom-allowedusbdevice-devices-slot</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot-1">4. Device Enumeration</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-2">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-3">(3)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-4">(4)</a>
-    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot-5">4.1. Events</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-6">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-7">(3)</a>
-    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot-8">4.2. Permission API Integration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="usbpermissionresult">
-   <b><a href="#usbpermissionresult">#usbpermissionresult</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbpermissionresult-1">4. Device Enumeration</a>
-    <li><a href="#ref-for-usbpermissionresult-2">4.2. Permission API Integration</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-usbpermissionresult-devices">
-   <b><a href="#dom-usbpermissionresult-devices">#dom-usbpermissionresult-devices</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbpermissionresult-devices-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbpermissionresult-devices-2">(2)</a> <a href="#ref-for-dom-usbpermissionresult-devices-3">(3)</a> <a href="#ref-for-dom-usbpermissionresult-devices-4">(4)</a>
-    <li><a href="#ref-for-dom-usbpermissionresult-devices-5">4.2. Permission API Integration</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="usbdevice">
    <b><a href="#usbdevice">#usbdevice</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-usbdevice-1">4. Device Enumeration</a> <a href="#ref-for-usbdevice-2">(2)</a> <a href="#ref-for-usbdevice-3">(3)</a> <a href="#ref-for-usbdevice-4">(4)</a>
     <li><a href="#ref-for-usbdevice-5">4.1. Events</a> <a href="#ref-for-usbdevice-6">(2)</a> <a href="#ref-for-usbdevice-7">(3)</a> <a href="#ref-for-usbdevice-8">(4)</a>
-    <li><a href="#ref-for-usbdevice-9">4.2. Permission API Integration</a> <a href="#ref-for-usbdevice-10">(2)</a>
-    <li><a href="#ref-for-usbdevice-11">5. Device Usage</a> <a href="#ref-for-usbdevice-12">(2)</a> <a href="#ref-for-usbdevice-13">(3)</a> <a href="#ref-for-usbdevice-14">(4)</a> <a href="#ref-for-usbdevice-15">(5)</a> <a href="#ref-for-usbdevice-16">(6)</a> <a href="#ref-for-usbdevice-17">(7)</a>
-    <li><a href="#ref-for-usbdevice-18">5.2. Configurations</a>
+    <li><a href="#ref-for-usbdevice-9">5. Device Usage</a> <a href="#ref-for-usbdevice-10">(2)</a> <a href="#ref-for-usbdevice-11">(3)</a> <a href="#ref-for-usbdevice-12">(4)</a> <a href="#ref-for-usbdevice-13">(5)</a> <a href="#ref-for-usbdevice-14">(6)</a> <a href="#ref-for-usbdevice-15">(7)</a>
+    <li><a href="#ref-for-usbdevice-16">5.2. Configurations</a>
+    <li><a href="#ref-for-usbdevice-17">6.2. Permission API</a> <a href="#ref-for-usbdevice-18">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevice-usbversionmajor">
@@ -4199,12 +3878,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     <li><a href="#ref-for-enumdef-usbrecipient-1">5.1. Transfers</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-usbrecipient-device">
-   <b><a href="#dom-usbrecipient-device">#dom-usbrecipient-device</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbrecipient-device-1">5.1. Transfers</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="dom-usbrecipient-interface">
    <b><a href="#dom-usbrecipient-interface">#dom-usbrecipient-interface</a></b><b>Referenced in:</b>
    <ul>
@@ -4215,12 +3888,6 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <b><a href="#dom-usbrecipient-endpoint">#dom-usbrecipient-endpoint</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-usbrecipient-endpoint-1">5.1. Transfers</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="dom-usbrecipient-other">
-   <b><a href="#dom-usbrecipient-other">#dom-usbrecipient-other</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbrecipient-other-1">5.1. Transfers</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="enumdef-usbtransferstatus">
@@ -4263,7 +3930,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <aside class="dfn-panel" data-for="dom-usbcontroltransferparameters-recipient">
    <b><a href="#dom-usbcontroltransferparameters-recipient">#dom-usbcontroltransferparameters-recipient</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbcontroltransferparameters-recipient-1">5.1. Transfers</a> <a href="#ref-for-dom-usbcontroltransferparameters-recipient-2">(2)</a> <a href="#ref-for-dom-usbcontroltransferparameters-recipient-3">(3)</a> <a href="#ref-for-dom-usbcontroltransferparameters-recipient-4">(4)</a>
+    <li><a href="#ref-for-dom-usbcontroltransferparameters-recipient-1">5.1. Transfers</a> <a href="#ref-for-dom-usbcontroltransferparameters-recipient-2">(2)</a> <a href="#ref-for-dom-usbcontroltransferparameters-recipient-3">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbcontroltransferparameters-request">
@@ -4578,35 +4245,104 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     <li><a href="#ref-for-dom-usbendpoint-packetsize-1">5.4. Endpoints</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="dictdef-usbpermissiondescriptor">
+   <b><a href="#dictdef-usbpermissiondescriptor">#dictdef-usbpermissiondescriptor</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-usbpermissiondescriptor-1">4. Device Enumeration</a>
+    <li><a href="#ref-for-dictdef-usbpermissiondescriptor-2">6.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-usbpermissiondescriptor-filters">
+   <b><a href="#dom-usbpermissiondescriptor-filters">#dom-usbpermissiondescriptor-filters</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbpermissiondescriptor-filters-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-2">(2)</a>
+    <li><a href="#ref-for-dom-usbpermissiondescriptor-filters-3">6.2. Permission API</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-4">(2)</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-5">(3)</a> <a href="#ref-for-dom-usbpermissiondescriptor-filters-6">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-allowedusbdevice">
+   <b><a href="#dictdef-allowedusbdevice">#dictdef-allowedusbdevice</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-allowedusbdevice-1">6.2. Permission API</a> <a href="#ref-for-dictdef-allowedusbdevice-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-allowedusbdevice-vendorid">
+   <b><a href="#dom-allowedusbdevice-vendorid">#dom-allowedusbdevice-vendorid</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-allowedusbdevice-vendorid-1">4. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-allowedusbdevice-productid">
+   <b><a href="#dom-allowedusbdevice-productid">#dom-allowedusbdevice-productid</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-allowedusbdevice-productid-1">4. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-allowedusbdevice-serialnumber">
+   <b><a href="#dom-allowedusbdevice-serialnumber">#dom-allowedusbdevice-serialnumber</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-allowedusbdevice-serialnumber-1">4. Device Enumeration</a>
+    <li><a href="#ref-for-dom-allowedusbdevice-serialnumber-2">4.1. Events</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dictdef-usbpermissionstorage">
+   <b><a href="#dictdef-usbpermissionstorage">#dictdef-usbpermissionstorage</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-usbpermissionstorage-1">4. Device Enumeration</a> <a href="#ref-for-dictdef-usbpermissionstorage-2">(2)</a> <a href="#ref-for-dictdef-usbpermissionstorage-3">(3)</a>
+    <li><a href="#ref-for-dictdef-usbpermissionstorage-4">4.1. Events</a> <a href="#ref-for-dictdef-usbpermissionstorage-5">(2)</a>
+    <li><a href="#ref-for-dictdef-usbpermissionstorage-6">6.2. Permission API</a> <a href="#ref-for-dictdef-usbpermissionstorage-7">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-usbpermissionstorage-alloweddevices">
+   <b><a href="#dom-usbpermissionstorage-alloweddevices">#dom-usbpermissionstorage-alloweddevices</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-2">(2)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-3">(3)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-4">(4)</a>
+    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices-5">4.1. Events</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices-6">(2)</a>
+    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices-7">6.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-allowedusbdevice-devices-slot">
+   <b><a href="#dom-allowedusbdevice-devices-slot">#dom-allowedusbdevice-devices-slot</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot-1">4. Device Enumeration</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-2">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-3">(3)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-4">(4)</a>
+    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot-5">4.1. Events</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-6">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot-7">(3)</a>
+    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot-8">6.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="usbpermissionresult">
+   <b><a href="#usbpermissionresult">#usbpermissionresult</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-usbpermissionresult-1">4. Device Enumeration</a>
+    <li><a href="#ref-for-usbpermissionresult-2">6.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-usbpermissionresult-devices">
+   <b><a href="#dom-usbpermissionresult-devices">#dom-usbpermissionresult-devices</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbpermissionresult-devices-1">4. Device Enumeration</a> <a href="#ref-for-dom-usbpermissionresult-devices-2">(2)</a> <a href="#ref-for-dom-usbpermissionresult-devices-3">(3)</a> <a href="#ref-for-dom-usbpermissionresult-devices-4">(4)</a>
+    <li><a href="#ref-for-dom-usbpermissionresult-devices-5">6.2. Permission API</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="device-descriptor">
    <b><a href="#device-descriptor">#device-descriptor</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-device-descriptor-1">4. Device Enumeration</a>
     <li><a href="#ref-for-device-descriptor-2">5. Device Usage</a> <a href="#ref-for-device-descriptor-3">(2)</a> <a href="#ref-for-device-descriptor-4">(3)</a> <a href="#ref-for-device-descriptor-5">(4)</a> <a href="#ref-for-device-descriptor-6">(5)</a> <a href="#ref-for-device-descriptor-7">(6)</a> <a href="#ref-for-device-descriptor-8">(7)</a>
-    <li><a href="#ref-for-device-descriptor-9">6. Terminology</a> <a href="#ref-for-device-descriptor-10">(2)</a> <a href="#ref-for-device-descriptor-11">(3)</a> <a href="#ref-for-device-descriptor-12">(4)</a>
+    <li><a href="#ref-for-device-descriptor-9">7. Terminology</a> <a href="#ref-for-device-descriptor-10">(2)</a> <a href="#ref-for-device-descriptor-11">(3)</a> <a href="#ref-for-device-descriptor-12">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="configuration-descriptor">
    <b><a href="#configuration-descriptor">#configuration-descriptor</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-configuration-descriptor-1">3.3.2. Configuration Subset Header</a>
-    <li><a href="#ref-for-configuration-descriptor-2">5.2. Configurations</a> <a href="#ref-for-configuration-descriptor-3">(2)</a> <a href="#ref-for-configuration-descriptor-4">(3)</a>
-    <li><a href="#ref-for-configuration-descriptor-5">6. Terminology</a>
+    <li><a href="#ref-for-configuration-descriptor-1">5.2. Configurations</a> <a href="#ref-for-configuration-descriptor-2">(2)</a> <a href="#ref-for-configuration-descriptor-3">(3)</a>
+    <li><a href="#ref-for-configuration-descriptor-4">7. Terminology</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="interface-descriptor">
    <b><a href="#interface-descriptor">#interface-descriptor</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-interface-descriptor-1">3.3.3. Function Subset Header</a>
-    <li><a href="#ref-for-interface-descriptor-2">4. Device Enumeration</a>
-    <li><a href="#ref-for-interface-descriptor-3">5.2. Configurations</a>
-    <li><a href="#ref-for-interface-descriptor-4">5.3. Interfaces</a> <a href="#ref-for-interface-descriptor-5">(2)</a> <a href="#ref-for-interface-descriptor-6">(3)</a> <a href="#ref-for-interface-descriptor-7">(4)</a> <a href="#ref-for-interface-descriptor-8">(5)</a> <a href="#ref-for-interface-descriptor-9">(6)</a>
-   </ul>
-  </aside>
-  <aside class="dfn-panel" data-for="interface-association-descriptor">
-   <b><a href="#interface-association-descriptor">#interface-association-descriptor</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-interface-association-descriptor-1">3.3.3. Function Subset Header</a>
+    <li><a href="#ref-for-interface-descriptor-1">4. Device Enumeration</a>
+    <li><a href="#ref-for-interface-descriptor-2">5.2. Configurations</a>
+    <li><a href="#ref-for-interface-descriptor-3">5.3. Interfaces</a> <a href="#ref-for-interface-descriptor-4">(2)</a> <a href="#ref-for-interface-descriptor-5">(3)</a> <a href="#ref-for-interface-descriptor-6">(4)</a> <a href="#ref-for-interface-descriptor-7">(5)</a> <a href="#ref-for-interface-descriptor-8">(6)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="endpoint-descriptor">
@@ -4622,7 +4358,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
     <li><a href="#ref-for-string-descriptor-2">5. Device Usage</a>
     <li><a href="#ref-for-string-descriptor-3">5.2. Configurations</a>
     <li><a href="#ref-for-string-descriptor-4">5.3. Interfaces</a>
-    <li><a href="#ref-for-string-descriptor-5">6. Terminology</a>
+    <li><a href="#ref-for-string-descriptor-5">7. Terminology</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="binary-object-store">
@@ -4642,7 +4378,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <ul>
     <li><a href="#ref-for-usb-device-1">4. Device Enumeration</a> <a href="#ref-for-usb-device-2">(2)</a>
     <li><a href="#ref-for-usb-device-3">4.1. Events</a> <a href="#ref-for-usb-device-4">(2)</a>
-    <li><a href="#ref-for-usb-device-5">4.2. Permission API Integration</a>
+    <li><a href="#ref-for-usb-device-5">6.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="vendor-id">
