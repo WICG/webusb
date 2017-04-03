@@ -1441,7 +1441,7 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-04-02">2 April 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-04-03">3 April 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1795,7 +1795,12 @@ specification.</p>
      <tr>
       <td>1
       <td>"https://"
+     <tr>
+      <td>255
+      <td>""
    </table>
+   <p>The special value <code>255</code> indicates that the entire URL, including
+scheme, is encoded in the <code>URL</code> field.</p>
    <h2 class="heading settled" data-level="4" id="enumeration"><span class="secno">4. </span><span class="content">Device Enumeration</span><a class="self-link" href="#enumeration"></a></h2>
 <pre class="idl highlight def"><span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbdevicefilter">USBDeviceFilter</dfn> {
   <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><span class="kt">unsigned</span> <span class="kt">short</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export="" data-type="unsigned short " id="dom-usbdevicefilter-vendorid">vendorId</dfn>;
