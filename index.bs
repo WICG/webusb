@@ -342,7 +342,14 @@ The <code>bScheme</code> field MUST be one of these values:
     <td>1</td>
     <td>"https://"</td>
   </tr>
+  <tr>
+    <td>255</td>
+    <td>""</td>
+  </tr>
 </table>
+
+The special value <code>255</code> indicates that the entire URL, including
+scheme, is encoded in the <code>URL</code> field.
 
 # Device Enumeration # {#enumeration}
 
