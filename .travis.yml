@@ -7,4 +7,4 @@ env:
   global:
     - COMMIT_AUTHOR_NAME="Travis CI"
     - COMMIT_AUTHOR_EMAIL="travis-ci@w3.org"
-    - SPECS="index"
+    - SPECS="index test/index"

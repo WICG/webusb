@@ -1,0 +1,265 @@
+<pre class="metadata">
+Title: WebUSB Testing API
+Status: ED
+ED: https://wicg.github.io/webusb/test.html
+Shortname: webusb-test
+Level: 1
+Editor: Reilly Grant, Google Inc., reillyg@google.com
+Abstract: This document describes an API for testing a User Agent's implementation of the WebUSB API.
+Group: wicg
+Repository: https://github.com/WICG/webusb/
+!Participate: <a href="https://www.w3.org/community/wicg/">Join the W3C Community Group</a>
+!Participate: <a href="irc://irc.w3.org:6665/#webusb">IRC: #webusb on W3C's IRC</a> (Stay around for an answer, it make take a while)
+</pre>
+
+# Introduction # {#intro}
+
+<em>This section is non-normative</em>.
+
+Standards such as [[WebUSB]] pose a challenge to test authors because to fully
+exercise their interfaces requires physical hardware devices that respond in
+predictable ways. To address this challenge this specification defines an
+interface for controlling a simulation of the USB subsystem on the host the
+User Agent is running on. With this interface devices with particular properties
+can be created and their responses to requests are well defined.
+
+The purpose if this interface is to assist the developers of UAs and so this
+interface does not permit arbitrary control over the behavior of devices. Some
+parameters are configurable and some are specified. As such it may not be
+sufficient for developers wishing to simulate the behavior of a particular
+device in order to test applications built on top of the UA.
+
+## Examples ## {#examples}
+
+<div class="example">
+This example, expressed as a W3C testharness.js-based test, demonstrates
+initializing this API and using it to verify that devices can be added and
+removed.
+
+<pre>
+  let fakeDeviceInit = {
+    usbVersionMajor: 2,
+    usbVersionMinor: 0,
+    usbVersionSubminor: 0,
+    deviceClass: 0xFF,
+    deviceSubclass: 0xFF,
+    deviceProtocol: 0xFF,
+    vendorId: 0x1234,
+    productId: 0xABCD,
+    deviceVersionMajor: 1,
+    deviceVersionMinor: 0,
+    deviceVersionSubminor: 0,
+    configurations: []
+  };
+
+  function promiseForEvent(eventTarget, eventType) {
+    return new Promise(resolve => {
+      let eventHandler = evt => {
+        resolve(evt);
+        eventTarget.removeEventListener(eventTarget, eventHandler);
+      };
+      eventTarget.addEventListener(eventType);
+    });
+  }
+
+  promise_test(async () => {
+    await navigator.usb.test.initialize();
+
+    let fakeDevice = navigator.usb.addFakeDevice(fakeDeviceInit);
+    let connectEvent = await promiseForEvent(navigator.usb, 'connect');
+    let device = connectEvent.device;
+    assert_equals(device.usbVersionMajor, fakeDeviceInit.usbVersionMajor);
+    assert_equals(device.usbVersionMinor, fakeDeviceInit.usbVersionMinor);
+    assert_equals(device.usbVersionSubminor, fakeDeviceInit.usbVersionSubminor);
+    assert_equals(device.deviceClass, fakeDeviceInit.deviceClass);
+    assert_equals(device.deviceSubclass, fakeDeviceInit.deviceSubclass);
+    assert_equals(device.deviceProtocol, fakeDeviceInit.deviceProtocol);
+    assert_equals(device.vendorId, fakeDeviceInit.vendorId);
+    assert_equals(device.productId, fakeDeviceInit.productId);
+    assert_equals(device.deviceVersionMajor, fakeDeviceInit.deviceVersionMajor);
+    assert_equals(device.deviceVersionMinor, fakeDeviceInit.deviceVersionMinor);
+    assert_equals(device.deviceVersionSubminor, fakeDeviceInit.deviceVersionSubminor);
+    assert_equals(device.configuration, null);
+    assert_equals(device.configurations.length, 0);
+
+    let devices = await navigator.usb.getDevices();
+    assert_array_equals(devices, [device]);
+
+    fakeDevice.disconnect();
+    let disconnectEvent = await promiseForEvent(navigator.usb, 'disconnect');
+    assert_equals(disconnectEvent.device, device);
+  });
+</pre>
+</div>
+
+# Availability # {#availability}
+
+This specification defines an interface that is not intended be used by
+non-testing-related web content. The UA MAY choose to expose this interface
+only when a runtime or compile-time flag has been set.
+
+<div class="note">
+Note, as an example, in the Chromium Project this specification is implemented
+by a JavaScript polyfill on top of a lower-level interface. This interface is
+only available in a binary explicitly built for running web platform test cases.
+A runtime flag is also necessary to enable this testing mode. This design has
+two benefits,
+
+1.  The risk of introducing a security vulnerability in the default
+    configuration is mitigated.
+1.  The polyfill is not shipped with the production application and so there is
+    no increase in binary size to support an API that will rarely be used.
+
+</div>
+
+# Testing Interface # {#test-interface}
+
+<pre class="idl">
+  partial interface USB {
+    [SameObject] readonly attribute USBTest test;
+  };
+
+  interface USBTest {
+    attribute EventHandler ondeviceclose;
+    attribute FakeUSBDevice? chosenDevice;
+    attribute FrozenArray&lt;USBDeviceFilter>? lastFilters;
+
+    Promise&lt;void> initialize();
+    Promise&lt;void> attachToWindow(Window window);
+    FakeUSBDevice addFakeDevice(FakeUSBDeviceInit deviceInit);
+    void reset();
+  };
+
+  interface FakeUSBDevice {
+    void disconnect();
+  };
+</pre>
+
+Instances of {{USBTest}} are created with an <a>internal slot</a>
+<dfn attribute for="USBTest">\[[initializationPromise]]</dfn> with an initial
+value of <code>null</code>.
+
+When invoked, the {{USBTest/initialize()}} method MUST run these steps:
+
+1.  Let |test| be the {{USBTest}} instance on which this method was invoked.
+1.  If |test|.{{USBTest/[[initializationPromise]]}} is <code>null</code> then
+    set |test|.{{USBTest/[[initializationPromise]]}} to a new {{Promise}} and
+    run these sub-steps <a>in parallel</a>:
+    1.  Reconfigure the UA's internal implementation of the {{Navigator/usb}}
+        object in the <a>current global object</a> so that it is controlled by
+        |test|.
+    1.  Resolve |test|.{{USBTest/[[initializationPromise]]}}.
+1.  Return |test|.{{USBTest/[[initializationPromise]]}}.
+
+The behavior of any other method on the {{Navigator/usb}} or {{USB/test}}
+objects in the <a>current global object</a> is undefined by this specification
+if invoked before the {{Promise}} returned by {{USBTest/initialize()}} is
+resolved.
+
+When invoked, the {{USBTest/attachToWindow(window)}} method MUST return a new
+{{Promise}} |promise| and run these steps <a>in parallel</a>:
+
+1.  Let |test| by the {{USBTest}} instance on which this method was invoked.
+1.  Reconfigure the UA's internal implementation of {{Navigator/usb}} in the
+    <a>global object</a> <var ignore>window</var> so that it is controlled by
+    |test|.
+1.  Resolve |promise|.
+
+When invoked, the {{USBTest/addFakeDevice(deviceInit)}} method MUST return a
+new {{FakeUSBDevice}} and <a>queue a task</a> to, for each {{USB}} instance
+controlled by the target of this invokation, perform the steps described in
+[[!WebUSB]] for handling a new device that is connected to the system.
+
+The {{USBTest/reset()}} method is not currently asynchronous and should probably
+be removed.
+
+When invoked, the {{FakeUSBDevice/disconnect()}} method MUST,
+<a>queue a task</a> to, for each {{USB}} instance controlled by the target of
+this invokation, perform the steps described in [[!WebUSB]] for handling the
+removal of a device that was connected to the system.
+
+# Fake USB Devices # {#fake-devices}
+
+To permit testing without physical hardware this specification defines a method
+for tests to add simulated USB devices by calling {{USBTest/addFakeDevice()}}
+with an instance of {{FakeUSBDeviceInit}} containing the properties of the
+device to be added.
+
+<pre class="idl">
+  dictionary FakeUSBDeviceInit {
+    required octet usbVersionMajor;
+    required octet usbVersionMinor;
+    required octet usbVersionSubminor;
+    required octet deviceClass;
+    required octet deviceSubclass;
+    required octet deviceProtocol;
+    required unsigned short vendorId;
+    required unsigned short productId;
+    required octet deviceVersionMajor;
+    required octet deviceVersionMinor;
+    required octet deviceVersionSubminor;
+    DOMString? manufacturerName;
+    DOMString? productName;
+    DOMString? serialNumber;
+    octet activeConfigurationValue = 0;
+    sequence&lt;FakeUSBConfigurationInit> configurations;
+  };
+
+  dictionary FakeUSBConfigurationInit {
+    required octet configurationValue;
+    DOMString? configurationName;
+    sequence&lt;FakeUSBInterfaceInit> interfaces;
+  };
+
+  dictionary FakeUSBInterfaceInit {
+    required octet interfaceNumber;
+    sequence&lt;FakeUSBAlternateInterfaceInit> alternates;
+  };
+
+  dictionary FakeUSBAlternateInterfaceInit {
+    required octet alternateSetting;
+    required octet interfaceClass;
+    required octet interfaceSubclass;
+    required octet interfaceProtocol;
+    DOMString? interfaceName;
+    sequence&lt;FakeUSBEndpointInit> endpoints;
+  };
+
+  dictionary FakeUSBEndpointInit {
+    required octet endpointNumber;
+    required USBDirection direction;
+    required USBEndpointType type;
+    required unsigned long packetSize;
+  };
+</pre>
+
+When a fake USB device is initialized from an instance of {{FakeUSBDeviceInit}}
+|init| the attributes of the {{USBDevice}} |device| SHALL be initialized as
+follows:
+
+1.  For each non-sequence attribute of |init| other than
+    {{FakeUSBDeviceInit/activeConfigurationValue}} the attribute of |device|
+    with the same name SHALL be set to its value.
+1.  For each sequence of {{FakeUSBConfigurationInit}}, {{FakeUSBInterfaceInit}}
+    {{FakeUSBAlternateInterfaceInit}} and {{FakeUSBEndpointInit}} objects
+    corresponding {{USBConfiguration}}, {{USBInterface}},
+    {{USBAlternateInterface}} and {{USBEndpoint}} objects SHALL be created by
+    similarly copying attributes with the same names and be used to build an
+    identical hierarchy of objects in the {{USBDevice/configurations}},
+    {{USBConfiguration/interfaces}}, {{USBInterface/alternates}} and
+    {{USBAlternateInterface/endpoints}} {{FrozenArray}}s.
+1.  If a {{USBConfiguration}} instance |config| with
+    {{USBConfiguration/configurationValue}} equal to
+    |init|.{{FakeUSBDeviceInit/activeConfigurationValue}} then
+    |device|.{{USBDevice/configuration}} SHALL be set to |config|, otherwise
+    <code>null</code>.
+
+<pre class="anchors">
+spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
+    type: dfn
+        text: internal slot; url: sec-object-internal-methods-and-internal-slots
+</pre>
+
+<pre class="link-defaults">
+spec:html; type:dfn; for:/; text:global object
+</pre>

@@ -10,6 +10,7 @@ Documents
 
 * [Explainer](explainer.md)
 * [Specification](https://wicg.github.io/webusb/) (Editor's Draft)
+* [Test API Specification](https://wicg.github.io/webusb/test/) (Editor's Draft)
 
 Communication
 -------------
