@@ -1,7 +1,7 @@
 <pre class="metadata">
 Title: WebUSB Testing API
 Status: ED
-ED: https://wicg.github.io/webusb/test.html
+ED: https://wicg.github.io/webusb/test/
 Shortname: webusb-test
 Level: 1
 Editor: Reilly Grant, Google Inc., reillyg@google.com
