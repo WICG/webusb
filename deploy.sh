@@ -48,6 +48,7 @@ fi
 
 # Re-generating.
 for SPEC in $SPECS; do
+  mkdir -p `dirname out/${SPEC}.html`;
   curl https://api.csswg.org/bikeshed/ -f -F file=@${SPEC}.bs > out/${SPEC}.html;
 done
 
