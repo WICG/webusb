@@ -717,6 +717,9 @@ The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
   7. Set <code>|device|.{{USBDevice/opened}}</code> to <code>false</code> and
      <a>resolve</a> |promise|.
 
+When no [[!ECMAScript]] code can observe an instance of {{USBDevice}} |device|
+anymore, the UA SHOULD run |device|.{{USBDevice/close()}}.
+
 The {{USBDevice/selectConfiguration(configurationValue)}} method, when invoked,
 MUST return a new {{Promise}} |promise| and run the following steps in
 parallel:

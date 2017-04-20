@@ -120,7 +120,6 @@ two benefits,
   };
 
   interface USBTest {
-    attribute EventHandler ondeviceclose;
     attribute FakeUSBDevice? chosenDevice;
     attribute FrozenArray&lt;USBDeviceFilter>? lastFilters;
 
@@ -130,7 +129,9 @@ two benefits,
     void reset();
   };
 
-  interface FakeUSBDevice {
+  interface FakeUSBDevice : EventTarget {
+    attribute EventHandler onclose;
+
     void disconnect();
   };
 </pre>
@@ -165,9 +166,22 @@ When invoked, the {{USBTest/attachToWindow(window)}} method MUST return a new
     |test|.
 1.  Resolve |promise|.
 
+When {{USB/requestDevice(options)}} is invoked on a {{USB}} instance controlled
+by a {{USBTest}} |test| the UA MUST perform the following steps:
+
+1.  Let |filters| be a new {{FrozenArray}}.
+1.  Copy the members of
+    <var ignore>options</var>.{{USBDeviceRequestOptions/filters}} into
+    |filters|.
+1.  Set |test|.{{USBTest/lastFilters}} to |filters|.
+1.  <a>In parallel</a>, respond to the invocation of {{USB/requestDevice()}} as
+    if the user granted permission to access the device represented by
+    |test|.{{USBTest/chosenDevice}} or, if |test|.{{USBTest/chosenDevice}} is
+    <code>null</code>, as if the user denied the permission request.
+
 When invoked, the {{USBTest/addFakeDevice(deviceInit)}} method MUST return a
 new {{FakeUSBDevice}} and <a>queue a task</a> to, for each {{USB}} instance
-controlled by the target of this invokation, perform the steps described in
+controlled by the target of this invocation, perform the steps described in
 [[!WebUSB]] for handling a new device that is connected to the system.
 
 The {{USBTest/reset()}} method is not currently asynchronous and should probably
@@ -175,7 +189,7 @@ be removed.
 
 When invoked, the {{FakeUSBDevice/disconnect()}} method MUST,
 <a>queue a task</a> to, for each {{USB}} instance controlled by the target of
-this invokation, perform the steps described in [[!WebUSB]] for handling the
+this invocation, perform the steps described in [[!WebUSB]] for handling the
 removal of a device that was connected to the system.
 
 # Fake USB Devices # {#fake-devices}
@@ -233,9 +247,11 @@ device to be added.
   };
 </pre>
 
-When a fake USB device is initialized from an instance of {{FakeUSBDeviceInit}}
-|init| the attributes of the {{USBDevice}} |device| SHALL be initialized as
-follows:
+When a {{USBDevice}} |device| is initialized from an fake USB device described
+by a {{FakeUSBDeviceInit}} |init| passed to {{USBTest/addFakeDevice()}} the
+attributes of |device| SHALL be initialized as follows and |device| will
+<dfn local-lt="corresponding to">correspond to</dfn> the {{FakeUSBDevice}}
+returned by {{USBTest/addFakeDevice()}}:
 
 1.  For each non-sequence attribute of |init| other than
     {{FakeUSBDeviceInit/activeConfigurationValue}} the attribute of |device|
@@ -253,6 +269,63 @@ follows:
     |init|.{{FakeUSBDeviceInit/activeConfigurationValue}} then
     |device|.{{USBDevice/configuration}} SHALL be set to |config|, otherwise
     <code>null</code>.
+
+When the {{USBDevice/open()}}, {{USBDevice/close()}},
+{{USBDevice/selectConfiguration()}}, {{USBDevice/claimInterface()}},
+{{USBDevice/releaseInterface()}}, {{USBDevice/selectAlternateInterface()}},
+{{USBDevice/clearHalt()}} and {{USBDevice/reset()}} methods are invoked on a
+{{USBDevice}} |device| <a>corresponding to</a> a {{FakeUSBDevice}} the UA MUST
+behave as though |device| contains the configurations, interfaces and endpoints
+described in the {{FakeUSBDeviceInit}} from which |device| was initialized exist
+and can be claimed by the caller.
+
+When {{USBDevice/close()}} is invoked on a {{USBDevice}} |device| the UA MUST
+<a>fire an event</a> named <code>close</code> at the {{FakeUSBDevice}}
+instance <a>corresponding to</a> |device|, if one exists.
+
+When {{USBDevice/controlTransferIn(setup, length)}} is invoked on a
+{{USBDevice}} |device| <a>corresponding to</a> a {{FakeUSBDevice}} the UA MUST,
+assuming all other pre-conditions for the operation are satisfied, behave as
+though the device responded with a packet containing the bytes
+<code>[|length| >> 8, |length| & 0xFF,
+|setup|.{{USBControlTransferParameters/request}},
+|setup|.{{USBControlTransferParameters/value}} >> 8,
+|setup|.{{USBControlTransferParameters/value}} & 0xFF,
+|setup|.{{USBControlTransferParameters/index}} >> 8,
+|setup|.{{USBControlTransferParameters/index}} & 0xFF]</code>, truncated to
+|length| bytes.
+
+When {{USBDevice/controlTransferOut(setup, data)}} is invoked on a {{USBDevice}}
+|device| <a>corresponding to</a> a {{FakeUSBDevice}} the UA MUST, assuming all
+other pre-conditions for the operation are satisfied, behave as though the
+transfer succeeded in sending <var ignore>data</var>.<code>length</code> bytes.
+
+When {{USBDevice/transferIn(endpointNumber, length)}} is invoked on a
+{{USBDevice}} |device| <a>corresponding to</a> a {{FakeUSBDevice}} the UA MUST,
+assuming all other pre-conditions for the operation are satisfied, behave as
+though the device responded with |length| bytes of data consisting of the
+values <code>0</code> through <code>255</code> repeated as necessary.
+
+When {{USBDevice/transferOut(endpointNumber, data)}} is invoked on a
+{{USBDevice}} |device| <a>corresponding to</a> a {{FakeUSBDevice}} the UA MUST,
+assuming all other pre-conditions for the operation are satisfied, behave as
+though the transfer succeeded in sending
+<var ignore>data</var>.<code>length</code> bytes.
+
+When {{USBDevice/isochronousTransferIn(endpointNumber, packetLengths)}} is
+invoked on a {{USBDevice}} |device| <a>corresponding to</a> a {{FakeUSBDevice}}
+the UA MUST, assuming all other pre-conditions for the operation are satisfied,
+behave as though the device responded with
+|packetLengths|.<code>length</code> packets, each containing
+|packetLengths|<code>[i]</code> bytes of data consisting of the values
+<code>0</code> through <code>255</code> repeated as necessary.
+
+When {{USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)}}
+is invoked on a {{USBDevice}} |device| <a>corresponding to</a> a
+{{FakeUSBDevice}} the UA MUST, assuming all other pre-conditions for the
+operation are satisfied, behave as though the transfer succeeded in sending
+|packetLengths|.<code>length</code> packets, each containing
+|packetLengths|<code>[i]</code> bytes.
 
 <pre class="anchors">
 spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
