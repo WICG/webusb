@@ -1558,6 +1558,22 @@ promise_test(async () => {
 });
 </pre>
    </div>
+   <div class="example" id="example-3aac7606">
+    <a class="self-link" href="#example-3aac7606"></a> This example, which reuses definitions from the previous example and is also
+expressed as a W3C testharness.js-based test, demonstrates a test of the <code>navigator.usb.requestDevice()</code> method. 
+<pre>promise_test(async () => {
+  await navigator.usb.test.initialize();
+  let fakeDevice = navigator.usb.addFakeDevice(fakeDeviceInit);
+  let connectEvent = await promiseForEvent(navigator.usb, 'connect');
+  navigator.usb.test.chosenDevice = connectEvent.device;
+
+  let options = { filters: [{ vendorId: 0x1234 }] };
+  let device = await navigator.usb.requestDevice(options);
+  assert_array_equals(navigator.usb.test.lastFilters, options.filters);
+  assert_equals(device, connectEvent.device);
+}
+</pre>
+   </div>
    <h2 class="heading settled" data-level="2" id="availability"><span class="secno">2. </span><span class="content">Availability</span><a class="self-link" href="#availability"></a></h2>
    <p>This specification defines an interface that is not intended be used by
 non-testing-related web content. The UA MAY choose to expose this interface
