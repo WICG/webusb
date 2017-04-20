@@ -33,6 +33,8 @@ table td, table th {
 
 # Introduction # {#introduction}
 
+<em>This section is non-normative</em>.
+
 The Universal Serial Bus (USB) is the de-facto standard for wired peripherals.
 Most USB devices implement one of roughly a dozen standard "device classes"
 which specify a way for the device to advertize the features it supports and
@@ -54,6 +56,8 @@ browsers to provide a specific API, new and innovative hardware can be built
 for the web from day one.
 
 # Security and Privacy Considerations # {#security-and-privacy}
+
+<em>This section is non-normative</em>.
 
 The WebUSB API is a powerful feature and has the possibility to expose users to
 a number of new privacy and security risks. These risks can be broadly divided
@@ -165,14 +169,14 @@ Store</a>:
     <td>bDescriptorType</td>
     <td>1</td>
     <td>Constant</td>
-    <td>DEVICE CAPABILITY descriptor type ([[USB31]] Table 9-6).</td>
+    <td>DEVICE CAPABILITY descriptor type ([[!USB31]] Table 9-6).</td>
   </tr>
   <tr>
     <td>2</td>
     <td>bDevCapabilityType</td>
     <td>1</td>
     <td>Constant</td>
-    <td>PLATFORM capability type ([[USB31]] Table 9-14).</td>
+    <td>PLATFORM capability type ([[!USB31]] Table 9-14).</td>
   </tr>
   <tr>
     <td>3</td>
@@ -1434,7 +1438,7 @@ defined as follows:
 
 # Terminology # {#terminology}
 
-This specification uses several terms taken from [[USB31]]. While
+This specification uses several terms taken from [[!USB31]]. While
 reference is made to version 3.1 of the Universal Serial Bus many of
 these concepts exist in previous versions as well. Significant
 differences between USB versions that have bearing on this specification
@@ -1444,23 +1448,23 @@ will be called out explicitly.
 a device and describe its properties and function:
 
   * The <dfn>device descriptor</dfn> contains information applicable to
-    the entire devices and is described in section 9.6.1 of [[USB31]].
+    the entire devices and is described in section 9.6.1 of [[!USB31]].
   * A <dfn>configuration descriptor</dfn> describes a particular set of
     device interfaces and endpoints that can be selected by the host.
-    Its fields are described in section 9.6.3 of [[USB31]].
+    Its fields are described in section 9.6.3 of [[!USB31]].
   * An <dfn>interface descriptor</dfn> describes the interface of a particular
     functional component of a device including its protocol and communication
-    endpoints. Its fields are described in section 9.6.5 of [[USB31]].
+    endpoints. Its fields are described in section 9.6.5 of [[!USB31]].
   * An <dfn>interface association descriptor</dfn> creates an
     association between multiple interfaces that are part of a single
     functional unit of a device. Its fields are described in section
-    9.6.4 of [[USB31]].
+    9.6.4 of [[!USB31]].
   * An <dfn>endpoint descriptor</dfn> describes a channel through which
     data is either sent to or received from the device. Its fields are
-    described in section 9.6.6 of [[USB31]].
+    described in section 9.6.6 of [[!USB31]].
   * A <dfn>string descriptor</dfn> contains a single UTF16-LE string and is
     referenced by index by other descriptors. Its fields are described in
-    section 9.6.9 of [[USB31]].
+    section 9.6.9 of [[!USB31]].
 
 The <dfn>Binary Object Store</dfn>
 (<abbr title="Binary Object Store">BOS</abbr>) is an additional set of
@@ -1468,7 +1472,7 @@ descriptors that are more free-form than the standard device
 descriptors. Of note is the <dfn>Platform Descriptor</dfn> type which
 allows third parties (such as this specification) to declare their own
 types of descriptors. Each of these is identified by a UUID. The Binary
-Object Store is described in section 9.6.2 of [[USB31]].
+Object Store is described in section 9.6.2 of [[!USB31]].
 
 A <dfn>USB device</dfn> has a single <a>device descriptor</a> which links to
 one or more <a>configuration descriptors</a>. It's <dfn>vendor ID</dfn> is
