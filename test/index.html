@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version aa692b5bb18791d7660cd494994fd0ac2ec23132" name="generator">
+  <meta content="Bikeshed version 2694cf87482eb631bb8582afc69be1fae22f2bff" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1424,7 +1424,7 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-04-19">19 April 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-04-20">20 April 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1583,9 +1583,8 @@ no increase in binary size to support an API that will rarely be used.</p>
 };
 
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbtest">USBTest</dfn> {
-  <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <dfn class="nv idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export="" data-type="EventHandler" id="dom-usbtest-ondeviceclose">ondeviceclose<a class="self-link" href="#dom-usbtest-ondeviceclose"></a></dfn>;
-  <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice-1">FakeUSBDevice</a>? <dfn class="nv idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export="" data-type="FakeUSBDevice?" id="dom-usbtest-chosendevice">chosenDevice<a class="self-link" href="#dom-usbtest-chosendevice"></a></dfn>;
-  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter">USBDeviceFilter</a>>? <dfn class="nv idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export="" data-type="FrozenArray<USBDeviceFilter>?" id="dom-usbtest-lastfilters">lastFilters<a class="self-link" href="#dom-usbtest-lastfilters"></a></dfn>;
+  <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice-1">FakeUSBDevice</a>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export="" data-type="FakeUSBDevice?" id="dom-usbtest-chosendevice">chosenDevice</dfn>;
+  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter">USBDeviceFilter</a>>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export="" data-type="FrozenArray<USBDeviceFilter>?" id="dom-usbtest-lastfilters">lastFilters</dfn>;
 
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export="" data-lt="initialize()" id="dom-usbtest-initialize">initialize</dfn>();
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export="" data-lt="attachToWindow(window)" id="dom-usbtest-attachtowindow">attachToWindow</dfn>(<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/browsers.html#window">Window</a> <dfn class="nv idl-code" data-dfn-for="USBTest/attachToWindow(window)" data-dfn-type="argument" data-export="" id="dom-usbtest-attachtowindow-window-window">window<a class="self-link" href="#dom-usbtest-attachtowindow-window-window"></a></dfn>);
@@ -1593,7 +1592,9 @@ no increase in binary size to support an API that will rarely be used.</p>
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export="" data-lt="reset()" id="dom-usbtest-reset">reset</dfn>();
 };
 
-<span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="fakeusbdevice">FakeUSBDevice</dfn> {
+<span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="fakeusbdevice">FakeUSBDevice</dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a> {
+  <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a> <dfn class="nv idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="attribute" data-export="" data-type="EventHandler" id="dom-fakeusbdevice-onclose">onclose<a class="self-link" href="#dom-fakeusbdevice-onclose"></a></dfn>;
+
   <span class="kt">void</span> <dfn class="nv dfn-paneled idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="method" data-export="" data-lt="disconnect()" id="dom-fakeusbdevice-disconnect">disconnect</dfn>();
 };
 </pre>
@@ -1628,13 +1629,26 @@ resolved.</p>
     <li data-md="">
      <p>Resolve <var>promise</var>.</p>
    </ol>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usb-requestdevice">requestDevice(options)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usb">USB</a></code> instance controlled
+by a <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest-5">USBTest</a></code> <var>test</var> the UA MUST perform the following steps:</p>
+   <ol>
+    <li data-md="">
+     <p>Let <var>filters</var> be a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a></code>.</p>
+    <li data-md="">
+     <p>Copy the members of <var>options</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters">filters</a></code> into <var>filters</var>.</p>
+    <li data-md="">
+     <p>Set <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-lastfilters" id="ref-for-dom-usbtest-lastfilters-1">lastFilters</a></code> to <var>filters</var>.</p>
+    <li data-md="">
+     <p><a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">In parallel</a>, respond to the invocation of <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usb-requestdevice">requestDevice()</a></code> as
+if the user granted permission to access the device represented by <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-chosendevice" id="ref-for-dom-usbtest-chosendevice-1">chosenDevice</a></code> or, if <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-chosendevice" id="ref-for-dom-usbtest-chosendevice-2">chosenDevice</a></code> is <code>null</code>, as if the user denied the permission request.</p>
+   </ol>
    <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-addfakedevice" id="ref-for-dom-usbtest-addfakedevice-1">addFakeDevice(deviceInit)</a></code> method MUST return a
 new <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-3">FakeUSBDevice</a></code> and <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to, for each <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usb">USB</a></code> instance
-controlled by the target of this invokation, perform the steps described in <a data-link-type="biblio" href="#biblio-webusb">[WebUSB]</a> for handling a new device that is connected to the system.</p>
+controlled by the target of this invocation, perform the steps described in <a data-link-type="biblio" href="#biblio-webusb">[WebUSB]</a> for handling a new device that is connected to the system.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbtest-reset" id="ref-for-dom-usbtest-reset-1">reset()</a></code> method is not currently asynchronous and should probably
 be removed.</p>
    <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-fakeusbdevice-disconnect" id="ref-for-dom-fakeusbdevice-disconnect-1">disconnect()</a></code> method MUST, <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a> to, for each <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usb">USB</a></code> instance controlled by the target of
-this invokation, perform the steps described in <a data-link-type="biblio" href="#biblio-webusb">[WebUSB]</a> for handling the
+this invocation, perform the steps described in <a data-link-type="biblio" href="#biblio-webusb">[WebUSB]</a> for handling the
 removal of a device that was connected to the system.</p>
    <h2 class="heading settled" data-level="4" id="fake-devices"><span class="secno">4. </span><span class="content">Fake USB Devices</span><a class="self-link" href="#fake-devices"></a></h2>
    <p>To permit testing without physical hardware this specification defines a method
@@ -1686,8 +1700,9 @@ device to be added.</p>
   <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><span class="kt">unsigned</span> <span class="kt">long</span></a> <dfn class="nv idl-code" data-dfn-for="FakeUSBEndpointInit" data-dfn-type="dict-member" data-export="" data-type="unsigned long " id="dom-fakeusbendpointinit-packetsize">packetSize<a class="self-link" href="#dom-fakeusbendpointinit-packetsize"></a></dfn>;
 };
 </pre>
-   <p>When a fake USB device is initialized from an instance of <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit-3">FakeUSBDeviceInit</a></code> <var>init</var> the attributes of the <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> SHALL be initialized as
-follows:</p>
+   <p>When a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> is initialized from an fake USB device described
+by a <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit-3">FakeUSBDeviceInit</a></code> <var>init</var> passed to <code class="idl"><a data-link-type="idl" href="#dom-usbtest-addfakedevice" id="ref-for-dom-usbtest-addfakedevice-3">addFakeDevice()</a></code> the
+attributes of <var>device</var> SHALL be initialized as follows and <var>device</var> will <dfn class="dfn-paneled" data-dfn-type="dfn" data-local-lt="corresponding to" data-noexport="" id="correspond-to">correspond to</dfn> the <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-4">FakeUSBDevice</a></code> returned by <code class="idl"><a data-link-type="idl" href="#dom-usbtest-addfakedevice" id="ref-for-dom-usbtest-addfakedevice-4">addFakeDevice()</a></code>:</p>
    <ol>
     <li data-md="">
      <p>For each non-sequence attribute of <var>init</var> other than <code class="idl"><a data-link-type="idl" href="#dom-fakeusbdeviceinit-activeconfigurationvalue" id="ref-for-dom-fakeusbdeviceinit-activeconfigurationvalue-1">activeConfigurationValue</a></code> the attribute of <var>device</var> with the same name SHALL be set to its value.</p>
@@ -1699,6 +1714,29 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
     <li data-md="">
      <p>If a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbconfiguration">USBConfiguration</a></code> instance <var>config</var> with <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue">configurationValue</a></code> equal to <var>init</var>.<code class="idl"><a data-link-type="idl" href="#dom-fakeusbdeviceinit-activeconfigurationvalue" id="ref-for-dom-fakeusbdeviceinit-activeconfigurationvalue-2">activeConfigurationValue</a></code> then <var>device</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-configuration">configuration</a></code> SHALL be set to <var>config</var>, otherwise <code>null</code>.</p>
    </ol>
+   <p>When the <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-open">open()</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-close">close()</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration">selectConfiguration()</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-claiminterface">claimInterface()</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface">releaseInterface()</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface">selectAlternateInterface()</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-clearhalt">clearHalt()</a></code> and <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-reset">reset()</a></code> methods are invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-1">corresponding to</a> a <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-5">FakeUSBDevice</a></code> the UA MUST
+behave as though <var>device</var> contains the configurations, interfaces and endpoints
+described in the <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit-4">FakeUSBDeviceInit</a></code> from which <var>device</var> was initialized exist
+and can be claimed by the caller.</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-close">close()</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> the UA MUST <a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a> named <code>close</code> at the <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-6">FakeUSBDevice</a></code> instance <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-2">corresponding to</a> <var>device</var>, if one exists.</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferin">controlTransferIn(setup, length)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-3">corresponding to</a> a <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-7">FakeUSBDevice</a></code> the UA MUST,
+assuming all other pre-conditions for the operation are satisfied, behave as
+though the device responded with a packet containing the bytes <code>[<var>length</var> >> 8, <var>length</var> &amp; 0xFF, <var>setup</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request">request</a></code>, <var>setup</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value">value</a></code> >> 8, <var>setup</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value">value</a></code> &amp; 0xFF, <var>setup</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index">index</a></code> >> 8, <var>setup</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index">index</a></code> &amp; 0xFF]</code>, truncated to <var>length</var> bytes.</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferout">controlTransferOut(setup, data)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-4">corresponding to</a> a <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-8">FakeUSBDevice</a></code> the UA MUST, assuming all
+other pre-conditions for the operation are satisfied, behave as though the
+transfer succeeded in sending <var>data</var>.<code>length</code> bytes.</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-transferin">transferIn(endpointNumber, length)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-5">corresponding to</a> a <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-9">FakeUSBDevice</a></code> the UA MUST,
+assuming all other pre-conditions for the operation are satisfied, behave as
+though the device responded with <var>length</var> bytes of data consisting of the
+values <code>0</code> through <code>255</code> repeated as necessary.</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-transferout">transferOut(endpointNumber, data)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-6">corresponding to</a> a <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-10">FakeUSBDevice</a></code> the UA MUST,
+assuming all other pre-conditions for the operation are satisfied, behave as
+though the transfer succeeded in sending <var>data</var>.<code>length</code> bytes.</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin">isochronousTransferIn(endpointNumber, packetLengths)</a></code> is
+invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-7">corresponding to</a> a <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-11">FakeUSBDevice</a></code> the UA MUST, assuming all other pre-conditions for the operation are satisfied,
+behave as though the device responded with <var>packetLengths</var>.<code>length</code> packets, each containing <var>packetLengths</var><code>[i]</code> bytes of data consisting of the values <code>0</code> through <code>255</code> repeated as necessary.</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a></code> <var>device</var> <a data-link-type="dfn" href="#correspond-to" id="ref-for-correspond-to-8">corresponding to</a> a <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice-12">FakeUSBDevice</a></code> the UA MUST, assuming all other pre-conditions for the
+operation are satisfied, behave as though the transfer succeeded in sending <var>packetLengths</var>.<code>length</code> packets, each containing <var>packetLengths</var><code>[i]</code> bytes.</p>
   </main>
   <div data-fill-with="conformance">
    <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
@@ -1858,6 +1896,8 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
    <li><a href="#dom-fakeusbconfigurationinit-configurationname">configurationName</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-configurations">configurations</a><span>, in §4</span>
    <li><a href="#dom-fakeusbconfigurationinit-configurationvalue">configurationValue</a><span>, in §4</span>
+   <li><a href="#correspond-to">corresponding to</a><span>, in §4</span>
+   <li><a href="#correspond-to">correspond to</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-deviceclass">deviceClass</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-deviceprotocol">deviceProtocol</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-devicesubclass">deviceSubclass</a><span>, in §4</span>
@@ -1884,7 +1924,7 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
    <li><a href="#dom-fakeusbalternateinterfaceinit-interfacesubclass">interfaceSubclass</a><span>, in §4</span>
    <li><a href="#dom-usbtest-lastfilters">lastFilters</a><span>, in §3</span>
    <li><a href="#dom-fakeusbdeviceinit-manufacturername">manufacturerName</a><span>, in §4</span>
-   <li><a href="#dom-usbtest-ondeviceclose">ondeviceclose</a><span>, in §3</span>
+   <li><a href="#dom-fakeusbdevice-onclose">onclose</a><span>, in §3</span>
    <li><a href="#dom-fakeusbendpointinit-packetsize">packetSize</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-productid">productId</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-productname">productName</a><span>, in §4</span>
@@ -1900,6 +1940,12 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
   </ul>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
+   <li>
+    <a data-link-type="biblio">[DOM]</a> defines the following terms:
+    <ul>
+     <li><a href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a>
+     <li><a href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a>
+    </ul>
    <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
@@ -1939,17 +1985,38 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
      <li><a href="https://wicg.github.io/webusb/#enumdef-usbendpointtype">USBEndpointType</a>
      <li><a href="https://wicg.github.io/webusb/#usbinterface">USBInterface</a>
      <li><a href="https://wicg.github.io/webusb/#dom-usbinterface-alternates">alternates</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-claiminterface">claimInterface(interfaceNumber)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-clearhalt">clearHalt(direction, endpointNumber)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-close">close()</a>
      <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-configuration">configuration</a>
      <li><a href="https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue">configurationValue</a>
      <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-configurations">configurations</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferin">controlTransferIn(setup, length)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferout">controlTransferOut(setup, data)</a>
      <li><a href="https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints">endpoints</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters">filters</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index">index</a>
      <li><a href="https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces">interfaces</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin">isochronousTransferIn(endpointNumber, packetLengths)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-open">open()</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface">releaseInterface(interfaceNumber)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request">request</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usb-requestdevice">requestDevice(options)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-reset">reset()</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface">selectAlternateInterface(interfaceNumber, alternateSetting)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration">selectConfiguration(configurationValue)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-transferin">transferIn(endpointNumber, length)</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-transferout">transferOut(endpointNumber, data)</a>
      <li><a href="https://wicg.github.io/webusb/#dom-navigator-usb">usb</a>
+     <li><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value">value</a>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
+   <dt id="biblio-dom">[DOM]
+   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-ecmascript">[ECMASCRIPT]
    <dd><a href="https://tc39.github.io/ecma262/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.github.io/ecma262/">https://tc39.github.io/ecma262/</a>
    <dt id="biblio-html">[HTML]
@@ -1967,7 +2034,6 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
 };
 
 <span class="kt"><span class="kt">interface</span></span> <a class="nv" href="#usbtest"><span class="nv">USBTest</span></a> {
-  <span class="kt"><span class="kt">attribute</span></span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><span class="n">EventHandler</span></a> <a class="nv" data-type="EventHandler" href="#dom-usbtest-ondeviceclose"><span class="nv">ondeviceclose</span></a>;
   <span class="kt"><span class="kt">attribute</span></span> <a class="n" data-link-type="idl-name" href="#fakeusbdevice"><span class="n">FakeUSBDevice</span></a>? <a class="nv" data-type="FakeUSBDevice?" href="#dom-usbtest-chosendevice"><span class="nv">chosenDevice</span></a>;
   <span class="kt"><span class="kt">attribute</span></span> <span class="kt"><span class="kt">FrozenArray</span></span>&lt;<a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter"><span class="n">USBDeviceFilter</span></a>>? <a class="nv" data-type="FrozenArray<USBDeviceFilter>?" href="#dom-usbtest-lastfilters"><span class="nv">lastFilters</span></a>;
 
@@ -1977,7 +2043,9 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
   <span class="kt"><span class="kt">void</span></span> <a class="nv" href="#dom-usbtest-reset"><span class="nv">reset</span></a>();
 };
 
-<span class="kt"><span class="kt">interface</span></span> <a class="nv" href="#fakeusbdevice"><span class="nv">FakeUSBDevice</span></a> {
+<span class="kt"><span class="kt">interface</span></span> <a class="nv" href="#fakeusbdevice"><span class="nv">FakeUSBDevice</span></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><span class="n">EventTarget</span></a> {
+  <span class="kt"><span class="kt">attribute</span></span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><span class="n">EventHandler</span></a> <a class="nv" data-type="EventHandler" href="#dom-fakeusbdevice-onclose"><span class="nv">onclose</span></a>;
+
   <span class="kt"><span class="kt">void</span></span> <a class="nv" href="#dom-fakeusbdevice-disconnect"><span class="nv">disconnect</span></a>();
 };
 
@@ -2037,7 +2105,19 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
   <aside class="dfn-panel" data-for="usbtest">
    <b><a href="#usbtest">#usbtest</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-usbtest-1">3. Testing Interface</a> <a href="#ref-for-usbtest-2">(2)</a> <a href="#ref-for-usbtest-3">(3)</a> <a href="#ref-for-usbtest-4">(4)</a>
+    <li><a href="#ref-for-usbtest-1">3. Testing Interface</a> <a href="#ref-for-usbtest-2">(2)</a> <a href="#ref-for-usbtest-3">(3)</a> <a href="#ref-for-usbtest-4">(4)</a> <a href="#ref-for-usbtest-5">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-usbtest-chosendevice">
+   <b><a href="#dom-usbtest-chosendevice">#dom-usbtest-chosendevice</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbtest-chosendevice-1">3. Testing Interface</a> <a href="#ref-for-dom-usbtest-chosendevice-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-usbtest-lastfilters">
+   <b><a href="#dom-usbtest-lastfilters">#dom-usbtest-lastfilters</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbtest-lastfilters-1">3. Testing Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbtest-initialize">
@@ -2056,7 +2136,7 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
    <b><a href="#dom-usbtest-addfakedevice">#dom-usbtest-addfakedevice</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-usbtest-addfakedevice-1">3. Testing Interface</a>
-    <li><a href="#ref-for-dom-usbtest-addfakedevice-2">4. Fake USB Devices</a>
+    <li><a href="#ref-for-dom-usbtest-addfakedevice-2">4. Fake USB Devices</a> <a href="#ref-for-dom-usbtest-addfakedevice-3">(2)</a> <a href="#ref-for-dom-usbtest-addfakedevice-4">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbtest-reset">
@@ -2069,6 +2149,7 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
    <b><a href="#fakeusbdevice">#fakeusbdevice</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-fakeusbdevice-1">3. Testing Interface</a> <a href="#ref-for-fakeusbdevice-2">(2)</a> <a href="#ref-for-fakeusbdevice-3">(3)</a>
+    <li><a href="#ref-for-fakeusbdevice-4">4. Fake USB Devices</a> <a href="#ref-for-fakeusbdevice-5">(2)</a> <a href="#ref-for-fakeusbdevice-6">(3)</a> <a href="#ref-for-fakeusbdevice-7">(4)</a> <a href="#ref-for-fakeusbdevice-8">(5)</a> <a href="#ref-for-fakeusbdevice-9">(6)</a> <a href="#ref-for-fakeusbdevice-10">(7)</a> <a href="#ref-for-fakeusbdevice-11">(8)</a> <a href="#ref-for-fakeusbdevice-12">(9)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-fakeusbdevice-disconnect">
@@ -2087,7 +2168,7 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
    <b><a href="#dictdef-fakeusbdeviceinit">#dictdef-fakeusbdeviceinit</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-fakeusbdeviceinit-1">3. Testing Interface</a>
-    <li><a href="#ref-for-dictdef-fakeusbdeviceinit-2">4. Fake USB Devices</a> <a href="#ref-for-dictdef-fakeusbdeviceinit-3">(2)</a>
+    <li><a href="#ref-for-dictdef-fakeusbdeviceinit-2">4. Fake USB Devices</a> <a href="#ref-for-dictdef-fakeusbdeviceinit-3">(2)</a> <a href="#ref-for-dictdef-fakeusbdeviceinit-4">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-fakeusbdeviceinit-activeconfigurationvalue">
@@ -2118,6 +2199,12 @@ identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" 
    <b><a href="#dictdef-fakeusbendpointinit">#dictdef-fakeusbendpointinit</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dictdef-fakeusbendpointinit-1">4. Fake USB Devices</a> <a href="#ref-for-dictdef-fakeusbendpointinit-2">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="correspond-to">
+   <b><a href="#correspond-to">#correspond-to</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-correspond-to-1">4. Fake USB Devices</a> <a href="#ref-for-correspond-to-2">(2)</a> <a href="#ref-for-correspond-to-3">(3)</a> <a href="#ref-for-correspond-to-4">(4)</a> <a href="#ref-for-correspond-to-5">(5)</a> <a href="#ref-for-correspond-to-6">(6)</a> <a href="#ref-for-correspond-to-7">(7)</a> <a href="#ref-for-correspond-to-8">(8)</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */

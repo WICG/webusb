@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version aa692b5bb18791d7660cd494994fd0ac2ec23132" name="generator">
+  <meta content="Bikeshed version 2694cf87482eb631bb8582afc69be1fae22f2bff" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1441,7 +1441,7 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-04-19">19 April 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-04-20">20 April 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2148,12 +2148,13 @@ device is opened by the current execution context and SHALL be set to <code>fals
     <li data-md="">
      <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened-5">opened</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a> <var>promise</var>.</p>
    </ol>
+   <p>When no <a data-link-type="biblio" href="#biblio-ecmascript">[ECMAScript]</a> code can observe an instance of <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-11">USBDevice</a></code> <var>device</var> anymore, the UA SHOULD run <var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-close" id="ref-for-dom-usbdevice-close-2">close()</a></code>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration-2">selectConfiguration(configurationValue)</a></code> method, when invoked,
 MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-11">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-12">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2197,7 +2198,7 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
 parallel:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-12">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-13">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2217,7 +2218,7 @@ parallel:</p>
 following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-13">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-14">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2242,7 +2243,7 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
 parallel:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-14">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-15">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2472,7 +2473,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset-1">reset()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>:</p>
    <ol>
     <li data-md="">
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-15">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-16">USBDevice</a></code> object.</p>
     <li data-md="">
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a></code> and abort these steps.</p>
     <li data-md="">
@@ -2604,7 +2605,7 @@ vendor.</p>
      </ol>
    </ol>
    <h3 class="heading settled" data-level="5.2" id="configurations"><span class="secno">5.2. </span><span class="content">Configurations</span><a class="self-link" href="#configurations"></a></h3>
-<pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export="" data-lt="USBConfiguration(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration">Constructor<a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-16">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device">device<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue">configurationValue<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>)]
+<pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export="" data-lt="USBConfiguration(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration">Constructor<a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-17">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device">device<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue">configurationValue<a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbconfiguration">USBConfiguration</dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbconfiguration-configurationvalue">configurationValue</dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><span class="kt">DOMString</span></a>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString?" id="dom-usbconfiguration-configurationname">configurationName</dfn>;
@@ -2739,7 +2740,7 @@ defined as follows:</p>
     <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-result-type">permission result type</a>
     <dd>
 <pre class="idl highlight def"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbpermissionresult">USBPermissionResult</dfn> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus">PermissionStatus</a> {
-  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-17">USBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBPermissionResult" data-dfn-type="attribute" data-export="" data-type="FrozenArray<USBDevice>" id="dom-usbpermissionresult-devices">devices</dfn>;
+  <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice-18">USBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBPermissionResult" data-dfn-type="attribute" data-export="" data-type="FrozenArray<USBDevice>" id="dom-usbpermissionresult-devices">devices</dfn>;
 };
 </pre>
     <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-query-algorithm">permission query algorithm</a>
@@ -2764,7 +2765,7 @@ defined as follows:</p>
   and <var>device</var> does not <a data-link-type="dfn" href="#match-a-filter" id="ref-for-match-a-filter-2">match a filter</a> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters-6">filters</a></code></code>, continue
   to the next <var>device</var>.</p>
         <li data-md="">
-         <p>Get the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-18">USBDevice</a></code> representing <var>device</var> and add it to <var>matchingDevices</var>.</p>
+         <p>Get the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice-19">USBDevice</a></code> representing <var>device</var> and add it to <var>matchingDevices</var>.</p>
        </ol>
       <li data-md="">
        <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionresult-devices" id="ref-for-dom-usbpermissionresult-devices-5">devices</a></code></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a></code> whose contents are <var>matchingDevices</var>.</p>
@@ -3207,7 +3208,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
      <li><a href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a>
     </ul>
    <li>
-    <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
+    <a data-link-type="biblio">[ECMAScript]</a> defines the following terms:
     <ul>
      <li><a href="https://tc39.github.io/ecma262/#sec-array-objects">Array</a>
      <li><a href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a>
@@ -3277,7 +3278,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <dl>
    <dt id="biblio-dom">[DOM]
    <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
-   <dt id="biblio-ecmascript">[ECMASCRIPT]
+   <dt id="biblio-ecmascript">[ECMAScript]
    <dd><a href="https://tc39.github.io/ecma262/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.github.io/ecma262/">https://tc39.github.io/ecma262/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
@@ -3678,9 +3679,9 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
    <ul>
     <li><a href="#ref-for-usbdevice-1">4. Device Enumeration</a> <a href="#ref-for-usbdevice-2">(2)</a> <a href="#ref-for-usbdevice-3">(3)</a> <a href="#ref-for-usbdevice-4">(4)</a>
     <li><a href="#ref-for-usbdevice-5">4.1. Events</a> <a href="#ref-for-usbdevice-6">(2)</a> <a href="#ref-for-usbdevice-7">(3)</a> <a href="#ref-for-usbdevice-8">(4)</a>
-    <li><a href="#ref-for-usbdevice-9">5. Device Usage</a> <a href="#ref-for-usbdevice-10">(2)</a> <a href="#ref-for-usbdevice-11">(3)</a> <a href="#ref-for-usbdevice-12">(4)</a> <a href="#ref-for-usbdevice-13">(5)</a> <a href="#ref-for-usbdevice-14">(6)</a> <a href="#ref-for-usbdevice-15">(7)</a>
-    <li><a href="#ref-for-usbdevice-16">5.2. Configurations</a>
-    <li><a href="#ref-for-usbdevice-17">6.2. Permission API</a> <a href="#ref-for-usbdevice-18">(2)</a>
+    <li><a href="#ref-for-usbdevice-9">5. Device Usage</a> <a href="#ref-for-usbdevice-10">(2)</a> <a href="#ref-for-usbdevice-11">(3)</a> <a href="#ref-for-usbdevice-12">(4)</a> <a href="#ref-for-usbdevice-13">(5)</a> <a href="#ref-for-usbdevice-14">(6)</a> <a href="#ref-for-usbdevice-15">(7)</a> <a href="#ref-for-usbdevice-16">(8)</a>
+    <li><a href="#ref-for-usbdevice-17">5.2. Configurations</a>
+    <li><a href="#ref-for-usbdevice-18">6.2. Permission API</a> <a href="#ref-for-usbdevice-19">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevice-usbversionmajor">
@@ -3794,7 +3795,7 @@ to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" i
   <aside class="dfn-panel" data-for="dom-usbdevice-close">
    <b><a href="#dom-usbdevice-close">#dom-usbdevice-close</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbdevice-close-1">5. Device Usage</a>
+    <li><a href="#ref-for-dom-usbdevice-close-1">5. Device Usage</a> <a href="#ref-for-dom-usbdevice-close-2">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevice-selectconfiguration">
