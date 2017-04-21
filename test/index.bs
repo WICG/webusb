@@ -132,7 +132,7 @@ two benefits,
 
 </div>
 
-# Testing Interface # {#test-interface}
+# Global Testing Interface # {#test-interface}
 
 <pre class="idl">
   partial interface USB {
@@ -148,13 +148,12 @@ two benefits,
     FakeUSBDevice addFakeDevice(FakeUSBDeviceInit deviceInit);
     void reset();
   };
-
-  interface FakeUSBDevice : EventTarget {
-    attribute EventHandler onclose;
-
-    void disconnect();
-  };
 </pre>
+
+By default, a UA SHALL NOT alter the behavior of a {{USB}} instance |usb| in any
+<a>global object</a> until it is reconfigured so that |usb| is <dfn>controlled
+by</dfn> a {{USBTest}} instance |test|. At that point the behavior of |usb| is
+defined by this specification.
 
 Instances of {{USBTest}} are created with an <a>internal slot</a>
 <dfn attribute for="USBTest">\[[initializationPromise]]</dfn> with an initial
@@ -167,27 +166,56 @@ When invoked, the {{USBTest/initialize()}} method MUST run these steps:
     set |test|.{{USBTest/[[initializationPromise]]}} to a new {{Promise}} and
     run these sub-steps <a>in parallel</a>:
     1.  Reconfigure the UA's internal implementation of the {{Navigator/usb}}
-        object in the <a>current global object</a> so that it is controlled by
-        |test|.
+        object in the <a>current global object</a> so that it is <a>controlled
+        by</a> |test|.
     1.  Resolve |test|.{{USBTest/[[initializationPromise]]}}.
 1.  Return |test|.{{USBTest/[[initializationPromise]]}}.
-
-The behavior of any other method on the {{Navigator/usb}} or {{USB/test}}
-objects in the <a>current global object</a> is undefined by this specification
-if invoked before the {{Promise}} returned by {{USBTest/initialize()}} is
-resolved.
 
 When invoked, the {{USBTest/attachToWindow(window)}} method MUST return a new
 {{Promise}} |promise| and run these steps <a>in parallel</a>:
 
-1.  Let |test| by the {{USBTest}} instance on which this method was invoked.
+1.  Let |test| be the {{USBTest}} instance on which this method was invoked.
+1.  If |test|.{{USBTest/[[initializationPromise]]}} is not in the
+    <a>resolved</a> state, reject |promise| with an {{InvalidStateError}} and
+    abort these steps.
 1.  Reconfigure the UA's internal implementation of {{Navigator/usb}} in the
-    <a>global object</a> <var ignore>window</var> so that it is controlled by
-    |test|.
+    <a>global object</a> <var ignore>window</var> so that it is <a>controlled
+    by</a> |test|.
 1.  Resolve |promise|.
 
-When {{USB/requestDevice(options)}} is invoked on a {{USB}} instance controlled
-by a {{USBTest}} |test| the UA MUST perform the following steps:
+When invoked, the {{USBTest/addFakeDevice(deviceInit)}} method MUST run these
+steps:
+
+1.  Let |test| be the {{USBTest}} instance on which this method was invoked.
+1.  If |test|.{{USBTest/[[initializationPromise]]}} is not in the
+    <a>resolved</a> state, raise an {{InvalidStateError}} and abort these steps.
+1.  Let |fakeDevice| be a new {{FakeUSBDevice}}.
+1.  <a>Queue a task</a> to, for each {{USB}} instance <a>controlled by</a>
+    |test|, perform the steps described in [[!WebUSB]] for handling a new device
+    that is connected to the system.
+1.  Return |fakeDevice|.
+
+When invoked, the {{USBTest/reset()}} method MUST run the following steps:
+
+1.  Let |test| be the {{USBTest}} instance on which this method was invoked.
+1.  Set |test|.{{USBTest/chosenDevice}} to <code>null</code>.
+1.  For each {{FakeUSBDevice}} |fakeDevice| previously returned by
+    {{USBTest/addFakeDevice()}}, invoke
+    |fakeDevice|.{{FakeUSBDevice/disconnect()}}.
+
+Issue: This method is used in the Chromium project to reset the state of the
+{{USBTest}} object between tests. This depends on the fact that in Chromium's
+implementation it is possible to remove a fake device from the set of available
+devices synchronously so that the next test immediately finds that
+{{USB/getDevices()}} resolves with an empty list. This behavior may not be
+possible in all implementations of this API and so this method should be removed
+and existing tests rewritten to no longer depend on it.
+
+## {{USB}} Behavior ## {#usb-behavior}
+
+When {{USB/requestDevice(options)}} is invoked on a {{USB}} instance
+<a>controlled by</a> a {{USBTest}} |test| the UA MUST perform the following
+steps:
 
 1.  Let |filters| be a new {{FrozenArray}}.
 1.  Copy the members of
@@ -199,20 +227,7 @@ by a {{USBTest}} |test| the UA MUST perform the following steps:
     |test|.{{USBTest/chosenDevice}} or, if |test|.{{USBTest/chosenDevice}} is
     <code>null</code>, as if the user denied the permission request.
 
-When invoked, the {{USBTest/addFakeDevice(deviceInit)}} method MUST return a
-new {{FakeUSBDevice}} and <a>queue a task</a> to, for each {{USB}} instance
-controlled by the target of this invocation, perform the steps described in
-[[!WebUSB]] for handling a new device that is connected to the system.
-
-The {{USBTest/reset()}} method is not currently asynchronous and should probably
-be removed.
-
-When invoked, the {{FakeUSBDevice/disconnect()}} method MUST,
-<a>queue a task</a> to, for each {{USB}} instance controlled by the target of
-this invocation, perform the steps described in [[!WebUSB]] for handling the
-removal of a device that was connected to the system.
-
-# Fake USB Devices # {#fake-devices}
+# Fake Devices # {#fake-devices}
 
 To permit testing without physical hardware this specification defines a method
 for tests to add simulated USB devices by calling {{USBTest/addFakeDevice()}}
@@ -220,6 +235,12 @@ with an instance of {{FakeUSBDeviceInit}} containing the properties of the
 device to be added.
 
 <pre class="idl">
+  interface FakeUSBDevice : EventTarget {
+    attribute EventHandler onclose;
+
+    void disconnect();
+  };
+
   dictionary FakeUSBDeviceInit {
     required octet usbVersionMajor;
     required octet usbVersionMinor;
@@ -289,6 +310,14 @@ returned by {{USBTest/addFakeDevice()}}:
     |init|.{{FakeUSBDeviceInit/activeConfigurationValue}} then
     |device|.{{USBDevice/configuration}} SHALL be set to |config|, otherwise
     <code>null</code>.
+
+When invoked, the {{FakeUSBDevice/disconnect()}} method MUST,
+<a>queue a task</a> to, for each {{USB}} instance <a>controlled by</a> the
+{{USBTest}} instance from which target of this invocation was returned, perform
+the steps described in [[!WebUSB]] for handling the removal of a device that was
+connected to the system.
+
+## {{USBDevice}} Behavior ## {#usbdevice-behavior}
 
 When the {{USBDevice/open()}}, {{USBDevice/close()}},
 {{USBDevice/selectConfiguration()}}, {{USBDevice/claimInterface()}},
