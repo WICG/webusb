@@ -387,50 +387,50 @@ scheme, is encoded in the <code>URL</code> field.
 A USB device |device| <dfn data-lt="match a filter">matches a filter</dfn>
 |filter| if the following steps return <code>match</code>:
 
-  4. Let |deviceDesc| be |device|'s <a>device descriptor</a>.
+  1. Let |deviceDesc| be |device|'s <a>device descriptor</a>.
   1. If <code>|filter|.{{USBDeviceFilter/vendorId}}</code> is present then, if
      <code>|deviceDesc|.idVendor</code> does not equal
      <code>|filter|.{{USBDeviceFilter/vendorId}}</code>, return
      <code>mismatch</code>.
-  2. If <code>|filter|.{{USBDeviceFilter/productId}}</code> is present then, if
+  1. If <code>|filter|.{{USBDeviceFilter/productId}}</code> is present then, if
      <code>|deviceDesc|.idProduct</code> does not equal
      <code>|filter|.{{USBDeviceFilter/productId}}</code>, return
      <code>mismatch</code>.
-  3. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present then,
+  1. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present then,
      for each of |device|'s interface's |interface| run the following steps:
        1. Let |desc| be |interface|'s <a>interface descriptor</a>.
-       2. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present
+       1. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present
           then, if <code>|desc|.bInterfaceClass</code> is not equal to
           <code>|filter|.{{USBDeviceFilter/classCode}}</code>, continue to
           the next interface.
-       3. If <code>|filter|.{{USBDeviceFilter/subclassCode}}</code> is present
+       1. If <code>|filter|.{{USBDeviceFilter/subclassCode}}</code> is present
           then, if <code>|desc|.bInterfaceSubClass</code> is not equal to
           <code>|filter|.{{USBDeviceFilter/subclassCode}}</code>, continue to
           the next interface.
-       4. If <code>|filter|.{{USBDeviceFilter/protocolCode}}</code> is present
+       1. If <code>|filter|.{{USBDeviceFilter/protocolCode}}</code> is present
           then, if <code>|desc|.bInterfaceProtocol</code> is not equal to
           <code>|filter|.{{USBDeviceFilter/protocolCode}}</code>, continue to
           the next interface.
-       5. Return <code>match</code>.
-  5. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present then, if
+       1. Return <code>match</code>.
+  1. If <code>|filter|.{{USBDeviceFilter/classCode}}</code> is present then, if
      <code>|deviceDesc|.bDeviceClass</code> is not equal to
      <code>|filter|.{{USBDeviceFilter/classCode}}</code>, return
      <code>mismatch</code>.
-  6. If <code>|filter|.{{USBDeviceFilter/subclassCode}}</code> is present then,
+  1. If <code>|filter|.{{USBDeviceFilter/subclassCode}}</code> is present then,
      if <code>|deviceDesc|.bDeviceSubClass</code> is not equal to
      <code>|filter|.{{USBDeviceFilter/subclassCode}}</code>, return
      <code>mismatch</code>.
-  7. If <code>|filter|.{{USBDeviceFilter/protocolCode}}</code> is present then,
+  1. If <code>|filter|.{{USBDeviceFilter/protocolCode}}</code> is present then,
      if <code>|deviceDesc|.bDeviceProtocol</code> is not equal to
      <code>|filter|.{{USBDeviceFilter/protocolCode}}</code>, return
      <code>mismatch</code>.
-  8. If <code>|filter|.{{USBDeviceFilter/serialNumber}}</code> is present then,
+  1. If <code>|filter|.{{USBDeviceFilter/serialNumber}}</code> is present then,
      let |serialNumber| be the <a>string descriptor</a> with index
      <code>|deviceDesc|.iSerialNumber</code>. If |device| returns an error when
      requesting |serialNumber| or |serialNumber| is not equal to
      <code>|filter|.{{USBDeviceFilter/serialNumber}}</code>, return
      <code>mismatch</code>.
-  9. Return <code>match</code>.
+  1. Return <code>match</code>.
 
 A {{USBDeviceFilter}} |filter|
 <dfn data-lt="is not a valid filter">is valid</dfn> if the following steps
