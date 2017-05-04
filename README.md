@@ -8,7 +8,6 @@ Connecting hardware to the web.
 Documents
 ---------
 
-* [Explainer](explainer.md)
 * [Specification](https://wicg.github.io/webusb/) (Editor's Draft)
 * [Test API Specification](https://wicg.github.io/webusb/test/) (Editor's Draft)
 
@@ -21,9 +20,13 @@ Communication
 Implementation Status
 ---------------------
 
-* Available behind the `--experimental-web-platform-features` flag and as an [Origin Trial](https://bit.ly/OriginTrialSignup) in Google Chrome. Supported on Android, Linux, macOS and Windows.
+* Available in the latest stable Chrome behind the
+  `--experimental-web-platform-features` flag and as an
+  [Origin Trial](https://bit.ly/OriginTrialSignup) in Chrome 54 through
+  Chrome 59. Supported on Android, Chrome OS, Linux, macOS and Windows.
 
 Demos
 ----
 
 * [Arduino Integration](https://github.com/webusb/arduino/)
+* [WebLight](https://github.com/sowbug/weblight)
