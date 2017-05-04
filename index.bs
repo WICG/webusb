@@ -37,7 +37,7 @@ table td, table th {
 
 The Universal Serial Bus (USB) is the de-facto standard for wired peripherals.
 Most USB devices implement one of roughly a dozen standard "device classes"
-which specify a way for the device to advertize the features it supports and
+which specify a way for the device to advertise the features it supports and
 commands and data formats for using those features. Standard device classes
 include keyboard, mice, audio, video and storage devices. Operating systems
 support such devices using the "class driver" provided by the OS vendor. There
@@ -55,13 +55,61 @@ because, instead of waiting for a new kind of device to be popular enough for
 browsers to provide a specific API, new and innovative hardware can be built
 for the web from day one.
 
+For more information about USB see [[#appendix-intro]].
+
+# Motivating Applications # {#motivating-applications}
+
+<em>This section is non-normative</em>.
+
+## Educational Devices ## {#app-edu-devices}
+
+The software delivery model of the web is a key enabler for educational
+applications because they can be quickly loaded on any computer without
+questions of platform compatibility or administrative credentials. Science
+classes are incorporating computerized measurement and data logging into their
+lessons. These tools require bundled software that may be difficult to install
+on managed computers as every new native application adds overhead to an already
+stressed IT department. Web-based hardware APIs allow support for these devices
+to be built directly into existing online course materials, providing a
+completely seamless experience.
+
+Students learning to code with one of the many microcontroller development kits
+can take advantage of online developer tools to write and upload their code.
+These tools already exist however they require a native component to interface
+between the browser and the hardware. These native extensions add a barrier to
+entry and may expose the user to security vulnerabilities in a way that that
+code running in the sandboxed web environment does not.
+
+## Web Drivers ## {#app-drivers}
+
+The composablity of the web allows a new ecosystem of hardware support to be
+built entirely from web technology. Taking 3D printers an example, imagine that
+a site hosting 3D object designs wants to integrate printing directly into their
+page. The web supports 2D printing but there is no API for the 3D variety. If
+manufacturers host embeddable pages that use the WebUSB API to send data to
+their printers, sites can use these pages to integrate support for the hardware
+in the same way that features such as embedded maps are added to many existing
+sites.
+
+## Devices Updates and Diagnostics ## {#app-updates-and-diagnostics}
+
+While wireless protocols such as Bluetooth are often the more convenient choice
+for consumer devices USB ports continue to proliferate because they are an easy
+solution for power delivery and can serve as the connection of last resort when
+the device isn't working. By integrating update and diagnostic tools into their
+support site a hardware manufacturer can provide tools for customers on any
+platform and collect better diagnostic data when a customer reaches out for
+support through their website. The <a>landing page</a> provides a way for the
+device manufacturer to direct the user to the right part of their website for
+help with their device.
+
 # Security and Privacy Considerations # {#security-and-privacy}
 
 <em>This section is non-normative</em>.
 
 The WebUSB API is a powerful feature and has the possibility to expose users to
 a number of new privacy and security risks. These risks can be broadly divided
-into three catagories that will be described in the sections below.
+into three categories that will be described in the sections below.
 
 ## Abusing Access to a Device ## {#abusing-a-device}
 
@@ -80,7 +128,7 @@ preventing a malicious page from abusing a device.
 
 The first of these protections is the {{USB/requestDevice()}} function. The UA
 may display a permission prompt when this function is called. Even for a
-non-malicous page this action also preserves user privacy by preventing a site
+non-malicious page this action also preserves user privacy by preventing a site
 from connecting to a device before the user is aware that such a connection is
 possible. The UA may also display an indicator when a device connection is
 active.
@@ -211,9 +259,14 @@ Store</a>:
     <td>iLandingPage</td>
     <td>1</td>
     <td>Number</td>
-    <td>URL descriptor index of the device's landing page.</td>
+    <td>URL descriptor index of the device's <a>landing page</a>.</td>
   </tr>
 </table>
+
+The <code>iLandingPage</code> field, when non-zero, indicates a
+<dfn>landing page</dfn> which the device manufacturer would like the user to
+visit in order to control their device. The UA MAY suggest the user navigate
+to this URL when the device is connected.
 
 ## WebUSB Device Requests ## {#device-requests}
 
@@ -1538,6 +1591,52 @@ ID</dfn> is assigned by the manufacturer and is stored in the
 number</dfn> is an optional property that is defined if the
 <code>iSerialNumber</code> field of the <a>device descriptor</a> is not equal
 to <code>0</code> and is the <a>string descriptor</a> referred to by that index.
+
+# Appendix: A Brief Introduction to USB # {#appendix-intro}
+
+<em>This section is non-normative</em>.
+
+USB is a network but it's very different from traditional TCP/IP networks. It is
+really more like an RPC system. All traffic is directed by the host, that is,
+your computer. Though some devices like smartphones can act as both a USB host
+and USB client they can only take on one role at a time.
+
+## Descriptors ## {#appendix-descriptors}
+
+USB devices identify themselves to the host by providing a set of binary
+structures known as <a>descriptors</a>. The first one read by the host is the
+<a>device descriptor</a> which contains basic information such as the vendor and
+product IDs assigned by the USB-IF and the manufacturer. The host may then read
+the device's <a>configuration descriptor</a> which is a description of the
+device's capabilities including the interfaces and endpoints it exposes. A class
+can be declared at the device level or for individual interfaces. A device with
+multiple interfaces providing different functions is known as a
+<dfn>composite device</dfn>.
+
+## Transfers ## {#appendix-transfers}
+
+Whether data is traveling from host to device or the other way around the
+transfer is always initiated by the host. <dfn>OUT transfers</dfn> carry data
+from host to device and may wait until the device acknowledges the data has been
+received. <dfn>IN transfers</dfn> carry data from device to host and may have to
+wait until the device has some data to send. Transfers are executed against one
+of a device's endpoints and there are different kinds depending on what type of
+traffic is being sent.
+
+  * <dfn>Bulk transfers</dfn> are good for sending lots of data with whatever
+    bandwidth is available. This is what is used to read and write data to USB
+    mass storage devices.
+  * <dfn>Interrupt transfers</dfn> offer guaranteed latency (by reserving
+    bandwidth so that they can't be blocked by a large bulk transfers) but with
+    limited packet sizes. These are used for signaling and for small packets like
+    mouse movements and button presses.
+  * <dfn>Isochronous transfers</dfn> also reserve bandwidth but they don't
+    guarantee delivery. They're used for streaming data like audio and video.
+  * Every device also has a special <dfn>default endpoint</dfn>. While regular
+    endpoints only carry data in one direction or the other
+    <dfn>control transfers</dfn> have a small header called the
+    <a>SETUP packet</a> that is always sent to the device and contains request
+    parameters in addition to a larger data payload that can be either IN or OUT.
 
 <pre class="biblio">
 {
