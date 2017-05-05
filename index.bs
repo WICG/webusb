@@ -384,6 +384,61 @@ scheme, is encoded in the <code>URL</code> field.
   };
 </pre>
 
+<div class="example">
+In this example, we retrieve some devices to include in a UI. When the page is
+first loaded, it should check if it already has permission to access any
+connected devices by calling {{USB/getDevices()}},
+
+<pre>
+  document.addEventListener('DOMContentLoaded', async () => {
+    let devices = await navigator.usb.getDevices();
+    devices.forEach(device => {
+      // Add |device| to the UI.
+    });
+  });
+</pre>
+
+After the page is loaded the user may <a>connect</a> or <a>disconnect</a> a
+device from their system so script should also register for these events in
+order to keep the interface up-to-date,
+
+<pre>
+  navigator.usb.addEventListener('connect', device => {
+    // Add |device| to the UI.
+  });
+
+  navigator.usb.addEventListener('disconnect', device => {
+    // Remove |device| from the UI.
+  });
+</pre>
+
+If this is the first time the user has visited the page then it won't have
+permission to access any devices so the page must first call
+{{USB/requestDevice()}} in response to a user gesture. In this case the page
+supports devices from vendor <code>0xABCD</code> that carry the vendor-specific
+subclass <code>0x01</code>,
+
+<pre>
+  let button = document.getElementById('request-device');
+  button.addEventListener('click', async () => {
+    let device;
+    try {
+      device = await navigator.usb.requestDevice({ filters: [{
+          vendorId: 0xABCD,
+          classCode: 0xFF, // vendor-specific
+          protocolCode: 0x01
+      }]});
+    } catch () {
+      // No device was selected.
+    }
+
+    if (device !== undefined) {
+      // Add |device| to the UI.
+    }
+  });
+</pre>
+</div>
+
 A USB device |device| <dfn data-lt="match a filter">matches a filter</dfn>
 |filter| if the following steps return <code>match</code>:
 
