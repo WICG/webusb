@@ -443,7 +443,7 @@ In this example, we retrieve some devices to include in a UI. When the page is
 first loaded, it should check if it already has permission to access any
 connected devices by calling {{USB/getDevices()}},
 
-<pre>
+<pre highlight="js">
   document.addEventListener('DOMContentLoaded', async () => {
     let devices = await navigator.usb.getDevices();
     devices.forEach(device => {
@@ -456,7 +456,7 @@ After the page is loaded the user may <a>connect</a> or <a>disconnect</a> a
 device from their system so script should also register for these events in
 order to keep the interface up-to-date,
 
-<pre>
+<pre highlight="js">
   navigator.usb.addEventListener('connect', device => {
     // Add |device| to the UI.
   });
@@ -472,7 +472,7 @@ permission to access any devices so the page must first call
 supports devices from vendor <code>0xABCD</code> that carry the vendor-specific
 subclass <code>0x01</code>,
 
-<pre>
+<pre highlight="js">
   let button = document.getElementById('request-device');
   button.addEventListener('click', async () => {
     let device;
