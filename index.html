@@ -1884,49 +1884,49 @@ scheme, is encoded in the <code>URL</code> field.</p>
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb-1">USB</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USB" id="dom-navigator-usb">usb</dfn>;
 };
 </pre>
-   <div class="example" id="example-c0e3cc7b">
-    <a class="self-link" href="#example-c0e3cc7b"></a> In this example, we retrieve some devices to include in a UI. When the page is
+   <div class="example" id="example-a2458b02">
+    <a class="self-link" href="#example-a2458b02"></a> In this example, we retrieve some devices to include in a UI. When the page is
 first loaded, it should check if it already has permission to access any
 connected devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices-1">getDevices()</a></code>, 
-<pre>document.addEventListener('DOMContentLoaded', async () => {
-  let devices = await navigator.usb.getDevices();
-  devices.forEach(device => {
-    // Add |device| to the UI.
-  });
-});
+<pre class="highlight">document<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> async <span class="p">(</span><span class="p">)</span> <span class="p">=></span> <span class="p">{</span>
+  <span class="kd">let</span> devices <span class="o">=</span> await navigator<span class="p">.</span>usb<span class="p">.</span>getDevices<span class="p">(</span><span class="p">)</span><span class="p">;</span>
+  devices<span class="p">.</span>forEach<span class="p">(</span>device <span class="p">=></span> <span class="p">{</span>
+    <span class="c1">// Add |device| to the UI.
+</span>  <span class="p">}</span><span class="p">)</span><span class="p">;</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
 </pre>
     <p>After the page is loaded the user may <a data-link-type="dfn" href="#connect" id="ref-for-connect-1">connect</a> or <a data-link-type="dfn" href="#disconnect" id="ref-for-disconnect-1">disconnect</a> a
 device from their system so script should also register for these events in
 order to keep the interface up-to-date,</p>
-<pre>navigator.usb.addEventListener('connect', device => {
-  // Add |device| to the UI.
-});
+<pre class="highlight">navigator<span class="p">.</span>usb<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'connect'</span><span class="p">,</span> device <span class="p">=></span> <span class="p">{</span>
+  <span class="c1">// Add |device| to the UI.
+</span><span class="p">}</span><span class="p">)</span><span class="p">;</span>
 
-navigator.usb.addEventListener('disconnect', device => {
-  // Remove |device| from the UI.
-});
+navigator<span class="p">.</span>usb<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'disconnect'</span><span class="p">,</span> device <span class="p">=></span> <span class="p">{</span>
+  <span class="c1">// Remove |device| from the UI.
+</span><span class="p">}</span><span class="p">)</span><span class="p">;</span>
 </pre>
     <p>If this is the first time the user has visited the page then it won’t have
 permission to access any devices so the page must first call <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-3">requestDevice()</a></code> in response to a user gesture. In this case the page
 supports devices from vendor <code>0xABCD</code> that carry the vendor-specific
 subclass <code>0x01</code>,</p>
-<pre>let button = document.getElementById('request-device');
-button.addEventListener('click', async () => {
-  let device;
-  try {
-    device = await navigator.usb.requestDevice({ filters: [{
-        vendorId: 0xABCD,
-        classCode: 0xFF, // vendor-specific
-        protocolCode: 0x01
-    }]});
-  } catch () {
-    // No device was selected.
-  }
+<pre class="highlight"><span class="kd">let</span> button <span class="o">=</span> document<span class="p">.</span>getElementById<span class="p">(</span><span class="s1">'request-device'</span><span class="p">)</span><span class="p">;</span>
+button<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'click'</span><span class="p">,</span> async <span class="p">(</span><span class="p">)</span> <span class="p">=></span> <span class="p">{</span>
+  <span class="kd">let</span> device<span class="p">;</span>
+  <span class="k">try</span> <span class="p">{</span>
+    device <span class="o">=</span> await navigator<span class="p">.</span>usb<span class="p">.</span>requestDevice<span class="p">(</span><span class="p">{</span> filters<span class="o">:</span> <span class="p">[</span><span class="p">{</span>
+        vendorId<span class="o">:</span> <span class="mh">0xABCD</span><span class="p">,</span>
+        classCode<span class="o">:</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="c1">// vendor-specific
+</span>        protocolCode<span class="o">:</span> <span class="mh">0x01</span>
+    <span class="p">}</span><span class="p">]</span><span class="p">}</span><span class="p">)</span><span class="p">;</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// No device was selected.
+</span>  <span class="p">}</span>
 
-  if (device !== undefined) {
-    // Add |device| to the UI.
-  }
-});
+  <span class="k">if</span> <span class="p">(</span>device <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Add |device| to the UI.
+</span>  <span class="p">}</span>
+<span class="p">}</span><span class="p">)</span><span class="p">;</span>
 </pre>
    </div>
    <p>A USB device <var>device</var> <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="match a filter" data-noexport="" id="match-a-filter">matches a filter</dfn> <var>filter</var> if the following steps return <code>match</code>:</p>
