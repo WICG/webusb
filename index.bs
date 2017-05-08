@@ -753,6 +753,65 @@ host it MUST perform the following steps for each script execution environment:
   };
 </pre>
 
+<div class="example">
+In this example we imagine a data logging device supporting up to 8 16-bit data
+channels. It has a single configuration (<code>bConfigurationValue 1</code>)
+with a single interface (<code>bInterfaceNumber 1</code>) with a single
+bulk endpoint (<code>bEndpointAddress 0x81</code> which means that it is
+endpoint 1 and an IN endpoint). When data is sampled it is available on this
+endpoint. The maximum packet size on this endpoint is 16 bytes to support all 8
+channels being activated at the same time. To save bus bandwidth, however, any
+combination of channels can be activated and deactivated. The packet will only
+be the length necessary to transmit the data collected.
+
+To get started we open the device, select the first configuration (it only has
+one but the operating system may not have already done this during enumeration)
+and claim the data logging interface,
+
+<pre highlight="js">
+  await device.<a idl for="USBDevice" data-lt="open()">open</a>();
+  if (device.<a idl for="USBDevice">configuration</a> === null)
+    await device.<a idl for="USBDevice" data-lt="selectConfiguration()">selectConfiguration</a>(1);
+  await device.<a idl for="USBDevice" data-lt="claimInterface()">claimInterface</a>(1);
+</pre>
+
+For this particular application we care about reading from channels 1, 2 and 5
+so we issue a control transfer to activate these channels,
+
+<pre highlight="js">
+  await device.<a idl for="USBDevice" data-lt="controlTransferOut()">controlTransferOut</a>({
+      <a idl for="USBControlTransferParameters">requestType</a>: '<a idl for="USBRequestType">vendor</a>',
+      <a idl for="USBControlTransferParameters">recipient</a>: '<a idl for="USBRecipient">interface</a>',
+      <a idl for="USBControlTransferParameters">request</a>: 0x01,  // vendor-specific request: enable channels
+      <a idl for="USBControlTransferParameters">value</a>: 0x0013,  // 0b00010011 (channels 1, 2 and 5)
+      <a idl for="USBControlTransferParameters">index</a>: 0x0001   // Interface 1 is the recipient
+  });
+</pre>
+
+The application may now start polling the device for data. As we only expect
+data from 3 channels we request a 6 byte buffer. As long as we receive a
+complete buffer the captured values (transmitted in big endian) are printed to
+the console log. If the device has encountered an error and signals this by
+stalling the endpoint then the error is cleared before continuing,
+
+<pre highlight="js">
+  while (true) {
+    let result = await data.<a idl for="USBDevice" data-lt="transferIn()">transferIn</a>(1, 6);
+
+    if (result.<a idl for="USBInTransferResult">data</a> && result.data.byteLength === 6) {
+      console.log('Channel 1: ' + result.data.getUint16(0));
+      console.log('Channel 2: ' + result.data.getUint16(2));
+      console.log('Channel 5: ' + result.data.getUint16(4));
+    }
+
+    if (result.<a idl for="USBInTransferResult">status</a> === 'stall') {
+      console.warn('Endpoint stalled. Clearing.');
+      await device.<a idl for="USBDevice" data-lt="clearHalt()">clearHalt</a>(1);
+    }
+  }
+</pre>
+</div>
+
 The {{USBDevice/usbVersionMajor}}, {{USBDevice/usbVersionMinor}} and
 {{USBDevice/usbVersionSubminor}} attributes declare the USB protocol version
 supported by the device. They SHALL correspond to the value of the
@@ -925,32 +984,37 @@ return a new {{Promise}} |promise| and run the following steps in
 parallel:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+  1. If |device| is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  3. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
+  1. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
      <code>true</code> <a>reject</a> |promise| with an {{InvalidStateError}}
      and abort these steps.
-  4. <a>Check the validity of the control transfer parameters</a> and abort
+  1. <a>Check the validity of the control transfer parameters</a> and abort
      these steps if |promise| is rejected.
-  5. If |length| is greater than the <code>wMaxPacketSize0</code> field of the
+  1. If |length| is greater than the <code>wMaxPacketSize0</code> field of the
      device's <a>device descriptor</a>, <a>reject</a> |promise| with a
      {{TypeError}} and abort these steps.
-  6. Let |result| be a new {{USBInTransferResult}} and let |buffer| be a new
-     {{ArrayBuffer}} of |length| bytes.
-  7. Issue a control transfer with the setup packet parameters provided in
-     |setup| and the data transfer direction in <code>bmRequestType</code> set
-     to "device to host" and <code>wLength</code> set to |length|.
-  8. If the device responds with data, store the first |length| bytes of this
-     data in |buffer| and set <code>|result|.{{USBInTransferResult/data}}</code>
-     to a new {{DataView}} constructed over |buffer|.
-  9. If the device responds by stalling the default control pipe set
+  1. If |length| is greather than 0, let |buffer| be a host buffer with space
+     for |length| bytes.
+  1. Issue a control transfer to |device| with the setup packet parameters
+     provided in |setup|, the data transfer direction in
+     <code>bmRequestType</code> set to "device to host" and <code>wLength</code>
+     set to |length|. If defined also provide |buffer| as the destination to
+     write data received in response to this transfer.
+  1. Let |bytesTransferred| be the number of bytes written to |buffer|.
+  1. Let |result| be a new {{USBInTransferResult}}.
+  1. If data was received from |device| create a new {{ArrayBuffer}} containing
+     the first |bytesTransferred| bytes of |buffer| and set
+     <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
+     constructed over it.
+  1. If |device| responded by stalling the default control pipe set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-  10. If more than |length| bytes are received set
-      <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}} and
-      otherwise set it to {{"ok"}}.
-  11. If the transfer fails for any other reason <a>reject</a> |promise| with a
-      {{NetworkError}} and abort these steps.
-  12. <a>Resolve</a> |promise| with |result|.
+  1. If |device| responded with more than |length| bytes of data set
+     <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}} and
+     otherwise set it to {{"ok"}}.
+  1. If the transfer fails for any other reason <a>reject</a> |promise| with a
+     {{NetworkError}} and abort these steps.
+  1. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/controlTransferOut(setup, data)}} method, when invoked, must
 return a new {{Promise}} |promise| and run the following steps <a>in
@@ -977,7 +1041,7 @@ parallel</a>:
      <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
   8. If the device acknowledges the transfer set
      <code>|result|.{{USBOutTransferResult/status}}</code> to {{"ok"}} and
-     <code>|result|.{{USBOutTransferResult/bytesWritten</code> to
+     <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to
      <code>|data|.length</code>.
   9. If the transfer fails for any other reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
@@ -997,8 +1061,8 @@ parallel</a>:
      <code>|interface|.{{USBInterface/claimed}}</code> is not <code>true</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  4. Issue a <code>CLEAR_FEATURE</code> control transfer to the device to clear
-     the stall condition on |endpoint|.
+  4. Issue a <code>ClearFeature(ENDPOINT_HALT)</code> control transfer to the
+     device to clear the halt condition on |endpoint|.
   5. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
      <a>resolve</a> |promise|.
 
@@ -1006,35 +1070,37 @@ The {{USBDevice/transferIn(endpointNumber, length)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps <a>in
 parallel</a>:
 
-  1. If the device is no longer connected to the system, <a>reject</a> |promise|
+  1. Let |device| be the target {{USBDevice}} object.
+  1. If |device| is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  2. Let |endpoint| be the IN endpoint in the <a>active configuration</a> with
+  1. Let |endpoint| be the IN endpoint in the <a>active configuration</a> with
      <code>bEndpointAddress</code> corresponding to |endpointNumber|. If there
      is no such endpoint <a>reject</a> |promise| with a {{NotFoundError}} and
      abort these steps.
-  3. If |endpoint| is not a bulk or interrupt endpoint <a>reject</a> |promise|
+  1. If |endpoint| is not a bulk or interrupt endpoint <a>reject</a> |promise|
      with an {{InvalidAccessError}} and abort these steps.
-  4. If <code>|device|.{{USBDevice/opened}}</code> or
+  1. If <code>|device|.{{USBDevice/opened}}</code> or
      <code>|interface|.{{USBInterface/claimed}}</code> is not <code>true</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  5. As appropriate for |endpoint| enqueue a bulk or interrupt IN transfer on
-     |endpoint| with a buffer sufficient to receive |length| bytes of data from
-     the device.
-  6. Let |result| be a new {{USBInTransferResult}}.
-  7. If data is returned as part of this transfer let |buffer| be a new
-     {{ArrayBuffer}} of exactly the length of the data received and set
+  1. Let |buffer| be a host buffer with space for |length| bytes.
+  1. As appropriate for |endpoint| enqueue a bulk or interrupt IN transfer on
+     |endpoint| to receive |length| bytes of data from the device into |buffer|.
+  1. Let |bytesTransferred| be the number of bytes written to |buffer|.
+  1. Let |result| be a new {{USBInTransferResult}}.
+  1. If data was received from |device| create a new {{ArrayBuffer}} containing
+     the first |bytesTransferred| bytes of |buffer| and set
      <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
-     constructed over |buffer|.
-  8. If the device responds with more than |length| bytes of data set
+     constructed over it.
+  1. If |device| responded with more than |length| bytes of data set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}}.
-  9. If the transfer ends because |endpoint| is stalled set
+  1. If the transfer ended because |endpoint| is halted set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-  10. If the device acknowledges the complete transfer set
-      <code>|result|.{{USBInTransferResult/status}}</code> to {{"ok"}}.
-  11. If the transfer fails for any other reason <a>reject</a> |promise| with a
-      {{NetworkError}} and abort these steps.
-  12. <a>Resolve</a> |promise| with |result|.
+  1. If |device| acknowledged the complete transfer set
+     <code>|result|.{{USBInTransferResult/status}}</code> to {{"ok"}}.
+  1. If the transfer failed for any other reason <a>reject</a> |promise| with a
+     {{NetworkError}} and abort these steps.
+  1. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/transferOut(endpointNumber, data)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps in
