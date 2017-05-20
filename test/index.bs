@@ -112,6 +112,10 @@ expressed as a W3C testharness.js-based test, demonstrates a test of the
 </pre>
 </div>
 
+Note: If multiple tests are run in the same document then the test harness
+should invoke {{USBTest/reset()}} and wait until the {{Promise}} it returns is
+resolved before executing the next test.
+
 # Availability # {#availability}
 
 This specification defines an interface that is not intended be used by
@@ -146,7 +150,7 @@ two benefits,
     Promise&lt;void> initialize();
     Promise&lt;void> attachToWindow(Window window);
     FakeUSBDevice addFakeDevice(FakeUSBDeviceInit deviceInit);
-    void reset();
+    Promise&lt;void> reset();
   };
 </pre>
 
@@ -168,7 +172,7 @@ When invoked, the {{USBTest/initialize()}} method MUST run these steps:
     1.  Reconfigure the UA's internal implementation of the {{Navigator/usb}}
         object in the <a>current global object</a> so that it is <a>controlled
         by</a> |test|.
-    1.  Resolve |test|.{{USBTest/[[initializationPromise]]}}.
+    1.  <a>Resolve</a> |test|.{{USBTest/[[initializationPromise]]}}.
 1.  Return |test|.{{USBTest/[[initializationPromise]]}}.
 
 When invoked, the {{USBTest/attachToWindow(window)}} method MUST return a new
@@ -181,7 +185,7 @@ When invoked, the {{USBTest/attachToWindow(window)}} method MUST return a new
 1.  Reconfigure the UA's internal implementation of {{Navigator/usb}} in the
     <a>global object</a> <var ignore>window</var> so that it is <a>controlled
     by</a> |test|.
-1.  Resolve |promise|.
+1.  <a>Resolve</a> |promise|.
 
 When invoked, the {{USBTest/addFakeDevice(deviceInit)}} method MUST run these
 steps:
@@ -195,21 +199,15 @@ steps:
     that is connected to the system.
 1.  Return |fakeDevice|.
 
-When invoked, the {{USBTest/reset()}} method MUST run the following steps:
+When invoked, the {{USBTest/reset()}} method MUST return a new {{Promise}}
+|promise| and run the following steps <a>in parallel</a>:
 
 1.  Let |test| be the {{USBTest}} instance on which this method was invoked.
 1.  Set |test|.{{USBTest/chosenDevice}} to <code>null</code>.
 1.  For each {{FakeUSBDevice}} |fakeDevice| previously returned by
     {{USBTest/addFakeDevice()}}, invoke
     |fakeDevice|.{{FakeUSBDevice/disconnect()}}.
-
-Issue: This method is used in the Chromium project to reset the state of the
-{{USBTest}} object between tests. This depends on the fact that in Chromium's
-implementation it is possible to remove a fake device from the set of available
-devices synchronously so that the next test immediately finds that
-{{USB/getDevices()}} resolves with an empty list. This behavior may not be
-possible in all implementations of this API and so this method should be removed
-and existing tests rewritten to no longer depend on it.
+1.  <a>Resolve</a> |promise|.
 
 ## {{USB}} Behavior ## {#usb-behavior}
 
