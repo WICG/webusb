@@ -20,14 +20,21 @@ Standards such as [[WebUSB]] pose a challenge to test authors because to fully
 exercise their interfaces requires physical hardware devices that respond in
 predictable ways. To address this challenge this specification defines an
 interface for controlling a simulation of the USB subsystem on the host the
-User Agent is running on. With this interface devices with particular properties
+User Agent (UA) is running on. With this interface devices with particular properties
 can be created and their responses to requests are well defined.
 
 The purpose if this interface is to assist the developers of UAs and so this
 interface does not permit arbitrary control over the behavior of devices. Some
-parameters are configurable and some are specified. As such it may not be
-sufficient for developers wishing to simulate the behavior of a particular
-device in order to test applications built on top of the UA.
+parameters are configurable and some are specified. 
+
+The only intended client of this API are tests in 
+[Web Platform Tests](https://github.com/w3c/web-platform-tests). This testing
+API will be changed as needed to support the evolution of those tests.
+
+Testing applications that use WebUSB is specifically not in scope
+for this API. It not designed for that purpose. And, the ability
+to make breaking changes to this API has higher priority.
+
 
 ## Examples ## {#examples}
 
