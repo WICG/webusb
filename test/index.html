@@ -1424,7 +1424,7 @@ pre.idl.highlight { color: #708090; }
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-06-14">14 June 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-06-15">15 June 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1500,13 +1500,17 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
 exercise their interfaces requires physical hardware devices that respond in
 predictable ways. To address this challenge this specification defines an
 interface for controlling a simulation of the USB subsystem on the host the
-User Agent is running on. With this interface devices with particular properties
+User Agent (UA) is running on. With this interface devices with particular properties
 can be created and their responses to requests are well defined.</p>
    <p>The purpose if this interface is to assist the developers of UAs and so this
 interface does not permit arbitrary control over the behavior of devices. Some
-parameters are configurable and some are specified. As such it may not be
-sufficient for developers wishing to simulate the behavior of a particular
-device in order to test applications built on top of the UA.</p>
+parameters are configurable and some are specified.</p>
+   <p>The only intended client of this API are tests in
+[Web Platform Tests](https://github.com/w3c/web-platform-tests). This testing
+API will be changed as needed to support the evolution of those tests.</p>
+   <p>Testing applications that use WebUSB is specifically not in scope
+for this API. It not designed for that purpose. And, the ability
+to make breaking changes to this API has higher priority.</p>
    <h3 class="heading settled" data-level="1.1" id="examples"><span class="secno">1.1. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h3>
    <div class="example" id="example-800e4c2b">
     <a class="self-link" href="#example-800e4c2b"></a> This example, expressed as a W3C testharness.js-based test, demonstrates
