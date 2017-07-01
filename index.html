@@ -470,7 +470,7 @@
 		font-style: normal;
 	}
 	dt dfn code, code.idl {
-		font-size: normal;
+		font-size: medium;
 	}
 	dfn var {
 		font-style: normal;
@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 78add57678334db281af36bf567919103e7c1e66" name="generator">
+  <meta content="Bikeshed version e7d25f66580d8ddbf622d1ee5220782460a07b21" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-06-29">29 June 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-07-01">1 July 2017</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1891,20 +1891,20 @@ connected devices by calling <code class="idl"><a data-link-type="idl" href="#do
 <pre class="highlight">document<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> async <span class="p">()</span> <span class="p">=></span> <span class="p">{</span>
   <span class="kd">let</span> devices <span class="o">=</span> await navigator<span class="p">.</span>usb<span class="p">.</span>getDevices<span class="p">();</span>
   devices<span class="p">.</span>forEach<span class="p">(</span>device <span class="p">=></span> <span class="p">{</span>
-    <span class="c1">// Add |device| to the UI.
-</span>  <span class="p">});</span>
+    <span class="c1">// Add |device| to the UI.</span>
+<span class="c1"></span>  <span class="p">});</span>
 <span class="p">});</span>
 </pre>
     <p>After the page is loaded the user may <a data-link-type="dfn" href="#connect" id="ref-for-connect-1">connect</a> or <a data-link-type="dfn" href="#disconnect" id="ref-for-disconnect-1">disconnect</a> a
 device from their system so script should also register for these events in
 order to keep the interface up-to-date,</p>
 <pre class="highlight">navigator<span class="p">.</span>usb<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'connect'</span><span class="p">,</span> device <span class="p">=></span> <span class="p">{</span>
-  <span class="c1">// Add |device| to the UI.
-</span><span class="p">});</span>
+  <span class="c1">// Add |device| to the UI.</span>
+<span class="c1"></span><span class="p">});</span>
 
 navigator<span class="p">.</span>usb<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'disconnect'</span><span class="p">,</span> device <span class="p">=></span> <span class="p">{</span>
-  <span class="c1">// Remove |device| from the UI.
-</span><span class="p">});</span>
+  <span class="c1">// Remove |device| from the UI.</span>
+<span class="c1"></span><span class="p">});</span>
 </pre>
     <p>If this is the first time the user has visited the page then it won’t have
 permission to access any devices so the page must first call <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice-3">requestDevice()</a></code> in response to a user gesture. In this case the page
@@ -1916,16 +1916,16 @@ button<span class="p">.</span>addEventListener<span class="p">(</span><span clas
   <span class="k">try</span> <span class="p">{</span>
     device <span class="o">=</span> await navigator<span class="p">.</span>usb<span class="p">.</span>requestDevice<span class="p">({</span> filters<span class="o">:</span> <span class="p">[{</span>
         vendorId<span class="o">:</span> <span class="mh">0xABCD</span><span class="p">,</span>
-        classCode<span class="o">:</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="c1">// vendor-specific
-</span>        protocolCode<span class="o">:</span> <span class="mh">0x01</span>
+        classCode<span class="o">:</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="c1">// vendor-specific</span>
+<span class="c1"></span>        protocolCode<span class="o">:</span> <span class="mh">0x01</span>
     <span class="p">}]});</span>
   <span class="p">}</span> <span class="k">catch</span> <span class="p">()</span> <span class="p">{</span>
-    <span class="c1">// No device was selected.
-</span>  <span class="p">}</span>
+    <span class="c1">// No device was selected.</span>
+<span class="c1"></span>  <span class="p">}</span>
 
   <span class="k">if</span> <span class="p">(</span>device <span class="o">!==</span> <span class="kc">undefined</span><span class="p">)</span> <span class="p">{</span>
-    <span class="c1">// Add |device| to the UI.
-</span>  <span class="p">}</span>
+    <span class="c1">// Add |device| to the UI.</span>
+<span class="c1"></span>  <span class="p">}</span>
 <span class="p">});</span>
 </pre>
    </div>
