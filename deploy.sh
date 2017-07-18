@@ -70,3 +70,6 @@ git commit -m "Deploy to GitHub Pages: ${SHA}"
 
 # Now that we're all set up, we can push.
 git push $SSH_REPO $TARGET_BRANCH
+
+# Shut down ssh-agent so that the builder can exit.
+ssh-agent -k
