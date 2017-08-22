@@ -27,8 +27,17 @@ Implementation Status
   Chrome 59. Supported on Android, Chrome OS, Linux, macOS and Windows.
 
 Demos
-----
+-----
 
 * [Arduino Integration](https://github.com/webusb/arduino/)
 * [WebLight](https://github.com/sowbug/weblight)
 * [Yubikey HOTP](https://github.com/santiagotorres/yubikey-webusb)
+* [USB Device Firmware Upgrade (DFU)](https://github.com/devanlai/webdfu)
+
+Articles
+--------
+
+* [Access USB Devices on the Web](https://developers.google.com/web/updates/2016/03/access-usb-devices-on-the-web)
+* [The WebUSB Security Model](https://medium.com/dev-channel/the-webusb-security-model-f48ee04de0ab)
+* [WebUSB and JavaScript Robotics](http://iceddev.com/blog/webusb-and-javascript-robotics/) (PageNodes)
+* [Program a smart device directly, no install needed](https://medium.com/@kennethrohde/program-a-smart-device-directly-no-install-needed-cd8b29320d76) (Arduino runnin Zephyr)
