@@ -14,8 +14,9 @@ Documents
 Communication
 -------------
 
-* [Issue Tracker](https://github.com/wicg/webusb/issues)
-* [Chromium Issue Tracker](https://bugs.chromium.org/p/chromium/issues/list?q=component%3ABlink>USB) (for issues using WebUSB in Chrome)
+* [Stack Overflow](https://stackoverflow.com/questions/tagged/webusb) for questions & answers about **using** WebUSB.
+* [Issue Tracker](https://github.com/wicg/webusb/issues) for **specification** issues.
+* [Chromium Issue Tracker](https://bugs.chromium.org/p/chromium/issues/list?q=component%3ABlink>USB) for Chrome **implementation** issues.
 
 Implementation Status
 ---------------------
