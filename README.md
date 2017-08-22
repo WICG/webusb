@@ -31,3 +31,4 @@ Demos
 
 * [Arduino Integration](https://github.com/webusb/arduino/)
 * [WebLight](https://github.com/sowbug/weblight)
+* [Yubikey HOTP](https://github.com/santiagotorres/yubikey-webusb)
