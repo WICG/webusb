@@ -41,3 +41,4 @@ Articles
 * [The WebUSB Security Model](https://medium.com/dev-channel/the-webusb-security-model-f48ee04de0ab)
 * [WebUSB and JavaScript Robotics](http://iceddev.com/blog/webusb-and-javascript-robotics/) (PageNodes)
 * [Program a smart device directly, no install needed](https://medium.com/@kennethrohde/program-a-smart-device-directly-no-install-needed-cd8b29320d76) (Arduino running Zephyr)
+* [Web enabling legacy devices](https://medium.com/@larsgk/web-enabling-legacy-devices-dc3ecb9400ed) Discusses USB CDC (USB Serial devices)
