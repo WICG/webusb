@@ -33,6 +33,7 @@ Demos
 * [WebLight](https://github.com/sowbug/weblight)
 * [Yubikey HOTP](https://github.com/santiagotorres/yubikey-webusb)
 * [USB Device Firmware Upgrade (DFU)](https://github.com/devanlai/webdfu)
+* [WebADB](https://github.com/webadb/webadb.js)
 
 Articles
 --------
