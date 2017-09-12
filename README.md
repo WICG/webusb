@@ -21,10 +21,9 @@ Communication
 Implementation Status
 ---------------------
 
-* Available in the latest stable Chrome behind the
-  `--experimental-web-platform-features` flag and as an
-  [Origin Trial](https://bit.ly/OriginTrialSignup) in Chrome 54 through
-  Chrome 59. Supported on Android, Chrome OS, Linux, macOS and Windows.
+* WebUSB is available in Chrome 61 for Android, Chrome OS, Linux, macOS and Windows.
+
+**Note:** The WebUSB landing page notification is currently disabled in Chrome on Windows due to [Chromium issue 656702](https://crbug.com/656702). Implementation of new, more stable USB support for Windows is tracked by Chromium issues [422562](https://crbug.com/422562) and [637404](https://crbug.com/637404).
 
 Demos
 -----
