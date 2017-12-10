@@ -482,7 +482,7 @@ subclass <code>0x01</code>,
           classCode: 0xFF, // vendor-specific
           protocolCode: 0x01
       }]});
-    } catch () {
+    } catch (err) {
       // No device was selected.
     }
 
