@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version eeaa009c31ac13852bf86c1553d994e53f48f852" name="generator">
+  <meta content="Bikeshed version d1c8ac9ac0bb0f0e970e3942633cfb7d2f7e12e6" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2017-09-24">24 September 2017</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-01-12">12 January 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1459,7 +1459,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
     </dl>
    </div>
    <div data-fill-with="warning"></div>
-   <p class="copyright" data-fill-with="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2017 the Contributors to the WebUSB API Specification, published by the <a href="https://www.w3.org/community/wicg/">Web Platform Incubator Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
+   <p class="copyright" data-fill-with="copyright"><a href="http://www.w3.org/Consortium/Legal/ipr-notice#Copyright">Copyright</a> © 2018 the Contributors to the WebUSB API Specification, published by the <a href="https://www.w3.org/community/wicg/">Web Platform Incubator Community Group</a> under the <a href="https://www.w3.org/community/about/agreements/cla/">W3C Community Contributor License Agreement (CLA)</a>.
 A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/">summary</a> is available. </p>
    <hr title="Separator for header">
   </div>
@@ -1884,8 +1884,8 @@ scheme, is encoded in the <code>URL</code> field.</p>
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb">USB</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USB" id="dom-navigator-usb"><code>usb</code></dfn>;
 };
 </pre>
-   <div class="example" id="example-a2458b02">
-    <a class="self-link" href="#example-a2458b02"></a> In this example, we retrieve some devices to include in a UI. When the page is
+   <div class="example" id="example-354b3ec9">
+    <a class="self-link" href="#example-354b3ec9"></a> In this example, we retrieve some devices to include in a UI. When the page is
 first loaded, it should check if it already has permission to access any
 connected devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices">getDevices()</a></code>, 
 <pre class="highlight">document<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> async <span class="p">()</span> <span class="p">=></span> <span class="p">{</span>
@@ -1919,7 +1919,7 @@ button<span class="p">.</span>addEventListener<span class="p">(</span><span clas
         classCode<span class="o">:</span> <span class="mh">0xFF</span><span class="p">,</span> <span class="c1">// vendor-specific</span>
 <span class="c1"></span>        protocolCode<span class="o">:</span> <span class="mh">0x01</span>
     <span class="p">}]});</span>
-  <span class="p">}</span> <span class="k">catch</span> <span class="p">()</span> <span class="p">{</span>
+  <span class="p">}</span> <span class="k">catch</span> <span class="p">(</span>err<span class="p">)</span> <span class="p">{</span>
     <span class="c1">// No device was selected.</span>
 <span class="c1"></span>  <span class="p">}</span>
 
@@ -2193,8 +2193,8 @@ host it MUST perform the following steps for each script execution environment:<
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="reset()" id="dom-usbdevice-reset"><code>reset</code></dfn>();
 };
 </pre>
-   <div class="example" id="example-6f0560dd">
-    <a class="self-link" href="#example-6f0560dd"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
+   <div class="example" id="example-ec80d900">
+    <a class="self-link" href="#example-ec80d900"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
 channels. It has a single configuration (<code>bConfigurationValue 1</code>)
 with a single interface (<code>bInterfaceNumber 1</code>) with a single
 bulk endpoint (<code>bEndpointAddress 0x81</code> which means that it is
@@ -2933,7 +2933,7 @@ defined as follows:</p>
       <li data-md="">
        <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionresult-devices" id="ref-for-dom-usbpermissionresult-devices④">devices</a></code></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array②">FrozenArray</a></code> whose contents are <var>matchingDevices</var>.</p>
      </ol>
-    <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-request-algorithm" id="ref-for-permission-request-algorithm">permission request algorithm</a>
+    <dt><a data-link-type="dfn" href="https://wicg.github.io/permissions-request/#permission-request-algorithm" id="ref-for-permission-request-algorithm">permission request algorithm</a>
     <dd><a data-link-type="dfn" href="#request-the-usb-permission" id="ref-for-request-the-usb-permission">Request the "usb" permission</a>.
    </dl>
    <h2 class="heading settled" data-level="8" id="terminology"><span class="secno">8. </span><span class="content">Terminology</span><a class="self-link" href="#terminology"></a></h2>
@@ -3442,7 +3442,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><a href="https://html.spec.whatwg.org/multipage/interaction.html#triggered-by-user-activation">triggered by user activation</a>
     </ul>
    <li>
-    <a data-link-type="biblio">[permissions-1]</a> defines the following terms:
+    <a data-link-type="biblio">[permissions]</a> defines the following terms:
     <ul>
      <li><a href="https://w3c.github.io/permissions/#dom-permissionstate-prompt">"prompt"</a>
      <li><a href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor">PermissionDescriptor</a>
@@ -3450,19 +3450,18 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><a href="https://w3c.github.io/permissions/#extra-permission-data-type">extra permission data type</a>
      <li><a href="https://w3c.github.io/permissions/#permission-descriptor-type">permission descriptor type</a>
      <li><a href="https://w3c.github.io/permissions/#permission-query-algorithm">permission query algorithm</a>
-     <li><a href="https://w3c.github.io/permissions/#permission-request-algorithm">permission request algorithm</a>
      <li><a href="https://w3c.github.io/permissions/#permission-result-type">permission result type</a>
      <li><a href="https://w3c.github.io/permissions/#powerful-feature">powerful feature</a>
      <li><a href="https://w3c.github.io/permissions/#request-permission-to-use">request permission to use</a>
      <li><a href="https://w3c.github.io/permissions/#dom-permissionstatus-state">state</a>
     </ul>
    <li>
-    <a data-link-type="biblio">[promises-guide]</a> defines the following terms:
+    <a data-link-type="biblio">[permissions-request-1]</a> defines the following terms:
     <ul>
-     <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a>
+     <li><a href="https://wicg.github.io/permissions-request/#permission-request-algorithm">permission request algorithm</a>
     </ul>
    <li>
-    <a data-link-type="biblio">[promises-guide-1]</a> defines the following terms:
+    <a data-link-type="biblio">[promises-guide]</a> defines the following terms:
     <ul>
      <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a>
      <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a>
@@ -3499,6 +3498,10 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <dd><a href="https://tc39.github.io/ecma262/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.github.io/ecma262/">https://tc39.github.io/ecma262/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dt id="biblio-permissions">[PERMISSIONS]
+   <dd>Mounir Lamouri; Marcos Caceres; Jeffrey Yasskin. <a href="https://www.w3.org/TR/permissions/">Permissions</a>. 25 September 2017. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+   <dt id="biblio-permissions-request-1">[PERMISSIONS-REQUEST-1]
+   <dd>Requesting Permissions Spec URL: <a href="https://wicg.github.io/permissions-request/">https://wicg.github.io/permissions-request/</a>
    <dt id="biblio-promises-guide">[PROMISES-GUIDE]
    <dd>Domenic Denicola. <a href="https://www.w3.org/2001/tag/doc/promises-guide">Writing Promise-Using Specifications</a>. 16 February 2016. Finding of the W3C TAG. URL: <a href="https://www.w3.org/2001/tag/doc/promises-guide">https://www.w3.org/2001/tag/doc/promises-guide</a>
    <dt id="biblio-rfc2119">[RFC2119]
@@ -3512,8 +3515,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <dl>
    <dt id="biblio-cors">[CORS]
    <dd>Anne van Kesteren. <a href="https://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a>. 16 January 2014. REC. URL: <a href="https://www.w3.org/TR/cors/">https://www.w3.org/TR/cors/</a>
-   <dt id="biblio-permissions">[PERMISSIONS]
-   <dd>Mounir Lamouri; Marcos Caceres. <a href="https://www.w3.org/TR/permissions/">The Permissions API</a>. 7 April 2015. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
    <dt id="biblio-powerful-features">[POWERFUL-FEATURES]
    <dd>Mike West. <a href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a>. 15 September 2016. CR. URL: <a href="https://www.w3.org/TR/secure-contexts/">https://www.w3.org/TR/secure-contexts/</a>
   </dl>
