@@ -2895,7 +2895,7 @@ defined as follows:</p>
 };
 
 <span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbpermissionstorage"><code>USBPermissionStorage</code></dfn> {
-  <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice">AllowedUSBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-default="None" data-dfn-for="USBPermissionStorage" data-dfn-type="dict-member" data-export="" data-type="sequence<AllowedUSBDevice> " id="dom-usbpermissionstorage-alloweddevices"><code>allowedDevices</code></dfn> = [];
+  <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice">AllowedUSBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-default="None" data-dfn-for="USBPermissionStorage" data-dfn-type="dict-member" data-export="" data-type="sequence<AllowedUSBDevice> " id="dom-usbpermissionstorage-alloweddevices"><code>allowedDevices</code></dfn> = [];
 };
 </pre>
      <p><code class="idl"><a data-link-type="idl" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice①">AllowedUSBDevice</a></code> instances have an internal slot <dfn class="dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="attribute" data-export="" id="dom-allowedusbdevice-devices-slot"><code>[[devices]]</code></dfn> that holds an
@@ -3704,7 +3704,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 <span class="kt">dictionary</span> <a class="nv" href="#dictdef-usbpermissionstorage"><code>USBPermissionStorage</code></a> {
-  <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice②">AllowedUSBDevice</a>> <a class="nv" data-default="None" data-type="sequence<AllowedUSBDevice> " href="#dom-usbpermissionstorage-alloweddevices"><code>allowedDevices</code></a> = [];
+  <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice②">AllowedUSBDevice</a>> <a class="nv" data-default="None" data-type="sequence<AllowedUSBDevice> " href="#dom-usbpermissionstorage-alloweddevices"><code>allowedDevices</code></a> = [];
 };
 
 <span class="kt">interface</span> <a class="nv" href="#usbpermissionresult"><code>USBPermissionResult</code></a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus" id="ref-for-permissionstatus①">PermissionStatus</a> {
