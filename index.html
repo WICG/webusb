@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-01-21">21 January 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-01-22">22 January 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2403,7 +2403,7 @@ parallel:</p>
      <p><a data-link-type="dfn" href="#check-the-validity-of-the-control-transfer-parameters" id="ref-for-check-the-validity-of-the-control-transfer-parameters">Check the validity of the control transfer parameters</a> and abort
  these steps if <var>promise</var> is rejected.</p>
     <li data-md="">
-     <p>If <var>length</var> is greater than the <code>wMaxPacketSize0</code> field of the
+     <p>If <var>length</var> is greater than the <code>bMaxPacketSize0</code> field of the
  device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑥">device descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror①">TypeError</a></code> and abort these steps.</p>
     <li data-md="">
      <p>If <var>length</var> is greather than 0, let <var>buffer</var> be a host buffer with space
@@ -2443,7 +2443,7 @@ parallel</a>:</p>
      <p><a data-link-type="dfn" href="#check-the-validity-of-the-control-transfer-parameters" id="ref-for-check-the-validity-of-the-control-transfer-parameters①">Check the validity of the control transfer parameters</a> and abort
  these steps if <var>promise</var> is rejected.</p>
     <li data-md="">
-     <p>If <code><var>data</var>.length</code> is greater than the <code>wMaxPacketSize0</code> field of the device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑦">device
+     <p>If <code><var>data</var>.length</code> is greater than the <code>bMaxPacketSize0</code> field of the device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑦">device
  descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror②">TypeError</a></code> and abort
  these steps.</p>
     <li data-md="">
