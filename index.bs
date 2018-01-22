@@ -1562,7 +1562,7 @@ defined as follows:
       };
 
       dictionary USBPermissionStorage {
-        required sequence&lt;AllowedUSBDevice> allowedDevices = [];
+        sequence&lt;AllowedUSBDevice> allowedDevices = [];
       };
     </pre>
 
