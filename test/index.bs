@@ -25,9 +25,9 @@ can be created and their responses to requests are well defined.
 
 The purpose if this interface is to assist the developers of UAs and so this
 interface does not permit arbitrary control over the behavior of devices. Some
-parameters are configurable and some are specified. 
+parameters are configurable and some are specified.
 
-The only intended client of this API are tests in 
+The only intended client of this API are tests in
 <a href="https://github.com/w3c/web-platform-tests">Web Platform Tests</a>.
 This testing
 API will be changed as needed to support the evolution of those tests.
@@ -110,7 +110,7 @@ expressed as a W3C testharness.js-based test, demonstrates a test of the
     await navigator.usb.test.initialize();
     let fakeDevice = navigator.usb.addFakeDevice(fakeDeviceInit);
     let connectEvent = await promiseForEvent(navigator.usb, 'connect');
-    navigator.usb.test.chosenDevice = connectEvent.device;
+    navigator.usb.test.onrequestdevice = () => connectEvent.device;
 
     let options = { filters: [{ vendorId: 0x1234 }] };
     let device = await navigator.usb.requestDevice(options);
@@ -151,9 +151,14 @@ two benefits,
     [SameObject] readonly attribute USBTest test;
   };
 
+  interface USBDeviceRequestEvent : Event {
+    attribute FrozenArray&lt;USBDeviceFilter> filters;
+
+    void respondWith(Promise&lt;FakeUSBDevice> result);
+  };
+
   interface USBTest {
-    attribute FakeUSBDevice? chosenDevice;
-    attribute FrozenArray&lt;USBDeviceFilter>? lastFilters;
+    attribute EventHandler onrequestdevice;
 
     Promise&lt;void> initialize();
     Promise&lt;void> attachToWindow(Window window);
@@ -211,27 +216,39 @@ When invoked, the {{USBTest/reset()}} method MUST return a new {{Promise}}
 |promise| and run the following steps <a>in parallel</a>:
 
 1.  Let |test| be the {{USBTest}} instance on which this method was invoked.
-1.  Set |test|.{{USBTest/chosenDevice}} to <code>null</code>.
 1.  For each {{FakeUSBDevice}} |fakeDevice| previously returned by
     {{USBTest/addFakeDevice()}}, invoke
     |fakeDevice|.{{FakeUSBDevice/disconnect()}}.
 1.  <a>Resolve</a> |promise|.
 
+{{USBDeviceRequestEvent}} instances have an <a>internal slot</a>
+<dfn attribute for="USBDeviceRequestEvent">\[[promise]]</dfn> that holds a
+{{Promise}}.
+
+When invoked, the {{USBDeviceRequestEvent/respondWith(result)}} method MUST run
+the following steps <a>in parallel</a>:
+
+1.  Wait until |result| settles.
+1.  Let |event| be the {{USBDeviceRequestEvent}} instance on which this method
+    was invoked.
+1.  If |result| resolved with |response| and |response| is an instance of
+    {{FakeUSBDevice}} resolve |event|@{{[[promise]]}} with |device|.
+1.  Otherwise, reject |event|@{{[[promise]]}} with a {{NotFoundError}}.
+
 ## {{USB}} Behavior ## {#usb-behavior}
 
 When {{USB/requestDevice(options)}} is invoked on a {{USB}} instance
-<a>controlled by</a> a {{USBTest}} |test| the UA MUST perform the following
-steps:
+<a>controlled by</a> a {{USBTest}} |test| the UA MUST return a new {{Promise}}
+|promise| and perform the following steps <a>in parallel</a>:
 
-1.  Let |filters| be a new {{FrozenArray}}.
+1.  Let |event| be a new {{USBDeviceRequestEvent}}.
+1.  Set |event|.|filters| to a new {{FrozenArray}}.
 1.  Copy the members of
     <var ignore>options</var>.{{USBDeviceRequestOptions/filters}} into
-    |filters|.
-1.  Set |test|.{{USBTest/lastFilters}} to |filters|.
-1.  <a>In parallel</a>, respond to the invocation of {{USB/requestDevice()}} as
-    if the user granted permission to access the device represented by
-    |test|.{{USBTest/chosenDevice}} or, if |test|.{{USBTest/chosenDevice}} is
-    <code>null</code>, as if the user denied the permission request.
+    |event|.|filters|.
+1.  Set |event|@{{[[promise]]}} to |promise|.
+1.  <a>Fire an event</a> named <dfn>requestdevice</dfn> on |test|, using |event|
+    as the event object.
 
 # Fake Devices # {#fake-devices}
 
