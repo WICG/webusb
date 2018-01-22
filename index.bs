@@ -991,7 +991,7 @@ parallel:
      and abort these steps.
   1. <a>Check the validity of the control transfer parameters</a> and abort
      these steps if |promise| is rejected.
-  1. If |length| is greater than the <code>wMaxPacketSize0</code> field of the
+  1. If |length| is greater than the <code>bMaxPacketSize0</code> field of the
      device's <a>device descriptor</a>, <a>reject</a> |promise| with a
      {{TypeError}} and abort these steps.
   1. If |length| is greather than 0, let |buffer| be a host buffer with space
@@ -1029,7 +1029,7 @@ parallel</a>:
   3. <a>Check the validity of the control transfer parameters</a> and abort
      these steps if |promise| is rejected.
   4. If <code>|data|.length</code> is greater than the
-     <code>wMaxPacketSize0</code> field of the device's <a>device
+     <code>bMaxPacketSize0</code> field of the device's <a>device
      descriptor</a>, <a>reject</a> |promise| with a {{TypeError}} and abort
      these steps.
   5. Issue a control transfer with the <a>setup packet</a> populated by |setup|
