@@ -22,6 +22,7 @@ Implementation Status
 ---------------------
 
 * WebUSB is available in Chrome 61 for Android, Chrome OS, Linux, macOS and Windows.
+* A port for Node.js also exists - https://github.com/thegecko/webusb
 
 **Note:** The WebUSB landing page notification is currently disabled in Chrome on Windows due to [Chromium issue 656702](https://crbug.com/656702). Implementation of new, more stable USB support for Windows is tracked by Chromium issues [422562](https://crbug.com/422562) and [637404](https://crbug.com/637404).
 
