@@ -1735,4 +1735,7 @@ spec: html
         text: triggered by user activation
         text: in parallel
         text: incumbent settings object
+spec: promises-guide-1
+    type: dfn
+        text: resolve
 </pre>
