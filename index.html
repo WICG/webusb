@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 1760a0346ebf3096d8d47b818b15ffcad41e99a0" name="generator">
+  <meta content="Bikeshed version 3456bb73524907a10ac567d67cde058769c35261" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-01-30">30 January 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-04-06">6 April 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1884,8 +1884,8 @@ scheme, is encoded in the <code>URL</code> field.</p>
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb">USB</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USB" id="dom-navigator-usb"><code>usb</code></dfn>;
 };
 </pre>
-   <div class="example" id="example-354b3ec9">
-    <a class="self-link" href="#example-354b3ec9"></a> In this example, we retrieve some devices to include in a UI. When the page is
+   <div class="example" id="example-6b8204ba">
+    <a class="self-link" href="#example-6b8204ba"></a> In this example, we retrieve some devices to include in a UI. When the page is
 first loaded, it should check if it already has permission to access any
 connected devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices">getDevices()</a></code>, 
 <pre class="highlight">document<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> async <span class="p">()</span> <span class="p">=></span> <span class="p">{</span>
@@ -2193,8 +2193,8 @@ host it MUST perform the following steps for each script execution environment:<
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="reset()" id="dom-usbdevice-reset"><code>reset</code></dfn>();
 };
 </pre>
-   <div class="example" id="example-ec80d900">
-    <a class="self-link" href="#example-ec80d900"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
+   <div class="example" id="example-2cf385ea">
+    <a class="self-link" href="#example-2cf385ea"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
 channels. It has a single configuration (<code>bConfigurationValue 1</code>)
 with a single interface (<code>bInterfaceNumber 1</code>) with a single
 bulk endpoint (<code>bEndpointAddress 0x81</code> which means that it is
@@ -3188,8 +3188,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li>
     bytesWritten
     <ul>
-     <li><a href="#dom-usbouttransferresult-byteswritten">attribute for USBOutTransferResult</a><span>, in §6.1</span>
      <li><a href="#dom-usbisochronousouttransferpacket-byteswritten">attribute for USBIsochronousOutTransferPacket</a><span>, in §6.1</span>
+     <li><a href="#dom-usbouttransferresult-byteswritten">attribute for USBOutTransferResult</a><span>, in §6.1</span>
     </ul>
    <li><a href="#check-permissions-for-device">check permissions for device</a><span>, in §5</span>
    <li><a href="#check-the-validity-of-the-control-transfer-parameters">check the validity of the control transfer parameters</a><span>, in §6.1</span>
@@ -3227,8 +3227,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li>
     device
     <ul>
-     <li><a href="#dom-usbconnectioneventinit-device">dict-member for USBConnectionEventInit</a><span>, in §5.1</span>
      <li><a href="#dom-usbconnectionevent-device">attribute for USBConnectionEvent</a><span>, in §5.1</span>
+     <li><a href="#dom-usbconnectioneventinit-device">dict-member for USBConnectionEventInit</a><span>, in §5.1</span>
      <li><a href="#dom-usbrecipient-device">enum-value for USBRecipient</a><span>, in §6.1</span>
     </ul>
    <li><a href="#dom-usbdevice-deviceclass">deviceClass</a><span>, in §6</span>
@@ -3304,9 +3304,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li>
     productId
     <ul>
-     <li><a href="#dom-usbdevicefilter-productid">dict-member for USBDeviceFilter</a><span>, in §5</span>
      <li><a href="#dom-usbdevice-productid">attribute for USBDevice</a><span>, in §6</span>
      <li><a href="#dom-allowedusbdevice-productid">dict-member for AllowedUSBDevice</a><span>, in §7.2</span>
+     <li><a href="#dom-usbdevicefilter-productid">dict-member for USBDeviceFilter</a><span>, in §5</span>
     </ul>
    <li><a href="#product-id">product ID</a><span>, in §8</span>
    <li><a href="#dom-usbdevice-productname">productName</a><span>, in §6</span>
@@ -3325,9 +3325,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li>
     serialNumber
     <ul>
-     <li><a href="#dom-usbdevicefilter-serialnumber">dict-member for USBDeviceFilter</a><span>, in §5</span>
      <li><a href="#dom-usbdevice-serialnumber">attribute for USBDevice</a><span>, in §6</span>
      <li><a href="#dom-allowedusbdevice-serialnumber">dict-member for AllowedUSBDevice</a><span>, in §7.2</span>
+     <li><a href="#dom-usbdevicefilter-serialnumber">dict-member for USBDeviceFilter</a><span>, in §5</span>
     </ul>
    <li><a href="#setup-packet">setup packet</a><span>, in §6.1</span>
    <li><a href="#setup-stage">setup stage</a><span>, in §6.1</span>
@@ -3339,9 +3339,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     status
     <ul>
      <li><a href="#dom-usbintransferresult-status">attribute for USBInTransferResult</a><span>, in §6.1</span>
-     <li><a href="#dom-usbouttransferresult-status">attribute for USBOutTransferResult</a><span>, in §6.1</span>
      <li><a href="#dom-usbisochronousintransferpacket-status">attribute for USBIsochronousInTransferPacket</a><span>, in §6.1</span>
      <li><a href="#dom-usbisochronousouttransferpacket-status">attribute for USBIsochronousOutTransferPacket</a><span>, in §6.1</span>
+     <li><a href="#dom-usbouttransferresult-status">attribute for USBOutTransferResult</a><span>, in §6.1</span>
     </ul>
    <li><a href="#status-stage">status stage</a><span>, in §6.1</span>
    <li><a href="#string-descriptor">string descriptor</a><span>, in §8</span>
@@ -3403,9 +3403,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li>
     vendorId
     <ul>
-     <li><a href="#dom-usbdevicefilter-vendorid">dict-member for USBDeviceFilter</a><span>, in §5</span>
      <li><a href="#dom-usbdevice-vendorid">attribute for USBDevice</a><span>, in §6</span>
      <li><a href="#dom-allowedusbdevice-vendorid">dict-member for AllowedUSBDevice</a><span>, in §7.2</span>
+     <li><a href="#dom-usbdevicefilter-vendorid">dict-member for USBDeviceFilter</a><span>, in §5</span>
     </ul>
    <li><a href="#vendor-id">vendor ID</a><span>, in §8</span>
    <li><a href="#webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §4</span>
