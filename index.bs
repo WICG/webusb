@@ -457,12 +457,12 @@ device from their system so script should also register for these events in
 order to keep the interface up-to-date,
 
 <pre highlight="js">
-  navigator.usb.addEventListener('connect', device => {
-    // Add |device| to the UI.
+  navigator.usb.addEventListener('connect', event => {
+    // Add |event.device| to the UI.
   });
 
-  navigator.usb.addEventListener('disconnect', device => {
-    // Remove |device| from the UI.
+  navigator.usb.addEventListener('disconnect', event => {
+    // Remove |event.device| from the UI.
   });
 </pre>
 
