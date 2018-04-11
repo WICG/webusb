@@ -6,6 +6,7 @@ Shortname: webusb
 Level: 1
 Editor: Reilly Grant, Google Inc., reillyg@google.com
 Editor: Ken Rockot, Google Inc., rockot@google.com
+Editor: Ovidio Henriquez, Google Inc., odejesush@google.com
 Abstract: This document describes an API for securely providing access to Universal Serial Bus devices from web pages.
 Group: wicg
 Repository: https://github.com/WICG/webusb/
@@ -1610,6 +1611,34 @@ defined as follows:
   <dt><a>permission request algorithm</a></dt>
   <dd><a>Request the "usb" permission</a>.</dd>
 </dl>
+
+## Web Workers ## {#web-workers}
+
+The [[web workers]] API provides a method for running scripts in the background
+independently of user interface scripts. Web workers run scripts in their own
+separate context called the WorkerGlobalScope. Within this context, there is a
+WorkerNavigator interface that is analogous to the Navigator interface in the
+main page context. WebUSB will be accessible through the WorkerNavigator
+interface through a WorkerUSB interface that inherits from USB. The only
+difference to the new interface is that the requestDevice operation is not
+allowed to be used.
+
+<pre class="idl">
+  [Exposed=Worker]
+  interface WorkerUSB : USB {
+    Promise<USBDevice> requestDevice(USBDeviceRequestOptions options);
+  };
+
+  [Exposed=Worker, SecureContext]
+  partial interface WorkerNavigator {
+    [SameObject] readonly attribute WorkerUSB usb;
+  };
+</pre>
+
+The {{WorkerUSB/requestDevice()}} method, when invoked, MUST run the following
+step:
+
+  1. Throw a {{NotAllowedError}} and abort.
 
 # Terminology # {#terminology}
 
