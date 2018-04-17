@@ -426,6 +426,7 @@ scheme, is encoded in the <code>URL</code> field.
     required sequence&lt;USBDeviceFilter> filters;
   };
 
+  [Exposed=(DedicatedWorker,SharedWorker,Window)]
   interface USB : EventTarget {
     attribute EventHandler onconnect;
     attribute EventHandler ondisconnect;
@@ -433,7 +434,7 @@ scheme, is encoded in the <code>URL</code> field.
     [Exposed=Window] Promise&lt;USBDevice> requestDevice(USBDeviceRequestOptions options);
   };
 
-  [SecureContext]
+  [Exposed=Window, SecureContext]
   partial interface Navigator {
     [SameObject] readonly attribute USB usb;
   };
@@ -1615,14 +1616,10 @@ defined as follows:
 ## Web Workers ## {#web-workers}
 
 The web [[workers]] API provides a method for running scripts in the background
-independently of user interface scripts. Web workers run scripts in their own
-separate worker context. Within this context, there is a {{WorkerNavigator}}
-interface that is analogous to the {{Navigator}} interface in the window
-context. Since web workers run scripts in the background, they should not be
-allowed to request a device.
+independently of user interface scripts.
 
 <pre class="idl">
-  [Exposed=Worker, SecureContext]
+  [Exposed=(DedicatedWorker,SharedWorker), SecureContext]
   partial interface WorkerNavigator {
     [SameObject] readonly attribute USB usb;
   };
