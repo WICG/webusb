@@ -438,6 +438,11 @@ scheme, is encoded in the <code>URL</code> field.
   partial interface Navigator {
     [SameObject] readonly attribute USB usb;
   };
+
+  [Exposed=(DedicatedWorker,SharedWorker), SecureContext]
+  partial interface WorkerNavigator {
+    [SameObject] readonly attribute USB usb;
+  };
 </pre>
 
 <div class="example">
@@ -1612,18 +1617,6 @@ defined as follows:
   <dt><a>permission request algorithm</a></dt>
   <dd><a>Request the "usb" permission</a>.</dd>
 </dl>
-
-## Web Workers ## {#web-workers}
-
-The web [[workers]] API provides a method for running scripts in the background
-independently of user interface scripts.
-
-<pre class="idl">
-  [Exposed=(DedicatedWorker,SharedWorker), SecureContext]
-  partial interface WorkerNavigator {
-    [SameObject] readonly attribute USB usb;
-  };
-</pre>
 
 # Terminology # {#terminology}
 
