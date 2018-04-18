@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-04-17">17 April 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-04-18">18 April 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1452,6 +1452,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
      <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:reillyg@google.com">Reilly Grant</a> (<span class="p-org org">Google Inc.</span>)
      <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:rockot@google.com">Ken Rockot</a> (<span class="p-org org">Google Inc.</span>)
+     <dd class="editor p-author h-card vcard"><a class="p-name fn u-email email" href="mailto:odejesush@google.com">Ovidio Henriquez</a> (<span class="p-org org">Google Inc.</span>)
      <dt>Participate:
      <dd><a href="https://www.w3.org/community/wicg/">Join the W3C Community Group</a>
      <dd><a href="irc://irc.w3.org:6665/#webusb">IRC: #webusb on W3C’s IRC</a> (Stay around for an answer, it make take a while)
@@ -1872,20 +1873,26 @@ scheme, is encoded in the <code>URL</code> field.</p>
   <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter">USBDeviceFilter</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDeviceRequestOptions" data-dfn-type="dict-member" data-export="" data-type="sequence<USBDeviceFilter> " id="dom-usbdevicerequestoptions-filters"><code>filters</code></dfn>;
 };
 
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>), <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext">SecureContext</a>]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usb"><code>USB</code></dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget">EventTarget</a> {
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler">EventHandler</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="attribute" data-export="" data-type="EventHandler" id="dom-usb-onconnect"><code>onconnect</code></dfn>;
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①">EventHandler</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="attribute" data-export="" data-type="EventHandler" id="dom-usb-ondisconnect"><code>ondisconnect</code></dfn>;
   <span class="kt">Promise</span>&lt;<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice">USBDevice</a>>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="method" data-export="" data-lt="getDevices()" id="dom-usb-getdevices"><code>getDevices</code></dfn>();
-  <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①">USBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="method" data-export="" data-lt="requestDevice(options)" id="dom-usb-requestdevice"><code>requestDevice</code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions">USBDeviceRequestOptions</a> <dfn class="nv idl-code" data-dfn-for="USB/requestDevice(options)" data-dfn-type="argument" data-export="" id="dom-usb-requestdevice-options-options"><code>options</code><a class="self-link" href="#dom-usb-requestdevice-options-options"></a></dfn>);
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①">Exposed</a>=<span class="n">Window</span>] <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①">USBDevice</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USB" data-dfn-type="method" data-export="" data-lt="requestDevice(options)" id="dom-usb-requestdevice"><code>requestDevice</code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions">USBDeviceRequestOptions</a> <dfn class="nv idl-code" data-dfn-for="USB/requestDevice(options)" data-dfn-type="argument" data-export="" id="dom-usb-requestdevice-options-options"><code>options</code><a class="self-link" href="#dom-usb-requestdevice-options-options"></a></dfn>);
 };
 
-[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext">SecureContext</a>]
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②">Exposed</a>=<span class="n">Window</span>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①">SecureContext</a>]
 <span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator">Navigator</a> {
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb">USB</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="Navigator" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USB" id="dom-navigator-usb"><code>usb</code></dfn>;
 };
+
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed③">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>), <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext②">SecureContext</a>]
+<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#workernavigator" id="ref-for-workernavigator">WorkerNavigator</a> {
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb①">USB</a> <dfn class="nv idl-code" data-dfn-for="WorkerNavigator" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USB" id="dom-workernavigator-usb"><code>usb</code><a class="self-link" href="#dom-workernavigator-usb"></a></dfn>;
+};
 </pre>
-   <div class="example" id="example-dc09f646">
-    <a class="self-link" href="#example-dc09f646"></a> In this example, we retrieve some devices to include in a UI. When the page is
+   <div class="example" id="example-5938953c">
+    <a class="self-link" href="#example-5938953c"></a> In this example, we retrieve some devices to include in a UI. When the page is
 first loaded, it should check if it already has permission to access any
 connected devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices">getDevices()</a></code>, 
 <pre class="highlight">document<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> async <span class="p">()</span> <span class="p">=></span> <span class="p">{</span>
@@ -2118,7 +2125,7 @@ the UA MUST run the following steps:</p>
 
 [<dfn class="nv idl-code" data-dfn-for="USBConnectionEvent" data-dfn-type="constructor" data-export="" data-lt="USBConnectionEvent(type, eventInitDict)" id="dom-usbconnectionevent-usbconnectionevent"><code>Constructor</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent"></a></dfn>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><span class="kt">DOMString</span></a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent/USBConnectionEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code>type</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"></a></dfn>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit" id="ref-for-dictdef-usbconnectioneventinit">USBConnectionEventInit</a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent/USBConnectionEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code>eventInitDict</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"></a></dfn>)]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbconnectionevent"><code>USBConnectionEvent</code></dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event">Event</a> {
-  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBDevice" id="dom-usbconnectionevent-device"><code>device</code><a class="self-link" href="#dom-usbconnectionevent-device"></a></dfn>;
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject②">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBDevice" id="dom-usbconnectionevent-device"><code>device</code><a class="self-link" href="#dom-usbconnectionevent-device"></a></dfn>;
 };
 </pre>
    <p>When the UA detects a new <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device②">USB device</a> <var>device</var> connected to the host it
@@ -2193,8 +2200,8 @@ host it MUST perform the following steps for each script execution environment:<
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="reset()" id="dom-usbdevice-reset"><code>reset</code></dfn>();
 };
 </pre>
-   <div class="example" id="example-2cf385ea">
-    <a class="self-link" href="#example-2cf385ea"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
+   <div class="example" id="example-6eb79d88">
+    <a class="self-link" href="#example-6eb79d88"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
 channels. It has a single configuration (<code>bConfigurationValue 1</code>)
 with a single interface (<code>bInterfaceNumber 1</code>) with a single
 bulk endpoint (<code>bEndpointAddress 0x81</code> which means that it is
@@ -3351,7 +3358,12 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbendpoint-type">type</a><span>, in §6.4</span>
    <li><a href="#url-descriptor">URL Descriptor</a><span>, in §4.3</span>
    <li><a href="#dom-permissionname-usb">"usb"</a><span>, in §7.2</span>
-   <li><a href="#dom-navigator-usb">usb</a><span>, in §5</span>
+   <li>
+    usb
+    <ul>
+     <li><a href="#dom-navigator-usb">attribute for Navigator</a><span>, in §5</span>
+     <li><a href="#dom-workernavigator-usb">attribute for WorkerNavigator</a><span>, in §5</span>
+    </ul>
    <li><a href="#usb">USB</a><span>, in §5</span>
    <li><a href="#usbalternateinterface">USBAlternateInterface</a><span>, in §6.3</span>
    <li><a href="#dom-usbalternateinterface-usbalternateinterface">USBAlternateInterface(deviceInterface, alternateSetting)</a><span>, in §6.3</span>
@@ -3438,6 +3450,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     <ul>
      <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a>
      <li><a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">Navigator</a>
+     <li><a href="https://html.spec.whatwg.org/multipage/workers.html#workernavigator">WorkerNavigator</a>
      <li><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>
      <li><a href="https://html.spec.whatwg.org/multipage/interaction.html#triggered-by-user-activation">triggered by user activation</a>
     </ul>
@@ -3475,6 +3488,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><a href="https://heycam.github.io/webidl/#BufferSource">BufferSource</a>
      <li><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a>
      <li><a href="https://heycam.github.io/webidl/#idl-DataView">DataView</a>
+     <li><a href="https://heycam.github.io/webidl/#Exposed">Exposed</a>
      <li><a href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a>
      <li><a href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a>
      <li><a href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a>
@@ -3532,16 +3546,22 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter③">USBDeviceFilter</a>> <a class="nv" data-type="sequence<USBDeviceFilter> " href="#dom-usbdevicerequestoptions-filters"><code>filters</code></a>;
 };
 
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>), <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext③">SecureContext</a>]
 <span class="kt">interface</span> <a class="nv" href="#usb"><code>USB</code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget①">EventTarget</a> {
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler②">EventHandler</a> <a class="nv" data-type="EventHandler" href="#dom-usb-onconnect"><code>onconnect</code></a>;
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①①">EventHandler</a> <a class="nv" data-type="EventHandler" href="#dom-usb-ondisconnect"><code>ondisconnect</code></a>;
   <span class="kt">Promise</span>&lt;<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice②⓪">USBDevice</a>>> <a class="nv" href="#dom-usb-getdevices"><code>getDevices</code></a>();
-  <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①①⓪">USBDevice</a>> <a class="nv" href="#dom-usb-requestdevice"><code>requestDevice</code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions①">USBDeviceRequestOptions</a> <a class="nv" href="#dom-usb-requestdevice-options-options"><code>options</code></a>);
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①①">Exposed</a>=<span class="n">Window</span>] <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①①⓪">USBDevice</a>> <a class="nv" href="#dom-usb-requestdevice"><code>requestDevice</code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions①">USBDeviceRequestOptions</a> <a class="nv" href="#dom-usb-requestdevice-options-options"><code>options</code></a>);
 };
 
-[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①">SecureContext</a>]
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②①">Exposed</a>=<span class="n">Window</span>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①①">SecureContext</a>]
 <span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator②">Navigator</a> {
-  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject②">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb①">USB</a> <a class="nv" data-readonly="" data-type="USB" href="#dom-navigator-usb"><code>usb</code></a>;
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject③">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb②">USB</a> <a class="nv" data-readonly="" data-type="USB" href="#dom-navigator-usb"><code>usb</code></a>;
+};
+
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed③①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>), <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext②①">SecureContext</a>]
+<span class="kt">partial</span> <span class="kt">interface</span> <a class="nv idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#workernavigator" id="ref-for-workernavigator①">WorkerNavigator</a> {
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①①">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb①①">USB</a> <a class="nv" data-readonly="" data-type="USB" href="#dom-workernavigator-usb"><code>usb</code></a>;
 };
 
 <span class="kt">dictionary</span> <a class="nv" href="#dictdef-usbconnectioneventinit"><code>USBConnectionEventInit</code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#dictdef-eventinit" id="ref-for-dictdef-eventinit①">EventInit</a> {
@@ -3550,7 +3570,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 
 [<a class="nv" href="#dom-usbconnectionevent-usbconnectionevent"><code>Constructor</code></a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><span class="kt">DOMString</span></a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code>type</code></a>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit" id="ref-for-dictdef-usbconnectioneventinit①">USBConnectionEventInit</a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code>eventInitDict</code></a>)]
 <span class="kt">interface</span> <a class="nv" href="#usbconnectionevent"><code>USBConnectionEvent</code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event①">Event</a> {
-  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①①">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤①">USBDevice</a> <a class="nv" data-readonly="" data-type="USBDevice" href="#dom-usbconnectionevent-device"><code>device</code></a>;
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject②①">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤①">USBDevice</a> <a class="nv" data-readonly="" data-type="USBDevice" href="#dom-usbconnectionevent-device"><code>device</code></a>;
 };
 
 <span class="kt">interface</span> <a class="nv" href="#usbdevice"><code>USBDevice</code></a> {
@@ -3800,7 +3820,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="usb">
    <b><a href="#usb">#usb</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-usb">5. Device Enumeration</a>
+    <li><a href="#ref-for-usb">5. Device Enumeration</a> <a href="#ref-for-usb①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usb-onconnect">
