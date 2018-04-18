@@ -6,6 +6,7 @@ Shortname: webusb
 Level: 1
 Editor: Reilly Grant, Google Inc., reillyg@google.com
 Editor: Ken Rockot, Google Inc., rockot@google.com
+Editor: Ovidio Henriquez, Google Inc., odejesush@google.com
 Abstract: This document describes an API for securely providing access to Universal Serial Bus devices from web pages.
 Group: wicg
 Repository: https://github.com/WICG/webusb/
@@ -425,15 +426,21 @@ scheme, is encoded in the <code>URL</code> field.
     required sequence&lt;USBDeviceFilter> filters;
   };
 
+  [Exposed=(DedicatedWorker,SharedWorker,Window), SecureContext]
   interface USB : EventTarget {
     attribute EventHandler onconnect;
     attribute EventHandler ondisconnect;
     Promise&lt;sequence&lt;USBDevice>> getDevices();
-    Promise&lt;USBDevice> requestDevice(USBDeviceRequestOptions options);
+    [Exposed=Window] Promise&lt;USBDevice> requestDevice(USBDeviceRequestOptions options);
   };
 
-  [SecureContext]
+  [Exposed=Window, SecureContext]
   partial interface Navigator {
+    [SameObject] readonly attribute USB usb;
+  };
+
+  [Exposed=(DedicatedWorker,SharedWorker), SecureContext]
+  partial interface WorkerNavigator {
     [SameObject] readonly attribute USB usb;
   };
 </pre>
