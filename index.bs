@@ -426,7 +426,7 @@ scheme, is encoded in the <code>URL</code> field.
     required sequence&lt;USBDeviceFilter> filters;
   };
 
-  [Exposed=(DedicatedWorker,SharedWorker,Window)]
+  [Exposed=(DedicatedWorker,SharedWorker,Window), SecureContext]
   interface USB : EventTarget {
     attribute EventHandler onconnect;
     attribute EventHandler ondisconnect;
