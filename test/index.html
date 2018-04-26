@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version e53c08d6a8d54a53d3f70722e296386143aea2a0" name="generator">
+  <meta content="Bikeshed version 31e40c4a568ee083807b1f9dd4198a467a05f2f6" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1424,7 +1424,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-04-23">23 April 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-04-25">25 April 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1512,8 +1512,8 @@ API will be changed as needed to support the evolution of those tests.</p>
 for this API. It not designed for that purpose. And, the ability
 to make breaking changes to this API has higher priority.</p>
    <h3 class="heading settled" data-level="1.1" id="examples"><span class="secno">1.1. </span><span class="content">Examples</span><a class="self-link" href="#examples"></a></h3>
-   <div class="example" id="example-790988b8">
-    <a class="self-link" href="#example-790988b8"></a> This example, expressed as a W3C testharness.js-based test, demonstrates
+   <div class="example" id="example-0261f29b">
+    <a class="self-link" href="#example-0261f29b"></a> This example, expressed as a W3C testharness.js-based test, demonstrates
 initializing this API and using it to verify that devices can be added and
 removed. 
 <pre>let fakeDeviceInit = {
@@ -1570,8 +1570,8 @@ promise_test(async () => {
 });
 </pre>
    </div>
-   <div class="example" id="example-acc5a25a">
-    <a class="self-link" href="#example-acc5a25a"></a> This example, which reuses definitions from the previous example and is also
+   <div class="example" id="example-50660def">
+    <a class="self-link" href="#example-50660def"></a> This example, which reuses definitions from the previous example and is also
 expressed as a W3C testharness.js-based test, demonstrates a test of the <code>navigator.usb.requestDevice()</code> method. 
 <pre>promise_test(async () => {
   await navigator.usb.test.initialize();
@@ -2127,7 +2127,7 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
 <span class="kt">interface</span> <a class="nv" href="#usbdevicerequestevent"><code>USBDeviceRequestEvent</code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event①">Event</a> {
   <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter①">USBDeviceFilter</a>> <a class="nv" data-type="FrozenArray<USBDeviceFilter>" href="#dom-usbdevicerequestevent-filters"><code>filters</code></a>;
 
-  <span class="kt">void</span> <a class="nv" href="#dom-usbdevicerequestevent-respondwith"><code>respondWith</code></a>(<span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①⑤">FakeUSBDevice</a>> <a class="nv" href="#dom-usbdevicerequestevent-respondwith-result-result"><code>result</code></a>);
+  <span class="kt">void</span> <a class="nv" href="#dom-usbdevicerequestevent-respondwith"><code>respondWith</code></a>(<span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①④">FakeUSBDevice</a>> <a class="nv" href="#dom-usbdevicerequestevent-respondwith-result-result"><code>result</code></a>);
 };
 
 <span class="kt">interface</span> <a class="nv" href="#usbtest"><code>USBTest</code></a> {
@@ -2135,7 +2135,7 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
 
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <a class="nv" href="#dom-usbtest-initialize"><code>initialize</code></a>();
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <a class="nv" href="#dom-usbtest-attachtowindow"><code>attachToWindow</code></a>(<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①">Window</a> <a class="nv" href="#dom-usbtest-attachtowindow-window-window"><code>window</code></a>);
-  <a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①④">FakeUSBDevice</a> <a class="nv" href="#dom-usbtest-addfakedevice"><code>addFakeDevice</code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit④">FakeUSBDeviceInit</a> <a class="nv" href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"><code>deviceInit</code></a>);
+  <a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①⑤">FakeUSBDevice</a> <a class="nv" href="#dom-usbtest-addfakedevice"><code>addFakeDevice</code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit④">FakeUSBDeviceInit</a> <a class="nv" href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"><code>deviceInit</code></a>);
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <a class="nv" href="#dom-usbtest-reset"><code>reset</code></a>();
 };
 

@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version e53c08d6a8d54a53d3f70722e296386143aea2a0" name="generator">
+  <meta content="Bikeshed version 31e40c4a568ee083807b1f9dd4198a467a05f2f6" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-04-23">23 April 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-04-25">25 April 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1891,8 +1891,8 @@ scheme, is encoded in the <code>URL</code> field.</p>
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb①">USB</a> <dfn class="nv idl-code" data-dfn-for="WorkerNavigator" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USB" id="dom-workernavigator-usb"><code>usb</code><a class="self-link" href="#dom-workernavigator-usb"></a></dfn>;
 };
 </pre>
-   <div class="example" id="example-5938953c">
-    <a class="self-link" href="#example-5938953c"></a> In this example, we retrieve some devices to include in a UI. When the page is
+   <div class="example" id="example-df545f15">
+    <a class="self-link" href="#example-df545f15"></a> In this example, we retrieve some devices to include in a UI. When the page is
 first loaded, it should check if it already has permission to access any
 connected devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices">getDevices()</a></code>, 
 <pre class="highlight">document<span class="p">.</span>addEventListener<span class="p">(</span><span class="s1">'DOMContentLoaded'</span><span class="p">,</span> async <span class="p">()</span> <span class="p">=></span> <span class="p">{</span>
@@ -2200,8 +2200,8 @@ host it MUST perform the following steps for each script execution environment:<
   <span class="kt">Promise</span>&lt;<span class="kt">void</span>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export="" data-lt="reset()" id="dom-usbdevice-reset"><code>reset</code></dfn>();
 };
 </pre>
-   <div class="example" id="example-6eb79d88">
-    <a class="self-link" href="#example-6eb79d88"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
+   <div class="example" id="example-9924ab8f">
+    <a class="self-link" href="#example-9924ab8f"></a> In this example we imagine a data logging device supporting up to 8 16-bit data
 channels. It has a single configuration (<code>bConfigurationValue 1</code>)
 with a single interface (<code>bInterfaceNumber 1</code>) with a single
 bulk endpoint (<code>bEndpointAddress 0x81</code> which means that it is
