@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 10a4272387e18258544277e014d3ca5eb0dcd258" name="generator">
+  <meta content="Bikeshed version 150b038a54cb926cf8e3d36fd8b108c226cb94b8" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-02">2 May 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-07">7 May 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2660,22 +2660,22 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
    <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">&lt;https://github.com/WICG/webusb/issues/36></a></p>
    <h3 class="heading settled" data-level="6.1" id="transfers"><span class="secno">6.1. </span><span class="content">Transfers</span><a class="self-link" href="#transfers"></a></h3>
 <pre class="idl highlight def"><span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbrequesttype"><code>USBRequestType</code></dfn> {
-  <dfn class="s idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" data-lt="&quot;standard&quot;|standard" id="dom-usbrequesttype-standard"><code>"standard"</code><a class="self-link" href="#dom-usbrequesttype-standard"></a></dfn>,
-  <dfn class="s idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" data-lt="&quot;class&quot;|class" id="dom-usbrequesttype-class"><code>"class"</code><a class="self-link" href="#dom-usbrequesttype-class"></a></dfn>,
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" data-lt="&quot;vendor&quot;|vendor" id="dom-usbrequesttype-vendor"><code>"vendor"</code></dfn>
+  <dfn class="s idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" id="dom-usbrequesttype-standard"><code>"standard"</code><a class="self-link" href="#dom-usbrequesttype-standard"></a></dfn>,
+  <dfn class="s idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" id="dom-usbrequesttype-class"><code>"class"</code><a class="self-link" href="#dom-usbrequesttype-class"></a></dfn>,
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRequestType" data-dfn-type="enum-value" data-export="" id="dom-usbrequesttype-vendor"><code>"vendor"</code></dfn>
 };
 
 <span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbrecipient"><code>USBRecipient</code></dfn> {
-  <dfn class="s idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;device&quot;|device" id="dom-usbrecipient-device"><code>"device"</code><a class="self-link" href="#dom-usbrecipient-device"></a></dfn>,
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;interface&quot;|interface" id="dom-usbrecipient-interface"><code>"interface"</code></dfn>,
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;endpoint&quot;|endpoint" id="dom-usbrecipient-endpoint"><code>"endpoint"</code></dfn>,
-  <dfn class="s idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" data-lt="&quot;other&quot;|other" id="dom-usbrecipient-other"><code>"other"</code><a class="self-link" href="#dom-usbrecipient-other"></a></dfn>
+  <dfn class="s idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" id="dom-usbrecipient-device"><code>"device"</code><a class="self-link" href="#dom-usbrecipient-device"></a></dfn>,
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" id="dom-usbrecipient-interface"><code>"interface"</code></dfn>,
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" id="dom-usbrecipient-endpoint"><code>"endpoint"</code></dfn>,
+  <dfn class="s idl-code" data-dfn-for="USBRecipient" data-dfn-type="enum-value" data-export="" id="dom-usbrecipient-other"><code>"other"</code><a class="self-link" href="#dom-usbrecipient-other"></a></dfn>
 };
 
 <span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbtransferstatus"><code>USBTransferStatus</code></dfn> {
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBTransferStatus" data-dfn-type="enum-value" data-export="" data-lt="&quot;ok&quot;|ok" id="dom-usbtransferstatus-ok"><code>"ok"</code></dfn>,
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBTransferStatus" data-dfn-type="enum-value" data-export="" data-lt="&quot;stall&quot;|stall" id="dom-usbtransferstatus-stall"><code>"stall"</code></dfn>,
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBTransferStatus" data-dfn-type="enum-value" data-export="" data-lt="&quot;babble&quot;|babble" id="dom-usbtransferstatus-babble"><code>"babble"</code></dfn>
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBTransferStatus" data-dfn-type="enum-value" data-export="" id="dom-usbtransferstatus-ok"><code>"ok"</code></dfn>,
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBTransferStatus" data-dfn-type="enum-value" data-export="" id="dom-usbtransferstatus-stall"><code>"stall"</code></dfn>,
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBTransferStatus" data-dfn-type="enum-value" data-export="" id="dom-usbtransferstatus-babble"><code>"babble"</code></dfn>
 };
 
 <span class="kt">dictionary</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="dictionary" data-export="" id="dictdef-usbcontroltransferparameters"><code>USBControlTransferParameters</code></dfn> {
@@ -2842,14 +2842,14 @@ is therefore unnecessary to call <code class="idl"><a data-link-type="idl" href=
 device.</p>
    <h3 class="heading settled" data-level="6.4" id="endpoints"><span class="secno">6.4. </span><span class="content">Endpoints</span><a class="self-link" href="#endpoints"></a></h3>
 <pre class="idl highlight def"><span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbdirection"><code>USBDirection</code></dfn> {
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBDirection" data-dfn-type="enum-value" data-export="" data-lt="&quot;in&quot;|in" id="dom-usbdirection-in"><code>"in"</code></dfn>,
-  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBDirection" data-dfn-type="enum-value" data-export="" data-lt="&quot;out&quot;|out" id="dom-usbdirection-out"><code>"out"</code></dfn>
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBDirection" data-dfn-type="enum-value" data-export="" id="dom-usbdirection-in"><code>"in"</code></dfn>,
+  <dfn class="s dfn-paneled idl-code" data-dfn-for="USBDirection" data-dfn-type="enum-value" data-export="" id="dom-usbdirection-out"><code>"out"</code></dfn>
 };
 
 <span class="kt">enum</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="enum" data-export="" id="enumdef-usbendpointtype"><code>USBEndpointType</code></dfn> {
-  <dfn class="s idl-code" data-dfn-for="USBEndpointType" data-dfn-type="enum-value" data-export="" data-lt="&quot;bulk&quot;|bulk" id="dom-usbendpointtype-bulk"><code>"bulk"</code><a class="self-link" href="#dom-usbendpointtype-bulk"></a></dfn>,
-  <dfn class="s idl-code" data-dfn-for="USBEndpointType" data-dfn-type="enum-value" data-export="" data-lt="&quot;interrupt&quot;|interrupt" id="dom-usbendpointtype-interrupt"><code>"interrupt"</code><a class="self-link" href="#dom-usbendpointtype-interrupt"></a></dfn>,
-  <dfn class="s idl-code" data-dfn-for="USBEndpointType" data-dfn-type="enum-value" data-export="" data-lt="&quot;isochronous&quot;|isochronous" id="dom-usbendpointtype-isochronous"><code>"isochronous"</code><a class="self-link" href="#dom-usbendpointtype-isochronous"></a></dfn>
+  <dfn class="s idl-code" data-dfn-for="USBEndpointType" data-dfn-type="enum-value" data-export="" id="dom-usbendpointtype-bulk"><code>"bulk"</code><a class="self-link" href="#dom-usbendpointtype-bulk"></a></dfn>,
+  <dfn class="s idl-code" data-dfn-for="USBEndpointType" data-dfn-type="enum-value" data-export="" id="dom-usbendpointtype-interrupt"><code>"interrupt"</code><a class="self-link" href="#dom-usbendpointtype-interrupt"></a></dfn>,
+  <dfn class="s idl-code" data-dfn-for="USBEndpointType" data-dfn-type="enum-value" data-export="" id="dom-usbendpointtype-isochronous"><code>"isochronous"</code><a class="self-link" href="#dom-usbendpointtype-isochronous"></a></dfn>
 };
 
 [<dfn class="nv idl-code" data-dfn-for="USBEndpoint" data-dfn-type="constructor" data-export="" data-lt="USBEndpoint(alternate, endpointNumber, direction)" id="dom-usbendpoint-usbendpoint"><code>Constructor</code><a class="self-link" href="#dom-usbendpoint-usbendpoint"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑤">USBAlternateInterface</a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"><code>alternate</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③②"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"><code>endpointNumber</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"></a></dfn>, <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection①">USBDirection</a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"><code>direction</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"></a></dfn>)]
@@ -3186,11 +3186,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbinterface-alternate">alternate</a><span>, in §6.3</span>
    <li><a href="#dom-usbinterface-alternates">alternates</a><span>, in §6.3</span>
    <li><a href="#dom-usbalternateinterface-alternatesetting">alternateSetting</a><span>, in §6.3</span>
-   <li><a href="#dom-usbtransferstatus-babble">babble</a><span>, in §6.1</span>
    <li><a href="#dom-usbtransferstatus-babble">"babble"</a><span>, in §6.1</span>
    <li><a href="#binary-object-store">Binary Object Store</a><span>, in §8</span>
    <li><a href="#dom-usbendpointtype-bulk">"bulk"</a><span>, in §6.4</span>
-   <li><a href="#dom-usbendpointtype-bulk">bulk</a><span>, in §6.4</span>
    <li><a href="#bulk-transfers">Bulk transfers</a><span>, in §9.2</span>
    <li>
     bytesWritten
@@ -3203,7 +3201,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbinterface-claimed">claimed</a><span>, in §6.3</span>
    <li><a href="#dom-usbdevice-claiminterface">claimInterface(interfaceNumber)</a><span>, in §6</span>
    <li><a href="#dom-usbrequesttype-class">"class"</a><span>, in §6.1</span>
-   <li><a href="#dom-usbrequesttype-class">class</a><span>, in §6.1</span>
    <li><a href="#dom-usbdevicefilter-classcode">classCode</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-clearhalt">clearHalt(direction, endpointNumber)</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-close">close()</a><span>, in §6</span>
@@ -3236,7 +3233,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     <ul>
      <li><a href="#dom-usbconnectionevent-device">attribute for USBConnectionEvent</a><span>, in §5.1</span>
      <li><a href="#dom-usbconnectioneventinit-device">dict-member for USBConnectionEventInit</a><span>, in §5.1</span>
-     <li><a href="#dom-usbrecipient-device">enum-value for USBRecipient</a><span>, in §6.1</span>
     </ul>
    <li><a href="#dom-usbdevice-deviceclass">deviceClass</a><span>, in §6</span>
    <li><a href="#device-descriptor">device descriptor</a><span>, in §8</span>
@@ -3250,7 +3246,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbendpoint-direction">direction</a><span>, in §6.4</span>
    <li><a href="#disconnect">disconnect</a><span>, in §5.1</span>
    <li><a href="#dom-usbrecipient-endpoint">"endpoint"</a><span>, in §6.1</span>
-   <li><a href="#dom-usbrecipient-endpoint">endpoint</a><span>, in §6.1</span>
    <li><a href="#endpoint-descriptor">endpoint descriptor</a><span>, in §8</span>
    <li><a href="#dom-usbendpoint-endpointnumber">endpointNumber</a><span>, in §6.4</span>
    <li><a href="#dom-usbalternateinterface-endpoints">endpoints</a><span>, in §6.3</span>
@@ -3264,9 +3259,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usb-getdevices">getDevices()</a><span>, in §5</span>
    <li><a href="#get-url">Get URL</a><span>, in §4.2</span>
    <li><a href="#dom-usbdirection-in">"in"</a><span>, in §6.4</span>
-   <li><a href="#dom-usbdirection-in">in</a><span>, in §6.4</span>
    <li><a href="#dom-usbcontroltransferparameters-index">index</a><span>, in §6.1</span>
-   <li><a href="#dom-usbrecipient-interface">interface</a><span>, in §6.1</span>
    <li><a href="#dom-usbrecipient-interface">"interface"</a><span>, in §6.1</span>
    <li><a href="#interface-association-descriptor">interface association descriptor</a><span>, in §8</span>
    <li><a href="#dom-usbalternateinterface-interfaceclass">interfaceClass</a><span>, in §6.3</span>
@@ -3276,13 +3269,11 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbalternateinterface-interfaceprotocol">interfaceProtocol</a><span>, in §6.3</span>
    <li><a href="#dom-usbconfiguration-interfaces">interfaces</a><span>, in §6.2</span>
    <li><a href="#dom-usbalternateinterface-interfacesubclass">interfaceSubclass</a><span>, in §6.3</span>
-   <li><a href="#dom-usbendpointtype-interrupt">interrupt</a><span>, in §6.4</span>
    <li><a href="#dom-usbendpointtype-interrupt">"interrupt"</a><span>, in §6.4</span>
    <li><a href="#interrupt-transfers">Interrupt transfers</a><span>, in §9.2</span>
    <li><a href="#in-transfers">IN transfers</a><span>, in §9.2</span>
    <li><a href="#is-not-a-valid-filter">is not a valid filter</a><span>, in §5</span>
    <li><a href="#dom-usbendpointtype-isochronous">"isochronous"</a><span>, in §6.4</span>
-   <li><a href="#dom-usbendpointtype-isochronous">isochronous</a><span>, in §6.4</span>
    <li><a href="#dom-usbdevice-isochronoustransferin">isochronousTransferIn(endpointNumber, packetLengths)</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</a><span>, in §6</span>
    <li><a href="#isochronous-transfers">Isochronous transfers</a><span>, in §9.2</span>
@@ -3290,14 +3281,11 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdevice-manufacturername">manufacturerName</a><span>, in §6</span>
    <li><a href="#match-a-filter">match a filter</a><span>, in §5</span>
    <li><a href="#dom-usbtransferstatus-ok">"ok"</a><span>, in §6.1</span>
-   <li><a href="#dom-usbtransferstatus-ok">ok</a><span>, in §6.1</span>
    <li><a href="#dom-usb-onconnect">onconnect</a><span>, in §5</span>
    <li><a href="#dom-usb-ondisconnect">ondisconnect</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-open">open()</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-opened">opened</a><span>, in §6</span>
    <li><a href="#dom-usbrecipient-other">"other"</a><span>, in §6.1</span>
-   <li><a href="#dom-usbrecipient-other">other</a><span>, in §6.1</span>
-   <li><a href="#dom-usbdirection-out">out</a><span>, in §6.4</span>
    <li><a href="#dom-usbdirection-out">"out"</a><span>, in §6.4</span>
    <li><a href="#out-transfers">OUT transfers</a><span>, in §9.2</span>
    <li>
@@ -3339,9 +3327,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#setup-packet">setup packet</a><span>, in §6.1</span>
    <li><a href="#setup-stage">setup stage</a><span>, in §6.1</span>
    <li><a href="#dom-usbtransferstatus-stall">"stall"</a><span>, in §6.1</span>
-   <li><a href="#dom-usbtransferstatus-stall">stall</a><span>, in §6.1</span>
    <li><a href="#dom-usbrequesttype-standard">"standard"</a><span>, in §6.1</span>
-   <li><a href="#dom-usbrequesttype-standard">standard</a><span>, in §6.1</span>
    <li>
     status
     <ul>
@@ -3410,7 +3396,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdevice-usbversionminor">usbVersionMinor</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-usbversionsubminor">usbVersionSubminor</a><span>, in §6</span>
    <li><a href="#dom-usbcontroltransferparameters-value">value</a><span>, in §6.1</span>
-   <li><a href="#dom-usbrequesttype-vendor">vendor</a><span>, in §6.1</span>
    <li><a href="#dom-usbrequesttype-vendor">"vendor"</a><span>, in §6.1</span>
    <li>
     vendorId
