@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version b740b15097946bf1d13405dc6d7ca5a72fa2530d" name="generator">
+  <meta content="Bikeshed version 650c7f090a7031056e48b2cf26f91e72b5c14a32" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1327,41 +1327,41 @@ pre .property::before, pre .property::after {
 }</style>
 <style>/* style-dfn-panel */
 
-        .dfn-panel {
-            position: absolute;
-            z-index: 35;
-            height: auto;
-            width: -webkit-fit-content;
-            width: fit-content;
-            max-width: 300px;
-            max-height: 500px;
-            overflow: auto;
-            padding: 0.5em 0.75em;
-            font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-            background: #DDDDDD;
-            color: black;
-            border: outset 0.2em;
-        }
-        .dfn-panel:not(.on) { display: none; }
-        .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-        .dfn-panel > b { display: block; }
-        .dfn-panel a { color: black; }
-        .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-        .dfn-panel > b + b { margin-top: 0.25em; }
-        .dfn-panel ul { padding: 0; }
-        .dfn-panel li { list-style: inside; }
-        .dfn-panel.activated {
-            display: inline-block;
-            position: fixed;
-            left: .5em;
-            bottom: 2em;
-            margin: 0 auto;
-            max-width: calc(100vw - 1.5em - .4em - .5em);
-            max-height: 30vh;
-        }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: #DDDDDD;
+    color: black;
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: black; }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
 
-        .dfn-paneled { cursor: pointer; }
-        </style>
+.dfn-paneled { cursor: pointer; }
+</style>
 <style>/* style-syntax-highlighting */
 pre.idl.highlight { color: #708090; }
 .highlight:not(.idl) { background: hsl(24, 20%, 95%); }
@@ -1424,7 +1424,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-10">10 May 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-11">11 May 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2019,86 +2019,426 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <li><a href="#dom-fakeusbdeviceinit-usbversionsubminor">usbVersionSubminor</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-vendorid">vendorId</a><span>, in §4</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-event">
+   <a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-event">3. Global Testing Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-eventtarget">
+   <a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-eventtarget">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-event-fire">
+   <a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-event-fire">3.1. USB Behavior</a>
+    <li><a href="#ref-for-concept-event-fire①">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-sec-object-internal-methods-and-internal-slots">
+   <a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-sec-object-internal-methods-and-internal-slots">3. Global Testing Interface</a> <a href="#ref-for-sec-object-internal-methods-and-internal-slots①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-eventhandler">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-eventhandler">3. Global Testing Interface</a>
+    <li><a href="#ref-for-eventhandler①">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-window">
+   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-window">3. Global Testing Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-current-global-object">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object">https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-current-global-object">3. Global Testing Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-global-object">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object">https://html.spec.whatwg.org/multipage/webappapis.html#global-object</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-global-object">3. Global Testing Interface</a> <a href="#ref-for-global-object①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-in-parallel">
+   <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-in-parallel">3. Global Testing Interface</a> <a href="#ref-for-in-parallel①">(2)</a> <a href="#ref-for-in-parallel②">(3)</a> <a href="#ref-for-in-parallel③">(4)</a>
+    <li><a href="#ref-for-in-parallel④">3.1. USB Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-queue-a-task">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-queue-a-task">3. Global Testing Interface</a>
+    <li><a href="#ref-for-queue-a-task①">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-resolve-promise">
+   <a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-resolve-promise">3. Global Testing Interface</a> <a href="#ref-for-resolve-promise①">(2)</a> <a href="#ref-for-resolve-promise②">(3)</a> <a href="#ref-for-resolve-promise③">(4)</a> <a href="#ref-for-resolve-promise④">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-DOMString">
+   <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-DOMString">4. Fake Devices</a> <a href="#ref-for-idl-DOMString①">(2)</a> <a href="#ref-for-idl-DOMString②">(3)</a> <a href="#ref-for-idl-DOMString③">(4)</a> <a href="#ref-for-idl-DOMString④">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-frozen-array">
+   <a href="https://heycam.github.io/webidl/#idl-frozen-array">https://heycam.github.io/webidl/#idl-frozen-array</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-frozen-array">3.1. USB Behavior</a>
+    <li><a href="#ref-for-idl-frozen-array①">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-invalidstateerror">
+   <a href="https://heycam.github.io/webidl/#invalidstateerror">https://heycam.github.io/webidl/#invalidstateerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-invalidstateerror">3. Global Testing Interface</a> <a href="#ref-for-invalidstateerror①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-notfounderror">
+   <a href="https://heycam.github.io/webidl/#notfounderror">https://heycam.github.io/webidl/#notfounderror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-notfounderror">3. Global Testing Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-promise">
+   <a href="https://heycam.github.io/webidl/#idl-promise">https://heycam.github.io/webidl/#idl-promise</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-promise">1.1. Examples</a>
+    <li><a href="#ref-for-idl-promise①">3. Global Testing Interface</a> <a href="#ref-for-idl-promise②">(2)</a> <a href="#ref-for-idl-promise③">(3)</a> <a href="#ref-for-idl-promise④">(4)</a>
+    <li><a href="#ref-for-idl-promise⑤">3.1. USB Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-SameObject">
+   <a href="https://heycam.github.io/webidl/#SameObject">https://heycam.github.io/webidl/#SameObject</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-SameObject">3. Global Testing Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-octet">
+   <a href="https://heycam.github.io/webidl/#idl-octet">https://heycam.github.io/webidl/#idl-octet</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-octet">4. Fake Devices</a> <a href="#ref-for-idl-octet①">(2)</a> <a href="#ref-for-idl-octet②">(3)</a> <a href="#ref-for-idl-octet③">(4)</a> <a href="#ref-for-idl-octet④">(5)</a> <a href="#ref-for-idl-octet⑤">(6)</a> <a href="#ref-for-idl-octet⑥">(7)</a> <a href="#ref-for-idl-octet⑦">(8)</a> <a href="#ref-for-idl-octet⑧">(9)</a> <a href="#ref-for-idl-octet⑨">(10)</a> <a href="#ref-for-idl-octet①⓪">(11)</a> <a href="#ref-for-idl-octet①①">(12)</a> <a href="#ref-for-idl-octet①②">(13)</a> <a href="#ref-for-idl-octet①③">(14)</a> <a href="#ref-for-idl-octet①④">(15)</a> <a href="#ref-for-idl-octet①⑤">(16)</a> <a href="#ref-for-idl-octet①⑥">(17)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
+   <a href="https://heycam.github.io/webidl/#idl-unsigned-long">https://heycam.github.io/webidl/#idl-unsigned-long</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-unsigned-long">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
+   <a href="https://heycam.github.io/webidl/#idl-unsigned-short">https://heycam.github.io/webidl/#idl-unsigned-short</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-unsigned-short">4. Fake Devices</a> <a href="#ref-for-idl-unsigned-short①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-usb">
+   <a href="https://wicg.github.io/webusb/#usb">https://wicg.github.io/webusb/#usb</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-usb">3. Global Testing Interface</a> <a href="#ref-for-usb①">(2)</a> <a href="#ref-for-usb②">(3)</a>
+    <li><a href="#ref-for-usb③">3.1. USB Behavior</a> <a href="#ref-for-usb④">(2)</a>
+    <li><a href="#ref-for-usb⑤">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-usbalternateinterface">
+   <a href="https://wicg.github.io/webusb/#usbalternateinterface">https://wicg.github.io/webusb/#usbalternateinterface</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-usbalternateinterface">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-usbconfiguration">
+   <a href="https://wicg.github.io/webusb/#usbconfiguration">https://wicg.github.io/webusb/#usbconfiguration</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-usbconfiguration">4. Fake Devices</a> <a href="#ref-for-usbconfiguration①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-usbdevice">
+   <a href="https://wicg.github.io/webusb/#usbdevice">https://wicg.github.io/webusb/#usbdevice</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-usbdevice">4. Fake Devices</a>
+    <li><a href="#ref-for-usbdevice①">4.1. USBDevice Behavior</a> <a href="#ref-for-usbdevice②">(2)</a> <a href="#ref-for-usbdevice③">(3)</a> <a href="#ref-for-usbdevice④">(4)</a> <a href="#ref-for-usbdevice⑤">(5)</a> <a href="#ref-for-usbdevice⑥">(6)</a> <a href="#ref-for-usbdevice⑦">(7)</a> <a href="#ref-for-usbdevice⑧">(8)</a> <a href="#ref-for-usbdevice⑨">(9)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dictdef-usbdevicefilter">
+   <a href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter">https://wicg.github.io/webusb/#dictdef-usbdevicefilter</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-usbdevicefilter">3. Global Testing Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-enumdef-usbdirection">
+   <a href="https://wicg.github.io/webusb/#enumdef-usbdirection">https://wicg.github.io/webusb/#enumdef-usbdirection</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-usbdirection">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-usbendpoint">
+   <a href="https://wicg.github.io/webusb/#usbendpoint">https://wicg.github.io/webusb/#usbendpoint</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-usbendpoint">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-enumdef-usbendpointtype">
+   <a href="https://wicg.github.io/webusb/#enumdef-usbendpointtype">https://wicg.github.io/webusb/#enumdef-usbendpointtype</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-enumdef-usbendpointtype">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-usbinterface">
+   <a href="https://wicg.github.io/webusb/#usbinterface">https://wicg.github.io/webusb/#usbinterface</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-usbinterface">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbinterface-alternates">
+   <a href="https://wicg.github.io/webusb/#dom-usbinterface-alternates">https://wicg.github.io/webusb/#dom-usbinterface-alternates</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbinterface-alternates">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-claiminterface">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-claiminterface">https://wicg.github.io/webusb/#dom-usbdevice-claiminterface</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-claiminterface">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-clearhalt">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-clearhalt">https://wicg.github.io/webusb/#dom-usbdevice-clearhalt</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-clearhalt">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-close">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-close">https://wicg.github.io/webusb/#dom-usbdevice-close</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-close">4.1. USBDevice Behavior</a> <a href="#ref-for-dom-usbdevice-close①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-configuration">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-configuration">https://wicg.github.io/webusb/#dom-usbdevice-configuration</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-configuration">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbconfiguration-configurationvalue">
+   <a href="https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue">https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbconfiguration-configurationvalue">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-configurations">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-configurations">https://wicg.github.io/webusb/#dom-usbdevice-configurations</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-configurations">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-controltransferin">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferin">https://wicg.github.io/webusb/#dom-usbdevice-controltransferin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-controltransferin">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-controltransferout">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferout">https://wicg.github.io/webusb/#dom-usbdevice-controltransferout</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-controltransferout">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbalternateinterface-endpoints">
+   <a href="https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints">https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbalternateinterface-endpoints">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevicerequestoptions-filters">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters">https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevicerequestoptions-filters">3.1. USB Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbcontroltransferparameters-index">
+   <a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index">https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbcontroltransferparameters-index">4.1. USBDevice Behavior</a> <a href="#ref-for-dom-usbcontroltransferparameters-index①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbconfiguration-interfaces">
+   <a href="https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces">https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbconfiguration-interfaces">4. Fake Devices</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-isochronoustransferin">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin">https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-isochronoustransferin">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-isochronoustransferout">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout">https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-isochronoustransferout">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-open">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-open">https://wicg.github.io/webusb/#dom-usbdevice-open</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-open">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-releaseinterface">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface">https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-releaseinterface">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbcontroltransferparameters-request">
+   <a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request">https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbcontroltransferparameters-request">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usb-requestdevice">
+   <a href="https://wicg.github.io/webusb/#dom-usb-requestdevice">https://wicg.github.io/webusb/#dom-usb-requestdevice</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usb-requestdevice">3.1. USB Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-reset">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-reset">https://wicg.github.io/webusb/#dom-usbdevice-reset</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-reset">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-selectalternateinterface">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface">https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-selectalternateinterface">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-selectconfiguration">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration">https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-selectconfiguration">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-transferin">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-transferin">https://wicg.github.io/webusb/#dom-usbdevice-transferin</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-transferin">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbdevice-transferout">
+   <a href="https://wicg.github.io/webusb/#dom-usbdevice-transferout">https://wicg.github.io/webusb/#dom-usbdevice-transferout</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-transferout">4.1. USBDevice Behavior</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-navigator-usb">
+   <a href="https://wicg.github.io/webusb/#dom-navigator-usb">https://wicg.github.io/webusb/#dom-navigator-usb</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-navigator-usb">3. Global Testing Interface</a> <a href="#ref-for-dom-navigator-usb①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-usbcontroltransferparameters-value">
+   <a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value">https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbcontroltransferparameters-value">4.1. USBDevice Behavior</a> <a href="#ref-for-dom-usbcontroltransferparameters-value①">(2)</a>
+   </ul>
+  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><a href="https://dom.spec.whatwg.org/#event">Event</a>
-     <li><a href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a>
-     <li><a href="https://dom.spec.whatwg.org/#concept-event-fire">fire an event</a>
+     <li><span class="dfn-paneled" id="term-for-event" style="color:initial">Event</span>
+     <li><span class="dfn-paneled" id="term-for-eventtarget" style="color:initial">EventTarget</span>
+     <li><span class="dfn-paneled" id="term-for-concept-event-fire" style="color:initial">fire an event</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
-     <li><a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">internal slot</a>
+     <li><span class="dfn-paneled" id="term-for-sec-object-internal-methods-and-internal-slots" style="color:initial">internal slot</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/window-object.html#window">Window</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object">current global object</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object">global object</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">queue a task</a>
+     <li><span class="dfn-paneled" id="term-for-eventhandler" style="color:initial">EventHandler</span>
+     <li><span class="dfn-paneled" id="term-for-window" style="color:initial">Window</span>
+     <li><span class="dfn-paneled" id="term-for-current-global-object" style="color:initial">current global object</span>
+     <li><span class="dfn-paneled" id="term-for-global-object" style="color:initial">global object</span>
+     <li><span class="dfn-paneled" id="term-for-in-parallel" style="color:initial">in parallel</span>
+     <li><span class="dfn-paneled" id="term-for-queue-a-task" style="color:initial">queue a task</span>
     </ul>
    <li>
     <a data-link-type="biblio">[promises-guide]</a> defines the following terms:
     <ul>
-     <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a>
+     <li><span class="dfn-paneled" id="term-for-resolve-promise" style="color:initial">resolve</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a>
-     <li><a href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a>
-     <li><a href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-promise">Promise</a>
-     <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-octet">octet</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-unsigned-long">unsigned long</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-unsigned-short">unsigned short</a>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-idl-frozen-array" style="color:initial">FrozenArray</span>
+     <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">InvalidStateError</span>
+     <li><span class="dfn-paneled" id="term-for-notfounderror" style="color:initial">NotFoundError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-promise" style="color:initial">Promise</span>
+     <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
+     <li><span class="dfn-paneled" id="term-for-idl-octet" style="color:initial">octet</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long" style="color:initial">unsigned long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short" style="color:initial">unsigned short</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebUSB]</a> defines the following terms:
     <ul>
-     <li><a href="https://wicg.github.io/webusb/#usb">USB</a>
-     <li><a href="https://wicg.github.io/webusb/#usbalternateinterface">USBAlternateInterface</a>
-     <li><a href="https://wicg.github.io/webusb/#usbconfiguration">USBConfiguration</a>
-     <li><a href="https://wicg.github.io/webusb/#usbdevice">USBDevice</a>
-     <li><a href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter">USBDeviceFilter</a>
-     <li><a href="https://wicg.github.io/webusb/#enumdef-usbdirection">USBDirection</a>
-     <li><a href="https://wicg.github.io/webusb/#usbendpoint">USBEndpoint</a>
-     <li><a href="https://wicg.github.io/webusb/#enumdef-usbendpointtype">USBEndpointType</a>
-     <li><a href="https://wicg.github.io/webusb/#usbinterface">USBInterface</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbinterface-alternates">alternates</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-claiminterface">claimInterface(interfaceNumber)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-clearhalt">clearHalt(direction, endpointNumber)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-close">close()</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-configuration">configuration</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue">configurationValue</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-configurations">configurations</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferin">controlTransferIn(setup, length)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferout">controlTransferOut(setup, data)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints">endpoints</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters">filters</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index">index</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces">interfaces</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin">isochronousTransferIn(endpointNumber, packetLengths)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-open">open()</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface">releaseInterface(interfaceNumber)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request">request</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usb-requestdevice">requestDevice(options)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-reset">reset()</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface">selectAlternateInterface(interfaceNumber, alternateSetting)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration">selectConfiguration(configurationValue)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-transferin">transferIn(endpointNumber, length)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbdevice-transferout">transferOut(endpointNumber, data)</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-navigator-usb">usb</a>
-     <li><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value">value</a>
+     <li><span class="dfn-paneled" id="term-for-usb" style="color:initial">USB</span>
+     <li><span class="dfn-paneled" id="term-for-usbalternateinterface" style="color:initial">USBAlternateInterface</span>
+     <li><span class="dfn-paneled" id="term-for-usbconfiguration" style="color:initial">USBConfiguration</span>
+     <li><span class="dfn-paneled" id="term-for-usbdevice" style="color:initial">USBDevice</span>
+     <li><span class="dfn-paneled" id="term-for-dictdef-usbdevicefilter" style="color:initial">USBDeviceFilter</span>
+     <li><span class="dfn-paneled" id="term-for-enumdef-usbdirection" style="color:initial">USBDirection</span>
+     <li><span class="dfn-paneled" id="term-for-usbendpoint" style="color:initial">USBEndpoint</span>
+     <li><span class="dfn-paneled" id="term-for-enumdef-usbendpointtype" style="color:initial">USBEndpointType</span>
+     <li><span class="dfn-paneled" id="term-for-usbinterface" style="color:initial">USBInterface</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbinterface-alternates" style="color:initial">alternates</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-claiminterface" style="color:initial">claimInterface(interfaceNumber)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-clearhalt" style="color:initial">clearHalt(direction, endpointNumber)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-close" style="color:initial">close()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-configuration" style="color:initial">configuration</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbconfiguration-configurationvalue" style="color:initial">configurationValue</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-configurations" style="color:initial">configurations</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-controltransferin" style="color:initial">controlTransferIn(setup, length)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-controltransferout" style="color:initial">controlTransferOut(setup, data)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbalternateinterface-endpoints" style="color:initial">endpoints</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevicerequestoptions-filters" style="color:initial">filters</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-index" style="color:initial">index</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbconfiguration-interfaces" style="color:initial">interfaces</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-isochronoustransferin" style="color:initial">isochronousTransferIn(endpointNumber, packetLengths)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-isochronoustransferout" style="color:initial">isochronousTransferOut(endpointNumber, data, packetLengths)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-open" style="color:initial">open()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-releaseinterface" style="color:initial">releaseInterface(interfaceNumber)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-request" style="color:initial">request</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usb-requestdevice" style="color:initial">requestDevice(options)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-reset" style="color:initial">reset()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-selectalternateinterface" style="color:initial">selectAlternateInterface(interfaceNumber, alternateSetting)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-selectconfiguration" style="color:initial">selectConfiguration(configurationValue)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-transferin" style="color:initial">transferIn(endpointNumber, length)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-transferout" style="color:initial">transferOut(endpointNumber, data)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-navigator-usb" style="color:initial">usb</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-value" style="color:initial">value</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2321,57 +2661,57 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   </aside>
 <script>/* script-dfn-panel */
 
-        document.body.addEventListener("click", function(e) {
-            var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-            // Find the dfn element or panel, if any, that was clicked on.
-            var el = e.target;
-            var target;
-            var hitALink = false;
-            while(el.parentElement) {
-                if(el.tagName == "A") {
-                    // Clicking on a link in a <dfn> shouldn't summon the panel
-                    hitALink = true;
-                }
-                if(el.classList.contains("dfn-paneled")) {
-                    target = "dfn";
-                    break;
-                }
-                if(el.classList.contains("dfn-panel")) {
-                    target = "dfn-panel";
-                    break;
-                }
-                el = el.parentElement;
-            }
-            if(target != "dfn-panel") {
-                // Turn off any currently "on" or "activated" panels.
-                queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-                    el.classList.remove("on");
-                    el.classList.remove("activated");
-                });
-            }
-            if(target == "dfn" && !hitALink) {
-                // open the panel
-                var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-                if(dfnPanel) {
-                    dfnPanel.classList.add("on");
-                    var rect = el.getBoundingClientRect();
-                    dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-                    dfnPanel.style.top = window.scrollY + rect.top + "px";
-                    var panelRect = dfnPanel.getBoundingClientRect();
-                    var panelWidth = panelRect.right - panelRect.left;
-                    if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                        // Reposition, because the panel is overflowing
-                        dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-                    }
-                } else {
-                    console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-                }
-            } else if(target == "dfn-panel") {
-                // Switch it to "activated" state, which pins it.
-                el.classList.add("activated");
-                el.style.left = null;
-                el.style.top = null;
-            }
-
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
         });
-        </script>
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>

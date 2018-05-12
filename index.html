@@ -1176,7 +1176,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version b740b15097946bf1d13405dc6d7ca5a72fa2530d" name="generator">
+  <meta content="Bikeshed version 650c7f090a7031056e48b2cf26f91e72b5c14a32" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1344,41 +1344,41 @@ pre .property::before, pre .property::after {
 }</style>
 <style>/* style-dfn-panel */
 
-        .dfn-panel {
-            position: absolute;
-            z-index: 35;
-            height: auto;
-            width: -webkit-fit-content;
-            width: fit-content;
-            max-width: 300px;
-            max-height: 500px;
-            overflow: auto;
-            padding: 0.5em 0.75em;
-            font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-            background: #DDDDDD;
-            color: black;
-            border: outset 0.2em;
-        }
-        .dfn-panel:not(.on) { display: none; }
-        .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-        .dfn-panel > b { display: block; }
-        .dfn-panel a { color: black; }
-        .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-        .dfn-panel > b + b { margin-top: 0.25em; }
-        .dfn-panel ul { padding: 0; }
-        .dfn-panel li { list-style: inside; }
-        .dfn-panel.activated {
-            display: inline-block;
-            position: fixed;
-            left: .5em;
-            bottom: 2em;
-            margin: 0 auto;
-            max-width: calc(100vw - 1.5em - .4em - .5em);
-            max-height: 30vh;
-        }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    height: auto;
+    width: -webkit-fit-content;
+    width: fit-content;
+    max-width: 300px;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: #DDDDDD;
+    color: black;
+    border: outset 0.2em;
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: black; }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0; }
+.dfn-panel li { list-style: inside; }
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
 
-        .dfn-paneled { cursor: pointer; }
-        </style>
+.dfn-paneled { cursor: pointer; }
+</style>
 <style>/* style-syntax-highlighting */
 pre.idl.highlight { color: #708090; }
 .highlight:not(.idl) { background: hsl(24, 20%, 95%); }
@@ -1441,7 +1441,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-10">10 May 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-11">11 May 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -3407,85 +3407,393 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#vendor-id">vendor ID</a><span>, in §8</span>
    <li><a href="#webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §4</span>
   </ul>
+  <aside class="dfn-panel" data-for="term-for-event">
+   <a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-event">5.1. Events</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dictdef-eventinit">
+   <a href="https://dom.spec.whatwg.org/#dictdef-eventinit">https://dom.spec.whatwg.org/#dictdef-eventinit</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-eventinit">5.1. Events</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-eventtarget">
+   <a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-eventtarget">5. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-sec-array-objects">
+   <a href="https://tc39.github.io/ecma262/#sec-array-objects">https://tc39.github.io/ecma262/#sec-array-objects</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-sec-array-objects">5. Device Enumeration</a>
+    <li><a href="#ref-for-sec-array-objects①">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-sec-promise-objects">
+   <a href="https://tc39.github.io/ecma262/#sec-promise-objects">https://tc39.github.io/ecma262/#sec-promise-objects</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-sec-promise-objects">5. Device Enumeration</a> <a href="#ref-for-sec-promise-objects①">(2)</a> <a href="#ref-for-sec-promise-objects②">(3)</a>
+    <li><a href="#ref-for-sec-promise-objects③">6. Device Usage</a> <a href="#ref-for-sec-promise-objects④">(2)</a> <a href="#ref-for-sec-promise-objects⑤">(3)</a> <a href="#ref-for-sec-promise-objects⑥">(4)</a> <a href="#ref-for-sec-promise-objects⑦">(5)</a> <a href="#ref-for-sec-promise-objects⑧">(6)</a> <a href="#ref-for-sec-promise-objects⑨">(7)</a> <a href="#ref-for-sec-promise-objects①⓪">(8)</a> <a href="#ref-for-sec-promise-objects①①">(9)</a> <a href="#ref-for-sec-promise-objects①②">(10)</a> <a href="#ref-for-sec-promise-objects①③">(11)</a> <a href="#ref-for-sec-promise-objects①④">(12)</a> <a href="#ref-for-sec-promise-objects①⑤">(13)</a> <a href="#ref-for-sec-promise-objects①⑥">(14)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-sec-native-error-types-used-in-this-standard-typeerror">
+   <a href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror">5. Device Enumeration</a>
+    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror①">6. Device Usage</a> <a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror②">(2)</a>
+    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror③">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-default-allowlist">
+   <a href="https://wicg.github.io/feature-policy/#default-allowlist">https://wicg.github.io/feature-policy/#default-allowlist</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-default-allowlist">7.1. Feature Policy</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-feature">
+   <a href="https://wicg.github.io/feature-policy/#feature">https://wicg.github.io/feature-policy/#feature</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-feature">7.1. Feature Policy</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-feature-name">
+   <a href="https://wicg.github.io/feature-policy/#feature-name">https://wicg.github.io/feature-policy/#feature-name</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-feature-name">7.1. Feature Policy</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-eventhandler">
+   <a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-eventhandler">5. Device Enumeration</a> <a href="#ref-for-eventhandler①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-navigator">
+   <a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">https://html.spec.whatwg.org/multipage/system-state.html#navigator</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-navigator">5. Device Enumeration</a>
+    <li><a href="#ref-for-navigator①">7.1. Feature Policy</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-workernavigator">
+   <a href="https://html.spec.whatwg.org/multipage/workers.html#workernavigator">https://html.spec.whatwg.org/multipage/workers.html#workernavigator</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-workernavigator">5. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-in-parallel">
+   <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-in-parallel">5. Device Enumeration</a> <a href="#ref-for-in-parallel①">(2)</a>
+    <li><a href="#ref-for-in-parallel②">6. Device Usage</a> <a href="#ref-for-in-parallel③">(2)</a> <a href="#ref-for-in-parallel④">(3)</a> <a href="#ref-for-in-parallel⑤">(4)</a> <a href="#ref-for-in-parallel⑥">(5)</a> <a href="#ref-for-in-parallel⑦">(6)</a> <a href="#ref-for-in-parallel⑧">(7)</a> <a href="#ref-for-in-parallel⑨">(8)</a> <a href="#ref-for-in-parallel①⓪">(9)</a> <a href="#ref-for-in-parallel①①">(10)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-triggered-by-user-activation">
+   <a href="https://html.spec.whatwg.org/multipage/interaction.html#triggered-by-user-activation">https://html.spec.whatwg.org/multipage/interaction.html#triggered-by-user-activation</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-triggered-by-user-activation">5. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-permissionstate-prompt">
+   <a href="https://w3c.github.io/permissions/#dom-permissionstate-prompt">https://w3c.github.io/permissions/#dom-permissionstate-prompt</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-permissionstate-prompt">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dictdef-permissiondescriptor">
+   <a href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor">https://w3c.github.io/permissions/#dictdef-permissiondescriptor</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dictdef-permissiondescriptor">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-permissionstatus">
+   <a href="https://w3c.github.io/permissions/#permissionstatus">https://w3c.github.io/permissions/#permissionstatus</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-permissionstatus">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-extra-permission-data-type">
+   <a href="https://w3c.github.io/permissions/#extra-permission-data-type">https://w3c.github.io/permissions/#extra-permission-data-type</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-extra-permission-data-type">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-permission-descriptor-type">
+   <a href="https://w3c.github.io/permissions/#permission-descriptor-type">https://w3c.github.io/permissions/#permission-descriptor-type</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-permission-descriptor-type">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-permission-query-algorithm">
+   <a href="https://w3c.github.io/permissions/#permission-query-algorithm">https://w3c.github.io/permissions/#permission-query-algorithm</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-permission-query-algorithm">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-permission-result-type">
+   <a href="https://w3c.github.io/permissions/#permission-result-type">https://w3c.github.io/permissions/#permission-result-type</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-permission-result-type">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-powerful-feature">
+   <a href="https://w3c.github.io/permissions/#powerful-feature">https://w3c.github.io/permissions/#powerful-feature</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-powerful-feature">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-request-permission-to-use">
+   <a href="https://w3c.github.io/permissions/#request-permission-to-use">https://w3c.github.io/permissions/#request-permission-to-use</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-request-permission-to-use">5. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-dom-permissionstatus-state">
+   <a href="https://w3c.github.io/permissions/#dom-permissionstatus-state">https://w3c.github.io/permissions/#dom-permissionstatus-state</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-permissionstatus-state">5. Device Enumeration</a>
+    <li><a href="#ref-for-dom-permissionstatus-state①">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-permission-request-algorithm">
+   <a href="https://wicg.github.io/permissions-request/#permission-request-algorithm">https://wicg.github.io/permissions-request/#permission-request-algorithm</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-permission-request-algorithm">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-reject-promise">
+   <a href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-reject-promise">5. Device Enumeration</a> <a href="#ref-for-reject-promise①">(2)</a>
+    <li><a href="#ref-for-reject-promise②">6. Device Usage</a> <a href="#ref-for-reject-promise③">(2)</a> <a href="#ref-for-reject-promise④">(3)</a> <a href="#ref-for-reject-promise⑤">(4)</a> <a href="#ref-for-reject-promise⑥">(5)</a> <a href="#ref-for-reject-promise⑦">(6)</a> <a href="#ref-for-reject-promise⑧">(7)</a> <a href="#ref-for-reject-promise⑨">(8)</a> <a href="#ref-for-reject-promise①⓪">(9)</a> <a href="#ref-for-reject-promise①①">(10)</a> <a href="#ref-for-reject-promise①②">(11)</a> <a href="#ref-for-reject-promise①③">(12)</a> <a href="#ref-for-reject-promise①④">(13)</a> <a href="#ref-for-reject-promise①⑤">(14)</a> <a href="#ref-for-reject-promise①⑥">(15)</a> <a href="#ref-for-reject-promise①⑦">(16)</a> <a href="#ref-for-reject-promise①⑧">(17)</a> <a href="#ref-for-reject-promise①⑨">(18)</a> <a href="#ref-for-reject-promise②⓪">(19)</a> <a href="#ref-for-reject-promise②①">(20)</a> <a href="#ref-for-reject-promise②②">(21)</a> <a href="#ref-for-reject-promise②③">(22)</a> <a href="#ref-for-reject-promise②④">(23)</a> <a href="#ref-for-reject-promise②⑤">(24)</a> <a href="#ref-for-reject-promise②⑥">(25)</a> <a href="#ref-for-reject-promise②⑦">(26)</a> <a href="#ref-for-reject-promise②⑧">(27)</a> <a href="#ref-for-reject-promise②⑨">(28)</a> <a href="#ref-for-reject-promise③⓪">(29)</a> <a href="#ref-for-reject-promise③①">(30)</a> <a href="#ref-for-reject-promise③②">(31)</a> <a href="#ref-for-reject-promise③③">(32)</a> <a href="#ref-for-reject-promise③④">(33)</a> <a href="#ref-for-reject-promise③⑤">(34)</a> <a href="#ref-for-reject-promise③⑥">(35)</a> <a href="#ref-for-reject-promise③⑦">(36)</a> <a href="#ref-for-reject-promise③⑧">(37)</a> <a href="#ref-for-reject-promise③⑨">(38)</a> <a href="#ref-for-reject-promise④⓪">(39)</a> <a href="#ref-for-reject-promise④①">(40)</a> <a href="#ref-for-reject-promise④②">(41)</a> <a href="#ref-for-reject-promise④③">(42)</a> <a href="#ref-for-reject-promise④④">(43)</a> <a href="#ref-for-reject-promise④⑤">(44)</a> <a href="#ref-for-reject-promise④⑥">(45)</a> <a href="#ref-for-reject-promise④⑦">(46)</a> <a href="#ref-for-reject-promise④⑧">(47)</a> <a href="#ref-for-reject-promise④⑨">(48)</a> <a href="#ref-for-reject-promise⑤⓪">(49)</a> <a href="#ref-for-reject-promise⑤①">(50)</a> <a href="#ref-for-reject-promise⑤②">(51)</a> <a href="#ref-for-reject-promise⑤③">(52)</a> <a href="#ref-for-reject-promise⑤④">(53)</a> <a href="#ref-for-reject-promise⑤⑤">(54)</a> <a href="#ref-for-reject-promise⑤⑥">(55)</a> <a href="#ref-for-reject-promise⑤⑦">(56)</a> <a href="#ref-for-reject-promise⑤⑧">(57)</a>
+    <li><a href="#ref-for-reject-promise⑤⑨">6.1. Transfers</a> <a href="#ref-for-reject-promise⑥⓪">(2)</a> <a href="#ref-for-reject-promise⑥①">(3)</a> <a href="#ref-for-reject-promise⑥②">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-resolve-promise">
+   <a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-resolve-promise">5. Device Enumeration</a> <a href="#ref-for-resolve-promise①">(2)</a> <a href="#ref-for-resolve-promise②">(3)</a>
+    <li><a href="#ref-for-resolve-promise③">6. Device Usage</a> <a href="#ref-for-resolve-promise④">(2)</a> <a href="#ref-for-resolve-promise⑤">(3)</a> <a href="#ref-for-resolve-promise⑥">(4)</a> <a href="#ref-for-resolve-promise⑦">(5)</a> <a href="#ref-for-resolve-promise⑧">(6)</a> <a href="#ref-for-resolve-promise⑨">(7)</a> <a href="#ref-for-resolve-promise①⓪">(8)</a> <a href="#ref-for-resolve-promise①①">(9)</a> <a href="#ref-for-resolve-promise①②">(10)</a> <a href="#ref-for-resolve-promise①③">(11)</a> <a href="#ref-for-resolve-promise①④">(12)</a> <a href="#ref-for-resolve-promise①⑤">(13)</a> <a href="#ref-for-resolve-promise①⑥">(14)</a> <a href="#ref-for-resolve-promise①⑦">(15)</a> <a href="#ref-for-resolve-promise①⑧">(16)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-transforming-by">
+   <a href="https://www.w3.org/2001/tag/doc/promises-guide/#transforming-by">https://www.w3.org/2001/tag/doc/promises-guide/#transforming-by</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-transforming-by">5. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-aborterror">
+   <a href="https://heycam.github.io/webidl/#aborterror">https://heycam.github.io/webidl/#aborterror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-aborterror">6. Device Usage</a> <a href="#ref-for-aborterror①">(2)</a> <a href="#ref-for-aborterror②">(3)</a> <a href="#ref-for-aborterror③">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-ArrayBuffer">
+   <a href="https://heycam.github.io/webidl/#idl-ArrayBuffer">https://heycam.github.io/webidl/#idl-ArrayBuffer</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-ArrayBuffer">6. Device Usage</a> <a href="#ref-for-idl-ArrayBuffer①">(2)</a> <a href="#ref-for-idl-ArrayBuffer②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-BufferSource">
+   <a href="https://heycam.github.io/webidl/#BufferSource">https://heycam.github.io/webidl/#BufferSource</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-BufferSource">6. Device Usage</a> <a href="#ref-for-BufferSource①">(2)</a> <a href="#ref-for-BufferSource②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-DOMString">
+   <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-DOMString">5. Device Enumeration</a>
+    <li><a href="#ref-for-idl-DOMString①">5.1. Events</a>
+    <li><a href="#ref-for-idl-DOMString②">6. Device Usage</a> <a href="#ref-for-idl-DOMString③">(2)</a> <a href="#ref-for-idl-DOMString④">(3)</a>
+    <li><a href="#ref-for-idl-DOMString⑤">6.2. Configurations</a>
+    <li><a href="#ref-for-idl-DOMString⑥">6.3. Interfaces</a>
+    <li><a href="#ref-for-idl-DOMString⑦">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-DataView">
+   <a href="https://heycam.github.io/webidl/#idl-DataView">https://heycam.github.io/webidl/#idl-DataView</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-DataView">6. Device Usage</a> <a href="#ref-for-idl-DataView①">(2)</a> <a href="#ref-for-idl-DataView②">(3)</a> <a href="#ref-for-idl-DataView③">(4)</a>
+    <li><a href="#ref-for-idl-DataView④">6.1. Transfers</a> <a href="#ref-for-idl-DataView⑤">(2)</a> <a href="#ref-for-idl-DataView⑥">(3)</a> <a href="#ref-for-idl-DataView⑦">(4)</a> <a href="#ref-for-idl-DataView⑧">(5)</a> <a href="#ref-for-idl-DataView⑨">(6)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-Exposed">
+   <a href="https://heycam.github.io/webidl/#Exposed">https://heycam.github.io/webidl/#Exposed</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-Exposed">5. Device Enumeration</a> <a href="#ref-for-Exposed①">(2)</a> <a href="#ref-for-Exposed②">(3)</a> <a href="#ref-for-Exposed③">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-frozen-array">
+   <a href="https://heycam.github.io/webidl/#idl-frozen-array">https://heycam.github.io/webidl/#idl-frozen-array</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-frozen-array">5. Device Enumeration</a> <a href="#ref-for-idl-frozen-array①">(2)</a>
+    <li><a href="#ref-for-idl-frozen-array②">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-invalidaccesserror">
+   <a href="https://heycam.github.io/webidl/#invalidaccesserror">https://heycam.github.io/webidl/#invalidaccesserror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-invalidaccesserror">6. Device Usage</a> <a href="#ref-for-invalidaccesserror①">(2)</a> <a href="#ref-for-invalidaccesserror②">(3)</a> <a href="#ref-for-invalidaccesserror③">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-invalidstateerror">
+   <a href="https://heycam.github.io/webidl/#invalidstateerror">https://heycam.github.io/webidl/#invalidstateerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-invalidstateerror">6. Device Usage</a> <a href="#ref-for-invalidstateerror①">(2)</a> <a href="#ref-for-invalidstateerror②">(3)</a> <a href="#ref-for-invalidstateerror③">(4)</a> <a href="#ref-for-invalidstateerror④">(5)</a> <a href="#ref-for-invalidstateerror⑤">(6)</a> <a href="#ref-for-invalidstateerror⑥">(7)</a> <a href="#ref-for-invalidstateerror⑦">(8)</a> <a href="#ref-for-invalidstateerror⑧">(9)</a> <a href="#ref-for-invalidstateerror⑨">(10)</a> <a href="#ref-for-invalidstateerror①⓪">(11)</a> <a href="#ref-for-invalidstateerror①①">(12)</a>
+    <li><a href="#ref-for-invalidstateerror①②">6.1. Transfers</a> <a href="#ref-for-invalidstateerror①③">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-networkerror">
+   <a href="https://heycam.github.io/webidl/#networkerror">https://heycam.github.io/webidl/#networkerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-networkerror">6. Device Usage</a> <a href="#ref-for-networkerror①">(2)</a> <a href="#ref-for-networkerror②">(3)</a> <a href="#ref-for-networkerror③">(4)</a> <a href="#ref-for-networkerror④">(5)</a> <a href="#ref-for-networkerror⑤">(6)</a> <a href="#ref-for-networkerror⑥">(7)</a> <a href="#ref-for-networkerror⑦">(8)</a> <a href="#ref-for-networkerror⑧">(9)</a> <a href="#ref-for-networkerror⑨">(10)</a> <a href="#ref-for-networkerror①⓪">(11)</a> <a href="#ref-for-networkerror①①">(12)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-notfounderror">
+   <a href="https://heycam.github.io/webidl/#notfounderror">https://heycam.github.io/webidl/#notfounderror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-notfounderror">5. Device Enumeration</a>
+    <li><a href="#ref-for-notfounderror①">6. Device Usage</a> <a href="#ref-for-notfounderror②">(2)</a> <a href="#ref-for-notfounderror③">(3)</a> <a href="#ref-for-notfounderror④">(4)</a> <a href="#ref-for-notfounderror⑤">(5)</a> <a href="#ref-for-notfounderror⑥">(6)</a> <a href="#ref-for-notfounderror⑦">(7)</a> <a href="#ref-for-notfounderror⑧">(8)</a> <a href="#ref-for-notfounderror⑨">(9)</a> <a href="#ref-for-notfounderror①⓪">(10)</a> <a href="#ref-for-notfounderror①①">(11)</a> <a href="#ref-for-notfounderror①②">(12)</a> <a href="#ref-for-notfounderror①③">(13)</a> <a href="#ref-for-notfounderror①④">(14)</a> <a href="#ref-for-notfounderror①⑤">(15)</a> <a href="#ref-for-notfounderror①⑥">(16)</a> <a href="#ref-for-notfounderror①⑦">(17)</a> <a href="#ref-for-notfounderror①⑧">(18)</a> <a href="#ref-for-notfounderror①⑨">(19)</a> <a href="#ref-for-notfounderror②⓪">(20)</a> <a href="#ref-for-notfounderror②①">(21)</a> <a href="#ref-for-notfounderror②②">(22)</a>
+    <li><a href="#ref-for-notfounderror②③">6.1. Transfers</a> <a href="#ref-for-notfounderror②④">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-SameObject">
+   <a href="https://heycam.github.io/webidl/#SameObject">https://heycam.github.io/webidl/#SameObject</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-SameObject">5. Device Enumeration</a> <a href="#ref-for-SameObject①">(2)</a>
+    <li><a href="#ref-for-SameObject②">5.1. Events</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-SecureContext">
+   <a href="https://heycam.github.io/webidl/#SecureContext">https://heycam.github.io/webidl/#SecureContext</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-SecureContext">5. Device Enumeration</a> <a href="#ref-for-SecureContext①">(2)</a> <a href="#ref-for-SecureContext②">(3)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-securityerror">
+   <a href="https://heycam.github.io/webidl/#securityerror">https://heycam.github.io/webidl/#securityerror</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-securityerror">5. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-boolean">
+   <a href="https://heycam.github.io/webidl/#idl-boolean">https://heycam.github.io/webidl/#idl-boolean</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-boolean">6. Device Usage</a>
+    <li><a href="#ref-for-idl-boolean①">6.3. Interfaces</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-octet">
+   <a href="https://heycam.github.io/webidl/#idl-octet">https://heycam.github.io/webidl/#idl-octet</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-octet">5. Device Enumeration</a> <a href="#ref-for-idl-octet①">(2)</a> <a href="#ref-for-idl-octet②">(3)</a>
+    <li><a href="#ref-for-idl-octet③">6. Device Usage</a> <a href="#ref-for-idl-octet④">(2)</a> <a href="#ref-for-idl-octet⑤">(3)</a> <a href="#ref-for-idl-octet⑥">(4)</a> <a href="#ref-for-idl-octet⑦">(5)</a> <a href="#ref-for-idl-octet⑧">(6)</a> <a href="#ref-for-idl-octet⑨">(7)</a> <a href="#ref-for-idl-octet①⓪">(8)</a> <a href="#ref-for-idl-octet①①">(9)</a> <a href="#ref-for-idl-octet①②">(10)</a> <a href="#ref-for-idl-octet①③">(11)</a> <a href="#ref-for-idl-octet①④">(12)</a> <a href="#ref-for-idl-octet①⑤">(13)</a> <a href="#ref-for-idl-octet①⑥">(14)</a> <a href="#ref-for-idl-octet①⑦">(15)</a> <a href="#ref-for-idl-octet①⑧">(16)</a> <a href="#ref-for-idl-octet①⑨">(17)</a> <a href="#ref-for-idl-octet②⓪">(18)</a> <a href="#ref-for-idl-octet②①">(19)</a>
+    <li><a href="#ref-for-idl-octet②②">6.1. Transfers</a>
+    <li><a href="#ref-for-idl-octet②③">6.2. Configurations</a> <a href="#ref-for-idl-octet②④">(2)</a>
+    <li><a href="#ref-for-idl-octet②⑤">6.3. Interfaces</a> <a href="#ref-for-idl-octet②⑥">(2)</a> <a href="#ref-for-idl-octet②⑦">(3)</a> <a href="#ref-for-idl-octet②⑧">(4)</a> <a href="#ref-for-idl-octet②⑨">(5)</a> <a href="#ref-for-idl-octet③⓪">(6)</a> <a href="#ref-for-idl-octet③①">(7)</a>
+    <li><a href="#ref-for-idl-octet③②">6.4. Endpoints</a> <a href="#ref-for-idl-octet③③">(2)</a>
+    <li><a href="#ref-for-idl-octet③④">7.2. Permission API</a> <a href="#ref-for-idl-octet③⑤">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
+   <a href="https://heycam.github.io/webidl/#idl-unsigned-long">https://heycam.github.io/webidl/#idl-unsigned-long</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-unsigned-long">6. Device Usage</a> <a href="#ref-for-idl-unsigned-long①">(2)</a> <a href="#ref-for-idl-unsigned-long②">(3)</a>
+    <li><a href="#ref-for-idl-unsigned-long③">6.1. Transfers</a> <a href="#ref-for-idl-unsigned-long④">(2)</a> <a href="#ref-for-idl-unsigned-long⑤">(3)</a> <a href="#ref-for-idl-unsigned-long⑥">(4)</a>
+    <li><a href="#ref-for-idl-unsigned-long⑦">6.4. Endpoints</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-unsigned-short">
+   <a href="https://heycam.github.io/webidl/#idl-unsigned-short">https://heycam.github.io/webidl/#idl-unsigned-short</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-unsigned-short">5. Device Enumeration</a> <a href="#ref-for-idl-unsigned-short①">(2)</a>
+    <li><a href="#ref-for-idl-unsigned-short②">6. Device Usage</a> <a href="#ref-for-idl-unsigned-short③">(2)</a> <a href="#ref-for-idl-unsigned-short④">(3)</a>
+    <li><a href="#ref-for-idl-unsigned-short⑤">6.1. Transfers</a> <a href="#ref-for-idl-unsigned-short⑥">(2)</a>
+   </ul>
+  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><a href="https://dom.spec.whatwg.org/#event">Event</a>
-     <li><a href="https://dom.spec.whatwg.org/#dictdef-eventinit">EventInit</a>
-     <li><a href="https://dom.spec.whatwg.org/#eventtarget">EventTarget</a>
+     <li><span class="dfn-paneled" id="term-for-event" style="color:initial">Event</span>
+     <li><span class="dfn-paneled" id="term-for-dictdef-eventinit" style="color:initial">EventInit</span>
+     <li><span class="dfn-paneled" id="term-for-eventtarget" style="color:initial">EventTarget</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMAScript]</a> defines the following terms:
     <ul>
-     <li><a href="https://tc39.github.io/ecma262/#sec-array-objects">Array</a>
-     <li><a href="https://tc39.github.io/ecma262/#sec-promise-objects">Promise</a>
-     <li><a href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">TypeError</a>
+     <li><span class="dfn-paneled" id="term-for-sec-array-objects" style="color:initial">Array</span>
+     <li><span class="dfn-paneled" id="term-for-sec-promise-objects" style="color:initial">Promise</span>
+     <li><span class="dfn-paneled" id="term-for-sec-native-error-types-used-in-this-standard-typeerror" style="color:initial">TypeError</span>
     </ul>
    <li>
     <a data-link-type="biblio">[feature policy]</a> defines the following terms:
     <ul>
-     <li><a href="https://wicg.github.io/feature-policy/#default-allowlist">default allowlist</a>
-     <li><a href="https://wicg.github.io/feature-policy/#feature">feature</a>
-     <li><a href="https://wicg.github.io/feature-policy/#feature-name">feature name</a>
+     <li><span class="dfn-paneled" id="term-for-default-allowlist" style="color:initial">default allowlist</span>
+     <li><span class="dfn-paneled" id="term-for-feature" style="color:initial">feature</span>
+     <li><span class="dfn-paneled" id="term-for-feature-name" style="color:initial">feature name</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">EventHandler</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/system-state.html#navigator">Navigator</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/workers.html#workernavigator">WorkerNavigator</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">in parallel</a>
-     <li><a href="https://html.spec.whatwg.org/multipage/interaction.html#triggered-by-user-activation">triggered by user activation</a>
+     <li><span class="dfn-paneled" id="term-for-eventhandler" style="color:initial">EventHandler</span>
+     <li><span class="dfn-paneled" id="term-for-navigator" style="color:initial">Navigator</span>
+     <li><span class="dfn-paneled" id="term-for-workernavigator" style="color:initial">WorkerNavigator</span>
+     <li><span class="dfn-paneled" id="term-for-in-parallel" style="color:initial">in parallel</span>
+     <li><span class="dfn-paneled" id="term-for-triggered-by-user-activation" style="color:initial">triggered by user activation</span>
     </ul>
    <li>
     <a data-link-type="biblio">[permissions]</a> defines the following terms:
     <ul>
-     <li><a href="https://w3c.github.io/permissions/#dom-permissionstate-prompt">"prompt"</a>
-     <li><a href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor">PermissionDescriptor</a>
-     <li><a href="https://w3c.github.io/permissions/#permissionstatus">PermissionStatus</a>
-     <li><a href="https://w3c.github.io/permissions/#extra-permission-data-type">extra permission data type</a>
-     <li><a href="https://w3c.github.io/permissions/#permission-descriptor-type">permission descriptor type</a>
-     <li><a href="https://w3c.github.io/permissions/#permission-query-algorithm">permission query algorithm</a>
-     <li><a href="https://w3c.github.io/permissions/#permission-result-type">permission result type</a>
-     <li><a href="https://w3c.github.io/permissions/#powerful-feature">powerful feature</a>
-     <li><a href="https://w3c.github.io/permissions/#request-permission-to-use">request permission to use</a>
-     <li><a href="https://w3c.github.io/permissions/#dom-permissionstatus-state">state</a>
+     <li><span class="dfn-paneled" id="term-for-dom-permissionstate-prompt" style="color:initial">"prompt"</span>
+     <li><span class="dfn-paneled" id="term-for-dictdef-permissiondescriptor" style="color:initial">PermissionDescriptor</span>
+     <li><span class="dfn-paneled" id="term-for-permissionstatus" style="color:initial">PermissionStatus</span>
+     <li><span class="dfn-paneled" id="term-for-extra-permission-data-type" style="color:initial">extra permission data type</span>
+     <li><span class="dfn-paneled" id="term-for-permission-descriptor-type" style="color:initial">permission descriptor type</span>
+     <li><span class="dfn-paneled" id="term-for-permission-query-algorithm" style="color:initial">permission query algorithm</span>
+     <li><span class="dfn-paneled" id="term-for-permission-result-type" style="color:initial">permission result type</span>
+     <li><span class="dfn-paneled" id="term-for-powerful-feature" style="color:initial">powerful feature</span>
+     <li><span class="dfn-paneled" id="term-for-request-permission-to-use" style="color:initial">request permission to use</span>
+     <li><span class="dfn-paneled" id="term-for-dom-permissionstatus-state" style="color:initial">state</span>
     </ul>
    <li>
     <a data-link-type="biblio">[permissions-request-1]</a> defines the following terms:
     <ul>
-     <li><a href="https://wicg.github.io/permissions-request/#permission-request-algorithm">permission request algorithm</a>
+     <li><span class="dfn-paneled" id="term-for-permission-request-algorithm" style="color:initial">permission request algorithm</span>
     </ul>
    <li>
     <a data-link-type="biblio">[promises-guide]</a> defines the following terms:
     <ul>
-     <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">reject</a>
-     <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">resolve</a>
-     <li><a href="https://www.w3.org/2001/tag/doc/promises-guide/#transforming-by">transforming</a>
+     <li><span class="dfn-paneled" id="term-for-reject-promise" style="color:initial">reject</span>
+     <li><span class="dfn-paneled" id="term-for-resolve-promise" style="color:initial">resolve</span>
+     <li><span class="dfn-paneled" id="term-for-transforming-by" style="color:initial">transforming</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><a href="https://heycam.github.io/webidl/#aborterror">AbortError</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-ArrayBuffer">ArrayBuffer</a>
-     <li><a href="https://heycam.github.io/webidl/#BufferSource">BufferSource</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-DOMString">DOMString</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-DataView">DataView</a>
-     <li><a href="https://heycam.github.io/webidl/#Exposed">Exposed</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-frozen-array">FrozenArray</a>
-     <li><a href="https://heycam.github.io/webidl/#invalidaccesserror">InvalidAccessError</a>
-     <li><a href="https://heycam.github.io/webidl/#invalidstateerror">InvalidStateError</a>
-     <li><a href="https://heycam.github.io/webidl/#networkerror">NetworkError</a>
-     <li><a href="https://heycam.github.io/webidl/#notfounderror">NotFoundError</a>
-     <li><a href="https://heycam.github.io/webidl/#SameObject">SameObject</a>
-     <li><a href="https://heycam.github.io/webidl/#SecureContext">SecureContext</a>
-     <li><a href="https://heycam.github.io/webidl/#securityerror">SecurityError</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-boolean">boolean</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-octet">octet</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-unsigned-long">unsigned long</a>
-     <li><a href="https://heycam.github.io/webidl/#idl-unsigned-short">unsigned short</a>
+     <li><span class="dfn-paneled" id="term-for-aborterror" style="color:initial">AbortError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-ArrayBuffer" style="color:initial">ArrayBuffer</span>
+     <li><span class="dfn-paneled" id="term-for-BufferSource" style="color:initial">BufferSource</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DataView" style="color:initial">DataView</span>
+     <li><span class="dfn-paneled" id="term-for-Exposed" style="color:initial">Exposed</span>
+     <li><span class="dfn-paneled" id="term-for-idl-frozen-array" style="color:initial">FrozenArray</span>
+     <li><span class="dfn-paneled" id="term-for-invalidaccesserror" style="color:initial">InvalidAccessError</span>
+     <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">InvalidStateError</span>
+     <li><span class="dfn-paneled" id="term-for-networkerror" style="color:initial">NetworkError</span>
+     <li><span class="dfn-paneled" id="term-for-notfounderror" style="color:initial">NotFoundError</span>
+     <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
+     <li><span class="dfn-paneled" id="term-for-SecureContext" style="color:initial">SecureContext</span>
+     <li><span class="dfn-paneled" id="term-for-securityerror" style="color:initial">SecurityError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-boolean" style="color:initial">boolean</span>
+     <li><span class="dfn-paneled" id="term-for-idl-octet" style="color:initial">octet</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long" style="color:initial">unsigned long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short" style="color:initial">unsigned short</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -4660,57 +4968,57 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   </aside>
 <script>/* script-dfn-panel */
 
-        document.body.addEventListener("click", function(e) {
-            var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
-            // Find the dfn element or panel, if any, that was clicked on.
-            var el = e.target;
-            var target;
-            var hitALink = false;
-            while(el.parentElement) {
-                if(el.tagName == "A") {
-                    // Clicking on a link in a <dfn> shouldn't summon the panel
-                    hitALink = true;
-                }
-                if(el.classList.contains("dfn-paneled")) {
-                    target = "dfn";
-                    break;
-                }
-                if(el.classList.contains("dfn-panel")) {
-                    target = "dfn-panel";
-                    break;
-                }
-                el = el.parentElement;
-            }
-            if(target != "dfn-panel") {
-                // Turn off any currently "on" or "activated" panels.
-                queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
-                    el.classList.remove("on");
-                    el.classList.remove("activated");
-                });
-            }
-            if(target == "dfn" && !hitALink) {
-                // open the panel
-                var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
-                if(dfnPanel) {
-                    dfnPanel.classList.add("on");
-                    var rect = el.getBoundingClientRect();
-                    dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
-                    dfnPanel.style.top = window.scrollY + rect.top + "px";
-                    var panelRect = dfnPanel.getBoundingClientRect();
-                    var panelWidth = panelRect.right - panelRect.left;
-                    if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
-                        // Reposition, because the panel is overflowing
-                        dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
-                    }
-                } else {
-                    console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
-                }
-            } else if(target == "dfn-panel") {
-                // Switch it to "activated" state, which pins it.
-                el.classList.add("activated");
-                el.style.left = null;
-                el.style.top = null;
-            }
-
+document.body.addEventListener("click", function(e) {
+    var queryAll = function(sel) { return [].slice.call(document.querySelectorAll(sel)); }
+    // Find the dfn element or panel, if any, that was clicked on.
+    var el = e.target;
+    var target;
+    var hitALink = false;
+    while(el.parentElement) {
+        if(el.tagName == "A") {
+            // Clicking on a link in a <dfn> shouldn't summon the panel
+            hitALink = true;
+        }
+        if(el.classList.contains("dfn-paneled")) {
+            target = "dfn";
+            break;
+        }
+        if(el.classList.contains("dfn-panel")) {
+            target = "dfn-panel";
+            break;
+        }
+        el = el.parentElement;
+    }
+    if(target != "dfn-panel") {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(function(el){
+            el.classList.remove("on");
+            el.classList.remove("activated");
         });
-        </script>
+    }
+    if(target == "dfn" && !hitALink) {
+        // open the panel
+        var dfnPanel = document.querySelector(".dfn-panel[data-for='" + el.id + "']");
+        if(dfnPanel) {
+            dfnPanel.classList.add("on");
+            var rect = el.getBoundingClientRect();
+            dfnPanel.style.left = window.scrollX + rect.right + 5 + "px";
+            dfnPanel.style.top = window.scrollY + rect.top + "px";
+            var panelRect = dfnPanel.getBoundingClientRect();
+            var panelWidth = panelRect.right - panelRect.left;
+            if(panelRect.right > document.body.scrollWidth && (rect.left - (panelWidth + 5)) > 0) {
+                // Reposition, because the panel is overflowing
+                dfnPanel.style.left = window.scrollX + rect.left - (panelWidth + 5) + "px";
+            }
+        } else {
+            console.log("Couldn't find .dfn-panel[data-for='" + el.id + "']");
+        }
+    } else if(target == "dfn-panel") {
+        // Switch it to "activated" state, which pins it.
+        el.classList.add("activated");
+        el.style.left = null;
+        el.style.top = null;
+    }
+
+});
+</script>
