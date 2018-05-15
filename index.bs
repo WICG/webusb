@@ -728,7 +728,7 @@ host it MUST perform the following steps for each script execution environment:
 # Device Usage # {#device-usage}
 
 <pre class="idl">
-[Exposed=(DedicatedWorker,SharedWorker,Window)]
+  [Exposed=(DedicatedWorker,SharedWorker,Window)]
   interface USBDevice {
     readonly attribute octet usbVersionMajor;
     readonly attribute octet usbVersionMinor;
