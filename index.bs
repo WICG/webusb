@@ -1025,14 +1025,15 @@ parallel:
      the first |bytesTransferred| bytes of |buffer| and set
      <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
      constructed over it.
-  1. If |device| responded by stalling the default control pipe set
+  1. If |device| responded by stalling the
+     <a>default control pipe</a> set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-  1. If |device| responded with more than |length| bytes of data set
+  2. If |device| responded with more than |length| bytes of data set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}} and
      otherwise set it to {{"ok"}}.
-  1. If the transfer fails for any other reason <a>reject</a> |promise| with a
+  3. If the transfer fails for any other reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
-  1. <a>Resolve</a> |promise| with |result|.
+  4. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/controlTransferOut(setup, data)}} method, when invoked, must
 return a new {{Promise}} |promise| and run the following steps <a>in
@@ -1056,7 +1057,8 @@ parallel</a>:
      <code>|data|.length</code>.  Transmit |data| in the <a>data stage</a> of
      the transfer.
   6. Let |result| be a new {{USBOutTransferResult}}.
-  7. If the device responds by stalling the default control pipe set
+  7. If the device responds by stalling the
+     <a>default control pipe</a> set
      <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
   8. If the device acknowledges the transfer set
      <code>|result|.{{USBOutTransferResult/status}}</code> to {{"ok"}} and
@@ -1104,8 +1106,8 @@ parallel</a>:
      steps.
   6. Let |buffer| be a host buffer with space for |length| bytes.
   7. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
-     <a lt="interrupt transfer">interrupt</a> IN transfer on |endpoint| to
-     receive |length| bytes of data from the device into |buffer|.
+     <a lt="interrupt transfer">interrupt</a> <a>IN transfer</a> on |endpoint|
+     to receive |length| bytes of data from the device into |buffer|.
   8. Let |bytesTransferred| be the number of bytes written to |buffer|.
   9. Let |result| be a new {{USBInTransferResult}}.
   10. If data was received from |device| create a new {{ArrayBuffer}} containing
@@ -1139,8 +1141,8 @@ parallel:
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
   5. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
-     <a lt="interrupt transfer">interrupt</a> OUT transfer on |endpoint| to
-     transmit |data| to the device.
+     <a lt="interrupt transfer">interrupt</a> <a>OUT transfer</a> on |endpoint|
+     to transmit |data| to the device.
   6. Let |result| be a new {{USBOutTransferResult}}.
   7. Set <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to the
      amount of data successfully sent to the device.
@@ -1173,8 +1175,9 @@ steps <a>in parallel</a>:
   7. Let |result| be a new {{USBIsochronousInTransferResult}} and set
      <code>|result|.{{USBIsochronousInTransferResult/data}}</code> to a new
      {{DataView}} constructed over |buffer|.
-  8. Enqueue an isochronous IN transfer on |endpoint| that will write up to
-     |length| bytes of data from the device into |buffer|.
+  8. Enqueue an <a lt="isochronous transfers">isochronous IN transfer</a> on
+     |endpoint| that will write up to |length| bytes of data from the device
+     into |buffer|.
   9. For each packet |i| from <code>0</code> to <code>|packetLengths|.length -
      1</code>:
 
@@ -1217,8 +1220,9 @@ following steps <a>in parallel</a>:
      steps.
   5. Let |length| be the sum of the elements of |packetLengths|.
   6. Let |result| be a new {{USBIsochronousOutTransferResult}}.
-  7. Enqueue an isochronous OUT transfer on |endpoint| that will write |buffer|
-     to the device, divided into <code>|packetLength|.length</code> packets of
+  7. Enqueue an <a lt="isochronous transfers">isochronous OUT transfer</a> on
+     |endpoint| that will write |buffer| to the device, divided into
+     <code>|packetLength|.length</code> packets of
      <code>|packetLength|[i]</code> bytes (for packets |i| from <code>0</code>
      to <code>|packetLengths|.length - 1</code>).
   8. For each packet |i| from <code>0</code> to <code>|packetLengths|.length -
@@ -1353,7 +1357,7 @@ the <dfn>data stage</dfn> that data is either sent to or received from the
 device. In the <dfn>status stage</dfn> successful handling of the request is
 acknowledged or a failure is signaled.
 
-All USB devices MUST have a <dfn>default control pipe</dfn> which is
+All USB devices MUST have a <a>default control pipe</a> which is
 |endpointNumber| <code>0</code>.
 
 The {{USBControlTransferParameters/requestType}} attribute populates part of
@@ -1738,9 +1742,9 @@ multiple interfaces providing different functions is known as a
 
 Whether data is traveling from host to device or the other way around the
 transfer is always initiated by the host.
-<strong><em>OUT transfers</em></strong> carry data from host to
+<dfn>OUT transfers</dfn> carry data from host to
 device and may wait until the device acknowledges the data has been received.
-<strong><em>IN transfers</em></strong> carry data from device to
+<dfn>IN transfers</dfn> carry data from device to
 host and may have to wait until the device has some data to send. Transfers are
 executed against one of a device's endpoints and there are different kinds
 depending on what type of traffic is being sent.
@@ -1752,11 +1756,11 @@ depending on what type of traffic is being sent.
     bandwidth so that they can't be blocked by a large <a>bulk transfers</a>)
     but with limited packet sizes. These are used for signaling and for small
     packets like mouse movements and button presses.
-  * <strong><em>Isochronous transfers</em></strong> also reserve
+  * <dfn>Isochronous transfers</dfn> also reserve
     bandwidth but they don't guarantee delivery. They're used for streaming data
     like audio and video.
   * Every device also has a special
-    <strong><em>default endpoint</em></strong>. While regular
+    <dfn lt="default endpoint|default control pipe">default endpoint</dfn>. While regular
     endpoints only carry data in one direction or the other
     <a>control transfers</a> have a small header called the
     <a>SETUP packet</a> that is always sent to the device and contains request
