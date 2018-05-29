@@ -279,11 +279,11 @@ to this URL when the device is connected.
 
 ## WebUSB Device Requests ## {#device-requests}
 
-All control transfers defined by this specification are considered to
+All <a>control transfers</a> defined by this specification are considered to
 be vendor-specific requests. The <code>bVendorCode</code> value found
 in the <a>WebUSB Platform Capability Descriptor</a> provides the UA
 with the <code>bRequest</code> the device expects the host to use when
-issuing control transfers these requests. The request type is then
+issuing <a>control transfers</a> these requests. The request type is then
 specified in the <code>wIndex</code> field.
 
 <table>
@@ -794,7 +794,7 @@ and claim the data logging interface,
 </pre>
 
 For this particular application we care about reading from channels 1, 2 and 5
-so we issue a control transfer to activate these channels,
+so we issue a <a>control transfer</a> to activate these channels,
 
 <pre highlight="js">
   await device.<a idl for="USBDevice" data-lt="controlTransferOut()">controlTransferOut</a>({
@@ -927,10 +927,10 @@ parallel:
   5. Abort all transfers currently scheduled on endpoints other than the
      <a>default control pipe</a> and <a>reject</a> their associated promises
      with a {{AbortError}}.
-  6. Issue a <code>SET_CONFIGURATION</code> control transfer to the device to
-     set |configurationValue| as its <a>active configuration</a>.  If this step
-     fails <a>reject</a> |promise| with a {{NetworkError}} and abort these
-     steps.
+  6. Issue a <code>SET_CONFIGURATION</code> <a>control transfer</a> to the
+     device to set |configurationValue| as its <a>active configuration</a>.
+     If this step fails <a>reject</a> |promise| with a {{NetworkError}} and
+     abort these steps.
   7. Set <code>|device|.{{USBDevice/configuration}}</code> to |configuration|
      and <a>resolve</a> |promise|.
 
@@ -991,10 +991,10 @@ following steps <a>in parallel</a>:
   5. Abort all transfers currently scheduled on endpoints associated with the
      previously selected alternate setting of |interface| and <a>reject</a>
      their associated promises with a {{AbortError}}.
-  6. Issue a <code>SET_INTERFACE</code> control transfer to the device to set
-     |alternateSetting| as the current configuration of |interface|. If this
-     step fails <a>reject</a> |promise| with a {{NetworkError}} and abort these
-     steps.
+  6. Issue a <code>SET_INTERFACE</code> <a>control transfer</a> to the device
+     to set |alternateSetting| as the current configuration of |interface|. If
+     this step fails <a>reject</a> |promise| with a {{NetworkError}} and abort
+     these steps.
   7. <a>Resolve</a> |promise|.
 
 The {{USBDevice/controlTransferIn(setup, length)}} method, when invoked, MUST
@@ -1014,7 +1014,7 @@ parallel:
      {{TypeError}} and abort these steps.
   1. If |length| is greather than 0, let |buffer| be a host buffer with space
      for |length| bytes.
-  1. Issue a control transfer to |device| with the setup packet parameters
+  1. Issue a <a>control transfer</a> to |device| with the setup packet parameters
      provided in |setup|, the data transfer direction in
      <code>bmRequestType</code> set to "device to host" and <code>wLength</code>
      set to |length|. If defined also provide |buffer| as the destination to
@@ -1050,10 +1050,11 @@ parallel</a>:
      <code>bMaxPacketSize0</code> field of the device's <a>device
      descriptor</a>, <a>reject</a> |promise| with a {{TypeError}} and abort
      these steps.
-  5. Issue a control transfer with the <a>setup packet</a> populated by |setup|
-     and the data transfer direction in <code>bmRequestType</code> set to "host
-     to device" and <code>wLength</code> set to <code>|data|.length</code>.
-     Transmit |data| in the <a>data stage</a> of the transfer.
+  5. Issue a <a>control transfer</a> with the <a>setup packet</a> populated by
+     |setup| and the data transfer direction in <code>bmRequestType</code> set
+     to "host to device" and <code>wLength</code> set to
+     <code>|data|.length</code>.  Transmit |data| in the <a>data stage</a> of
+     the transfer.
   6. Let |result| be a new {{USBOutTransferResult}}.
   7. If the device responds by stalling the default control pipe set
      <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
@@ -1079,8 +1080,8 @@ parallel</a>:
      <code>|interface|.{{USBInterface/claimed}}</code> is not <code>true</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  4. Issue a <code>ClearFeature(ENDPOINT_HALT)</code> control transfer to the
-     device to clear the halt condition on |endpoint|.
+  4. Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a>control transfer</a> to
+     the device to clear the halt condition on |endpoint|.
   5. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
      <a>resolve</a> |promise|.
 
@@ -1089,36 +1090,37 @@ return a new {{Promise}} |promise| and run the following steps <a>in
 parallel</a>:
 
   1. Let |device| be the target {{USBDevice}} object.
-  1. If |device| is no longer connected to the system, <a>reject</a> |promise|
+  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  1. Let |endpoint| be the IN endpoint in the <a>active configuration</a> with
+  3. Let |endpoint| be the IN endpoint in the <a>active configuration</a> with
      <code>bEndpointAddress</code> corresponding to |endpointNumber|. If there
      is no such endpoint <a>reject</a> |promise| with a {{NotFoundError}} and
      abort these steps.
-  1. If |endpoint| is not a bulk or interrupt endpoint <a>reject</a> |promise|
+  4. If |endpoint| is not a bulk or interrupt endpoint <a>reject</a> |promise|
      with an {{InvalidAccessError}} and abort these steps.
-  1. If <code>|device|.{{USBDevice/opened}}</code> or
+  5. If <code>|device|.{{USBDevice/opened}}</code> or
      <code>|interface|.{{USBInterface/claimed}}</code> is not <code>true</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  1. Let |buffer| be a host buffer with space for |length| bytes.
-  1. As appropriate for |endpoint| enqueue a bulk or interrupt IN transfer on
-     |endpoint| to receive |length| bytes of data from the device into |buffer|.
-  1. Let |bytesTransferred| be the number of bytes written to |buffer|.
-  1. Let |result| be a new {{USBInTransferResult}}.
-  1. If data was received from |device| create a new {{ArrayBuffer}} containing
+  6. Let |buffer| be a host buffer with space for |length| bytes.
+  7. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
+     <a lt="interrupt transfer">interrupt</a> IN transfer on |endpoint| to
+     receive |length| bytes of data from the device into |buffer|.
+  8. Let |bytesTransferred| be the number of bytes written to |buffer|.
+  9. Let |result| be a new {{USBInTransferResult}}.
+  10. If data was received from |device| create a new {{ArrayBuffer}} containing
      the first |bytesTransferred| bytes of |buffer| and set
      <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
      constructed over it.
-  1. If |device| responded with more than |length| bytes of data set
+  11. If |device| responded with more than |length| bytes of data set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}}.
-  1. If the transfer ended because |endpoint| is halted set
+  12. If the transfer ended because |endpoint| is halted set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-  1. If |device| acknowledged the complete transfer set
+  13. If |device| acknowledged the complete transfer set
      <code>|result|.{{USBInTransferResult/status}}</code> to {{"ok"}}.
-  1. If the transfer failed for any other reason <a>reject</a> |promise| with a
+  14. If the transfer failed for any other reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
-  1. <a>Resolve</a> |promise| with |result|.
+  15. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/transferOut(endpointNumber, data)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps in
@@ -1136,8 +1138,9 @@ parallel:
      <code>|interface|.{{USBInterface/claimed}}</code> is not <code>true</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  5. As appropriate for |endpoint| enqueue a bulk or interrupt OUT transfer on
-     |endpoint| to transmit |data| to the device.
+  5. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
+     <a lt="interrupt transfer">interrupt</a> OUT transfer on |endpoint| to
+     transmit |data| to the device.
   6. Let |result| be a new {{USBOutTransferResult}}.
   7. Set <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to the
      amount of data successfully sent to the device.
@@ -1341,12 +1344,14 @@ What configuration is the device in after it resets?
 </pre>
 
 A <dfn>control transfer</dfn> is a special class of USB traffic most commonly
-used for configuring a device. It consists of three stages: setup, data and
-status. In the <dfn>setup stage</dfn> a <dfn>setup packet</dfn> is transmitted
-to the device containing request parameters including the transfer direction
-and size of the data to follow. In the <dfn>data stage</dfn> that data is
-either sent to or received from the device. In the <dfn>status stage</dfn>
-successful handling of the request is acknowledged or a failure is signaled.
+used for configuring a device. It consists of three stages:
+<a lt="setup stage">setup</a>, <a lt="data stage">data</a> and
+<a lt="status stage">status</a>. In the <dfn>setup stage</dfn> a
+<dfn>setup packet</dfn> is transmitted to the device containing request
+parameters including the transfer direction and size of the data to follow. In
+the <dfn>data stage</dfn> that data is either sent to or received from the
+device. In the <dfn>status stage</dfn> successful handling of the request is
+acknowledged or a failure is signaled.
 
 All USB devices MUST have a <dfn>default control pipe</dfn> which is
 |endpointNumber| <code>0</code>.
@@ -1358,8 +1363,8 @@ specification or a vendor-specific protocol.
 
 The {{USBControlTransferParameters/recipient}} attribute populates part of the
 <code>bmRequestType</code> field of the <a>setup packet</a> to indicate whether
-the control transfer is addressed to the entire device, or a specific interface
-or endpoint.
+the <a>control transfer</a> is addressed to the entire device, or a specific
+interface or endpoint.
 
 The {{USBControlTransferParameters/request}} attribute populates the
 <code>bRequest</code> field of the <a>setup packet</a>. Valid requests are
@@ -1502,9 +1507,10 @@ the <a>interface descriptor</a>, if defined.
 
 The {{USBAlternateInterface/endpoints}} attribute SHALL contain a list of
 endpoints exposed by this interface. These endpoints SHALL by populated from
-the endpoint descriptors contained within this <a>interface descriptor</a> and
-the number of elements in this sequence SHALL match the value of the
-<code>bNumEndpoints</code> field of the <a>interface descriptor</a>.
+the <a>endpoint descriptors</a> contained within this
+<a>interface descriptor</a> and the number of elements in this sequence SHALL
+match the value of the <code>bNumEndpoints</code> field of the
+<a>interface descriptor</a>.
 
 A device's <dfn>active configuration</dfn> is the combination of the
 {{USBConfiguration}} selected by calling
@@ -1628,9 +1634,9 @@ defined as follows:
   </dd>
   <dt><a>permission query algorithm</a></dt>
   <dd>
-    To <dfn>query the "usb" permission</dfn> with a {{USBPermissionDescriptor}}
-    |desc|, a {{USBPermissionStorage}} |storage|, and a {{USBPermissionResult}}
-    |status|, the UA must:
+    To <strong><em>query the "usb" permission</em></strong> with a
+    {{USBPermissionDescriptor}} |desc|, a {{USBPermissionStorage}} |storage|,
+    and a {{USBPermissionResult}} |status|, the UA must:
 
       1. If <code>|desc|.{{USBPermissionDescriptor/filters}}</code> is set then,
          for each |filter| in
@@ -1678,8 +1684,8 @@ a device and describe its properties and function:
   * An <dfn>interface descriptor</dfn> describes the interface of a particular
     functional component of a device including its protocol and communication
     endpoints. Its fields are described in section 9.6.5 of [[!USB31]].
-  * An <dfn>interface association descriptor</dfn> creates an
-    association between multiple interfaces that are part of a single
+  * An <strong><em>interface association descriptor</em></strong>
+    creates an association between multiple interfaces that are part of a single
     functional unit of a device. Its fields are described in section
     9.6.4 of [[!USB31]].
   * An <dfn>endpoint descriptor</dfn> describes a channel through which
@@ -1726,30 +1732,33 @@ the device's <a>configuration descriptor</a> which is a description of the
 device's capabilities including the interfaces and endpoints it exposes. A class
 can be declared at the device level or for individual interfaces. A device with
 multiple interfaces providing different functions is known as a
-<dfn>composite device</dfn>.
+<strong><em>composite device</em></strong>.
 
 ## Transfers ## {#appendix-transfers}
 
 Whether data is traveling from host to device or the other way around the
-transfer is always initiated by the host. <dfn>OUT transfers</dfn> carry data
-from host to device and may wait until the device acknowledges the data has been
-received. <dfn>IN transfers</dfn> carry data from device to host and may have to
-wait until the device has some data to send. Transfers are executed against one
-of a device's endpoints and there are different kinds depending on what type of
-traffic is being sent.
+transfer is always initiated by the host.
+<strong><em>OUT transfers</em></strong> carry data from host to
+device and may wait until the device acknowledges the data has been received.
+<strong><em>IN transfers</em></strong> carry data from device to
+host and may have to wait until the device has some data to send. Transfers are
+executed against one of a device's endpoints and there are different kinds
+depending on what type of traffic is being sent.
 
   * <dfn>Bulk transfers</dfn> are good for sending lots of data with whatever
     bandwidth is available. This is what is used to read and write data to USB
     mass storage devices.
   * <dfn>Interrupt transfers</dfn> offer guaranteed latency (by reserving
-    bandwidth so that they can't be blocked by a large bulk transfers) but with
-    limited packet sizes. These are used for signaling and for small packets like
-    mouse movements and button presses.
-  * <dfn>Isochronous transfers</dfn> also reserve bandwidth but they don't
-    guarantee delivery. They're used for streaming data like audio and video.
-  * Every device also has a special <dfn>default endpoint</dfn>. While regular
+    bandwidth so that they can't be blocked by a large <a>bulk transfers</a>)
+    but with limited packet sizes. These are used for signaling and for small
+    packets like mouse movements and button presses.
+  * <strong><em>Isochronous transfers</em></strong> also reserve
+    bandwidth but they don't guarantee delivery. They're used for streaming data
+    like audio and video.
+  * Every device also has a special
+    <strong><em>default endpoint</em></strong>. While regular
     endpoints only carry data in one direction or the other
-    <dfn>control transfers</dfn> have a small header called the
+    <a>control transfers</a> have a small header called the
     <a>SETUP packet</a> that is always sent to the device and contains request
     parameters in addition to a larger data payload that can be either IN or OUT.
 
