@@ -948,7 +948,7 @@ return a new {{Promise}} and run the following steps <a>in parallel</a>:
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
   4. Perform the necessary platform-specific steps to request exclusive control
-     over |interface| in the current execution context. If this fails,
+     over |interface| for the current execution context. If this fails,
      <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
   5. Set <code>|interface|.{{USBInterface/claimed}}</code> to <code>true</code>
      and <a>resolve</a> |promise|.
