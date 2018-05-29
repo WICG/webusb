@@ -140,6 +140,13 @@ in [[powerful-features]] can access USB devices. This ensures both the
 authenticity of the code executing on behalf of the origin and that data read
 from the device may not be intercepted in transit.
 
+Lastly, since USB devices are unable to distinguish requests from multiple
+sources, operating systems onlly allow a USB interface to have a single owning
+user-space or kernel-space driver. The UA acts as a user-space driver, therefore
+allowing only a single execution context to claim a USB interface at a time. The
+{{USBDevice/claimInterface()}} function will fail if multiple execution contexts
+attempt to claim an interface.
+
 ## Attacking a Device ## {#attacking-a-device}
 
 Historically, unless they were created for high security applications, USB
