@@ -992,57 +992,92 @@ Possible extra rowspan handling
 	.toc > li li          { font-weight: normal; }
 	.toc > li li li       { font-size:   95%;    }
 	.toc > li li li li    { font-size:   90%;    }
+	.toc > li li li li .secno { font-size: 85%; }
 	.toc > li li li li li { font-size:   85%;    }
+	.toc > li li li li li .secno { font-size: 100%; }
 
-	.toc > li             { margin: 1.5rem 0;    }
-	.toc > li li          { margin: 0.3rem 0;    }
-	.toc > li li li       { margin-left: 2rem;   }
+	/* @supports not (display:grid) { */
+		.toc > li             { margin: 1.5rem 0;    }
+		.toc > li li          { margin: 0.3rem 0;    }
+		.toc > li li li       { margin-left: 2rem;   }
 
-	/* Section numbers in a column of their own */
-	.toc .secno {
-		float: left;
-		width: 4rem;
-		white-space: nowrap;
-	}
-	.toc > li li li li .secno {
-		font-size: 85%;
-	}
-	.toc > li li li li li .secno {
-		font-size: 100%;
-	}
+		/* Section numbers in a column of their own */
+		.toc .secno {
+			float: left;
+			width: 4rem;
+			white-space: nowrap;
+		}
 
-	:not(li) > .toc              { margin-left:  5rem; }
-	.toc .secno                  { margin-left: -5rem; }
-	.toc > li li li .secno       { margin-left: -7rem; }
-	.toc > li li li li .secno    { margin-left: -9rem; }
-	.toc > li li li li li .secno { margin-left: -11rem; }
+		.toc li {
+			clear: both;
+		}
 
-	/* Tighten up indentation in narrow ToCs */
-	@media (max-width: 30em) {
-		:not(li) > .toc              { margin-left:  4rem; }
-		.toc .secno                  { margin-left: -4rem; }
-		.toc > li li li              { margin-left:  1rem; }
-		.toc > li li li .secno       { margin-left: -5rem; }
-		.toc > li li li li .secno    { margin-left: -6rem; }
-		.toc > li li li li li .secno { margin-left: -7rem; }
-	}
-	@media screen and (min-width: 78em) {
-		body:not(.toc-inline) :not(li) > .toc              { margin-left:  4rem; }
-		body:not(.toc-inline) .toc .secno                  { margin-left: -4rem; }
-		body:not(.toc-inline) .toc > li li li              { margin-left:  1rem; }
-		body:not(.toc-inline) .toc > li li li .secno       { margin-left: -5rem; }
-		body:not(.toc-inline) .toc > li li li li .secno    { margin-left: -6rem; }
-		body:not(.toc-inline) .toc > li li li li li .secno { margin-left: -7rem; }
-	}
-	body.toc-sidebar #toc :not(li) > .toc              { margin-left:  4rem; }
-	body.toc-sidebar #toc .toc .secno                  { margin-left: -4rem; }
-	body.toc-sidebar #toc .toc > li li li              { margin-left:  1rem; }
-	body.toc-sidebar #toc .toc > li li li .secno       { margin-left: -5rem; }
-	body.toc-sidebar #toc .toc > li li li li .secno    { margin-left: -6rem; }
-	body.toc-sidebar #toc .toc > li li li li li .secno { margin-left: -7rem; }
+		:not(li) > .toc              { margin-left:  5rem; }
+		.toc .secno                  { margin-left: -5rem; }
+		.toc > li li li .secno       { margin-left: -7rem; }
+		.toc > li li li li .secno    { margin-left: -9rem; }
+		.toc > li li li li li .secno { margin-left: -11rem; }
 
-	.toc li {
-		clear: both;
+		/* Tighten up indentation in narrow ToCs */
+		@media (max-width: 30em) {
+			:not(li) > .toc              { margin-left:  4rem; }
+			.toc .secno                  { margin-left: -4rem; }
+			.toc > li li li              { margin-left:  1rem; }
+			.toc > li li li .secno       { margin-left: -5rem; }
+			.toc > li li li li .secno    { margin-left: -6rem; }
+			.toc > li li li li li .secno { margin-left: -7rem; }
+		}
+	/* } */
+
+	@supports (display:grid) {
+		/* Use #toc over .toc to override non-@supports rules. */
+		#toc {
+			display: grid;
+			align-content: start;
+			grid-template-columns: auto 1fr;
+			grid-column-gap: 1rem;
+			column-gap: 1rem;
+			grid-row-gap: .6rem;
+			row-gap: .6rem;
+		}
+		#toc h2 {
+			grid-column: 1 / -1;
+			margin-bottom: 0;
+		}
+		#toc ol,
+		#toc li,
+		#toc a {
+			display: contents;
+			/* Switch <a> to subgrid when supported */
+		}
+		#toc span {
+			margin: 0;
+		}
+		#toc > .toc > li > a > span {
+			/* The spans of the top-level list,
+			   comprising the first items of each top-level section. */
+			margin-top: 1.1rem;
+		}
+		#toc .secno {
+			grid-column: 1;
+			width: auto;
+		}
+		#toc .content {
+			grid-column: 2;
+			width: auto;
+			margin-right: 1rem;
+		}
+		#toc .content:hover {
+			background: rgba(75%, 75%, 75%, .25);
+			border-bottom: 3px solid #054572;
+			margin-bottom: -3px;
+		}
+		#toc li li li .content {
+			margin-left: 1rem;
+		}
+		#toc li li li li .content {
+			margin-left: 2rem;
+		}
 	}
 
 
@@ -1176,7 +1211,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 650c7f090a7031056e48b2cf26f91e72b5c14a32" name="generator">
+  <meta content="Bikeshed version 4d8614731744e66089f6d954cc61c46eb48a6687" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1441,7 +1476,7 @@ pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-13">13 May 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-05-30">30 May 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1643,6 +1678,11 @@ active.</p>
 in <a data-link-type="biblio" href="#biblio-powerful-features">[powerful-features]</a> can access USB devices. This ensures both the
 authenticity of the code executing on behalf of the origin and that data read
 from the device may not be intercepted in transit.</p>
+   <p>Lastly, since USB devices are unable to distinguish requests from multiple
+sources, operating systems only allow a USB interface to have a single owning
+user-space or kernel-space driver. The UA acts as a user-space driver, therefore
+allowing only a single execution context to claim a USB interface at a time. The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface">claimInterface()</a></code> function will fail if multiple execution contexts
+attempt to claim an interface.</p>
    <h3 class="heading settled" data-level="3.2" id="attacking-a-device"><span class="secno">3.2. </span><span class="content">Attacking a Device</span><a class="self-link" href="#attacking-a-device"></a></h3>
    <p>Historically, unless they were created for high security applications, USB
 devices have been designed to trust the host they are connected to and so the
@@ -1749,11 +1789,11 @@ Store</a>:</p>
 visit in order to control their device. The UA MAY suggest the user navigate
 to this URL when the device is connected.</p>
    <h3 class="heading settled" data-level="4.2" id="device-requests"><span class="secno">4.2. </span><span class="content">WebUSB Device Requests</span><a class="self-link" href="#device-requests"></a></h3>
-   <p>All control transfers defined by this specification are considered to
+   <p>All <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer">control transfers</a> defined by this specification are considered to
 be vendor-specific requests. The <code>bVendorCode</code> value found
 in the <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a> provides the UA
 with the <code>bRequest</code> the device expects the host to use when
-issuing control transfers these requests. The request type is then
+issuing <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer①">control transfers</a> these requests. The request type is then
 specified in the <code>wIndex</code> field.</p>
    <table>
     <caption>WebUSB Request Codes</caption>
@@ -2123,7 +2163,10 @@ the UA MUST run the following steps:</p>
     <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice④">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEventInit" data-dfn-type="dict-member" data-export="" data-type="USBDevice " id="dom-usbconnectioneventinit-device"><code>device</code><a class="self-link" href="#dom-usbconnectioneventinit-device"></a></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBConnectionEvent" data-dfn-type="constructor" data-export="" data-lt="USBConnectionEvent(type, eventInitDict)" id="dom-usbconnectionevent-usbconnectionevent"><code>Constructor</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent"></a></dfn>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><span class="kt">DOMString</span></a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent/USBConnectionEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code>type</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"></a></dfn>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit" id="ref-for-dictdef-usbconnectioneventinit">USBConnectionEventInit</a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent/USBConnectionEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code>eventInitDict</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"></a></dfn>)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent" data-dfn-type="constructor" data-export="" data-lt="USBConnectionEvent(type, eventInitDict)" id="dom-usbconnectionevent-usbconnectionevent"><code>Constructor</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent"></a></dfn>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><span class="kt">DOMString</span></a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent/USBConnectionEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code>type</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"></a></dfn>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit" id="ref-for-dictdef-usbconnectioneventinit">USBConnectionEventInit</a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent/USBConnectionEvent(type, eventInitDict)" data-dfn-type="argument" data-export="" id="dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code>eventInitDict</code><a class="self-link" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbconnectionevent"><code>USBConnectionEvent</code></dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event">Event</a> {
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject②">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConnectionEvent" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBDevice" id="dom-usbconnectionevent-device"><code>device</code><a class="self-link" href="#dom-usbconnectionevent-device"></a></dfn>;
 };
@@ -2166,7 +2209,8 @@ host it MUST perform the following steps for each script execution environment:<
      <p>Fire an event named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="disconnect">disconnect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code>, using <var>event</var> as the event object.</p>
    </ol>
    <h2 class="heading settled" data-level="6" id="device-usage"><span class="secno">6. </span><span class="content">Device Usage</span><a class="self-link" href="#device-usage"></a></h2>
-<pre class="idl highlight def"><span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbdevice"><code>USBDevice</code></dfn> {
+<pre class="idl highlight def">[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)]
+<span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbdevice"><code>USBDevice</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbdevice-usbversionmajor"><code>usbVersionMajor</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet④"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbdevice-usbversionminor"><code>usbVersionMinor</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet⑤"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbdevice-usbversionsubminor"><code>usbVersionSubminor</code></dfn>;
@@ -2216,10 +2260,10 @@ and claim the data logging interface,</p>
 <pre class="highlight">await device<span class="p">.</span><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open">open</a><span class="p">();</span>
 <span class="k">if</span> <span class="p">(</span>device<span class="p">.</span><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration">configuration</a> <span class="o">===</span> <span class="kc">null</span><span class="p">)</span>
   await device<span class="p">.</span><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration">selectConfiguration</a><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
-await device<span class="p">.</span><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface">claimInterface</a><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+await device<span class="p">.</span><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface①">claimInterface</a><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
 </pre>
     <p>For this particular application we care about reading from channels 1, 2 and 5
-so we issue a control transfer to activate these channels,</p>
+so we issue a <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer②">control transfer</a> to activate these channels,</p>
 <pre class="highlight">await device<span class="p">.</span><a data-link-type="idl" href="#dom-usbdevice-controltransferout" id="ref-for-dom-usbdevice-controltransferout">controlTransferOut</a><span class="p">({</span>
     <a data-link-type="idl" href="#dom-usbcontroltransferparameters-requesttype" id="ref-for-dom-usbcontroltransferparameters-requesttype">requestType</a><span class="o">:</span> <span class="s1">'</span><a data-link-type="idl" href="#dom-usbrequesttype-vendor" id="ref-for-dom-usbrequesttype-vendor"><span class="s1">vendor</span></a><span class="s1">'</span><span class="p">,</span>
     <a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient">recipient</a><span class="o">:</span> <span class="s1">'</span><a data-link-type="idl" href="#dom-usbrecipient-interface" id="ref-for-dom-usbrecipient-interface"><span class="s1">interface</span></a><span class="s1">'</span><span class="p">,</span>
@@ -2323,17 +2367,17 @@ parallel:</p>
      <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened⑤">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑧">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and
  abort these steps.</p>
     <li data-md="">
-     <p>Abort all transfers currently scheduled on endpoints other than the <a data-link-type="dfn" href="#default-control-pipe" id="ref-for-default-control-pipe">default control pipe</a> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑨">reject</a> their associated promises
+     <p>Abort all transfers currently scheduled on endpoints other than the <a data-link-type="dfn" href="#default-endpoint" id="ref-for-default-endpoint">default control pipe</a> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑨">reject</a> their associated promises
  with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror" id="ref-for-aborterror①">AbortError</a></code>.</p>
     <li data-md="">
-     <p>Issue a <code>SET_CONFIGURATION</code> control transfer to the device to
- set <var>configurationValue</var> as its <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration">active configuration</a>.  If this step
- fails <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①⓪">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①">NetworkError</a></code> and abort these
- steps.</p>
+     <p>Issue a <code>SET_CONFIGURATION</code> <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer③">control transfer</a> to the
+ device to set <var>configurationValue</var> as its <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration">active configuration</a>.
+ If this step fails <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①⓪">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①">NetworkError</a></code> and
+ abort these steps.</p>
     <li data-md="">
      <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration②">configuration</a></code></code> to <var>configuration</var> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise⑦">resolve</a> <var>promise</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface①">claimInterface(interfaceNumber)</a></code> method, when invoked, MUST
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface②">claimInterface(interfaceNumber)</a></code> method, when invoked, MUST
 return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑥">Promise</a></code> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">in parallel</a>:</p>
    <ol>
     <li data-md="">
@@ -2347,7 +2391,7 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
  steps.</p>
     <li data-md="">
      <p>Perform the necessary platform-specific steps to request exclusive control
- over <var>interface</var>. If this fails, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror②">NetworkError</a></code> and abort these steps.</p>
+ over <var>interface</var> for the current execution context. If this fails, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror②">NetworkError</a></code> and abort these steps.</p>
     <li data-md="">
      <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①">claimed</a></code></code> to <code>true</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise⑧">resolve</a> <var>promise</var>.</p>
    </ol>
@@ -2390,9 +2434,10 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
      <p>Abort all transfers currently scheduled on endpoints associated with the
  previously selected alternate setting of <var>interface</var> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②①">reject</a> their associated promises with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror" id="ref-for-aborterror②">AbortError</a></code>.</p>
     <li data-md="">
-     <p>Issue a <code>SET_INTERFACE</code> control transfer to the device to set <var>alternateSetting</var> as the current configuration of <var>interface</var>. If this
- step fails <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror③">NetworkError</a></code> and abort these
- steps.</p>
+     <p>Issue a <code>SET_INTERFACE</code> <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer④">control transfer</a> to the device
+ to set <var>alternateSetting</var> as the current configuration of <var>interface</var>. If
+ this step fails <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror③">NetworkError</a></code> and abort
+ these steps.</p>
     <li data-md="">
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⓪">Resolve</a> <var>promise</var>.</p>
    </ol>
@@ -2416,7 +2461,7 @@ parallel:</p>
      <p>If <var>length</var> is greather than 0, let <var>buffer</var> be a host buffer with space
  for <var>length</var> bytes.</p>
     <li data-md="">
-     <p>Issue a control transfer to <var>device</var> with the setup packet parameters
+     <p>Issue a <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑤">control transfer</a> to <var>device</var> with the setup packet parameters
  provided in <var>setup</var>, the data transfer direction in <code>bmRequestType</code> set to "device to host" and <code>wLength</code> set to <var>length</var>. If defined also provide <var>buffer</var> as the destination to
  write data received in response to this transfer.</p>
     <li data-md="">
@@ -2427,7 +2472,7 @@ parallel:</p>
      <p>If data was received from <var>device</var> create a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-ArrayBuffer" id="ref-for-idl-ArrayBuffer">ArrayBuffer</a></code> containing
  the first <var>bytesTransferred</var> bytes of <var>buffer</var> and set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbintransferresult-data" id="ref-for-dom-usbintransferresult-data①">data</a></code></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView">DataView</a></code> constructed over it.</p>
     <li data-md="">
-     <p>If <var>device</var> responded by stalling the default control pipe set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbintransferresult-status" id="ref-for-dom-usbintransferresult-status①">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-stall" id="ref-for-dom-usbtransferstatus-stall">"stall"</a></code>.</p>
+     <p>If <var>device</var> responded by stalling the <a data-link-type="dfn" href="#default-endpoint" id="ref-for-default-endpoint①">default control pipe</a> set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbintransferresult-status" id="ref-for-dom-usbintransferresult-status①">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-stall" id="ref-for-dom-usbtransferstatus-stall">"stall"</a></code>.</p>
     <li data-md="">
      <p>If <var>device</var> responded with more than <var>length</var> bytes of data set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbintransferresult-status" id="ref-for-dom-usbintransferresult-status②">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-babble" id="ref-for-dom-usbtransferstatus-babble">"babble"</a></code> and
  otherwise set it to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok">"ok"</a></code>.</p>
@@ -2454,13 +2499,13 @@ parallel</a>:</p>
  descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror②">TypeError</a></code> and abort
  these steps.</p>
     <li data-md="">
-     <p>Issue a control transfer with the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet">setup packet</a> populated by <var>setup</var> and the data transfer direction in <code>bmRequestType</code> set to "host
- to device" and <code>wLength</code> set to <code><var>data</var>.length</code>.
- Transmit <var>data</var> in the <a data-link-type="dfn" href="#data-stage" id="ref-for-data-stage">data stage</a> of the transfer.</p>
+     <p>Issue a <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑥">control transfer</a> with the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet">setup packet</a> populated by <var>setup</var> and the data transfer direction in <code>bmRequestType</code> set
+ to "host to device" and <code>wLength</code> set to <code><var>data</var>.length</code>.  Transmit <var>data</var> in the <a data-link-type="dfn" href="#data-stage" id="ref-for-data-stage">data stage</a> of
+ the transfer.</p>
     <li data-md="">
      <p>Let <var>result</var> be a new <code class="idl"><a data-link-type="idl" href="#usbouttransferresult" id="ref-for-usbouttransferresult②">USBOutTransferResult</a></code>.</p>
     <li data-md="">
-     <p>If the device responds by stalling the default control pipe set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbouttransferresult-status" id="ref-for-dom-usbouttransferresult-status">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-stall" id="ref-for-dom-usbtransferstatus-stall①">"stall"</a></code>.</p>
+     <p>If the device responds by stalling the <a data-link-type="dfn" href="#default-endpoint" id="ref-for-default-endpoint②">default control pipe</a> set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbouttransferresult-status" id="ref-for-dom-usbouttransferresult-status">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-stall" id="ref-for-dom-usbtransferstatus-stall①">"stall"</a></code>.</p>
     <li data-md="">
      <p>If the device acknowledges the transfer set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbouttransferresult-status" id="ref-for-dom-usbouttransferresult-status①">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok①">"ok"</a></code> and <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbouttransferresult-byteswritten" id="ref-for-dom-usbouttransferresult-byteswritten">bytesWritten</a></code></code> to <code><var>data</var>.length</code>.</p>
     <li data-md="">
@@ -2481,8 +2526,8 @@ parallel</a>:</p>
      <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①①">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑤">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑥">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
-     <p>Issue a <code>ClearFeature(ENDPOINT_HALT)</code> control transfer to the
- device to clear the halt condition on <var>endpoint</var>.</p>
+     <p>Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑦">control transfer</a> to
+ the device to clear the halt condition on <var>endpoint</var>.</p>
     <li data-md="">
      <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑥">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①③">resolve</a> <var>promise</var>.</p>
    </ol>
@@ -2506,7 +2551,7 @@ parallel</a>:</p>
     <li data-md="">
      <p>Let <var>buffer</var> be a host buffer with space for <var>length</var> bytes.</p>
     <li data-md="">
-     <p>As appropriate for <var>endpoint</var> enqueue a bulk or interrupt IN transfer on <var>endpoint</var> to receive <var>length</var> bytes of data from the device into <var>buffer</var>.</p>
+     <p>As appropriate for <var>endpoint</var> enqueue a <a data-link-type="dfn" href="#bulk-transfers" id="ref-for-bulk-transfers">bulk</a> or <a data-link-type="dfn" href="#interrupt-transfers" id="ref-for-interrupt-transfers">interrupt</a> <a data-link-type="dfn" href="#in-transfers" id="ref-for-in-transfers">IN transfer</a> on <var>endpoint</var> to receive <var>length</var> bytes of data from the device into <var>buffer</var>.</p>
     <li data-md="">
      <p>Let <var>bytesTransferred</var> be the number of bytes written to <var>buffer</var>.</p>
     <li data-md="">
@@ -2541,7 +2586,7 @@ parallel:</p>
      <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①③">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑦">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑧">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md="">
-     <p>As appropriate for <var>endpoint</var> enqueue a bulk or interrupt OUT transfer on <var>endpoint</var> to transmit <var>data</var> to the device.</p>
+     <p>As appropriate for <var>endpoint</var> enqueue a <a data-link-type="dfn" href="#bulk-transfers" id="ref-for-bulk-transfers①">bulk</a> or <a data-link-type="dfn" href="#interrupt-transfers" id="ref-for-interrupt-transfers①">interrupt</a> <a data-link-type="dfn" href="#out-transfers" id="ref-for-out-transfers">OUT transfer</a> on <var>endpoint</var> to transmit <var>data</var> to the device.</p>
     <li data-md="">
      <p>Let <var>result</var> be a new <code class="idl"><a data-link-type="idl" href="#usbouttransferresult" id="ref-for-usbouttransferresult③">USBOutTransferResult</a></code>.</p>
     <li data-md="">
@@ -2579,7 +2624,8 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
     <li data-md="">
      <p>Let <var>result</var> be a new <code class="idl"><a data-link-type="idl" href="#usbisochronousintransferresult" id="ref-for-usbisochronousintransferresult①">USBIsochronousInTransferResult</a></code> and set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbisochronousintransferresult-data" id="ref-for-dom-usbisochronousintransferresult-data">data</a></code></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView②">DataView</a></code> constructed over <var>buffer</var>.</p>
     <li data-md="">
-     <p>Enqueue an isochronous IN transfer on <var>endpoint</var> that will write up to <var>length</var> bytes of data from the device into <var>buffer</var>.</p>
+     <p>Enqueue an <a data-link-type="dfn" href="#isochronous-transfers" id="ref-for-isochronous-transfers">isochronous IN transfer</a> on <var>endpoint</var> that will write up to <var>length</var> bytes of data from the device
+ into <var>buffer</var>.</p>
     <li data-md="">
      <p>For each packet <var>i</var> from <code>0</code> to <code><var>packetLengths</var>.length -
  1</code>:</p>
@@ -2620,7 +2666,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md="">
      <p>Let <var>result</var> be a new <code class="idl"><a data-link-type="idl" href="#usbisochronousouttransferresult" id="ref-for-usbisochronousouttransferresult①">USBIsochronousOutTransferResult</a></code>.</p>
     <li data-md="">
-     <p>Enqueue an isochronous OUT transfer on <var>endpoint</var> that will write <var>buffer</var> to the device, divided into <code><var>packetLength</var>.length</code> packets of <code><var>packetLength</var>[i]</code> bytes (for packets <var>i</var> from <code>0</code> to <code><var>packetLengths</var>.length - 1</code>).</p>
+     <p>Enqueue an <a data-link-type="dfn" href="#isochronous-transfers" id="ref-for-isochronous-transfers①">isochronous OUT transfer</a> on <var>endpoint</var> that will write <var>buffer</var> to the device, divided into <code><var>packetLength</var>.length</code> packets of <code><var>packetLength</var>[i]</code> bytes (for packets <var>i</var> from <code>0</code> to <code><var>packetLengths</var>.length - 1</code>).</p>
     <li data-md="">
      <p>For each packet <var>i</var> from <code>0</code> to <code><var>packetLengths</var>.length -
  1</code> the host attempts to send to the device:</p>
@@ -2686,55 +2732,73 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
   <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥"><span class="kt">unsigned</span> <span class="kt">short</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBControlTransferParameters" data-dfn-type="dict-member" data-export="" data-type="unsigned short " id="dom-usbcontroltransferparameters-index"><code>index</code></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBInTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBInTransferResult(status, data)|USBInTransferResult(status)" id="dom-usbintransferresult-usbintransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbintransferresult-usbintransferresult"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBInTransferResult/USBInTransferResult(status, data)" data-dfn-type="argument" data-export="" id="dom-usbintransferresult-usbintransferresult-status-data-status"><code>status</code><a class="self-link" href="#dom-usbintransferresult-usbintransferresult-status-data-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView④"><span class="kt">DataView</span></a>? <dfn class="nv idl-code" data-dfn-for="USBInTransferResult/USBInTransferResult(status, data)" data-dfn-type="argument" data-export="" id="dom-usbintransferresult-usbintransferresult-status-data-data"><code>data</code><a class="self-link" href="#dom-usbintransferresult-usbintransferresult-status-data-data"></a></dfn>)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBInTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBInTransferResult(status, data)|USBInTransferResult(status)" id="dom-usbintransferresult-usbintransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbintransferresult-usbintransferresult"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBInTransferResult/USBInTransferResult(status, data)" data-dfn-type="argument" data-export="" id="dom-usbintransferresult-usbintransferresult-status-data-status"><code>status</code><a class="self-link" href="#dom-usbintransferresult-usbintransferresult-status-data-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView④"><span class="kt">DataView</span></a>? <dfn class="nv idl-code" data-dfn-for="USBInTransferResult/USBInTransferResult(status, data)" data-dfn-type="argument" data-export="" id="dom-usbintransferresult-usbintransferresult-status-data-data"><code>data</code><a class="self-link" href="#dom-usbintransferresult-usbintransferresult-status-data-data"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑥">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbintransferresult"><code>USBInTransferResult</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑤"><span class="kt">DataView</span></a>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInTransferResult" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DataView?" id="dom-usbintransferresult-data"><code>data</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus①">USBTransferStatus</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInTransferResult" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBTransferStatus" id="dom-usbintransferresult-status"><code>status</code></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBOutTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBOutTransferResult(status, bytesWritten)|USBOutTransferResult(status)" id="dom-usbouttransferresult-usbouttransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbouttransferresult-usbouttransferresult"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus②">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBOutTransferResult/USBOutTransferResult(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"><code>status</code><a class="self-link" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><span class="kt">unsigned</span> <span class="kt">long</span></a> <dfn class="nv idl-code" data-dfn-for="USBOutTransferResult/USBOutTransferResult(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"><code>bytesWritten</code><a class="self-link" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"></a></dfn> = 0)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBOutTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBOutTransferResult(status, bytesWritten)|USBOutTransferResult(status)" id="dom-usbouttransferresult-usbouttransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbouttransferresult-usbouttransferresult"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus②">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBOutTransferResult/USBOutTransferResult(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"><code>status</code><a class="self-link" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③"><span class="kt">unsigned</span> <span class="kt">long</span></a> <dfn class="nv idl-code" data-dfn-for="USBOutTransferResult/USBOutTransferResult(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"><code>bytesWritten</code><a class="self-link" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"></a></dfn> = 0),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑦">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbouttransferresult"><code>USBOutTransferResult</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long④"><span class="kt">unsigned</span> <span class="kt">long</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBOutTransferResult" data-dfn-type="attribute" data-export="" data-readonly="" data-type="unsigned long" id="dom-usbouttransferresult-byteswritten"><code>bytesWritten</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus③">USBTransferStatus</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBOutTransferResult" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBTransferStatus" id="dom-usbouttransferresult-status"><code>status</code></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferPacket" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousInTransferPacket(status, data)|USBIsochronousInTransferPacket(status)" id="dom-usbisochronousintransferpacket-usbisochronousintransferpacket"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus④">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferPacket/USBIsochronousInTransferPacket(status, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"><code>status</code><a class="self-link" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑥"><span class="kt">DataView</span></a>? <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferPacket/USBIsochronousInTransferPacket(status, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"><code>data</code><a class="self-link" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"></a></dfn>)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferPacket" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousInTransferPacket(status, data)|USBIsochronousInTransferPacket(status)" id="dom-usbisochronousintransferpacket-usbisochronousintransferpacket"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus④">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferPacket/USBIsochronousInTransferPacket(status, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"><code>status</code><a class="self-link" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑥"><span class="kt">DataView</span></a>? <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferPacket/USBIsochronousInTransferPacket(status, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"><code>data</code><a class="self-link" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑧">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbisochronousintransferpacket"><code>USBIsochronousInTransferPacket</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑦"><span class="kt">DataView</span></a>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBIsochronousInTransferPacket" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DataView?" id="dom-usbisochronousintransferpacket-data"><code>data</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑤">USBTransferStatus</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBIsochronousInTransferPacket" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBTransferStatus" id="dom-usbisochronousintransferpacket-status"><code>status</code></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousInTransferResult(packets, data)|USBIsochronousInTransferResult(packets)" id="dom-usbisochronousintransferresult-usbisochronousintransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult"></a></dfn>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket①">USBIsochronousInTransferPacket</a>> <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferResult/USBIsochronousInTransferResult(packets, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"><code>packets</code><a class="self-link" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑧"><span class="kt">DataView</span></a>? <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferResult/USBIsochronousInTransferResult(packets, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"><code>data</code><a class="self-link" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"></a></dfn>)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousInTransferResult(packets, data)|USBIsochronousInTransferResult(packets)" id="dom-usbisochronousintransferresult-usbisochronousintransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult"></a></dfn>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket①">USBIsochronousInTransferPacket</a>> <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferResult/USBIsochronousInTransferResult(packets, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"><code>packets</code><a class="self-link" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑧"><span class="kt">DataView</span></a>? <dfn class="nv idl-code" data-dfn-for="USBIsochronousInTransferResult/USBIsochronousInTransferResult(packets, data)" data-dfn-type="argument" data-export="" id="dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"><code>data</code><a class="self-link" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑨">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbisochronousintransferresult"><code>USBIsochronousInTransferResult</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑨"><span class="kt">DataView</span></a>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBIsochronousInTransferResult" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DataView?" id="dom-usbisochronousintransferresult-data"><code>data</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket②">USBIsochronousInTransferPacket</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBIsochronousInTransferResult" data-dfn-type="attribute" data-export="" data-readonly="" data-type="FrozenArray<USBIsochronousInTransferPacket>" id="dom-usbisochronousintransferresult-packets"><code>packets</code></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferPacket" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousOutTransferPacket(status, bytesWritten)|USBIsochronousOutTransferPacket(status)" id="dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑥">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferPacket/USBIsochronousOutTransferPacket(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"><code>status</code><a class="self-link" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤"><span class="kt">unsigned</span> <span class="kt">long</span></a> <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferPacket/USBIsochronousOutTransferPacket(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"><code>bytesWritten</code><a class="self-link" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"></a></dfn> = 0)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferPacket" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousOutTransferPacket(status, bytesWritten)|USBIsochronousOutTransferPacket(status)" id="dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"></a></dfn>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑥">USBTransferStatus</a> <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferPacket/USBIsochronousOutTransferPacket(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"><code>status</code><a class="self-link" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"></a></dfn>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤"><span class="kt">unsigned</span> <span class="kt">long</span></a> <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferPacket/USBIsochronousOutTransferPacket(status, bytesWritten)" data-dfn-type="argument" data-export="" id="dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"><code>bytesWritten</code><a class="self-link" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"></a></dfn> = 0),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⓪">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbisochronousouttransferpacket"><code>USBIsochronousOutTransferPacket</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥"><span class="kt">unsigned</span> <span class="kt">long</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBIsochronousOutTransferPacket" data-dfn-type="attribute" data-export="" data-readonly="" data-type="unsigned long" id="dom-usbisochronousouttransferpacket-byteswritten"><code>bytesWritten</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑦">USBTransferStatus</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBIsochronousOutTransferPacket" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBTransferStatus" id="dom-usbisochronousouttransferpacket-status"><code>status</code></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousOutTransferResult(packets)" id="dom-usbisochronousouttransferresult-usbisochronousouttransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult"></a></dfn>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket①">USBIsochronousOutTransferPacket</a>> <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferResult/USBIsochronousOutTransferResult(packets)" data-dfn-type="argument" data-export="" id="dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"><code>packets</code><a class="self-link" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"></a></dfn>)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferResult" data-dfn-type="constructor" data-export="" data-lt="USBIsochronousOutTransferResult(packets)" id="dom-usbisochronousouttransferresult-usbisochronousouttransferresult"><code>Constructor</code><a class="self-link" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult"></a></dfn>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket①">USBIsochronousOutTransferPacket</a>> <dfn class="nv idl-code" data-dfn-for="USBIsochronousOutTransferResult/USBIsochronousOutTransferResult(packets)" data-dfn-type="argument" data-export="" id="dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"><code>packets</code><a class="self-link" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbisochronousouttransferresult"><code>USBIsochronousOutTransferResult</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket②">USBIsochronousOutTransferPacket</a>> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBIsochronousOutTransferResult" data-dfn-type="attribute" data-export="" data-readonly="" data-type="FrozenArray<USBIsochronousOutTransferPacket>" id="dom-usbisochronousouttransferresult-packets"><code>packets</code></dfn>;
 };
 </pre>
-   <p>A <dfn data-dfn-type="dfn" data-noexport="" id="control-transfer">control transfer<a class="self-link" href="#control-transfer"></a></dfn> is a special class of USB traffic most commonly
-used for configuring a device. It consists of three stages: setup, data and
-status. In the <dfn data-dfn-type="dfn" data-noexport="" id="setup-stage">setup stage<a class="self-link" href="#setup-stage"></a></dfn> a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="setup-packet">setup packet</dfn> is transmitted
-to the device containing request parameters including the transfer direction
-and size of the data to follow. In the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="data-stage">data stage</dfn> that data is
-either sent to or received from the device. In the <dfn data-dfn-type="dfn" data-noexport="" id="status-stage">status stage<a class="self-link" href="#status-stage"></a></dfn> successful handling of the request is acknowledged or a failure is signaled.</p>
-   <p>All USB devices MUST have a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="default-control-pipe">default control pipe</dfn> which is <var>endpointNumber</var> <code>0</code>.</p>
+   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="control-transfer">control transfer</dfn> is a special class of USB traffic most commonly
+used for configuring a device. It consists of three stages: <a data-link-type="dfn" href="#setup-stage" id="ref-for-setup-stage">setup</a>, <a data-link-type="dfn" href="#data-stage" id="ref-for-data-stage①">data</a> and <a data-link-type="dfn" href="#status-stage" id="ref-for-status-stage">status</a>. In the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="setup-stage">setup stage</dfn> a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="setup-packet">setup packet</dfn> is transmitted to the device containing request
+parameters including the transfer direction and size of the data to follow. In
+the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="data-stage">data stage</dfn> that data is either sent to or received from the
+device. In the <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="status-stage">status stage</dfn> successful handling of the request is
+acknowledged or a failure is signaled.</p>
+   <p>All USB devices MUST have a <a data-link-type="dfn" href="#default-endpoint" id="ref-for-default-endpoint③">default control pipe</a> which is <var>endpointNumber</var> <code>0</code>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-requesttype" id="ref-for-dom-usbcontroltransferparameters-requesttype①">requestType</a></code> attribute populates part of
 the <code>bmRequestType</code> field of the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet①">setup packet</a> to indicate
 whether this request is part of the USB standard, a particular USB device class
 specification or a vendor-specific protocol.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient①">recipient</a></code> attribute populates part of the <code>bmRequestType</code> field of the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet②">setup packet</a> to indicate whether
-the control transfer is addressed to the entire device, or a specific interface
-or endpoint.</p>
+the <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑧">control transfer</a> is addressed to the entire device, or a specific
+interface or endpoint.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-request" id="ref-for-dom-usbcontroltransferparameters-request①">request</a></code> attribute populates the <code>bRequest</code> field of the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet③">setup packet</a>. Valid requests are
 defined by the USB standard, USB device class specifications or the device
 vendor.</p>
@@ -2775,7 +2839,10 @@ vendor.</p>
      </ol>
    </ol>
    <h3 class="heading settled" data-level="6.2" id="configurations"><span class="secno">6.2. </span><span class="content">Configurations</span><a class="self-link" href="#configurations"></a></h3>
-<pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export="" data-lt="USBConfiguration(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration"><code>Constructor</code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑦">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code>device</code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②③"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code>configurationValue</code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>)]
+<pre class="idl highlight def">[
+  <dfn class="nv idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export="" data-lt="USBConfiguration(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration"><code>Constructor</code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑦">USBDevice</a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code>device</code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②③"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue)" data-dfn-type="argument" data-export="" id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code>configurationValue</code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①②">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbconfiguration"><code>USBConfiguration</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②④"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbconfiguration-configurationvalue"><code>configurationValue</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑤"><span class="kt">DOMString</span></a>? <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export="" data-readonly="" data-type="DOMString?" id="dom-usbconfiguration-configurationname"><code>configurationName</code></dfn>;
@@ -2790,7 +2857,10 @@ interfaces exposed by this device configuration. These interfaces SHALL by
 populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor①">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor②">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
    <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/WICG/webusb/issues/46">&lt;https://github.com/WICG/webusb/issues/46></a></p>
    <h3 class="heading settled" data-level="6.3" id="interfaces"><span class="secno">6.3. </span><span class="content">Interfaces</span><a class="self-link" href="#interfaces"></a></h3>
-<pre class="idl highlight def">[<dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="constructor" data-export="" data-lt="USBInterface(configuration, interfaceNumber)" id="dom-usbinterface-usbinterface"><code>Constructor</code><a class="self-link" href="#dom-usbinterface-usbinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration②">USBConfiguration</a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"><code>configuration</code><a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑤"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"><code>interfaceNumber</code><a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"></a></dfn>)]
+<pre class="idl highlight def">[
+  <dfn class="nv idl-code" data-dfn-for="USBInterface" data-dfn-type="constructor" data-export="" data-lt="USBInterface(configuration, interfaceNumber)" id="dom-usbinterface-usbinterface"><code>Constructor</code><a class="self-link" href="#dom-usbinterface-usbinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration②">USBConfiguration</a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"><code>configuration</code><a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑤"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBInterface/USBInterface(configuration, interfaceNumber)" data-dfn-type="argument" data-export="" id="dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"><code>interfaceNumber</code><a class="self-link" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①③">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbinterface"><code>USBInterface</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑥"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbinterface-interfacenumber"><code>interfaceNumber</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface">USBAlternateInterface</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBAlternateInterface" id="dom-usbinterface-alternate"><code>alternate</code></dfn>;
@@ -2798,7 +2868,10 @@ populated by collecting the <a data-link-type="dfn" href="#interface-descriptor"
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①"><span class="kt">boolean</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="boolean" id="dom-usbinterface-claimed"><code>claimed</code></dfn>;
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBAlternateInterface" data-dfn-type="constructor" data-export="" data-lt="USBAlternateInterface(deviceInterface, alternateSetting)" id="dom-usbalternateinterface-usbalternateinterface"><code>Constructor</code><a class="self-link" href="#dom-usbalternateinterface-usbalternateinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface①">USBInterface</a> <dfn class="nv idl-code" data-dfn-for="USBAlternateInterface/USBAlternateInterface(deviceInterface, alternateSetting)" data-dfn-type="argument" data-export="" id="dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"><code>deviceInterface</code><a class="self-link" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑦"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBAlternateInterface/USBAlternateInterface(deviceInterface, alternateSetting)" data-dfn-type="argument" data-export="" id="dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"><code>alternateSetting</code><a class="self-link" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"></a></dfn>)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBAlternateInterface" data-dfn-type="constructor" data-export="" data-lt="USBAlternateInterface(deviceInterface, alternateSetting)" id="dom-usbalternateinterface-usbalternateinterface"><code>Constructor</code><a class="self-link" href="#dom-usbalternateinterface-usbalternateinterface"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface①">USBInterface</a> <dfn class="nv idl-code" data-dfn-for="USBAlternateInterface/USBAlternateInterface(deviceInterface, alternateSetting)" data-dfn-type="argument" data-export="" id="dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"><code>deviceInterface</code><a class="self-link" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑦"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBAlternateInterface/USBAlternateInterface(deviceInterface, alternateSetting)" data-dfn-type="argument" data-export="" id="dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"><code>alternateSetting</code><a class="self-link" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①④">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbalternateinterface"><code>USBAlternateInterface</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑧"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBAlternateInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbalternateinterface-alternatesetting"><code>alternateSetting</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑨"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBAlternateInterface" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbalternateinterface-interfaceclass"><code>interfaceClass</code></dfn>;
@@ -2830,8 +2903,8 @@ of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-desc
 the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑤">interface descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-endpoints" id="ref-for-dom-usbalternateinterface-endpoints">endpoints</a></code> attribute SHALL contain a list of
 endpoints exposed by this interface. These endpoints SHALL by populated from
-the endpoint descriptors contained within this <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑥">interface descriptor</a> and
-the number of elements in this sequence SHALL match the value of the <code>bNumEndpoints</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑦">interface descriptor</a>.</p>
+the <a data-link-type="dfn" href="#endpoint-descriptor" id="ref-for-endpoint-descriptor">endpoint descriptors</a> contained within this <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑥">interface descriptor</a> and the number of elements in this sequence SHALL
+match the value of the <code>bNumEndpoints</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑦">interface descriptor</a>.</p>
    <p>A device’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="active-configuration">active configuration</dfn> is the combination of the <code class="idl"><a data-link-type="idl" href="#usbconfiguration" id="ref-for-usbconfiguration③">USBConfiguration</a></code> selected by calling <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration③">selectConfiguration(configurationValue)</a></code> and the set of <code class="idl"><a data-link-type="idl" href="#usbalternateinterface" id="ref-for-usbalternateinterface③">USBAlternateInterface</a></code>s selected by calling <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface①">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code>.  A
 device MAY, by default, be left in an unconfigured state, referred to as
 configuration <code>0</code> or may automatically be set to whatever
@@ -2852,7 +2925,10 @@ device.</p>
   <dfn class="s idl-code" data-dfn-for="USBEndpointType" data-dfn-type="enum-value" data-export="" id="dom-usbendpointtype-isochronous"><code>"isochronous"</code><a class="self-link" href="#dom-usbendpointtype-isochronous"></a></dfn>
 };
 
-[<dfn class="nv idl-code" data-dfn-for="USBEndpoint" data-dfn-type="constructor" data-export="" data-lt="USBEndpoint(alternate, endpointNumber, direction)" id="dom-usbendpoint-usbendpoint"><code>Constructor</code><a class="self-link" href="#dom-usbendpoint-usbendpoint"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑤">USBAlternateInterface</a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"><code>alternate</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③②"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"><code>endpointNumber</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"></a></dfn>, <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection①">USBDirection</a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"><code>direction</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"></a></dfn>)]
+[
+  <dfn class="nv idl-code" data-dfn-for="USBEndpoint" data-dfn-type="constructor" data-export="" data-lt="USBEndpoint(alternate, endpointNumber, direction)" id="dom-usbendpoint-usbendpoint"><code>Constructor</code><a class="self-link" href="#dom-usbendpoint-usbendpoint"></a></dfn>(<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑤">USBAlternateInterface</a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"><code>alternate</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"></a></dfn>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③②"><span class="kt">octet</span></a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"><code>endpointNumber</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"></a></dfn>, <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection①">USBDirection</a> <dfn class="nv idl-code" data-dfn-for="USBEndpoint/USBEndpoint(alternate, endpointNumber, direction)" data-dfn-type="argument" data-export="" id="dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"><code>direction</code><a class="self-link" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"></a></dfn>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑤">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <dfn class="nv dfn-paneled idl-code" data-dfn-type="interface" data-export="" id="usbendpoint"><code>USBEndpoint</code></dfn> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③③"><span class="kt">octet</span></a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBEndpoint" data-dfn-type="attribute" data-export="" data-readonly="" data-type="octet" id="dom-usbendpoint-endpointnumber"><code>endpointNumber</code></dfn>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection②">USBDirection</a> <dfn class="nv dfn-paneled idl-code" data-dfn-for="USBEndpoint" data-dfn-type="attribute" data-export="" data-readonly="" data-type="USBDirection" id="dom-usbendpoint-direction"><code>direction</code></dfn>;
@@ -2863,14 +2939,14 @@ device.</p>
    <p>Each endpoint within a particular device configuration SHALL have a unique
 combination of <code class="idl"><a data-link-type="idl" href="#dom-usbendpoint-endpointnumber" id="ref-for-dom-usbendpoint-endpointnumber">endpointNumber</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbendpoint-direction" id="ref-for-dom-usbendpoint-direction">direction</a></code>.
 The <code class="idl"><a data-link-type="idl" href="#dom-usbendpoint-endpointnumber" id="ref-for-dom-usbendpoint-endpointnumber①">endpointNumber</a></code> MUST equal the 4 least significant bits of
-the <code>bEndpointAddress</code> field of the <a data-link-type="dfn" href="#endpoint-descriptor" id="ref-for-endpoint-descriptor">endpoint descriptor</a> defining the endpoint.</p>
+the <code>bEndpointAddress</code> field of the <a data-link-type="dfn" href="#endpoint-descriptor" id="ref-for-endpoint-descriptor①">endpoint descriptor</a> defining the endpoint.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbendpoint-direction" id="ref-for-dom-usbendpoint-direction①">direction</a></code> attribute declares the transfer direction
 supported by this endpoint and is equal to <code class="idl"><a data-link-type="idl" href="#dom-usbdirection-in" id="ref-for-dom-usbdirection-in①">"in"</a></code> if the most
 significant bit of the <code>bEndpointAddress</code> is set and <code class="idl"><a data-link-type="idl" href="#dom-usbdirection-out" id="ref-for-dom-usbdirection-out①">"out"</a></code> otherwise. An endpoint may either carry data <code>IN</code> from the device to host or <code>OUT</code> from host to device.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbendpoint-type" id="ref-for-dom-usbendpoint-type">type</a></code> attribute declares the type of data transfer supported
 by this endpoint.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbendpoint-packetsize" id="ref-for-dom-usbendpoint-packetsize">packetSize</a></code> attribute declares the packet size employed by
-this endpoint and MUST be equal to the value of the <code>wMaxPacketSize</code> of the <a data-link-type="dfn" href="#endpoint-descriptor" id="ref-for-endpoint-descriptor①">endpoint descriptor</a> defining it. In a High-Speed, High-Bandwidth
+this endpoint and MUST be equal to the value of the <code>wMaxPacketSize</code> of the <a data-link-type="dfn" href="#endpoint-descriptor" id="ref-for-endpoint-descriptor②">endpoint descriptor</a> defining it. In a High-Speed, High-Bandwidth
 endpoint this value will include the multiplication factor provided by issuing
 multiple transactions per microframe. In a SuperSpeed device this value will
 include the multiplication factor provided by the <code>bMaxBurst</code> field
@@ -2915,7 +2991,8 @@ defined as follows:</p>
 </pre>
     <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#permission-query-algorithm" id="ref-for-permission-query-algorithm">permission query algorithm</a>
     <dd>
-      To <dfn data-dfn-type="dfn" data-noexport="" id="query-the-usb-permission">query the "usb" permission<a class="self-link" href="#query-the-usb-permission"></a></dfn> with a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissiondescriptor" id="ref-for-dictdef-usbpermissiondescriptor①">USBPermissionDescriptor</a></code> <var>desc</var>, a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑥">USBPermissionStorage</a></code> <var>storage</var>, and a <code class="idl"><a data-link-type="idl" href="#usbpermissionresult" id="ref-for-usbpermissionresult①">USBPermissionResult</a></code> <var>status</var>, the UA must: 
+      To <strong><em>query the "usb" permission</em></strong> with a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissiondescriptor" id="ref-for-dictdef-usbpermissiondescriptor①">USBPermissionDescriptor</a></code> <var>desc</var>, a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑥">USBPermissionStorage</a></code> <var>storage</var>,
+    and a <code class="idl"><a data-link-type="idl" href="#usbpermissionresult" id="ref-for-usbpermissionresult①">USBPermissionResult</a></code> <var>status</var>, the UA must: 
      <ol>
       <li data-md="">
        <p>If <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters②">filters</a></code></code> is set then,
@@ -2964,8 +3041,7 @@ Its fields are described in section 9.6.3 of <a data-link-type="biblio" href="#b
 functional component of a device including its protocol and communication
 endpoints. Its fields are described in section 9.6.5 of <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>.</p>
     <li data-md="">
-     <p>An <dfn data-dfn-type="dfn" data-noexport="" id="interface-association-descriptor">interface association descriptor<a class="self-link" href="#interface-association-descriptor"></a></dfn> creates an
-association between multiple interfaces that are part of a single
+     <p>An <strong><em>interface association descriptor</em></strong> creates an association between multiple interfaces that are part of a single
 functional unit of a device. Its fields are described in section
 9.6.4 of <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>.</p>
     <li data-md="">
@@ -3002,31 +3078,31 @@ product IDs assigned by the USB-IF and the manufacturer. The host may then read
 the device’s <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor④">configuration descriptor</a> which is a description of the
 device’s capabilities including the interfaces and endpoints it exposes. A class
 can be declared at the device level or for individual interfaces. A device with
-multiple interfaces providing different functions is known as a <dfn data-dfn-type="dfn" data-noexport="" id="composite-device">composite device<a class="self-link" href="#composite-device"></a></dfn>.</p>
+multiple interfaces providing different functions is known as a <strong><em>composite device</em></strong>.</p>
    <h3 class="heading settled" data-level="9.2" id="appendix-transfers"><span class="secno">9.2. </span><span class="content">Transfers</span><a class="self-link" href="#appendix-transfers"></a></h3>
    <p>Whether data is traveling from host to device or the other way around the
-transfer is always initiated by the host. <dfn data-dfn-type="dfn" data-noexport="" id="out-transfers">OUT transfers<a class="self-link" href="#out-transfers"></a></dfn> carry data
-from host to device and may wait until the device acknowledges the data has been
-received. <dfn data-dfn-type="dfn" data-noexport="" id="in-transfers">IN transfers<a class="self-link" href="#in-transfers"></a></dfn> carry data from device to host and may have to
-wait until the device has some data to send. Transfers are executed against one
-of a device’s endpoints and there are different kinds depending on what type of
-traffic is being sent.</p>
+transfer is always initiated by the host. <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="out-transfers">OUT transfers</dfn> carry data from host to
+device and may wait until the device acknowledges the data has been received. <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="in-transfers">IN transfers</dfn> carry data from device to
+host and may have to wait until the device has some data to send. Transfers are
+executed against one of a device’s endpoints and there are different kinds
+depending on what type of traffic is being sent.</p>
    <ul>
     <li data-md="">
-     <p><dfn data-dfn-type="dfn" data-noexport="" id="bulk-transfers">Bulk transfers<a class="self-link" href="#bulk-transfers"></a></dfn> are good for sending lots of data with whatever
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="bulk-transfers">Bulk transfers</dfn> are good for sending lots of data with whatever
 bandwidth is available. This is what is used to read and write data to USB
 mass storage devices.</p>
     <li data-md="">
-     <p><dfn data-dfn-type="dfn" data-noexport="" id="interrupt-transfers">Interrupt transfers<a class="self-link" href="#interrupt-transfers"></a></dfn> offer guaranteed latency (by reserving
-bandwidth so that they can’t be blocked by a large bulk transfers) but with
-limited packet sizes. These are used for signaling and for small packets like
-mouse movements and button presses.</p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="interrupt-transfers">Interrupt transfers</dfn> offer guaranteed latency (by reserving
+bandwidth so that they can’t be blocked by a large <a data-link-type="dfn" href="#bulk-transfers" id="ref-for-bulk-transfers②">bulk transfers</a>)
+but with limited packet sizes. These are used for signaling and for small
+packets like mouse movements and button presses.</p>
     <li data-md="">
-     <p><dfn data-dfn-type="dfn" data-noexport="" id="isochronous-transfers">Isochronous transfers<a class="self-link" href="#isochronous-transfers"></a></dfn> also reserve bandwidth but they don’t
-guarantee delivery. They’re used for streaming data like audio and video.</p>
+     <p><dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="isochronous-transfers">Isochronous transfers</dfn> also reserve
+bandwidth but they don’t guarantee delivery. They’re used for streaming data
+like audio and video.</p>
     <li data-md="">
-     <p>Every device also has a special <dfn data-dfn-type="dfn" data-noexport="" id="default-endpoint">default endpoint<a class="self-link" href="#default-endpoint"></a></dfn>. While regular
-endpoints only carry data in one direction or the other <dfn data-dfn-type="dfn" data-noexport="" id="control-transfers">control transfers<a class="self-link" href="#control-transfers"></a></dfn> have a small header called the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet⑤">SETUP packet</a> that is always sent to the device and contains request
+     <p>Every device also has a special <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="default endpoint|default control pipe" data-noexport="" id="default-endpoint">default endpoint</dfn>. While regular
+endpoints only carry data in one direction or the other <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑨">control transfers</a> have a small header called the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet⑤">SETUP packet</a> that is always sent to the device and contains request
 parameters in addition to a larger data payload that can be either IN or OUT.</p>
    </ul>
   </main>
@@ -3204,7 +3280,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdevicefilter-classcode">classCode</a><span>, in §5</span>
    <li><a href="#dom-usbdevice-clearhalt">clearHalt(direction, endpointNumber)</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-close">close()</a><span>, in §6</span>
-   <li><a href="#composite-device">composite device</a><span>, in §9.1</span>
    <li><a href="#dom-usbdevice-configuration">configuration</a><span>, in §6</span>
    <li><a href="#configuration-descriptor">configuration descriptor</a><span>, in §8</span>
    <li><a href="#dom-usbconfiguration-configurationname">configurationName</a><span>, in §6.2</span>
@@ -3215,7 +3290,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdevice-controltransferin">controlTransferIn(setup, length)</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-controltransferout">controlTransferOut(setup)</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-controltransferout">controlTransferOut(setup, data)</a><span>, in §6</span>
-   <li><a href="#control-transfers">control transfers</a><span>, in §9.2</span>
    <li>
     data
     <ul>
@@ -3224,7 +3298,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><a href="#dom-usbisochronousintransferresult-data">attribute for USBIsochronousInTransferResult</a><span>, in §6.1</span>
     </ul>
    <li><a href="#data-stage">data stage</a><span>, in §6.1</span>
-   <li><a href="#default-control-pipe">default control pipe</a><span>, in §6.1</span>
+   <li><a href="#default-endpoint">default control pipe</a><span>, in §9.2</span>
    <li><a href="#default-endpoint">default endpoint</a><span>, in §9.2</span>
    <li><a href="#descriptors">Descriptors</a><span>, in §8</span>
    <li><a href="#dom-usbrecipient-device">"device"</a><span>, in §6.1</span>
@@ -3261,7 +3335,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdirection-in">"in"</a><span>, in §6.4</span>
    <li><a href="#dom-usbcontroltransferparameters-index">index</a><span>, in §6.1</span>
    <li><a href="#dom-usbrecipient-interface">"interface"</a><span>, in §6.1</span>
-   <li><a href="#interface-association-descriptor">interface association descriptor</a><span>, in §8</span>
    <li><a href="#dom-usbalternateinterface-interfaceclass">interfaceClass</a><span>, in §6.3</span>
    <li><a href="#interface-descriptor">interface descriptor</a><span>, in §8</span>
    <li><a href="#dom-usbalternateinterface-interfacename">interfaceName</a><span>, in §6.3</span>
@@ -3306,7 +3379,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#product-id">product ID</a><span>, in §8</span>
    <li><a href="#dom-usbdevice-productname">productName</a><span>, in §6</span>
    <li><a href="#dom-usbdevicefilter-protocolcode">protocolCode</a><span>, in §5</span>
-   <li><a href="#query-the-usb-permission">query the "usb" permission</a><span>, in §7.2</span>
    <li><a href="#dom-usbcontroltransferparameters-recipient">recipient</a><span>, in §6.1</span>
    <li><a href="#dom-usbdevice-releaseinterface">releaseInterface(interfaceNumber)</a><span>, in §6</span>
    <li><a href="#dom-usbcontroltransferparameters-request">request</a><span>, in §6.1</span>
@@ -3625,6 +3697,12 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://heycam.github.io/webidl/#Exposed">https://heycam.github.io/webidl/#Exposed</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-Exposed">5. Device Enumeration</a> <a href="#ref-for-Exposed①">(2)</a> <a href="#ref-for-Exposed②">(3)</a> <a href="#ref-for-Exposed③">(4)</a>
+    <li><a href="#ref-for-Exposed④">5.1. Events</a>
+    <li><a href="#ref-for-Exposed⑤">6. Device Usage</a>
+    <li><a href="#ref-for-Exposed⑥">6.1. Transfers</a> <a href="#ref-for-Exposed⑦">(2)</a> <a href="#ref-for-Exposed⑧">(3)</a> <a href="#ref-for-Exposed⑨">(4)</a> <a href="#ref-for-Exposed①⓪">(5)</a> <a href="#ref-for-Exposed①①">(6)</a>
+    <li><a href="#ref-for-Exposed①②">6.2. Configurations</a>
+    <li><a href="#ref-for-Exposed①③">6.3. Interfaces</a> <a href="#ref-for-Exposed①④">(2)</a>
+    <li><a href="#ref-for-Exposed①⑤">6.4. Endpoints</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-frozen-array">
@@ -3839,12 +3917,12 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <span class="kt">required</span> <span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter③">USBDeviceFilter</a>> <a class="nv" data-type="sequence<USBDeviceFilter> " href="#dom-usbdevicerequestoptions-filters"><code>filters</code></a>;
 };
 
-[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>), <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext③">SecureContext</a>]
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑥">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>), <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext③">SecureContext</a>]
 <span class="kt">interface</span> <a class="nv" href="#usb"><code>USB</code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget①">EventTarget</a> {
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler②">EventHandler</a> <a class="nv" data-type="EventHandler" href="#dom-usb-onconnect"><code>onconnect</code></a>;
   <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①①">EventHandler</a> <a class="nv" data-type="EventHandler" href="#dom-usb-ondisconnect"><code>ondisconnect</code></a>;
   <span class="kt">Promise</span>&lt;<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice②⓪">USBDevice</a>>> <a class="nv" href="#dom-usb-getdevices"><code>getDevices</code></a>();
-  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①①">Exposed</a>=<span class="n">Window</span>] <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①①⓪">USBDevice</a>> <a class="nv" href="#dom-usb-requestdevice"><code>requestDevice</code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions①">USBDeviceRequestOptions</a> <a class="nv" href="#dom-usb-requestdevice-options-options"><code>options</code></a>);
+  [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑦">Exposed</a>=<span class="n">Window</span>] <span class="kt">Promise</span>&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①①⓪">USBDevice</a>> <a class="nv" href="#dom-usb-requestdevice"><code>requestDevice</code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions①">USBDeviceRequestOptions</a> <a class="nv" href="#dom-usb-requestdevice-options-options"><code>options</code></a>);
 };
 
 [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②①">Exposed</a>=<span class="n">Window</span>, <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①①">SecureContext</a>]
@@ -3861,11 +3939,15 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     <span class="kt">required</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice④①">USBDevice</a> <a class="nv" data-type="USBDevice " href="#dom-usbconnectioneventinit-device"><code>device</code></a>;
 };
 
-[<a class="nv" href="#dom-usbconnectionevent-usbconnectionevent"><code>Constructor</code></a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><span class="kt">DOMString</span></a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code>type</code></a>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit" id="ref-for-dictdef-usbconnectioneventinit①">USBConnectionEventInit</a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code>eventInitDict</code></a>)]
+[
+  <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent"><code>Constructor</code></a>(<a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><span class="kt">DOMString</span></a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code>type</code></a>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit" id="ref-for-dictdef-usbconnectioneventinit①">USBConnectionEventInit</a> <a class="nv" href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code>eventInitDict</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbconnectionevent"><code>USBConnectionEvent</code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event①">Event</a> {
   [<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject②①">SameObject</a>] <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤①">USBDevice</a> <a class="nv" data-readonly="" data-type="USBDevice" href="#dom-usbconnectionevent-device"><code>device</code></a>;
 };
 
+[<a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)]
 <span class="kt">interface</span> <a class="nv" href="#usbdevice"><code>USBDevice</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③⑥"><span class="kt">octet</span></a> <a class="nv" data-readonly="" data-type="octet" href="#dom-usbdevice-usbversionmajor"><code>usbVersionMajor</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet④①"><span class="kt">octet</span></a> <a class="nv" data-readonly="" data-type="octet" href="#dom-usbdevice-usbversionminor"><code>usbVersionMinor</code></a>;
@@ -3927,49 +4009,73 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <span class="kt">required</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥①"><span class="kt">unsigned</span> <span class="kt">short</span></a> <a class="nv" data-type="unsigned short " href="#dom-usbcontroltransferparameters-index"><code>index</code></a>;
 };
 
-[<a class="nv" href="#dom-usbintransferresult-usbintransferresult"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑧">USBTransferStatus</a> <a class="nv" href="#dom-usbintransferresult-usbintransferresult-status-data-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView④①"><span class="kt">DataView</span></a>? <a class="nv" href="#dom-usbintransferresult-usbintransferresult-status-data-data"><code>data</code></a>)]
+[
+  <a class="nv" href="#dom-usbintransferresult-usbintransferresult"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑧">USBTransferStatus</a> <a class="nv" href="#dom-usbintransferresult-usbintransferresult-status-data-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView④①"><span class="kt">DataView</span></a>? <a class="nv" href="#dom-usbintransferresult-usbintransferresult-status-data-data"><code>data</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑥①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbintransferresult"><code>USBInTransferResult</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑤①"><span class="kt">DataView</span></a>? <a class="nv" data-readonly="" data-type="DataView?" href="#dom-usbintransferresult-data"><code>data</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus①①">USBTransferStatus</a> <a class="nv" data-readonly="" data-type="USBTransferStatus" href="#dom-usbintransferresult-status"><code>status</code></a>;
 };
 
-[<a class="nv" href="#dom-usbouttransferresult-usbouttransferresult"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus②①">USBTransferStatus</a> <a class="nv" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③①"><span class="kt">unsigned</span> <span class="kt">long</span></a> <a class="nv" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"><code>bytesWritten</code></a> = 0)]
+[
+  <a class="nv" href="#dom-usbouttransferresult-usbouttransferresult"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus②①">USBTransferStatus</a> <a class="nv" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③①"><span class="kt">unsigned</span> <span class="kt">long</span></a> <a class="nv" href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"><code>bytesWritten</code></a> = 0),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑦①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbouttransferresult"><code>USBOutTransferResult</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long④①"><span class="kt">unsigned</span> <span class="kt">long</span></a> <a class="nv" data-readonly="" data-type="unsigned long" href="#dom-usbouttransferresult-byteswritten"><code>bytesWritten</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus③①">USBTransferStatus</a> <a class="nv" data-readonly="" data-type="USBTransferStatus" href="#dom-usbouttransferresult-status"><code>status</code></a>;
 };
 
-[<a class="nv" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus④①">USBTransferStatus</a> <a class="nv" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑥①"><span class="kt">DataView</span></a>? <a class="nv" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"><code>data</code></a>)]
+[
+  <a class="nv" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus④①">USBTransferStatus</a> <a class="nv" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑥①"><span class="kt">DataView</span></a>? <a class="nv" href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"><code>data</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑧①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbisochronousintransferpacket"><code>USBIsochronousInTransferPacket</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑦①"><span class="kt">DataView</span></a>? <a class="nv" data-readonly="" data-type="DataView?" href="#dom-usbisochronousintransferpacket-data"><code>data</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑤①">USBTransferStatus</a> <a class="nv" data-readonly="" data-type="USBTransferStatus" href="#dom-usbisochronousintransferpacket-status"><code>status</code></a>;
 };
 
-[<a class="nv" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult"><code>Constructor</code></a>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket①①">USBIsochronousInTransferPacket</a>> <a class="nv" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"><code>packets</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑧①"><span class="kt">DataView</span></a>? <a class="nv" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"><code>data</code></a>)]
+[
+  <a class="nv" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult"><code>Constructor</code></a>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket①①">USBIsochronousInTransferPacket</a>> <a class="nv" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"><code>packets</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑧①"><span class="kt">DataView</span></a>? <a class="nv" href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"><code>data</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑨①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbisochronousintransferresult"><code>USBIsochronousInTransferResult</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑨①"><span class="kt">DataView</span></a>? <a class="nv" data-readonly="" data-type="DataView?" href="#dom-usbisochronousintransferresult-data"><code>data</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket②①">USBIsochronousInTransferPacket</a>> <a class="nv" data-readonly="" data-type="FrozenArray<USBIsochronousInTransferPacket>" href="#dom-usbisochronousintransferresult-packets"><code>packets</code></a>;
 };
 
-[<a class="nv" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑥①">USBTransferStatus</a> <a class="nv" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤①"><span class="kt">unsigned</span> <span class="kt">long</span></a> <a class="nv" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"><code>bytesWritten</code></a> = 0)]
+[
+  <a class="nv" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑥①">USBTransferStatus</a> <a class="nv" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"><code>status</code></a>, <span class="kt">optional</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤①"><span class="kt">unsigned</span> <span class="kt">long</span></a> <a class="nv" href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"><code>bytesWritten</code></a> = 0),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⓪①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbisochronousouttransferpacket"><code>USBIsochronousOutTransferPacket</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥①"><span class="kt">unsigned</span> <span class="kt">long</span></a> <a class="nv" data-readonly="" data-type="unsigned long" href="#dom-usbisochronousouttransferpacket-byteswritten"><code>bytesWritten</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑦①">USBTransferStatus</a> <a class="nv" data-readonly="" data-type="USBTransferStatus" href="#dom-usbisochronousouttransferpacket-status"><code>status</code></a>;
 };
 
-[<a class="nv" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult"><code>Constructor</code></a>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket①①">USBIsochronousOutTransferPacket</a>> <a class="nv" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"><code>packets</code></a>)]
+[
+  <a class="nv" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult"><code>Constructor</code></a>(<span class="kt">sequence</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket①①">USBIsochronousOutTransferPacket</a>> <a class="nv" href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"><code>packets</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①①①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbisochronousouttransferresult"><code>USBIsochronousOutTransferResult</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket②①">USBIsochronousOutTransferPacket</a>> <a class="nv" data-readonly="" data-type="FrozenArray<USBIsochronousOutTransferPacket>" href="#dom-usbisochronousouttransferresult-packets"><code>packets</code></a>;
 };
 
-[<a class="nv" href="#dom-usbconfiguration-usbconfiguration"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑦①">USBDevice</a> <a class="nv" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code>device</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②③①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code>configurationValue</code></a>)]
+[
+  <a class="nv" href="#dom-usbconfiguration-usbconfiguration"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑦①">USBDevice</a> <a class="nv" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code>device</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②③①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code>configurationValue</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①②①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbconfiguration"><code>USBConfiguration</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②④①"><span class="kt">octet</span></a> <a class="nv" data-readonly="" data-type="octet" href="#dom-usbconfiguration-configurationvalue"><code>configurationValue</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑤①"><span class="kt">DOMString</span></a>? <a class="nv" data-readonly="" data-type="DOMString?" href="#dom-usbconfiguration-configurationname"><code>configurationName</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <span class="kt">FrozenArray</span>&lt;<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface②">USBInterface</a>> <a class="nv" data-readonly="" data-type="FrozenArray<USBInterface>" href="#dom-usbconfiguration-interfaces"><code>interfaces</code></a>;
 };
 
-[<a class="nv" href="#dom-usbinterface-usbinterface"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration②①">USBConfiguration</a> <a class="nv" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"><code>configuration</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑤①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"><code>interfaceNumber</code></a>)]
+[
+  <a class="nv" href="#dom-usbinterface-usbinterface"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration②①">USBConfiguration</a> <a class="nv" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"><code>configuration</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑤①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"><code>interfaceNumber</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①③①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbinterface"><code>USBInterface</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑥①"><span class="kt">octet</span></a> <a class="nv" data-readonly="" data-type="octet" href="#dom-usbinterface-interfacenumber"><code>interfaceNumber</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑥">USBAlternateInterface</a> <a class="nv" data-readonly="" data-type="USBAlternateInterface" href="#dom-usbinterface-alternate"><code>alternate</code></a>;
@@ -3977,7 +4083,10 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><span class="kt">boolean</span></a> <a class="nv" data-readonly="" data-type="boolean" href="#dom-usbinterface-claimed"><code>claimed</code></a>;
 };
 
-[<a class="nv" href="#dom-usbalternateinterface-usbalternateinterface"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface①①">USBInterface</a> <a class="nv" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"><code>deviceInterface</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑦①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"><code>alternateSetting</code></a>)]
+[
+  <a class="nv" href="#dom-usbalternateinterface-usbalternateinterface"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface①①">USBInterface</a> <a class="nv" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"><code>deviceInterface</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑦①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"><code>alternateSetting</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①④①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbalternateinterface"><code>USBAlternateInterface</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑧①"><span class="kt">octet</span></a> <a class="nv" data-readonly="" data-type="octet" href="#dom-usbalternateinterface-alternatesetting"><code>alternateSetting</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑨①"><span class="kt">octet</span></a> <a class="nv" data-readonly="" data-type="octet" href="#dom-usbalternateinterface-interfaceclass"><code>interfaceClass</code></a>;
@@ -3998,7 +4107,10 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <a class="s" href="#dom-usbendpointtype-isochronous"><code>"isochronous"</code></a>
 };
 
-[<a class="nv" href="#dom-usbendpoint-usbendpoint"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑤①">USBAlternateInterface</a> <a class="nv" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"><code>alternate</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③②①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"><code>endpointNumber</code></a>, <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection①①">USBDirection</a> <a class="nv" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"><code>direction</code></a>)]
+[
+  <a class="nv" href="#dom-usbendpoint-usbendpoint"><code>Constructor</code></a>(<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑤①">USBAlternateInterface</a> <a class="nv" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"><code>alternate</code></a>, <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③②①"><span class="kt">octet</span></a> <a class="nv" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"><code>endpointNumber</code></a>, <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection①①">USBDirection</a> <a class="nv" href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"><code>direction</code></a>),
+  <a class="nv idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑤①">Exposed</a>=(<span class="n">DedicatedWorker</span>,<span class="n">SharedWorker</span>,<span class="n">Window</span>)
+]
 <span class="kt">interface</span> <a class="nv" href="#usbendpoint"><code>USBEndpoint</code></a> {
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③③①"><span class="kt">octet</span></a> <a class="nv" data-readonly="" data-type="octet" href="#dom-usbendpoint-endpointnumber"><code>endpointNumber</code></a>;
   <span class="kt">readonly</span> <span class="kt">attribute</span> <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection②①">USBDirection</a> <a class="nv" data-readonly="" data-type="USBDirection" href="#dom-usbendpoint-direction"><code>direction</code></a>;
@@ -4346,7 +4458,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="dom-usbdevice-claiminterface">
    <b><a href="#dom-usbdevice-claiminterface">#dom-usbdevice-claiminterface</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbdevice-claiminterface">6. Device Usage</a> <a href="#ref-for-dom-usbdevice-claiminterface①">(2)</a>
+    <li><a href="#ref-for-dom-usbdevice-claiminterface">3.1. Abusing Access to a Device</a>
+    <li><a href="#ref-for-dom-usbdevice-claiminterface①">6. Device Usage</a> <a href="#ref-for-dom-usbdevice-claiminterface②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevice-releaseinterface">
@@ -4611,6 +4724,21 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     <li><a href="#ref-for-dom-usbisochronousouttransferresult-packets">6. Device Usage</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="control-transfer">
+   <b><a href="#control-transfer">#control-transfer</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-control-transfer">4.2. WebUSB Device Requests</a> <a href="#ref-for-control-transfer①">(2)</a>
+    <li><a href="#ref-for-control-transfer②">6. Device Usage</a> <a href="#ref-for-control-transfer③">(2)</a> <a href="#ref-for-control-transfer④">(3)</a> <a href="#ref-for-control-transfer⑤">(4)</a> <a href="#ref-for-control-transfer⑥">(5)</a> <a href="#ref-for-control-transfer⑦">(6)</a>
+    <li><a href="#ref-for-control-transfer⑧">6.1. Transfers</a>
+    <li><a href="#ref-for-control-transfer⑨">9.2. Transfers</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="setup-stage">
+   <b><a href="#setup-stage">#setup-stage</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-setup-stage">6.1. Transfers</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="setup-packet">
    <b><a href="#setup-packet">#setup-packet</a></b><b>Referenced in:</b>
    <ul>
@@ -4623,12 +4751,13 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <b><a href="#data-stage">#data-stage</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-data-stage">6. Device Usage</a>
+    <li><a href="#ref-for-data-stage①">6.1. Transfers</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="default-control-pipe">
-   <b><a href="#default-control-pipe">#default-control-pipe</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="status-stage">
+   <b><a href="#status-stage">#status-stage</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-default-control-pipe">6. Device Usage</a>
+    <li><a href="#ref-for-status-stage">6.1. Transfers</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="check-the-validity-of-the-control-transfer-parameters">
@@ -4913,7 +5042,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="endpoint-descriptor">
    <b><a href="#endpoint-descriptor">#endpoint-descriptor</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-endpoint-descriptor">6.4. Endpoints</a> <a href="#ref-for-endpoint-descriptor①">(2)</a>
+    <li><a href="#ref-for-endpoint-descriptor">6.3. Interfaces</a>
+    <li><a href="#ref-for-endpoint-descriptor①">6.4. Endpoints</a> <a href="#ref-for-endpoint-descriptor②">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="string-descriptor">
@@ -4964,6 +5094,44 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <b><a href="#serial-number">#serial-number</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-serial-number">5. Device Enumeration</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="out-transfers">
+   <b><a href="#out-transfers">#out-transfers</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-out-transfers">6. Device Usage</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="in-transfers">
+   <b><a href="#in-transfers">#in-transfers</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-in-transfers">6. Device Usage</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="bulk-transfers">
+   <b><a href="#bulk-transfers">#bulk-transfers</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-bulk-transfers">6. Device Usage</a> <a href="#ref-for-bulk-transfers①">(2)</a>
+    <li><a href="#ref-for-bulk-transfers②">9.2. Transfers</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="interrupt-transfers">
+   <b><a href="#interrupt-transfers">#interrupt-transfers</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-interrupt-transfers">6. Device Usage</a> <a href="#ref-for-interrupt-transfers①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="isochronous-transfers">
+   <b><a href="#isochronous-transfers">#isochronous-transfers</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-isochronous-transfers">6. Device Usage</a> <a href="#ref-for-isochronous-transfers①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="default-endpoint">
+   <b><a href="#default-endpoint">#default-endpoint</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-default-endpoint">6. Device Usage</a> <a href="#ref-for-default-endpoint①">(2)</a> <a href="#ref-for-default-endpoint②">(3)</a>
+    <li><a href="#ref-for-default-endpoint③">6.1. Transfers</a>
    </ul>
   </aside>
 <script>/* script-dfn-panel */
