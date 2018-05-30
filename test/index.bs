@@ -247,8 +247,14 @@ When {{USB/requestDevice(options)}} is invoked on a {{USB}} instance
     <var ignore>options</var>.{{USBDeviceRequestOptions/filters}} into
     |event|.|filters|.
 1.  Set |event|@{{[[promise]]}} to |promise|.
-1.  <a>Fire an event</a> named <dfn>requestdevice</dfn> on |test|, using |event|
+1.  <a>Fire an event</a> named <a>requestdevice</a> on |test|, using |event|
     as the event object.
+
+## Events ## {#events}
+
+<dfn>requestdevice</dfn>: Fired on a {{USBTest}} object when
+{{USB/requestDevice(options)}} is invoked after {{USBTest/initialize()}} has
+been called.
 
 # Fake Devices # {#fake-devices}
 
