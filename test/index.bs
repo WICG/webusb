@@ -28,7 +28,7 @@ interface does not permit arbitrary control over the behavior of devices. Some
 parameters are configurable and some are specified.
 
 The only intended client of this API are tests in
-<a href="https://github.com/w3c/web-platform-tests">Web Platform Tests</a>.
+<a href="https://github.com/web-platform-tests/wpt">Web Platform Tests</a>.
 This testing
 API will be changed as needed to support the evolution of those tests.
 
