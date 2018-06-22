@@ -542,6 +542,11 @@ filter</dfn> |filter| if the following steps return <code>match</code>:
      <code>mismatch</code>.
   1. Return <code>match</code>.
 
+Note: The steps above treat the <code>bDeviceClass</code>,
+<code>bDeviceSubClass</code> and <code>bDeviceProtocol</code> fields of the
+<a>device descriptor</a> as though they were part of an <a>interface
+descriptor</a> which is also compared against the provided filter.
+
 A USB interface |interface| <dfn data-lt="matches the interface filter">matches
 an interface filter</dfn> |filter| if the following steps return
 <code>match</code>:
