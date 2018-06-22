@@ -1976,47 +1976,45 @@ button<span class="p">.</span>addEventListener<span class="p">(</span><span clas
 <span class="p">});</span>
 </pre>
    </div>
-   <p>A USB device <var>device</var> <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="match a filter" data-noexport="" id="match-a-filter">matches a filter</dfn> <var>filter</var> if the following steps return <code>match</code>:</p>
+   <p>A USB device <var>device</var> <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="match a device filter" data-noexport="" id="match-a-device-filter">matches a device
+filter</dfn> <var>filter</var> if the following steps return <code>match</code>:</p>
    <ol>
     <li data-md="">
      <p>Let <var>deviceDesc</var> be <var>device</var>’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor">device descriptor</a>.</p>
     <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-vendorid" id="ref-for-dom-usbdevicefilter-vendorid">vendorId</a></code></code> is present then, if <code><var>deviceDesc</var>.idVendor</code> does not equal <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-vendorid" id="ref-for-dom-usbdevicefilter-vendorid①">vendorId</a></code></code>, return <code>mismatch</code>.</p>
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-vendorid" id="ref-for-dom-usbdevicefilter-vendorid">vendorId</a></code></code> is present and <code><var>deviceDesc</var>.idVendor</code> does not equal <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-vendorid" id="ref-for-dom-usbdevicefilter-vendorid①">vendorId</a></code></code>, return <code>mismatch</code>.</p>
     <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-productid" id="ref-for-dom-usbdevicefilter-productid">productId</a></code></code> is present then, if <code><var>deviceDesc</var>.idProduct</code> does not equal <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-productid" id="ref-for-dom-usbdevicefilter-productid①">productId</a></code></code>, return <code>mismatch</code>.</p>
-    <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode">classCode</a></code></code> is present then,
- for each of <var>device</var>’s interface’s <var>interface</var> run the following steps:</p>
-     <ol>
-      <li data-md="">
-       <p>Let <var>desc</var> be <var>interface</var>’s <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor">interface descriptor</a>.</p>
-      <li data-md="">
-       <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode①">classCode</a></code></code> is present
-  then, if <code><var>desc</var>.bInterfaceClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode②">classCode</a></code></code>, continue to
-  the next interface.</p>
-      <li data-md="">
-       <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode">subclassCode</a></code></code> is present
-  then, if <code><var>desc</var>.bInterfaceSubClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode①">subclassCode</a></code></code>, continue to
-  the next interface.</p>
-      <li data-md="">
-       <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode">protocolCode</a></code></code> is present
-  then, if <code><var>desc</var>.bInterfaceProtocol</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode①">protocolCode</a></code></code>, continue to
-  the next interface.</p>
-      <li data-md="">
-       <p>Return <code>match</code>.</p>
-     </ol>
-    <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode③">classCode</a></code></code> is present then, if <code><var>deviceDesc</var>.bDeviceClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode④">classCode</a></code></code>, return <code>mismatch</code>.</p>
-    <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode②">subclassCode</a></code></code> is present then,
- if <code><var>deviceDesc</var>.bDeviceSubClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode③">subclassCode</a></code></code>, return <code>mismatch</code>.</p>
-    <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode②">protocolCode</a></code></code> is present then,
- if <code><var>deviceDesc</var>.bDeviceProtocol</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode③">protocolCode</a></code></code>, return <code>mismatch</code>.</p>
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-productid" id="ref-for-dom-usbdevicefilter-productid">productId</a></code></code> is present and <code><var>deviceDesc</var>.idProduct</code> does not equal <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-productid" id="ref-for-dom-usbdevicefilter-productid①">productId</a></code></code>, return <code>mismatch</code>.</p>
     <li data-md="">
      <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-serialnumber" id="ref-for-dom-usbdevicefilter-serialnumber">serialNumber</a></code></code> is present then,
  let <var>serialNumber</var> be the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor">string descriptor</a> with index <code><var>deviceDesc</var>.iSerialNumber</code>. If <var>device</var> returns an error when
  requesting <var>serialNumber</var> or <var>serialNumber</var> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-serialnumber" id="ref-for-dom-usbdevicefilter-serialnumber①">serialNumber</a></code></code>, return <code>mismatch</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode">classCode</a></code></code> is present and,
+ for any of <var>device</var>’s interface’s <var>interface</var>, <var>interface</var> <a data-link-type="dfn" href="#matches-the-interface-filter" id="ref-for-matches-the-interface-filter">matches
+ the interface filter</a> <var>filter</var>, return <code>match</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode①">classCode</a></code></code> is present and <code><var>deviceDesc</var>.bDeviceClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode②">classCode</a></code></code>, return <code>mismatch</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode">subclassCode</a></code></code> is present and <code><var>deviceDesc</var>.bDeviceSubClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode①">subclassCode</a></code></code>, return <code>mismatch</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode">protocolCode</a></code></code> is present and <code><var>deviceDesc</var>.bDeviceProtocol</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode①">protocolCode</a></code></code>, return <code>mismatch</code>.</p>
+    <li data-md="">
+     <p>Return <code>match</code>.</p>
+   </ol>
+   <p class="note" role="note"><span>Note:</span> The steps above treat the <code>bDeviceClass</code>, <code>bDeviceSubClass</code> and <code>bDeviceProtocol</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①">device descriptor</a> as though they were part of an <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor">interface
+descriptor</a> which is also compared against the provided filter.</p>
+   <p>A USB interface <var>interface</var> <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="matches the interface filter" data-noexport="" id="matches-the-interface-filter">matches
+an interface filter</dfn> <var>filter</var> if the following steps return <code>match</code>:</p>
+   <ol>
+    <li data-md="">
+     <p>Let <var>desc</var> be <var>interface</var>’s <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor①">interface descriptor</a>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode③">classCode</a></code></code> is present and <code><var>desc</var>.bInterfaceClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode④">classCode</a></code></code>, return <code>mismatch</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode②">subclassCode</a></code></code> is present and <code><var>desc</var>.bInterfaceSubClass</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode③">subclassCode</a></code></code>, return <code>mismatch</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode②">protocolCode</a></code></code> is present and <code><var>desc</var>.bInterfaceProtocol</code> is not equal to <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode③">protocolCode</a></code></code>, return <code>mismatch</code>.</p>
     <li data-md="">
      <p>Return <code>match</code>.</p>
    </ol>
@@ -2024,12 +2022,13 @@ button<span class="p">.</span>addEventListener<span class="p">(</span><span clas
 return <code>valid</code>:</p>
    <ol>
     <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode④">protocolCode</a></code></code> is present then,
- if <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode④">subclassCode</a></code></code> is not present,
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-productid" id="ref-for-dom-usbdevicefilter-productid②">productId</a></code></code> is present and <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-vendorid" id="ref-for-dom-usbdevicefilter-vendorid②">vendorId</a></code></code> is not present,
  return <code>invalid</code>.</p>
     <li data-md="">
-     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode⑤">subclassCode</a></code></code> is present then,
- if <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode⑤">classCode</a></code></code> is not present,
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode④">subclassCode</a></code></code> is present and <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-classcode" id="ref-for-dom-usbdevicefilter-classcode⑤">classCode</a></code></code> is not present,
+ return <code>invalid</code>.</p>
+    <li data-md="">
+     <p>If <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-protocolcode" id="ref-for-dom-usbdevicefilter-protocolcode④">protocolCode</a></code></code> is present and <code><var>filter</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevicefilter-subclasscode" id="ref-for-dom-usbdevicefilter-subclasscode⑤">subclassCode</a></code></code> is not present,
  return <code>invalid</code>.</p>
     <li data-md="">
      <p>Return <code>valid</code>.</p>
@@ -2099,7 +2098,7 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
     <li data-md="">
      <p><a data-link-type="dfn" href="#enumerate-all-devices-attached-to-the-system" id="ref-for-enumerate-all-devices-attached-to-the-system①">Enumerate all devices attached to the system</a>. Let this result be <var>enumerationResult</var>.</p>
     <li data-md="">
-     <p>Remove devices from <var>enumerationResult</var> if they do not <a data-link-type="dfn" href="#match-a-filter" id="ref-for-match-a-filter">match a
+     <p>Remove devices from <var>enumerationResult</var> if they do not <a data-link-type="dfn" href="#match-a-device-filter" id="ref-for-match-a-device-filter">match a device
  filter</a> in <code><var>options</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters①">filters</a></code></code>.</p>
     <li data-md="">
      <p>Display a prompt to the user requesting they select a device from <var>enumerationResult</var>. The UA SHOULD show a human-readable name for each
@@ -2294,17 +2293,17 @@ stalling the endpoint then the error is cleared before continuing,</p>
 </pre>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-usbversionmajor" id="ref-for-dom-usbdevice-usbversionmajor">usbVersionMajor</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-usbversionminor" id="ref-for-dom-usbdevice-usbversionminor">usbVersionMinor</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-usbversionsubminor" id="ref-for-dom-usbdevice-usbversionsubminor">usbVersionSubminor</a></code> attributes declare the USB protocol version
-supported by the device. They SHALL correspond to the value of the <code>bcdUSB</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①">device descriptor</a> such that a value of <code>0xJJMN</code> has major version <code>JJ</code>, minor version <code>M</code> and subminor version <code>N</code>.</p>
+supported by the device. They SHALL correspond to the value of the <code>bcdUSB</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor②">device descriptor</a> such that a value of <code>0xJJMN</code> has major version <code>JJ</code>, minor version <code>M</code> and subminor version <code>N</code>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-deviceclass" id="ref-for-dom-usbdevice-deviceclass">deviceClass</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-devicesubclass" id="ref-for-dom-usbdevice-devicesubclass">deviceSubclass</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-deviceprotocol" id="ref-for-dom-usbdevice-deviceprotocol">deviceProtocol</a></code> attributes declare the communication interface
-supported by the device. They MUST correspond respectively to the values of the <code>bDeviceClass</code>, <code>bDeviceSubClass</code> and <code>bDeviceProtocol</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor②">device descriptor</a>.</p>
+supported by the device. They MUST correspond respectively to the values of the <code>bDeviceClass</code>, <code>bDeviceSubClass</code> and <code>bDeviceProtocol</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor③">device descriptor</a>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-vendorid" id="ref-for-dom-usbdevice-vendorid">vendorId</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-productid" id="ref-for-dom-usbdevice-productid">productId</a></code> MUST be equal to the
 device’s <a data-link-type="dfn" href="#vendor-id" id="ref-for-vendor-id②">vendor ID</a> and <a data-link-type="dfn" href="#product-id" id="ref-for-product-id②">product ID</a>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-deviceversionmajor" id="ref-for-dom-usbdevice-deviceversionmajor">deviceVersionMajor</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-deviceversionminor" id="ref-for-dom-usbdevice-deviceversionminor">deviceVersionMinor</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-deviceversionsubminor" id="ref-for-dom-usbdevice-deviceversionsubminor">deviceVersionSubminor</a></code> attributes declare the device release
 number as defined by the device manufacturer. It SHALL correspond to the value
-of the <code>bcdDevice</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor③">device descriptor</a> such that a
+of the <code>bcdDevice</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor④">device descriptor</a> such that a
 value of <code>0xJJMN</code> has major version <code>JJ</code>, minor version <code>M</code> and subminor version <code>N</code>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-manufacturername" id="ref-for-dom-usbdevice-manufacturername">manufacturerName</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-productname" id="ref-for-dom-usbdevice-productname">productName</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-serialnumber" id="ref-for-dom-usbdevice-serialnumber">serialNumber</a></code> attributes SHOULD contain the values of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor①">string
-descriptors</a> indexed by the <code>iManufacturer</code>, <code>iProduct</code> and <code>iSerialNumber</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor④">device descriptor</a> if each is
+descriptors</a> indexed by the <code>iManufacturer</code>, <code>iProduct</code> and <code>iSerialNumber</code> fields of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑤">device descriptor</a> if each is
 defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration①">configuration</a></code> attribute contains the currently selected
 configuration for the device and SHALL be one of the configurations listed in <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configurations" id="ref-for-dom-usbdevice-configurations">configurations</a></code>. It MAY be <code>null</code> if the device is in
@@ -2313,7 +2312,7 @@ an unconfigured state and MUST be updated by <code class="idl"><a data-link-type
 supported by the device. These configurations SHALL be populated from the
 configuration descriptors reported by the device and the number of elements in
 this list SHALL match the value of the <code>bNumConfigurations</code> field of
-the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑤">device descriptor</a>.</p>
+the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑥">device descriptor</a>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened">opened</a></code> attribute SHALL be set to <code>true</code> when the
 device is opened by the current execution context and SHALL be set to <code>false</code> otherwise.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open①">open()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects③">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel②">in parallel</a>:</p>
@@ -2456,7 +2455,7 @@ parallel:</p>
  these steps if <var>promise</var> is rejected.</p>
     <li data-md="">
      <p>If <var>length</var> is greater than the <code>bMaxPacketSize0</code> field of the
- device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑥">device descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror①">TypeError</a></code> and abort these steps.</p>
+ device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑦">device descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror①">TypeError</a></code> and abort these steps.</p>
     <li data-md="">
      <p>If <var>length</var> is greather than 0, let <var>buffer</var> be a host buffer with space
  for <var>length</var> bytes.</p>
@@ -2495,7 +2494,7 @@ parallel</a>:</p>
      <p><a data-link-type="dfn" href="#check-the-validity-of-the-control-transfer-parameters" id="ref-for-check-the-validity-of-the-control-transfer-parameters①">Check the validity of the control transfer parameters</a> and abort
  these steps if <var>promise</var> is rejected.</p>
     <li data-md="">
-     <p>If <code><var>data</var>.length</code> is greater than the <code>bMaxPacketSize0</code> field of the device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑦">device
+     <p>If <code><var>data</var>.length</code> is greater than the <code>bMaxPacketSize0</code> field of the device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑧">device
  descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror②">TypeError</a></code> and abort
  these steps.</p>
     <li data-md="">
@@ -2854,7 +2853,7 @@ vendor.</p>
 of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor②">string descriptor</a> referenced by the <code>iConfiguration</code> field of the <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor①">configuration descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces">interfaces</a></code> attribute SHALL contain a list of
 interfaces exposed by this device configuration. These interfaces SHALL by
-populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor①">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor②">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
+populated by collecting the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor②">interface descriptors</a> contained within this <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor②">configuration descriptor</a> and organizing them by <code>bInterfaceNumber</code>.</p>
    <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/WICG/webusb/issues/46">&lt;https://github.com/WICG/webusb/issues/46></a></p>
    <h3 class="heading settled" data-level="6.3" id="interfaces"><span class="secno">6.3. </span><span class="content">Interfaces</span><a class="self-link" href="#interfaces"></a></h3>
 <pre class="idl highlight def">[
@@ -2882,7 +2881,7 @@ populated by collecting the <a data-link-type="dfn" href="#interface-descriptor"
 };
 </pre>
    <p>Each interface provides a collection of <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates">alternates</a></code> identified
-by a single <code>bInterfaceNumber</code> field found in their <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor②">interface
+by a single <code>bInterfaceNumber</code> field found in their <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor③">interface
 descriptors</a>. The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-interfacenumber" id="ref-for-dom-usbinterface-interfacenumber">interfaceNumber</a></code> attribute MUST match this
 field.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-alternate" id="ref-for-dom-usbinterface-alternate">alternate</a></code> attribute SHALL be set to the <code class="idl"><a data-link-type="idl" href="#usbalternateinterface" id="ref-for-usbalternateinterface②">USBAlternateInterface</a></code> that is currently selected for this interface, which
@@ -2892,19 +2891,19 @@ interface configurations available for this interface.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①②">claimed</a></code> attribute SHALL be set to <code>true</code> when
 the interface is claimed by the current execution context and SHALL be set to <code>false</code> otherwise.</p>
    <p>Each alternative interface configuration SHALL have a unique <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-alternatesetting" id="ref-for-dom-usbalternateinterface-alternatesetting">alternateSetting</a></code> within a given interface that
-matches the <code>bAlternateSetting</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor③">interface
+matches the <code>bAlternateSetting</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor④">interface
 descriptor</a> that defines it.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfaceclass" id="ref-for-dom-usbalternateinterface-interfaceclass">interfaceClass</a></code>, <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfacesubclass" id="ref-for-dom-usbalternateinterface-interfacesubclass">interfaceSubclass</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfaceprotocol" id="ref-for-dom-usbalternateinterface-interfaceprotocol">interfaceProtocol</a></code> attributes declare the
 communication interface supported by the interface. They MUST correspond
 respectively to the values of the <code>bInterfaceClass</code>, <code>bInterfaceSubClass</code> and <code>bInterfaceProtocol</code> fields of
-the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor④">interface descriptor</a>.</p>
+the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑤">interface descriptor</a>.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-interfacename" id="ref-for-dom-usbalternateinterface-interfacename">interfaceName</a></code> attribute SHOULD contain the value
 of the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor③">string descriptor</a> indexed by the <code>iInterface</code> field of
-the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑤">interface descriptor</a>, if defined.</p>
+the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑥">interface descriptor</a>, if defined.</p>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbalternateinterface-endpoints" id="ref-for-dom-usbalternateinterface-endpoints">endpoints</a></code> attribute SHALL contain a list of
 endpoints exposed by this interface. These endpoints SHALL by populated from
-the <a data-link-type="dfn" href="#endpoint-descriptor" id="ref-for-endpoint-descriptor">endpoint descriptors</a> contained within this <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑥">interface descriptor</a> and the number of elements in this sequence SHALL
-match the value of the <code>bNumEndpoints</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑦">interface descriptor</a>.</p>
+the <a data-link-type="dfn" href="#endpoint-descriptor" id="ref-for-endpoint-descriptor">endpoint descriptors</a> contained within this <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑦">interface descriptor</a> and the number of elements in this sequence SHALL
+match the value of the <code>bNumEndpoints</code> field of the <a data-link-type="dfn" href="#interface-descriptor" id="ref-for-interface-descriptor⑧">interface descriptor</a>.</p>
    <p>A device’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="active-configuration">active configuration</dfn> is the combination of the <code class="idl"><a data-link-type="idl" href="#usbconfiguration" id="ref-for-usbconfiguration③">USBConfiguration</a></code> selected by calling <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration③">selectConfiguration(configurationValue)</a></code> and the set of <code class="idl"><a data-link-type="idl" href="#usbalternateinterface" id="ref-for-usbalternateinterface③">USBAlternateInterface</a></code>s selected by calling <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface①">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code>.  A
 device MAY, by default, be left in an unconfigured state, referred to as
 configuration <code>0</code> or may automatically be set to whatever
@@ -3009,7 +3008,7 @@ defined as follows:</p>
        <ol>
         <li data-md="">
          <p>If <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters④">filters</a></code></code> is set
-  and <var>device</var> does not <a data-link-type="dfn" href="#match-a-filter" id="ref-for-match-a-filter①">match a filter</a> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters⑤">filters</a></code></code>, continue
+  and <var>device</var> does not <a data-link-type="dfn" href="#match-a-device-filter" id="ref-for-match-a-device-filter①">match a device filter</a> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters⑤">filters</a></code></code>, continue
   to the next <var>device</var>.</p>
         <li data-md="">
          <p>Get the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑨">USBDevice</a></code> representing <var>device</var> and add it to <var>matchingDevices</var>.</p>
@@ -3059,11 +3058,11 @@ descriptors. Of note is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-no
 allows third parties (such as this specification) to declare their own
 types of descriptors. Each of these is identified by a UUID. The Binary
 Object Store is described in section 9.6.2 of <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>.</p>
-   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="usb-device">USB device</dfn> has a single <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑧">device descriptor</a> which links to
+   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="usb-device">USB device</dfn> has a single <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑨">device descriptor</a> which links to
 one or more <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor③">configuration descriptors</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport="" id="vendor-id">vendor ID</dfn> is
-assigned to the device manufacturer by the USB-IF and is stored in the <code>idVendor</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑨">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="product ID" data-noexport="" id="product-id">product
-ID</dfn> is assigned by the manufacturer and is stored in the <code>idProduct</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①⓪">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="serial number" data-noexport="" id="serial-number">serial
-number</dfn> is an optional property that is defined if the <code>iSerialNumber</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①①">device descriptor</a> is not equal
+assigned to the device manufacturer by the USB-IF and is stored in the <code>idVendor</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①⓪">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="product ID" data-noexport="" id="product-id">product
+ID</dfn> is assigned by the manufacturer and is stored in the <code>idProduct</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①①">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="serial number" data-noexport="" id="serial-number">serial
+number</dfn> is an optional property that is defined if the <code>iSerialNumber</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①②">device descriptor</a> is not equal
 to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor④">string descriptor</a> referred to by that index.</p>
    <h2 class="heading settled" data-level="9" id="appendix-intro"><span class="secno">9. </span><span class="content">Appendix: A Brief Introduction to USB</span><a class="self-link" href="#appendix-intro"></a></h2>
    <p><em>This section is non-normative</em>.</p>
@@ -3073,7 +3072,7 @@ your computer. Though some devices like smartphones can act as both a USB host
 and USB client they can only take on one role at a time.</p>
    <h3 class="heading settled" data-level="9.1" id="appendix-descriptors"><span class="secno">9.1. </span><span class="content">Descriptors</span><a class="self-link" href="#appendix-descriptors"></a></h3>
    <p>USB devices identify themselves to the host by providing a set of binary
-structures known as <a data-link-type="dfn" href="#descriptors" id="ref-for-descriptors">descriptors</a>. The first one read by the host is the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①②">device descriptor</a> which contains basic information such as the vendor and
+structures known as <a data-link-type="dfn" href="#descriptors" id="ref-for-descriptors">descriptors</a>. The first one read by the host is the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①③">device descriptor</a> which contains basic information such as the vendor and
 product IDs assigned by the USB-IF and the manufacturer. The host may then read
 the device’s <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor④">configuration descriptor</a> which is a description of the
 device’s capabilities including the interfaces and endpoints it exposes. A class
@@ -3352,7 +3351,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#isochronous-transfers">Isochronous transfers</a><span>, in §9.2</span>
    <li><a href="#landing-page">landing page</a><span>, in §4.1</span>
    <li><a href="#dom-usbdevice-manufacturername">manufacturerName</a><span>, in §6</span>
-   <li><a href="#match-a-filter">match a filter</a><span>, in §5</span>
+   <li><a href="#match-a-device-filter">match a device filter</a><span>, in §5</span>
+   <li><a href="#matches-the-interface-filter">matches the interface filter</a><span>, in §5</span>
    <li><a href="#dom-usbtransferstatus-ok">"ok"</a><span>, in §6.1</span>
    <li><a href="#dom-usb-onconnect">onconnect</a><span>, in §5</span>
    <li><a href="#dom-usb-ondisconnect">ondisconnect</a><span>, in §5</span>
@@ -4177,13 +4177,13 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="dom-usbdevicefilter-vendorid">
    <b><a href="#dom-usbdevicefilter-vendorid">#dom-usbdevicefilter-vendorid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbdevicefilter-vendorid">5. Device Enumeration</a> <a href="#ref-for-dom-usbdevicefilter-vendorid①">(2)</a>
+    <li><a href="#ref-for-dom-usbdevicefilter-vendorid">5. Device Enumeration</a> <a href="#ref-for-dom-usbdevicefilter-vendorid①">(2)</a> <a href="#ref-for-dom-usbdevicefilter-vendorid②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevicefilter-productid">
    <b><a href="#dom-usbdevicefilter-productid">#dom-usbdevicefilter-productid</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbdevicefilter-productid">5. Device Enumeration</a> <a href="#ref-for-dom-usbdevicefilter-productid①">(2)</a>
+    <li><a href="#ref-for-dom-usbdevicefilter-productid">5. Device Enumeration</a> <a href="#ref-for-dom-usbdevicefilter-productid①">(2)</a> <a href="#ref-for-dom-usbdevicefilter-productid②">(3)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevicefilter-classcode">
@@ -4261,11 +4261,17 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     <li><a href="#ref-for-dom-navigator-usb②">7.1. Feature Policy</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="match-a-filter">
-   <b><a href="#match-a-filter">#match-a-filter</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="match-a-device-filter">
+   <b><a href="#match-a-device-filter">#match-a-device-filter</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-match-a-filter">5. Device Enumeration</a>
-    <li><a href="#ref-for-match-a-filter①">7.2. Permission API</a>
+    <li><a href="#ref-for-match-a-device-filter">5. Device Enumeration</a>
+    <li><a href="#ref-for-match-a-device-filter①">7.2. Permission API</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="matches-the-interface-filter">
+   <b><a href="#matches-the-interface-filter">#matches-the-interface-filter</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-matches-the-interface-filter">5. Device Enumeration</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="is-not-a-valid-filter">
@@ -5017,10 +5023,10 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="device-descriptor">
    <b><a href="#device-descriptor">#device-descriptor</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-device-descriptor">5. Device Enumeration</a>
-    <li><a href="#ref-for-device-descriptor①">6. Device Usage</a> <a href="#ref-for-device-descriptor②">(2)</a> <a href="#ref-for-device-descriptor③">(3)</a> <a href="#ref-for-device-descriptor④">(4)</a> <a href="#ref-for-device-descriptor⑤">(5)</a> <a href="#ref-for-device-descriptor⑥">(6)</a> <a href="#ref-for-device-descriptor⑦">(7)</a>
-    <li><a href="#ref-for-device-descriptor⑧">8. Terminology</a> <a href="#ref-for-device-descriptor⑨">(2)</a> <a href="#ref-for-device-descriptor①⓪">(3)</a> <a href="#ref-for-device-descriptor①①">(4)</a>
-    <li><a href="#ref-for-device-descriptor①②">9.1. Descriptors</a>
+    <li><a href="#ref-for-device-descriptor">5. Device Enumeration</a> <a href="#ref-for-device-descriptor①">(2)</a>
+    <li><a href="#ref-for-device-descriptor②">6. Device Usage</a> <a href="#ref-for-device-descriptor③">(2)</a> <a href="#ref-for-device-descriptor④">(3)</a> <a href="#ref-for-device-descriptor⑤">(4)</a> <a href="#ref-for-device-descriptor⑥">(5)</a> <a href="#ref-for-device-descriptor⑦">(6)</a> <a href="#ref-for-device-descriptor⑧">(7)</a>
+    <li><a href="#ref-for-device-descriptor⑨">8. Terminology</a> <a href="#ref-for-device-descriptor①⓪">(2)</a> <a href="#ref-for-device-descriptor①①">(3)</a> <a href="#ref-for-device-descriptor①②">(4)</a>
+    <li><a href="#ref-for-device-descriptor①③">9.1. Descriptors</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="configuration-descriptor">
@@ -5034,9 +5040,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="interface-descriptor">
    <b><a href="#interface-descriptor">#interface-descriptor</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-interface-descriptor">5. Device Enumeration</a>
-    <li><a href="#ref-for-interface-descriptor①">6.2. Configurations</a>
-    <li><a href="#ref-for-interface-descriptor②">6.3. Interfaces</a> <a href="#ref-for-interface-descriptor③">(2)</a> <a href="#ref-for-interface-descriptor④">(3)</a> <a href="#ref-for-interface-descriptor⑤">(4)</a> <a href="#ref-for-interface-descriptor⑥">(5)</a> <a href="#ref-for-interface-descriptor⑦">(6)</a>
+    <li><a href="#ref-for-interface-descriptor">5. Device Enumeration</a> <a href="#ref-for-interface-descriptor①">(2)</a>
+    <li><a href="#ref-for-interface-descriptor②">6.2. Configurations</a>
+    <li><a href="#ref-for-interface-descriptor③">6.3. Interfaces</a> <a href="#ref-for-interface-descriptor④">(2)</a> <a href="#ref-for-interface-descriptor⑤">(3)</a> <a href="#ref-for-interface-descriptor⑥">(4)</a> <a href="#ref-for-interface-descriptor⑦">(5)</a> <a href="#ref-for-interface-descriptor⑧">(6)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="endpoint-descriptor">
