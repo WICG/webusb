@@ -705,7 +705,8 @@ dictionary USBConnectionEventInit : EventInit {
 
 [
   Constructor(DOMString type, USBConnectionEventInit eventInitDict),
-  Exposed=(DedicatedWorker,SharedWorker,Window)
+  Exposed=(DedicatedWorker,SharedWorker,Window),
+  SecureContext
 ]
 interface USBConnectionEvent : Event {
   [SameObject] readonly attribute USBDevice device;
@@ -749,7 +750,7 @@ host it MUST perform the following steps for each script execution environment:
 # Device Usage # {#device-usage}
 
 <pre class="idl">
-  [Exposed=(DedicatedWorker,SharedWorker,Window)]
+  [Exposed=(DedicatedWorker,SharedWorker,Window), SecureContext]
   interface USBDevice {
     readonly attribute octet usbVersionMajor;
     readonly attribute octet usbVersionMinor;
@@ -1309,7 +1310,8 @@ What configuration is the device in after it resets?
 
   [
     Constructor(USBTransferStatus status, optional DataView? data),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBInTransferResult {
     readonly attribute DataView? data;
@@ -1318,7 +1320,8 @@ What configuration is the device in after it resets?
 
   [
     Constructor(USBTransferStatus status, optional unsigned long bytesWritten = 0),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBOutTransferResult {
     readonly attribute unsigned long bytesWritten;
@@ -1327,7 +1330,8 @@ What configuration is the device in after it resets?
 
   [
     Constructor(USBTransferStatus status, optional DataView? data),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBIsochronousInTransferPacket {
     readonly attribute DataView? data;
@@ -1336,7 +1340,8 @@ What configuration is the device in after it resets?
 
   [
     Constructor(sequence&lt;USBIsochronousInTransferPacket> packets, optional DataView? data),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBIsochronousInTransferResult {
     readonly attribute DataView? data;
@@ -1345,7 +1350,8 @@ What configuration is the device in after it resets?
 
   [
     Constructor(USBTransferStatus status, optional unsigned long bytesWritten = 0),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBIsochronousOutTransferPacket {
     readonly attribute unsigned long bytesWritten;
@@ -1354,7 +1360,8 @@ What configuration is the device in after it resets?
 
   [
     Constructor(sequence&lt;USBIsochronousOutTransferPacket> packets),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBIsochronousOutTransferResult {
     readonly attribute FrozenArray&lt;USBIsochronousOutTransferPacket> packets;
@@ -1434,7 +1441,8 @@ perform the following steps:
 <pre class="idl">
   [
     Constructor(USBDevice device, octet configurationValue),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBConfiguration {
     readonly attribute octet configurationValue;
@@ -1466,7 +1474,8 @@ Include some non-normative information about device configurations.
 <pre class="idl">
   [
     Constructor(USBConfiguration configuration, octet interfaceNumber),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBInterface {
     readonly attribute octet interfaceNumber;
@@ -1477,7 +1486,8 @@ Include some non-normative information about device configurations.
 
   [
     Constructor(USBInterface deviceInterface, octet alternateSetting),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBAlternateInterface {
     readonly attribute octet alternateSetting;
@@ -1562,7 +1572,8 @@ device.
 
   [
     Constructor(USBAlternateInterface alternate, octet endpointNumber, USBDirection direction),
-    Exposed=(DedicatedWorker,SharedWorker,Window)
+    Exposed=(DedicatedWorker,SharedWorker,Window),
+    SecureContext
   ]
   interface USBEndpoint {
     readonly attribute octet endpointNumber;
