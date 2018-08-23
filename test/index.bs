@@ -4,7 +4,7 @@ Status: ED
 ED: https://wicg.github.io/webusb/test/
 Shortname: webusb-test
 Level: 1
-Editor: Reilly Grant, Google Inc., reillyg@google.com
+Editor: Reilly Grant 83788, Google LLC https://www.google.com, reillyg@google.com
 Abstract: This document describes an API for testing a User Agent's implementation of the WebUSB API.
 Group: wicg
 Repository: https://github.com/WICG/webusb/
