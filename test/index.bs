@@ -147,26 +147,26 @@ two benefits,
 
 # Global Testing Interface # {#test-interface}
 
-<pre class="idl">
+<xmp class="idl">
   partial interface USB {
     [SameObject] readonly attribute USBTest test;
   };
 
   interface USBDeviceRequestEvent : Event {
-    attribute FrozenArray&lt;USBDeviceFilter> filters;
+    attribute FrozenArray<USBDeviceFilter> filters;
 
-    void respondWith(Promise&lt;FakeUSBDevice> result);
+    void respondWith(Promise<FakeUSBDevice> result);
   };
 
   interface USBTest {
     attribute EventHandler onrequestdevice;
 
-    Promise&lt;void> initialize();
-    Promise&lt;void> attachToContext((HTMLIFrameElement or Worker) context);
+    Promise<void> initialize();
+    Promise<void> attachToContext((HTMLIFrameElement or Worker) context);
     FakeUSBDevice addFakeDevice(FakeUSBDeviceInit deviceInit);
-    Promise&lt;void> reset();
+    Promise<void> reset();
   };
-</pre>
+</xmp>
 
 By default, a UA SHALL NOT alter the behavior of a {{USB}} instance |usb| in any
 <a>global object</a> until it is reconfigured so that |usb| is <dfn>controlled
@@ -264,7 +264,7 @@ for tests to add simulated USB devices by calling {{USBTest/addFakeDevice()}}
 with an instance of {{FakeUSBDeviceInit}} containing the properties of the
 device to be added.
 
-<pre class="idl">
+<xmp class="idl">
   interface FakeUSBDevice : EventTarget {
     attribute EventHandler onclose;
 
@@ -287,18 +287,18 @@ device to be added.
     DOMString? productName;
     DOMString? serialNumber;
     octet activeConfigurationValue = 0;
-    sequence&lt;FakeUSBConfigurationInit> configurations;
+    sequence<FakeUSBConfigurationInit> configurations;
   };
 
   dictionary FakeUSBConfigurationInit {
     required octet configurationValue;
     DOMString? configurationName;
-    sequence&lt;FakeUSBInterfaceInit> interfaces;
+    sequence<FakeUSBInterfaceInit> interfaces;
   };
 
   dictionary FakeUSBInterfaceInit {
     required octet interfaceNumber;
-    sequence&lt;FakeUSBAlternateInterfaceInit> alternates;
+    sequence<FakeUSBAlternateInterfaceInit> alternates;
   };
 
   dictionary FakeUSBAlternateInterfaceInit {
@@ -307,7 +307,7 @@ device to be added.
     required octet interfaceSubclass;
     required octet interfaceProtocol;
     DOMString? interfaceName;
-    sequence&lt;FakeUSBEndpointInit> endpoints;
+    sequence<FakeUSBEndpointInit> endpoints;
   };
 
   dictionary FakeUSBEndpointInit {
@@ -316,7 +316,7 @@ device to be added.
     required USBEndpointType type;
     required unsigned long packetSize;
   };
-</pre>
+</xmp>
 
 When a {{USBDevice}} |device| is initialized from an fake USB device described
 by a {{FakeUSBDeviceInit}} |init| passed to {{USBTest/addFakeDevice()}} the
