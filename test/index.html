@@ -1212,7 +1212,7 @@ Possible extra rowspan handling
 		}
 	}
 </style>
-  <meta content="Bikeshed version 0c35a3656402f53487c2d78e8b0a21ddc8d98a8f" name="generator">
+  <meta content="Bikeshed version 682218b6cb835b6c59f298a21a02c1fa12339c1d" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1460,15 +1460,16 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-08-23">23 August 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-08-24">24 August 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
      <dd><a class="u-url" href="https://wicg.github.io/webusb/test/">https://wicg.github.io/webusb/test/</a>
      <dt>Issue Tracking:
      <dd><a href="https://github.com/WICG/webusb/issues/">GitHub</a>
-     <dt class="editor">Editor:
+     <dt class="editor">Editors:
      <dd class="editor p-author h-card vcard" data-editor-id="83788"><a class="p-name fn u-email email" href="mailto:reillyg@google.com">Reilly Grant</a> (<a class="p-org org" href="https://www.google.com">Google LLC</a>)
+     <dd class="editor p-author h-card vcard" data-editor-id="106543"><a class="p-name fn u-email email" href="mailto:odejesush@google.com">Ovidio Henriquez</a> (<a class="p-org org" href="https://www.google.com">Google LLC</a>)
      <dt>Participate:
      <dd><a href="https://www.w3.org/community/wicg/">Join the W3C Community Group</a>
      <dd><a href="irc://irc.w3.org:6665/#webusb">IRC: #webusb on W3C’s IRC</a> (Stay around for an answer, it make take a while)
@@ -1660,7 +1661,7 @@ no increase in binary size to support an API that will rarely be used.</p>
   <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code><a class="self-link" href="#dom-usbtest-onrequestdevice"></a></dfn>;
 
   <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="initialize()" id="dom-usbtest-initialize"><code><c- g>initialize</c-></code></dfn>();
-  <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="attachToWindow(window)" id="dom-usbtest-attachtowindow"><code><c- g>attachToWindow</c-></code></dfn>(<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window"><c- n>Window</c-></a> <dfn class="idl-code" data-dfn-for="USBTest/attachToWindow(window)" data-dfn-type="argument" data-export id="dom-usbtest-attachtowindow-window-window"><code><c- g>window</c-></code><a class="self-link" href="#dom-usbtest-attachtowindow-window-window"></a></dfn>);
+  <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="attachToContext(context)" id="dom-usbtest-attachtocontext"><code><c- g>attachToContext</c-></code></dfn>((<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement"><c- n>HTMLIFrameElement</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a>) <dfn class="idl-code" data-dfn-for="USBTest/attachToContext(context)" data-dfn-type="argument" data-export id="dom-usbtest-attachtocontext-context-context"><code><c- g>context</c-></code><a class="self-link" href="#dom-usbtest-attachtocontext-context-context"></a></dfn>);
   <a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①"><c- n>FakeUSBDevice</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="addFakeDevice(deviceInit)" id="dom-usbtest-addfakedevice"><code><c- g>addFakeDevice</c-></code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit"><c- n>FakeUSBDeviceInit</c-></a> <dfn class="idl-code" data-dfn-for="USBTest/addFakeDevice(deviceInit)" data-dfn-type="argument" data-export id="dom-usbtest-addfakedevice-deviceinit-deviceinit"><code><c- g>deviceInit</c-></code><a class="self-link" href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"></a></dfn>);
   <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="reset()" id="dom-usbtest-reset"><code><c- g>reset</c-></code></dfn>();
 };
@@ -1688,7 +1689,7 @@ by</a> <var>test</var>.</p>
     <li data-md>
      <p>Return <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot③">[[initializationPromise]]</a></code>.</p>
    </ol>
-   <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-attachtowindow" id="ref-for-dom-usbtest-attachtowindow">attachToWindow(window)</a></code> method MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise②">Promise</a></code> <var>promise</var> and run these steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>:</p>
+   <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-attachtocontext" id="ref-for-dom-usbtest-attachtocontext">attachToContext(context)</a></code> method MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise②">Promise</a></code> <var>promise</var> and run these steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>Let <var>test</var> be the <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest④">USBTest</a></code> instance on which this method was invoked.</p>
@@ -1696,8 +1697,7 @@ by</a> <var>test</var>.</p>
      <p>If <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot④">[[initializationPromise]]</a></code> is not in the <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①">resolved</a> state, reject <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and
 abort these steps.</p>
     <li data-md>
-     <p>Reconfigure the UA’s internal implementation of <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code> in the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object①">global object</a> <var>window</var> so that it is <a data-link-type="dfn" href="#controlled-by" id="ref-for-controlled-by①">controlled
-by</a> <var>test</var>.</p>
+     <p>Reconfigure the UA’s internal implementation of <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code> in the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object①">global object</a> associated with <var>context</var> so that it is <a data-link-type="dfn" href="#controlled-by" id="ref-for-controlled-by①">controlled by</a> <var>test</var>.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise②">Resolve</a> <var>promise</var>.</p>
    </ol>
@@ -2007,7 +2007,7 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <li><a href="#dom-usbtest-addfakedevice">addFakeDevice(deviceInit)</a><span>, in §3</span>
    <li><a href="#dom-fakeusbinterfaceinit-alternates">alternates</a><span>, in §4</span>
    <li><a href="#dom-fakeusbalternateinterfaceinit-alternatesetting">alternateSetting</a><span>, in §4</span>
-   <li><a href="#dom-usbtest-attachtowindow">attachToWindow(window)</a><span>, in §3</span>
+   <li><a href="#dom-usbtest-attachtocontext">attachToContext(context)</a><span>, in §3</span>
    <li><a href="#dom-fakeusbconfigurationinit-configurationname">configurationName</a><span>, in §4</span>
    <li><a href="#dom-fakeusbdeviceinit-configurations">configurations</a><span>, in §4</span>
    <li><a href="#dom-fakeusbconfigurationinit-configurationvalue">configurationValue</a><span>, in §4</span>
@@ -2091,10 +2091,16 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
     <li><a href="#ref-for-eventhandler①">4. Fake Devices</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-window">
-   <a href="https://html.spec.whatwg.org/multipage/window-object.html#window">https://html.spec.whatwg.org/multipage/window-object.html#window</a><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="term-for-htmliframeelement">
+   <a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement">https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-window">3. Global Testing Interface</a>
+    <li><a href="#ref-for-htmliframeelement">3. Global Testing Interface</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-worker">
+   <a href="https://html.spec.whatwg.org/multipage/workers.html#worker">https://html.spec.whatwg.org/multipage/workers.html#worker</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-worker">3. Global Testing Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-current-global-object">
@@ -2418,7 +2424,8 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-eventhandler" style="color:initial">EventHandler</span>
-     <li><span class="dfn-paneled" id="term-for-window" style="color:initial">Window</span>
+     <li><span class="dfn-paneled" id="term-for-htmliframeelement" style="color:initial">HTMLIFrameElement</span>
+     <li><span class="dfn-paneled" id="term-for-worker" style="color:initial">Worker</span>
      <li><span class="dfn-paneled" id="term-for-current-global-object" style="color:initial">current global object</span>
      <li><span class="dfn-paneled" id="term-for-global-object" style="color:initial">global object</span>
      <li><span class="dfn-paneled" id="term-for-in-parallel" style="color:initial">in parallel</span>
@@ -2515,7 +2522,7 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler②"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code></a>;
 
   <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbtest-initialize"><code><c- g>initialize</c-></code></a>();
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbtest-attachtowindow"><code><c- g>attachToWindow</c-></code></a>(<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/window-object.html#window" id="ref-for-window①"><c- n>Window</c-></a> <a href="#dom-usbtest-attachtowindow-window-window"><code><c- g>window</c-></code></a>);
+  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbtest-attachtocontext"><code><c- g>attachToContext</c-></code></a>((<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement①"><c- n>HTMLIFrameElement</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker①"><c- n>Worker</c-></a>) <a href="#dom-usbtest-attachtocontext-context-context"><code><c- g>context</c-></code></a>);
   <a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①⑤"><c- n>FakeUSBDevice</c-></a> <a href="#dom-usbtest-addfakedevice"><code><c- g>addFakeDevice</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit④"><c- n>FakeUSBDeviceInit</c-></a> <a href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"><code><c- g>deviceInit</c-></code></a>);
   <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbtest-reset"><code><c- g>reset</c-></code></a>();
 };
@@ -2602,10 +2609,10 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
     <li><a href="#ref-for-dom-usbtest-initialize①">3.2. Events</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="dom-usbtest-attachtowindow">
-   <b><a href="#dom-usbtest-attachtowindow">#dom-usbtest-attachtowindow</a></b><b>Referenced in:</b>
+  <aside class="dfn-panel" data-for="dom-usbtest-attachtocontext">
+   <b><a href="#dom-usbtest-attachtocontext">#dom-usbtest-attachtocontext</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbtest-attachtowindow">3. Global Testing Interface</a>
+    <li><a href="#ref-for-dom-usbtest-attachtocontext">3. Global Testing Interface</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbtest-addfakedevice">
