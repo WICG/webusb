@@ -5,6 +5,7 @@ ED: https://wicg.github.io/webusb/test/
 Shortname: webusb-test
 Level: 1
 Editor: Reilly Grant 83788, Google LLC https://www.google.com, reillyg@google.com
+Editor: Ovidio Henriquez 106543, Google LLC https://www.google.com, odejesush@google.com
 Abstract: This document describes an API for testing a User Agent's implementation of the WebUSB API.
 Group: wicg
 Repository: https://github.com/WICG/webusb/
@@ -161,7 +162,7 @@ two benefits,
     attribute EventHandler onrequestdevice;
 
     Promise&lt;void> initialize();
-    Promise&lt;void> attachToWindow(Window window);
+    Promise&lt;void> attachToContext((HTMLIFrameElement or Worker) context);
     FakeUSBDevice addFakeDevice(FakeUSBDeviceInit deviceInit);
     Promise&lt;void> reset();
   };
@@ -188,7 +189,7 @@ When invoked, the {{USBTest/initialize()}} method MUST run these steps:
     1.  <a>Resolve</a> |test|.{{USBTest/[[initializationPromise]]}}.
 1.  Return |test|.{{USBTest/[[initializationPromise]]}}.
 
-When invoked, the {{USBTest/attachToWindow(window)}} method MUST return a new
+When invoked, the {{USBTest/attachToContext(context)}} method MUST return a new
 {{Promise}} |promise| and run these steps <a>in parallel</a>:
 
 1.  Let |test| be the {{USBTest}} instance on which this method was invoked.
@@ -196,8 +197,8 @@ When invoked, the {{USBTest/attachToWindow(window)}} method MUST return a new
     <a>resolved</a> state, reject |promise| with an {{InvalidStateError}} and
     abort these steps.
 1.  Reconfigure the UA's internal implementation of {{Navigator/usb}} in the
-    <a>global object</a> <var ignore>window</var> so that it is <a>controlled
-    by</a> |test|.
+    <a>global object</a> associated with <var ignore>context</var> so that it is
+    <a>controlled by</a> |test|.
 1.  <a>Resolve</a> |promise|.
 
 When invoked, the {{USBTest/addFakeDevice(deviceInit)}} method MUST run these
