@@ -1,0 +1,58 @@
+# This file holds a list of devices that websites using the WebUSB API are
+# forbidden from accessing.
+#
+# The format of each line is `idVendor:idProduct[:bcdDevice]` where `idVendor`
+# and `idProduct` are the 4-digit hexadecimal values of a device's vendor and
+# product IDs and the optional `bcdDevice` value is the newest version of the
+# device that should be blocked.
+#
+# Example:
+#   1234:5678      # Blocks access to product 5678 from vendor 1234.
+#   1234:5678:0100 # Blocks access to the same but only up to the 1.00 version.
+#
+# Additions to this file must be made by pull request.
+
+096e:0850  # KEY-ID
+096e:0852  # Feitian
+096e:0853  # Feitian
+096e:0854  # Feitian
+096e:0856  # Feitian
+096e:0858  # Feitian USB+NFC
+096e:085a  # Feitian
+096e:085b  # Feitian
+096e:0880  # HyperFIDO
+
+# Yubikey devices. https://crbug.com/818807
+1050:0010
+1050:0018
+1050:0030
+1050:0110
+1050:0111
+1050:0112
+1050:0113
+1050:0114
+1050:0115
+1050:0116
+1050:0120
+1050:0200
+1050:0211
+1050:0401
+1050:0402
+1050:0403
+1050:0404
+1050:0405
+1050:0406
+1050:0407
+1050:0410
+
+10c4:8acf  # U2F Zero
+18d1:5026  # Titan
+1a44:00bb  # VASCO
+1e0d:f1ae  # Keydo AES
+1e0d:f1d0  # Neowave Keydo
+1ea8:f025  # Thetis
+20a0:4287  # Nitrokey
+24dc:0101  # JaCarta
+2581:f1d0  # Happlink
+2abe:1002  # Bluink
+2ccf:0880  # Feitian USB:HyperFIDO
