@@ -56,3 +56,5 @@
 2581:f1d0  # Happlink
 2abe:1002  # Bluink
 2ccf:0880  # Feitian USB:HyperFIDO
+09c3:0023  # HID Global BlueTrust Token
+
