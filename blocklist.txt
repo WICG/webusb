@@ -10,7 +10,8 @@
 #   1234:5678      # Blocks access to product 5678 from vendor 1234.
 #   1234:5678:0100 # Blocks access to the same but only up to the 1.00 version.
 #
-# Additions to this file must be made by pull request.
+# Additions to this file must be made by pull request. Please keep entries
+# sorted.
 
 096e:0850  # KEY-ID
 096e:0852  # Feitian
@@ -21,6 +22,8 @@
 096e:085a  # Feitian
 096e:085b  # Feitian
 096e:0880  # HyperFIDO
+
+09c3:0023  # HID Global BlueTrust Token
 
 # Yubikey devices. https://crbug.com/818807
 1050:0010
@@ -56,5 +59,3 @@
 2581:f1d0  # Happlink
 2abe:1002  # Bluink
 2ccf:0880  # Feitian USB:HyperFIDO
-09c3:0023  # HID Global BlueTrust Token
-
