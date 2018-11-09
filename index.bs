@@ -277,6 +277,11 @@ The <code>iLandingPage</code> field, when non-zero, indicates a
 visit in order to control their device. The UA MAY suggest the user navigate
 to this URL when the device is connected.
 
+Note: The USB is a little-endian bus and so according to [[RFC4122]] the UUID
+above MUST be sent over the wire as the byte sequence <code>{0x38, 0xB6, 0x08,
+0x34, 0xA9, 0x09, 0xA0, 0x47, 0x8B, 0xFD, 0xA0, 0x76, 0x88, 0x15, 0xB6,
+0x65}</code>.
+
 ## WebUSB Device Requests ## {#device-requests}
 
 All <a>control transfers</a> defined by this specification are considered to
@@ -1793,6 +1798,12 @@ depending on what type of traffic is being sent.
 
 <pre class="biblio">
 {
+  "RFC4122": {
+    "href": "https://tools.ietf.org/html/rfc4122",
+    "title": "A Universally Unique IDentifier (UUID) URN Namespace",
+    "publisher": "Internet Engineering Task Force",
+    "date": "July 2005"
+  },
   "USB31": {
     "href": "http://www.usb.org/developers/docs/",
     "title": "Universal Serial Bus 3.1 Specification",
