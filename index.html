@@ -1789,6 +1789,10 @@ Store</a>:</p>
    <p>The <code>iLandingPage</code> field, when non-zero, indicates a <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="landing-page">landing page</dfn> which the device manufacturer would like the user to
 visit in order to control their device. The UA MAY suggest the user navigate
 to this URL when the device is connected.</p>
+   <p class="note" role="note"><span>Note:</span> The USB is a little-endian bus and so according to <a data-link-type="biblio" href="#biblio-rfc4122">[RFC4122]</a> the UUID
+above MUST be sent over the wire as the byte sequence <code>{0x38, 0xB6, 0x08,
+0x34, 0xA9, 0x09, 0xA0, 0x47, 0x8B, 0xFD, 0xA0, 0x76, 0x88, 0x15, 0xB6,
+0x65}</code>.</p>
    <h3 class="heading settled" data-level="4.2" id="device-requests"><span class="secno">4.2. </span><span class="content">WebUSB Device Requests</span><a class="self-link" href="#device-requests"></a></h3>
    <p>All <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer">control transfers</a> defined by this specification are considered to
 be vendor-specific requests. The <code>bVendorCode</code> value found
@@ -3920,6 +3924,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <dd>Anne van Kesteren. <a href="https://www.w3.org/TR/cors/">Cross-Origin Resource Sharing</a>. 16 January 2014. REC. URL: <a href="https://www.w3.org/TR/cors/">https://www.w3.org/TR/cors/</a>
    <dt id="biblio-powerful-features">[POWERFUL-FEATURES]
    <dd>Mike West. <a href="https://www.w3.org/TR/secure-contexts/">Secure Contexts</a>. 15 September 2016. CR. URL: <a href="https://www.w3.org/TR/secure-contexts/">https://www.w3.org/TR/secure-contexts/</a>
+   <dt id="biblio-rfc4122">[RFC4122]
+   <dd><a href="https://tools.ietf.org/html/rfc4122">A Universally Unique IDentifier (UUID) URN Namespace</a>. July 2005. URL: <a href="https://tools.ietf.org/html/rfc4122">https://tools.ietf.org/html/rfc4122</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a href="#dictdef-usbdevicefilter"><code><c- g>USBDeviceFilter</c-></code></a> {
