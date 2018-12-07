@@ -1477,7 +1477,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-12-06">6 December 2018</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2018-12-07">7 December 2018</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -2460,10 +2460,7 @@ parallel:</p>
      <p><a data-link-type="dfn" href="#check-the-validity-of-the-control-transfer-parameters" id="ref-for-check-the-validity-of-the-control-transfer-parameters">Check the validity of the control transfer parameters</a> and abort
  these steps if <var>promise</var> is rejected.</p>
     <li data-md>
-     <p>If <var>length</var> is greater than the <code>bMaxPacketSize0</code> field of the
- device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑦">device descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror①">TypeError</a></code> and abort these steps.</p>
-    <li data-md>
-     <p>If <var>length</var> is greather than 0, let <var>buffer</var> be a host buffer with space
+     <p>If <var>length</var> is greater than 0, let <var>buffer</var> be a host buffer with space
  for <var>length</var> bytes.</p>
     <li data-md>
      <p>Issue a <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑤">control transfer</a> to <var>device</var> with the setup packet parameters
@@ -2482,7 +2479,7 @@ parallel:</p>
      <p>If <var>device</var> responded with more than <var>length</var> bytes of data set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbintransferresult-status" id="ref-for-dom-usbintransferresult-status②">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-babble" id="ref-for-dom-usbtransferstatus-babble">"babble"</a></code> and
  otherwise set it to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok">"ok"</a></code>.</p>
     <li data-md>
-     <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror④">NetworkError</a></code> and abort these steps.</p>
+     <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror④">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①①">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
@@ -2491,21 +2488,17 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
 parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①②">NotFoundError</a></code> and abort these steps.</p>
+     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①②">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①⓪">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑧">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑤">InvalidStateError</a></code> and
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①⓪">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑦">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑤">InvalidStateError</a></code> and
  abort these
  steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="#check-the-validity-of-the-control-transfer-parameters" id="ref-for-check-the-validity-of-the-control-transfer-parameters①">Check the validity of the control transfer parameters</a> and abort
  these steps if <var>promise</var> is rejected.</p>
     <li data-md>
-     <p>If <code><var>data</var>.length</code> is greater than the <code>bMaxPacketSize0</code> field of the device’s <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑧">device
- descriptor</a>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror②">TypeError</a></code> and abort
- these steps.</p>
-    <li data-md>
      <p>Issue a <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑥">control transfer</a> with the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet">setup packet</a> populated by <var>setup</var> and the data transfer direction in <code>bmRequestType</code> set
- to "host to device" and <code>wLength</code> set to <code><var>data</var>.length</code>.  Transmit <var>data</var> in the <a data-link-type="dfn" href="#data-stage" id="ref-for-data-stage">data stage</a> of
+ to "host to device" and <code>wLength</code> set to <code><var>data</var>.length</code>. Transmit <var>data</var> in the <a data-link-type="dfn" href="#data-stage" id="ref-for-data-stage">data stage</a> of
  the transfer.</p>
     <li data-md>
      <p>Let <var>result</var> be a new <code class="idl"><a data-link-type="idl" href="#usbouttransferresult" id="ref-for-usbouttransferresult②">USBOutTransferResult</a></code>.</p>
@@ -2514,7 +2507,7 @@ parallel</a>:</p>
     <li data-md>
      <p>If the device acknowledges the transfer set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbouttransferresult-status" id="ref-for-dom-usbouttransferresult-status①">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok①">"ok"</a></code> and <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbouttransferresult-byteswritten" id="ref-for-dom-usbouttransferresult-byteswritten">bytesWritten</a></code></code> to <code><var>data</var>.length</code>.</p>
     <li data-md>
-     <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⓪">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑤">NetworkError</a></code> and abort these steps.</p>
+     <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑤">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①②">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
@@ -2523,18 +2516,18 @@ MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.g
 parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③①">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①③">NotFoundError</a></code> and abort these steps.</p>
+     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①③">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>Let <var>endpoint</var> be the endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration④">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>direction</var> and <var>endpointNumber</var>. If no such endpoint exists <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③②">reject</a> <var>promise</var> and
+     <p>Let <var>endpoint</var> be the endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration④">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>direction</var> and <var>endpointNumber</var>. If no such endpoint exists <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⓪">reject</a> <var>promise</var> and
  abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①①">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑤">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑥">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①①">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑤">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③①">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑥">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md>
      <p>Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑦">control transfer</a> to
  the device to clear the halt condition on <var>endpoint</var>.</p>
     <li data-md>
-     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑥">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①③">resolve</a> <var>promise</var>.</p>
+     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑥">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①③">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-transferin" id="ref-for-dom-usbdevice-transferin①">transferIn(endpointNumber, length)</a></code> method, when invoked, MUST
 return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①②">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑧">in
@@ -2543,15 +2536,15 @@ parallel</a>:</p>
     <li data-md>
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑤">USBDevice</a></code> object.</p>
     <li data-md>
-     <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①④">NotFoundError</a></code> and abort these steps.</p>
+     <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①④">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
      <p>Let <var>endpoint</var> be the IN endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration⑤">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>endpointNumber</var>. If there
- is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑤">NotFoundError</a></code> and
+ is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑤">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>If <var>endpoint</var> is not a bulk or interrupt endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑦">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
+     <p>If <var>endpoint</var> is not a bulk or interrupt endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑤">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①②">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑥">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑧">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑦">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①②">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑥">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑥">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑦">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md>
      <p>Let <var>buffer</var> be a host buffer with space for <var>length</var> bytes.</p>
@@ -2571,7 +2564,7 @@ parallel</a>:</p>
     <li data-md>
      <p>If <var>device</var> acknowledged the complete transfer set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbintransferresult-status" id="ref-for-dom-usbintransferresult-status⑤">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok②">"ok"</a></code>.</p>
     <li data-md>
-     <p>If the transfer failed for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑦">NetworkError</a></code> and abort these steps.</p>
+     <p>If the transfer failed for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑦">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①④">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
@@ -2580,15 +2573,15 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
 parallel:</p>
    <ol>
     <li data-md>
-     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⓪">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑥">NotFoundError</a></code> and abort these steps.</p>
+     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑥">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
      <p>Let <var>endpoint</var> be the OUT endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration⑥">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>endpointNumber</var>. If there
- is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④①">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑦">NotFoundError</a></code> and
+ is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑦">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>If <var>endpoint</var> is not a bulk or interrupt endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④②">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror①">InvalidAccessError</a></code> and abort these steps.</p>
+     <p>If <var>endpoint</var> is not a bulk or interrupt endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⓪">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror①">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①③">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑦">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑧">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①③">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑦">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④①">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑧">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md>
      <p>As appropriate for <var>endpoint</var> enqueue a <a data-link-type="dfn" href="#bulk-transfers" id="ref-for-bulk-transfers①">bulk</a> or <a data-link-type="dfn" href="#interrupt-transfers" id="ref-for-interrupt-transfers①">interrupt</a> <a data-link-type="dfn" href="#out-transfers" id="ref-for-out-transfers">OUT transfer</a> on <var>endpoint</var> to transmit <var>data</var> to the device.</p>
@@ -2602,7 +2595,7 @@ parallel:</p>
     <li data-md>
      <p>If the device acknowledges the complete transfer set <code><var>result</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbouttransferresult-status" id="ref-for-dom-usbouttransferresult-status③">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok③">"ok"</a></code>.</p>
     <li data-md>
-     <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑧">NetworkError</a></code> and abort these steps.</p>
+     <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑧">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑤">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
@@ -2611,16 +2604,16 @@ when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="
 steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑨">in parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑧">NotFoundError</a></code> and abort these steps.</p>
+     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑧">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
      <p>Let <var>endpoint</var> be the IN endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration⑦">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>endpointNumber</var>. If there
- is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑨">NotFoundError</a></code> and
+ is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑨">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>If <var>endpoint</var> is not an isochronous endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑦">reject</a> <var>promise</var> with
+     <p>If <var>endpoint</var> is not an isochronous endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑤">reject</a> <var>promise</var> with
  an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror②">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①④">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑧">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑧">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑨">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①④">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑧">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑥">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror⑨">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md>
      <p>Let <var>length</var> be the sum of the elements of <var>packetLengths</var>.</p>
@@ -2646,7 +2639,7 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
       <li data-md>
        <p>If the device acknowledges the complete transfer set <code><var>packet</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbisochronousintransferpacket-status" id="ref-for-dom-usbisochronousintransferpacket-status②">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok④">"ok"</a></code>.</p>
       <li data-md>
-       <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑨">NetworkError</a></code> and abort these steps.</p>
+       <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑨">NetworkError</a></code> and abort these steps.</p>
      </ol>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑥">Resolve</a> <var>promise</var> with <var>result</var>.</p>
@@ -2655,16 +2648,16 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
 following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①⓪">in parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⓪">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②⓪">NotFoundError</a></code> and abort these steps.</p>
+     <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②⓪">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
      <p>Let <var>endpoint</var> be the OUT endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration⑧">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>endpointNumber</var>. If there
- is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤①">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②①">NotFoundError</a></code> and
+ is no such endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②①">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>If <var>endpoint</var> is not an isochronous endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤②">reject</a> <var>promise</var> with
+     <p>If <var>endpoint</var> is not an isochronous endpoint <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⓪">reject</a> <var>promise</var> with
  an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidaccesserror" id="ref-for-invalidaccesserror③">InvalidAccessError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①⑤">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑨">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①⓪">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①⑤">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed⑨">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤①">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①⓪">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md>
      <p>Let <var>length</var> be the sum of the elements of <var>packetLengths</var>.</p>
@@ -2686,7 +2679,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
       <li data-md>
        <p>If the device acknowledges the complete transfer set <code><var>packet</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbisochronousouttransferpacket-status" id="ref-for-dom-usbisochronousouttransferpacket-status①">status</a></code></code> to <code class="idl"><a data-link-type="idl" href="#dom-usbtransferstatus-ok" id="ref-for-dom-usbtransferstatus-ok⑤">"ok"</a></code>.</p>
       <li data-md>
-       <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①⓪">NetworkError</a></code> and abort these steps.</p>
+       <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①⓪">NetworkError</a></code> and abort these steps.</p>
      </ol>
     <li data-md>
      <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑦">Resolve</a> <var>promise</var> with <var>result</var>.</p>
@@ -2696,17 +2689,17 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md>
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑥">USBDevice</a></code> object.</p>
     <li data-md>
-     <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②②">NotFoundError</a></code> and abort these steps.</p>
+     <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②②">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①⑥">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑥">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①①">InvalidStateError</a></code> and
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened①⑥">opened</a></code></code> is not equal to <code>true</code> <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤④">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①①">InvalidStateError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>Abort all operations on the device and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑦">reject</a> their associated
+     <p>Abort all operations on the device and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑤">reject</a> their associated
  promises with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#aborterror" id="ref-for-aborterror③">AbortError</a></code>.</p>
     <li data-md>
      <p>Perform the necessary platform-specific operation to soft reset the device.</p>
     <li data-md>
-     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①①">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑧">resolve</a> <var>promise</var>.</p>
+     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①①">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑧">resolve</a> <var>promise</var>.</p>
    </ol>
    <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">&lt;https://github.com/WICG/webusb/issues/36></a></p>
    <h3 class="heading settled" data-level="6.1" id="transfers"><span class="secno">6.1. </span><span class="content">Transfers</span><a class="self-link" href="#transfers"></a></h3>
@@ -2831,10 +2824,10 @@ vendor.</p>
        <p>Let <var>interfaceNumber</var> be the lower 8 bits of <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-index" id="ref-for-dom-usbcontroltransferparameters-index②">index</a></code></code>.</p>
       <li data-md>
        <p>Let <var>interface</var> be the interface in the | configuration| with <code>bInterfaceNumber</code> equal to <var>interfaceNumber</var>. If no such
-  interface exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②③">NotFoundError</a></code> and
+  interface exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②③">NotFoundError</a></code> and
   abort these steps.</p>
       <li data-md>
-       <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①⓪">claimed</a></code></code> is not equal to <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑥⓪">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①②">InvalidStateError</a></code> and abort these steps.</p>
+       <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①⓪">claimed</a></code></code> is not equal to <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑧">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①②">InvalidStateError</a></code> and abort these steps.</p>
      </ol>
     <li data-md>
      <p>If <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient③">recipient</a></code></code> is <code class="idl"><a data-link-type="idl" href="#dom-usbrecipient-endpoint" id="ref-for-dom-usbrecipient-endpoint">"endpoint"</a></code>, run the following steps:</p>
@@ -2844,9 +2837,9 @@ vendor.</p>
       <li data-md>
        <p>Let <var>direction</var> be defined as <code class="idl"><a data-link-type="idl" href="#dom-usbdirection-in" id="ref-for-dom-usbdirection-in">"in"</a></code> if the 8th bit of <code><var>setup</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-index" id="ref-for-dom-usbcontroltransferparameters-index④">index</a></code></code> is <code>1</code> and <code class="idl"><a data-link-type="idl" href="#dom-usbdirection-out" id="ref-for-dom-usbdirection-out">"out"</a></code> otherwise.</p>
       <li data-md>
-       <p>Let <var>endpoint</var> be the endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration①⓪">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>direction</var> and <var>endpointNumber</var>. If no such endpoint exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑥①">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②④">NotFoundError</a></code> and abort these steps.</p>
+       <p>Let <var>endpoint</var> be the endpoint in the <a data-link-type="dfn" href="#active-configuration" id="ref-for-active-configuration①⓪">active configuration</a> with <code>bEndpointAddress</code> corresponding to <var>direction</var> and <var>endpointNumber</var>. If no such endpoint exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②④">NotFoundError</a></code> and abort these steps.</p>
       <li data-md>
-       <p>Let <var>interface</var> be the interface in which <var>endpoint</var> is defined. If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①①">claimed</a></code></code> is not equal to <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑥②">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①③">InvalidStateError</a></code>.</p>
+       <p>Let <var>interface</var> be the interface in which <var>endpoint</var> is defined. If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①①">claimed</a></code></code> is not equal to <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑥⓪">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①③">InvalidStateError</a></code>.</p>
      </ol>
    </ol>
    <h3 class="heading settled" data-level="6.2" id="configurations"><span class="secno">6.2. </span><span class="content">Configurations</span><a class="self-link" href="#configurations"></a></h3>
@@ -3011,7 +3004,7 @@ defined as follows:</p>
      <ol>
       <li data-md>
        <p>If <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters②">filters</a></code></code> is set then,
- for each <var>filter</var> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters③">filters</a></code></code> if <var>filter</var> <a data-link-type="dfn" href="#is-not-a-valid-filter" id="ref-for-is-not-a-valid-filter①">is not a valid filter</a> then raise a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror③">TypeError</a></code> and abort these
+ for each <var>filter</var> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters③">filters</a></code></code> if <var>filter</var> <a data-link-type="dfn" href="#is-not-a-valid-filter" id="ref-for-is-not-a-valid-filter①">is not a valid filter</a> then raise a <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror" id="ref-for-sec-native-error-types-used-in-this-standard-typeerror①">TypeError</a></code> and abort these
  steps.</p>
       <li data-md>
        <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="https://w3c.github.io/permissions/#dom-permissionstatus-state" id="ref-for-dom-permissionstatus-state①">state</a></code></code> to <code class="idl"><a data-link-type="idl" href="https://w3c.github.io/permissions/#dom-permissionstate-prompt" id="ref-for-dom-permissionstate-prompt">"prompt"</a></code>.</p>
@@ -3074,11 +3067,11 @@ descriptors. Of note is the <dfn class="dfn-paneled" data-dfn-type="dfn" data-no
 allows third parties (such as this specification) to declare their own
 types of descriptors. Each of these is identified by a UUID. The Binary
 Object Store is described in section 9.6.2 of <a data-link-type="biblio" href="#biblio-usb31">[USB31]</a>.</p>
-   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="usb-device">USB device</dfn> has a single <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑨">device descriptor</a> which links to
+   <p>A <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="usb-device">USB device</dfn> has a single <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑦">device descriptor</a> which links to
 one or more <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor③">configuration descriptors</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="vendor-id">vendor ID</dfn> is
-assigned to the device manufacturer by the USB-IF and is stored in the <code>idVendor</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①⓪">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="product ID" data-noexport id="product-id">product
-ID</dfn> is assigned by the manufacturer and is stored in the <code>idProduct</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①①">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="serial number" data-noexport id="serial-number">serial
-number</dfn> is an optional property that is defined if the <code>iSerialNumber</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①②">device descriptor</a> is not equal
+assigned to the device manufacturer by the USB-IF and is stored in the <code>idVendor</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑧">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="product ID" data-noexport id="product-id">product
+ID</dfn> is assigned by the manufacturer and is stored in the <code>idProduct</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor⑨">device descriptor</a>. It’s <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="serial number" data-noexport id="serial-number">serial
+number</dfn> is an optional property that is defined if the <code>iSerialNumber</code> field of the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①⓪">device descriptor</a> is not equal
 to <code>0</code> and is the <a data-link-type="dfn" href="#string-descriptor" id="ref-for-string-descriptor④">string descriptor</a> referred to by that index.</p>
    <h2 class="heading settled" data-level="9" id="appendix-intro"><span class="secno">9. </span><span class="content">Appendix: A Brief Introduction to USB</span><a class="self-link" href="#appendix-intro"></a></h2>
    <p><em>This section is non-normative</em>.</p>
@@ -3088,7 +3081,7 @@ your computer. Though some devices like smartphones can act as both a USB host
 and USB client they can only take on one role at a time.</p>
    <h3 class="heading settled" data-level="9.1" id="appendix-descriptors"><span class="secno">9.1. </span><span class="content">Descriptors</span><a class="self-link" href="#appendix-descriptors"></a></h3>
    <p>USB devices identify themselves to the host by providing a set of binary
-structures known as <a data-link-type="dfn" href="#descriptors" id="ref-for-descriptors">descriptors</a>. The first one read by the host is the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①③">device descriptor</a> which contains basic information such as the vendor and
+structures known as <a data-link-type="dfn" href="#descriptors" id="ref-for-descriptors">descriptors</a>. The first one read by the host is the <a data-link-type="dfn" href="#device-descriptor" id="ref-for-device-descriptor①①">device descriptor</a> which contains basic information such as the vendor and
 product IDs assigned by the USB-IF and the manufacturer. The host may then read
 the device’s <a data-link-type="dfn" href="#configuration-descriptor" id="ref-for-configuration-descriptor④">configuration descriptor</a> which is a description of the
 device’s capabilities including the interfaces and endpoints it exposes. A class
@@ -3531,8 +3524,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror">https://tc39.github.io/ecma262/#sec-native-error-types-used-in-this-standard-typeerror</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror">5. Device Enumeration</a>
-    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror①">6. Device Usage</a> <a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror②">(2)</a>
-    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror③">7.2. Permission API</a>
+    <li><a href="#ref-for-sec-native-error-types-used-in-this-standard-typeerror①">7.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-default-allowlist">
@@ -3656,8 +3648,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise">https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-reject-promise">5. Device Enumeration</a> <a href="#ref-for-reject-promise①">(2)</a>
-    <li><a href="#ref-for-reject-promise②">6. Device Usage</a> <a href="#ref-for-reject-promise③">(2)</a> <a href="#ref-for-reject-promise④">(3)</a> <a href="#ref-for-reject-promise⑤">(4)</a> <a href="#ref-for-reject-promise⑥">(5)</a> <a href="#ref-for-reject-promise⑦">(6)</a> <a href="#ref-for-reject-promise⑧">(7)</a> <a href="#ref-for-reject-promise⑨">(8)</a> <a href="#ref-for-reject-promise①⓪">(9)</a> <a href="#ref-for-reject-promise①①">(10)</a> <a href="#ref-for-reject-promise①②">(11)</a> <a href="#ref-for-reject-promise①③">(12)</a> <a href="#ref-for-reject-promise①④">(13)</a> <a href="#ref-for-reject-promise①⑤">(14)</a> <a href="#ref-for-reject-promise①⑥">(15)</a> <a href="#ref-for-reject-promise①⑦">(16)</a> <a href="#ref-for-reject-promise①⑧">(17)</a> <a href="#ref-for-reject-promise①⑨">(18)</a> <a href="#ref-for-reject-promise②⓪">(19)</a> <a href="#ref-for-reject-promise②①">(20)</a> <a href="#ref-for-reject-promise②②">(21)</a> <a href="#ref-for-reject-promise②③">(22)</a> <a href="#ref-for-reject-promise②④">(23)</a> <a href="#ref-for-reject-promise②⑤">(24)</a> <a href="#ref-for-reject-promise②⑥">(25)</a> <a href="#ref-for-reject-promise②⑦">(26)</a> <a href="#ref-for-reject-promise②⑧">(27)</a> <a href="#ref-for-reject-promise②⑨">(28)</a> <a href="#ref-for-reject-promise③⓪">(29)</a> <a href="#ref-for-reject-promise③①">(30)</a> <a href="#ref-for-reject-promise③②">(31)</a> <a href="#ref-for-reject-promise③③">(32)</a> <a href="#ref-for-reject-promise③④">(33)</a> <a href="#ref-for-reject-promise③⑤">(34)</a> <a href="#ref-for-reject-promise③⑥">(35)</a> <a href="#ref-for-reject-promise③⑦">(36)</a> <a href="#ref-for-reject-promise③⑧">(37)</a> <a href="#ref-for-reject-promise③⑨">(38)</a> <a href="#ref-for-reject-promise④⓪">(39)</a> <a href="#ref-for-reject-promise④①">(40)</a> <a href="#ref-for-reject-promise④②">(41)</a> <a href="#ref-for-reject-promise④③">(42)</a> <a href="#ref-for-reject-promise④④">(43)</a> <a href="#ref-for-reject-promise④⑤">(44)</a> <a href="#ref-for-reject-promise④⑥">(45)</a> <a href="#ref-for-reject-promise④⑦">(46)</a> <a href="#ref-for-reject-promise④⑧">(47)</a> <a href="#ref-for-reject-promise④⑨">(48)</a> <a href="#ref-for-reject-promise⑤⓪">(49)</a> <a href="#ref-for-reject-promise⑤①">(50)</a> <a href="#ref-for-reject-promise⑤②">(51)</a> <a href="#ref-for-reject-promise⑤③">(52)</a> <a href="#ref-for-reject-promise⑤④">(53)</a> <a href="#ref-for-reject-promise⑤⑤">(54)</a> <a href="#ref-for-reject-promise⑤⑥">(55)</a> <a href="#ref-for-reject-promise⑤⑦">(56)</a> <a href="#ref-for-reject-promise⑤⑧">(57)</a>
-    <li><a href="#ref-for-reject-promise⑤⑨">6.1. Transfers</a> <a href="#ref-for-reject-promise⑥⓪">(2)</a> <a href="#ref-for-reject-promise⑥①">(3)</a> <a href="#ref-for-reject-promise⑥②">(4)</a>
+    <li><a href="#ref-for-reject-promise②">6. Device Usage</a> <a href="#ref-for-reject-promise③">(2)</a> <a href="#ref-for-reject-promise④">(3)</a> <a href="#ref-for-reject-promise⑤">(4)</a> <a href="#ref-for-reject-promise⑥">(5)</a> <a href="#ref-for-reject-promise⑦">(6)</a> <a href="#ref-for-reject-promise⑧">(7)</a> <a href="#ref-for-reject-promise⑨">(8)</a> <a href="#ref-for-reject-promise①⓪">(9)</a> <a href="#ref-for-reject-promise①①">(10)</a> <a href="#ref-for-reject-promise①②">(11)</a> <a href="#ref-for-reject-promise①③">(12)</a> <a href="#ref-for-reject-promise①④">(13)</a> <a href="#ref-for-reject-promise①⑤">(14)</a> <a href="#ref-for-reject-promise①⑥">(15)</a> <a href="#ref-for-reject-promise①⑦">(16)</a> <a href="#ref-for-reject-promise①⑧">(17)</a> <a href="#ref-for-reject-promise①⑨">(18)</a> <a href="#ref-for-reject-promise②⓪">(19)</a> <a href="#ref-for-reject-promise②①">(20)</a> <a href="#ref-for-reject-promise②②">(21)</a> <a href="#ref-for-reject-promise②③">(22)</a> <a href="#ref-for-reject-promise②④">(23)</a> <a href="#ref-for-reject-promise②⑤">(24)</a> <a href="#ref-for-reject-promise②⑥">(25)</a> <a href="#ref-for-reject-promise②⑦">(26)</a> <a href="#ref-for-reject-promise②⑧">(27)</a> <a href="#ref-for-reject-promise②⑨">(28)</a> <a href="#ref-for-reject-promise③⓪">(29)</a> <a href="#ref-for-reject-promise③①">(30)</a> <a href="#ref-for-reject-promise③②">(31)</a> <a href="#ref-for-reject-promise③③">(32)</a> <a href="#ref-for-reject-promise③④">(33)</a> <a href="#ref-for-reject-promise③⑤">(34)</a> <a href="#ref-for-reject-promise③⑥">(35)</a> <a href="#ref-for-reject-promise③⑦">(36)</a> <a href="#ref-for-reject-promise③⑧">(37)</a> <a href="#ref-for-reject-promise③⑨">(38)</a> <a href="#ref-for-reject-promise④⓪">(39)</a> <a href="#ref-for-reject-promise④①">(40)</a> <a href="#ref-for-reject-promise④②">(41)</a> <a href="#ref-for-reject-promise④③">(42)</a> <a href="#ref-for-reject-promise④④">(43)</a> <a href="#ref-for-reject-promise④⑤">(44)</a> <a href="#ref-for-reject-promise④⑥">(45)</a> <a href="#ref-for-reject-promise④⑦">(46)</a> <a href="#ref-for-reject-promise④⑧">(47)</a> <a href="#ref-for-reject-promise④⑨">(48)</a> <a href="#ref-for-reject-promise⑤⓪">(49)</a> <a href="#ref-for-reject-promise⑤①">(50)</a> <a href="#ref-for-reject-promise⑤②">(51)</a> <a href="#ref-for-reject-promise⑤③">(52)</a> <a href="#ref-for-reject-promise⑤④">(53)</a> <a href="#ref-for-reject-promise⑤⑤">(54)</a> <a href="#ref-for-reject-promise⑤⑥">(55)</a>
+    <li><a href="#ref-for-reject-promise⑤⑦">6.1. Transfers</a> <a href="#ref-for-reject-promise⑤⑧">(2)</a> <a href="#ref-for-reject-promise⑤⑨">(3)</a> <a href="#ref-for-reject-promise⑥⓪">(4)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-resolve-promise">
@@ -5059,9 +5051,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <b><a href="#device-descriptor">#device-descriptor</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-device-descriptor">5. Device Enumeration</a> <a href="#ref-for-device-descriptor①">(2)</a>
-    <li><a href="#ref-for-device-descriptor②">6. Device Usage</a> <a href="#ref-for-device-descriptor③">(2)</a> <a href="#ref-for-device-descriptor④">(3)</a> <a href="#ref-for-device-descriptor⑤">(4)</a> <a href="#ref-for-device-descriptor⑥">(5)</a> <a href="#ref-for-device-descriptor⑦">(6)</a> <a href="#ref-for-device-descriptor⑧">(7)</a>
-    <li><a href="#ref-for-device-descriptor⑨">8. Terminology</a> <a href="#ref-for-device-descriptor①⓪">(2)</a> <a href="#ref-for-device-descriptor①①">(3)</a> <a href="#ref-for-device-descriptor①②">(4)</a>
-    <li><a href="#ref-for-device-descriptor①③">9.1. Descriptors</a>
+    <li><a href="#ref-for-device-descriptor②">6. Device Usage</a> <a href="#ref-for-device-descriptor③">(2)</a> <a href="#ref-for-device-descriptor④">(3)</a> <a href="#ref-for-device-descriptor⑤">(4)</a> <a href="#ref-for-device-descriptor⑥">(5)</a>
+    <li><a href="#ref-for-device-descriptor⑦">8. Terminology</a> <a href="#ref-for-device-descriptor⑧">(2)</a> <a href="#ref-for-device-descriptor⑨">(3)</a> <a href="#ref-for-device-descriptor①⓪">(4)</a>
+    <li><a href="#ref-for-device-descriptor①①">9.1. Descriptors</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="configuration-descriptor">
