@@ -1029,10 +1029,7 @@ parallel:
      and abort these steps.
   1. <a>Check the validity of the control transfer parameters</a> and abort
      these steps if |promise| is rejected.
-  1. If |length| is greater than the <code>bMaxPacketSize0</code> field of the
-     device's <a>device descriptor</a>, <a>reject</a> |promise| with a
-     {{TypeError}} and abort these steps.
-  1. If |length| is greather than 0, let |buffer| be a host buffer with space
+  1. If |length| is greater than 0, let |buffer| be a host buffer with space
      for |length| bytes.
   1. Issue a <a>control transfer</a> to |device| with the setup packet parameters
      provided in |setup|, the data transfer direction in
@@ -1061,32 +1058,28 @@ parallel</a>:
 
   1. If the device is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  2. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
+  1. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
      <code>true</code> <a>reject</a> |promise| with an {{InvalidStateError}} and
      abort these
      steps.
-  3. <a>Check the validity of the control transfer parameters</a> and abort
+  1. <a>Check the validity of the control transfer parameters</a> and abort
      these steps if |promise| is rejected.
-  4. If <code>|data|.length</code> is greater than the
-     <code>bMaxPacketSize0</code> field of the device's <a>device
-     descriptor</a>, <a>reject</a> |promise| with a {{TypeError}} and abort
-     these steps.
-  5. Issue a <a>control transfer</a> with the <a>setup packet</a> populated by
+  1. Issue a <a>control transfer</a> with the <a>setup packet</a> populated by
      |setup| and the data transfer direction in <code>bmRequestType</code> set
      to "host to device" and <code>wLength</code> set to
-     <code>|data|.length</code>.  Transmit |data| in the <a>data stage</a> of
+     <code>|data|.length</code>. Transmit |data| in the <a>data stage</a> of
      the transfer.
-  6. Let |result| be a new {{USBOutTransferResult}}.
-  7. If the device responds by stalling the
+  1. Let |result| be a new {{USBOutTransferResult}}.
+  1. If the device responds by stalling the
      <a>default control pipe</a> set
      <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
-  8. If the device acknowledges the transfer set
+  1. If the device acknowledges the transfer set
      <code>|result|.{{USBOutTransferResult/status}}</code> to {{"ok"}} and
      <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to
      <code>|data|.length</code>.
-  9. If the transfer fails for any other reason <a>reject</a> |promise| with a
+  1. If the transfer fails for any other reason <a>reject</a> |promise| with a
      {{NetworkError}} and abort these steps.
-  10. <a>Resolve</a> |promise| with |result|.
+  1. <a>Resolve</a> |promise| with |result|.
 
 The {{USBDevice/clearHalt(direction, endpointNumber)}} method, when invoked,
 MUST return a new {{Promise}} |promise| and run the following steps <a>in
