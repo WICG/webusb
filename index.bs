@@ -955,42 +955,45 @@ parallel:
      and <a>resolve</a> |promise|.
 
 The {{USBDevice/claimInterface(interfaceNumber)}} method, when invoked, MUST
-return a new {{Promise}} and run the following steps <a>in parallel</a>:
+return a new {{Promise}} |promise| and run the following steps <a>in
+parallel</a>:
 
   1. If the device is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  2. Let |interface| be the interface in the <a>active configuration</a> with
+  1. Let |interface| be the interface in the <a>active configuration</a> with
      <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
      interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
      abort these steps.
-  3. If <code>|device|.{{USBDevice/opened}}</code> is not <code>true</code> or
-     <code>|interface|.{{USBInterface/claimed}}</code> is not <code>false</code>,
+  1. If <code>|device|.{{USBDevice/opened}}</code> is not <code>true</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  4. Perform the necessary platform-specific steps to request exclusive control
+  1. If <code>|interface|.{{USBInterface/claimed}}</code> is <code>true</code>,
+     <a>resolve</a> |promise| and abort these steps.
+  1. Perform the necessary platform-specific steps to request exclusive control
      over |interface| for the current execution context. If this fails,
      <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
-  5. Set <code>|interface|.{{USBInterface/claimed}}</code> to <code>true</code>
+  1. Set <code>|interface|.{{USBInterface/claimed}}</code> to <code>true</code>
      and <a>resolve</a> |promise|.
 
 The {{USBDevice/releaseInterface(interfaceNumber)}} method, when invoked, MUST
-return a new {{Promise}} |promise| and run the following steps in
-parallel:
+return a new {{Promise}} |promise| and run the following steps <a>in
+parallel</a>:
 
   1. Let |device| be the target {{USBDevice}} object.
-  2. If |device| is no longer connected to the system, <a>reject</a> |promise|
+  1. If |device| is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
-  3. Let |interface| be the interface in the <a>active configuration</a> with
+  1. Let |interface| be the interface in the <a>active configuration</a> with
      <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
      interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
      abort these steps.
-  4. If <code>|device|.{{USBDevice/opened}}</code> or
-     <code>|interface|.{{USBInterface/claimed}}</code> is not <code>true</code>,
+  1. If <code>|device|.{{USBDevice/opened}}</code> is not <code>true</code>,
      <a>reject</a> |promise| with an {{InvalidStateError}} and abort these
      steps.
-  5. Perform the necessary platform-specific steps to reliquish exclusive
+  1. If <code>|interface|.{{USBInterface/claimed}}</code> is <code>false</code>,
+     <a>resolve</a> |promise| and abort these steps.
+  1. Perform the necessary platform-specific steps to reliquish exclusive
      control over |interface|.
-  6. Set <code>|interface|.{{USBInterface/claimed}}</code> to <code>false</code>
+  1. Set <code>|interface|.{{USBInterface/claimed}}</code> to <code>false</code>
      and <a>resolve</a> |promise|.
 
 The {{USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)}}
