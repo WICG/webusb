@@ -2383,7 +2383,8 @@ parallel:</p>
      <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration②">configuration</a></code></code> to <var>configuration</var> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise⑦">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface②">claimInterface(interfaceNumber)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑥">Promise</a></code> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">in parallel</a>:</p>
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑥">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">in
+parallel</a>:</p>
    <ol>
     <li data-md>
      <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①①">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror⑤">NotFoundError</a></code> and abort these steps.</p>
@@ -2392,17 +2393,19 @@ return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github
  interface exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror⑥">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened⑥">opened</a></code></code> is not <code>true</code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed">claimed</a></code></code> is not <code>false</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened⑥">opened</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code> and abort these
  steps.</p>
+    <li data-md>
+     <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed">claimed</a></code></code> is <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise⑧">resolve</a> <var>promise</var> and abort these steps.</p>
     <li data-md>
      <p>Perform the necessary platform-specific steps to request exclusive control
  over <var>interface</var> for the current execution context. If this fails, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror②">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①">claimed</a></code></code> to <code>true</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise⑧">resolve</a> <var>promise</var>.</p>
+     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①">claimed</a></code></code> to <code>true</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise⑨">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-releaseinterface" id="ref-for-dom-usbdevice-releaseinterface①">releaseInterface(interfaceNumber)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑦">Promise</a></code> <var>promise</var> and run the following steps in
-parallel:</p>
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑦">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑤">in
+parallel</a>:</p>
    <ol>
     <li data-md>
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①②">USBDevice</a></code> object.</p>
@@ -2413,16 +2416,18 @@ parallel:</p>
  interface exists, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror⑧">NotFoundError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened⑦">opened</a></code></code> or <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed②">claimed</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①⑦">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code> and abort these
+     <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened⑦">opened</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise①⑦">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code> and abort these
  steps.</p>
+    <li data-md>
+     <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed②">claimed</a></code></code> is <code>false</code>, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⓪">resolve</a> <var>promise</var> and abort these steps.</p>
     <li data-md>
      <p>Perform the necessary platform-specific steps to reliquish exclusive
  control over <var>interface</var>.</p>
     <li data-md>
-     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed③">claimed</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise⑨">resolve</a> <var>promise</var>.</p>
+     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed③">claimed</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①①">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑧">Promise</a></code> <var>promise</var> and run the
-following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑤">in parallel</a>:</p>
+following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑥">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①③">USBDevice</a></code> object.</p>
@@ -2444,7 +2449,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
  this step fails <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror③">NetworkError</a></code> and abort
  these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⓪">Resolve</a> <var>promise</var>.</p>
+     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①②">Resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-controltransferin" id="ref-for-dom-usbdevice-controltransferin">controlTransferIn(setup, length)</a></code> method, when invoked, MUST
 return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑨">Promise</a></code> <var>promise</var> and run the following steps in
@@ -2481,10 +2486,10 @@ parallel:</p>
     <li data-md>
      <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror④">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①①">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①③">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-controltransferout" id="ref-for-dom-usbdevice-controltransferout①">controlTransferOut(setup, data)</a></code> method, when invoked, must
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⓪">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑥">in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⓪">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑦">in
 parallel</a>:</p>
    <ol>
     <li data-md>
@@ -2509,10 +2514,10 @@ parallel</a>:</p>
     <li data-md>
      <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise②⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑤">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①②">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①④">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-clearhalt" id="ref-for-dom-usbdevice-clearhalt①">clearHalt(direction, endpointNumber)</a></code> method, when invoked,
-MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①①">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑦">in
+MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①①">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑧">in
 parallel</a>:</p>
    <ol>
     <li data-md>
@@ -2527,10 +2532,10 @@ parallel</a>:</p>
      <p>Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑦">control transfer</a> to
  the device to clear the halt condition on <var>endpoint</var>.</p>
     <li data-md>
-     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑥">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①③">resolve</a> <var>promise</var>.</p>
+     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑥">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑤">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-transferin" id="ref-for-dom-usbdevice-transferin①">transferIn(endpointNumber, length)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①②">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑧">in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①②">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑨">in
 parallel</a>:</p>
    <ol>
     <li data-md>
@@ -2566,7 +2571,7 @@ parallel</a>:</p>
     <li data-md>
      <p>If the transfer failed for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise③⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑦">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①④">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑥">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-transferout" id="ref-for-dom-usbdevice-transferout">transferOut(endpointNumber, data)</a></code> method, when invoked, MUST
 return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①③">Promise</a></code> <var>promise</var> and run the following steps in
@@ -2597,11 +2602,11 @@ parallel:</p>
     <li data-md>
      <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑧">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑤">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑦">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferin" id="ref-for-dom-usbdevice-isochronoustransferin">isochronousTransferIn(endpointNumber, packetLengths)</a></code> method,
 when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①④">Promise</a></code> <var>promise</var> and run the following
-steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑨">in parallel</a>:</p>
+steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①⓪">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror①⑧">NotFoundError</a></code> and abort these steps.</p>
@@ -2642,10 +2647,10 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
        <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror⑨">NetworkError</a></code> and abort these steps.</p>
      </ol>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑥">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑧">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferout" id="ref-for-dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑤">Promise</a></code> <var>promise</var> and run the
-following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①⓪">in parallel</a>:</p>
+following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①①">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise④⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror②⓪">NotFoundError</a></code> and abort these steps.</p>
@@ -2682,9 +2687,9 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
        <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤②">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①⓪">NetworkError</a></code> and abort these steps.</p>
      </ol>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑦">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑨">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset">reset()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑥">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①①">in parallel</a>:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset">reset()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑥">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①②">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑥">USBDevice</a></code> object.</p>
@@ -2699,7 +2704,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md>
      <p>Perform the necessary platform-specific operation to soft reset the device.</p>
     <li data-md>
-     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①①">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①⑧">resolve</a> <var>promise</var>.</p>
+     <p>On failure <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#reject-promise" id="ref-for-reject-promise⑤⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#networkerror" id="ref-for-networkerror①①">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise②⓪">resolve</a> <var>promise</var>.</p>
    </ol>
    <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">&lt;https://github.com/WICG/webusb/issues/36></a></p>
    <h3 class="heading settled" data-level="6.1" id="transfers"><span class="secno">6.1. </span><span class="content">Transfers</span><a class="self-link" href="#transfers"></a></h3>
@@ -3568,7 +3573,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-in-parallel">5. Device Enumeration</a> <a href="#ref-for-in-parallel①">(2)</a>
-    <li><a href="#ref-for-in-parallel②">6. Device Usage</a> <a href="#ref-for-in-parallel③">(2)</a> <a href="#ref-for-in-parallel④">(3)</a> <a href="#ref-for-in-parallel⑤">(4)</a> <a href="#ref-for-in-parallel⑥">(5)</a> <a href="#ref-for-in-parallel⑦">(6)</a> <a href="#ref-for-in-parallel⑧">(7)</a> <a href="#ref-for-in-parallel⑨">(8)</a> <a href="#ref-for-in-parallel①⓪">(9)</a> <a href="#ref-for-in-parallel①①">(10)</a>
+    <li><a href="#ref-for-in-parallel②">6. Device Usage</a> <a href="#ref-for-in-parallel③">(2)</a> <a href="#ref-for-in-parallel④">(3)</a> <a href="#ref-for-in-parallel⑤">(4)</a> <a href="#ref-for-in-parallel⑥">(5)</a> <a href="#ref-for-in-parallel⑦">(6)</a> <a href="#ref-for-in-parallel⑧">(7)</a> <a href="#ref-for-in-parallel⑨">(8)</a> <a href="#ref-for-in-parallel①⓪">(9)</a> <a href="#ref-for-in-parallel①①">(10)</a> <a href="#ref-for-in-parallel①②">(11)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-triggered-by-user-activation">
@@ -3656,7 +3661,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-resolve-promise">5. Device Enumeration</a> <a href="#ref-for-resolve-promise①">(2)</a> <a href="#ref-for-resolve-promise②">(3)</a>
-    <li><a href="#ref-for-resolve-promise③">6. Device Usage</a> <a href="#ref-for-resolve-promise④">(2)</a> <a href="#ref-for-resolve-promise⑤">(3)</a> <a href="#ref-for-resolve-promise⑥">(4)</a> <a href="#ref-for-resolve-promise⑦">(5)</a> <a href="#ref-for-resolve-promise⑧">(6)</a> <a href="#ref-for-resolve-promise⑨">(7)</a> <a href="#ref-for-resolve-promise①⓪">(8)</a> <a href="#ref-for-resolve-promise①①">(9)</a> <a href="#ref-for-resolve-promise①②">(10)</a> <a href="#ref-for-resolve-promise①③">(11)</a> <a href="#ref-for-resolve-promise①④">(12)</a> <a href="#ref-for-resolve-promise①⑤">(13)</a> <a href="#ref-for-resolve-promise①⑥">(14)</a> <a href="#ref-for-resolve-promise①⑦">(15)</a> <a href="#ref-for-resolve-promise①⑧">(16)</a>
+    <li><a href="#ref-for-resolve-promise③">6. Device Usage</a> <a href="#ref-for-resolve-promise④">(2)</a> <a href="#ref-for-resolve-promise⑤">(3)</a> <a href="#ref-for-resolve-promise⑥">(4)</a> <a href="#ref-for-resolve-promise⑦">(5)</a> <a href="#ref-for-resolve-promise⑧">(6)</a> <a href="#ref-for-resolve-promise⑨">(7)</a> <a href="#ref-for-resolve-promise①⓪">(8)</a> <a href="#ref-for-resolve-promise①①">(9)</a> <a href="#ref-for-resolve-promise①②">(10)</a> <a href="#ref-for-resolve-promise①③">(11)</a> <a href="#ref-for-resolve-promise①④">(12)</a> <a href="#ref-for-resolve-promise①⑤">(13)</a> <a href="#ref-for-resolve-promise①⑥">(14)</a> <a href="#ref-for-resolve-promise①⑦">(15)</a> <a href="#ref-for-resolve-promise①⑧">(16)</a> <a href="#ref-for-resolve-promise①⑨">(17)</a> <a href="#ref-for-resolve-promise②⓪">(18)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-transforming-by">
