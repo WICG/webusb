@@ -1657,6 +1657,7 @@ defined as follows:
   <dt><a>permission result type</a></dt>
   <dd>
     <xmp class="idl">
+      [Exposed=Window]
       interface USBPermissionResult : PermissionStatus {
         attribute FrozenArray<USBDevice> devices;
       };
