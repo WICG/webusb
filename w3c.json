@@ -1,5 +1,6 @@
  {
     "group":      ["80485"]
 ,   "contacts":   ["yoavweiss"]
-,   "shortName":  "webusb"
+,   "shortName":  "webusb",
+    "repo-type":  "cg-report"
 }
