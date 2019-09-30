@@ -1213,7 +1213,7 @@ Possible extra rowspan handling
 	}
 </style>
   <link href="https://www.w3.org/StyleSheets/TR/2016/W3C-ED" rel="stylesheet">
-  <meta content="Bikeshed version 08c4b0e94d147852f66673459784d3429bb3bda1" name="generator">
+  <meta content="Bikeshed version e86d5b1b47a216fa66165c234892adc259212183" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
 <style>/* style-md-lists */
 
@@ -1461,7 +1461,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2019-08-26">26 August 2019</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Editor’s Draft, <time class="dt-updated" datetime="2019-09-30">30 September 2019</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1685,7 +1685,7 @@ run these sub-steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/m
        <p>Reconfigure the UA’s internal implementation of the <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-navigator-usb" id="ref-for-dom-navigator-usb">usb</a></code> object in the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object" id="ref-for-current-global-object">current global object</a> so that it is <a data-link-type="dfn" href="#controlled-by" id="ref-for-controlled-by">controlled
 by</a> <var>test</var>.</p>
       <li data-md>
-       <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise">Resolve</a> <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot②">[[initializationPromise]]</a></code>.</p>
+       <p><a data-link-type="dfn" href="https://heycam.github.io/webidl/#resolve" id="ref-for-resolve">Resolve</a> <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot②">[[initializationPromise]]</a></code>.</p>
      </ol>
     <li data-md>
      <p>Return <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot③">[[initializationPromise]]</a></code>.</p>
@@ -1695,12 +1695,12 @@ by</a> <var>test</var>.</p>
     <li data-md>
      <p>Let <var>test</var> be the <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest④">USBTest</a></code> instance on which this method was invoked.</p>
     <li data-md>
-     <p>If <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot④">[[initializationPromise]]</a></code> is not in the <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise①">resolved</a> state, reject <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and
+     <p>If <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot④">[[initializationPromise]]</a></code> is not in the <a data-link-type="dfn" href="https://heycam.github.io/webidl/#resolve" id="ref-for-resolve①">resolved</a> state, reject <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror">InvalidStateError</a></code> and
 abort these steps.</p>
     <li data-md>
      <p>Reconfigure the UA’s internal implementation of <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code> in the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object①">global object</a> associated with <var>context</var> so that it is <a data-link-type="dfn" href="#controlled-by" id="ref-for-controlled-by①">controlled by</a> <var>test</var>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise②">Resolve</a> <var>promise</var>.</p>
+     <p><a data-link-type="dfn" href="https://heycam.github.io/webidl/#resolve" id="ref-for-resolve②">Resolve</a> <var>promise</var>.</p>
    </ol>
    <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-addfakedevice" id="ref-for-dom-usbtest-addfakedevice">addFakeDevice(deviceInit)</a></code> method MUST run these
 steps:</p>
@@ -1708,7 +1708,7 @@ steps:</p>
     <li data-md>
      <p>Let <var>test</var> be the <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest⑤">USBTest</a></code> instance on which this method was invoked.</p>
     <li data-md>
-     <p>If <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot⑤">[[initializationPromise]]</a></code> is not in the <a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise③">resolved</a> state, raise an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code> and abort these steps.</p>
+     <p>If <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot⑤">[[initializationPromise]]</a></code> is not in the <a data-link-type="dfn" href="https://heycam.github.io/webidl/#resolve" id="ref-for-resolve③">resolved</a> state, raise an <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code> and abort these steps.</p>
     <li data-md>
      <p>Let <var>fakeDevice</var> be a new <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice②">FakeUSBDevice</a></code>.</p>
     <li data-md>
@@ -1724,7 +1724,7 @@ that is connected to the system.</p>
     <li data-md>
      <p>For each <code class="idl"><a data-link-type="idl" href="#fakeusbdevice" id="ref-for-fakeusbdevice③">FakeUSBDevice</a></code> <var>fakeDevice</var> previously returned by <code class="idl"><a data-link-type="idl" href="#dom-usbtest-addfakedevice" id="ref-for-dom-usbtest-addfakedevice①">addFakeDevice()</a></code>, invoke <var>fakeDevice</var>.<code class="idl"><a data-link-type="idl" href="#dom-fakeusbdevice-disconnect" id="ref-for-dom-fakeusbdevice-disconnect">disconnect()</a></code>.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise" id="ref-for-resolve-promise④">Resolve</a> <var>promise</var>.</p>
+     <p><a data-link-type="dfn" href="https://heycam.github.io/webidl/#resolve" id="ref-for-resolve④">Resolve</a> <var>promise</var>.</p>
    </ol>
    <p><code class="idl"><a data-link-type="idl" href="#usbdevicerequestevent" id="ref-for-usbdevicerequestevent">USBDeviceRequestEvent</a></code> instances have an <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots" id="ref-for-sec-object-internal-methods-and-internal-slots①">internal slot</a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="attribute" data-export id="dom-usbdevicerequestevent-promise-slot"><code>[[promise]]</code></dfn> that holds a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise④">Promise</a></code>.</p>
    <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbdevicerequestevent-respondwith" id="ref-for-dom-usbdevicerequestevent-respondwith">respondWith(result)</a></code> method MUST run
@@ -2130,12 +2130,6 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
     <li><a href="#ref-for-queue-a-task①">4. Fake Devices</a>
    </ul>
   </aside>
-  <aside class="dfn-panel" data-for="term-for-resolve-promise">
-   <a href="https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise">https://www.w3.org/2001/tag/doc/promises-guide/#resolve-promise</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-resolve-promise">3. Global Testing Interface</a> <a href="#ref-for-resolve-promise①">(2)</a> <a href="#ref-for-resolve-promise②">(3)</a> <a href="#ref-for-resolve-promise③">(4)</a> <a href="#ref-for-resolve-promise④">(5)</a>
-   </ul>
-  </aside>
   <aside class="dfn-panel" data-for="term-for-idl-DOMString">
    <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
    <ul>
@@ -2179,6 +2173,12 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <a href="https://heycam.github.io/webidl/#idl-octet">https://heycam.github.io/webidl/#idl-octet</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-octet">4. Fake Devices</a> <a href="#ref-for-idl-octet①">(2)</a> <a href="#ref-for-idl-octet②">(3)</a> <a href="#ref-for-idl-octet③">(4)</a> <a href="#ref-for-idl-octet④">(5)</a> <a href="#ref-for-idl-octet⑤">(6)</a> <a href="#ref-for-idl-octet⑥">(7)</a> <a href="#ref-for-idl-octet⑦">(8)</a> <a href="#ref-for-idl-octet⑧">(9)</a> <a href="#ref-for-idl-octet⑨">(10)</a> <a href="#ref-for-idl-octet①⓪">(11)</a> <a href="#ref-for-idl-octet①①">(12)</a> <a href="#ref-for-idl-octet①②">(13)</a> <a href="#ref-for-idl-octet①③">(14)</a> <a href="#ref-for-idl-octet①④">(15)</a> <a href="#ref-for-idl-octet①⑤">(16)</a> <a href="#ref-for-idl-octet①⑥">(17)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-resolve">
+   <a href="https://heycam.github.io/webidl/#resolve">https://heycam.github.io/webidl/#resolve</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-resolve">3. Global Testing Interface</a> <a href="#ref-for-resolve①">(2)</a> <a href="#ref-for-resolve②">(3)</a> <a href="#ref-for-resolve③">(4)</a> <a href="#ref-for-resolve④">(5)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -2433,11 +2433,6 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
      <li><span class="dfn-paneled" id="term-for-queue-a-task" style="color:initial">queue a task</span>
     </ul>
    <li>
-    <a data-link-type="biblio">[promises-guide]</a> defines the following terms:
-    <ul>
-     <li><span class="dfn-paneled" id="term-for-resolve-promise" style="color:initial">resolve</span>
-    </ul>
-   <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
@@ -2447,6 +2442,7 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
      <li><span class="dfn-paneled" id="term-for-idl-promise" style="color:initial">Promise</span>
      <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
      <li><span class="dfn-paneled" id="term-for-idl-octet" style="color:initial">octet</span>
+     <li><span class="dfn-paneled" id="term-for-resolve" style="color:initial">resolve</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-long" style="color:initial">unsigned long</span>
      <li><span class="dfn-paneled" id="term-for-idl-unsigned-short" style="color:initial">unsigned short</span>
     </ul>
@@ -2499,8 +2495,6 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <dd><a href="https://tc39.github.io/ecma262/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.github.io/ecma262/">https://tc39.github.io/ecma262/</a>
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
-   <dt id="biblio-promises-guide">[PROMISES-GUIDE]
-   <dd>Domenic Denicola. <a href="https://www.w3.org/2001/tag/doc/promises-guide">Writing Promise-Using Specifications</a>. 9 November 2018. TAG Finding. URL: <a href="https://www.w3.org/2001/tag/doc/promises-guide">https://www.w3.org/2001/tag/doc/promises-guide</a>
    <dt id="biblio-rfc2119">[RFC2119]
    <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
    <dt id="biblio-webidl">[WebIDL]
