@@ -627,9 +627,8 @@ The {{USB/requestDevice()}} method, when invoked, MUST run the following steps:
        }
      </pre>
      Let |permissionResult| be the resulting {{Promise}}.
-  2. Return the result of <a>transforming</a> |permissionResult| with a
-     fullfillment handler that takes an argument |result| and runs the following
-     steps:
+  2. <a>Upon fulfillment</a> of |permissionResult| with |result| run the
+     following steps:
        1. If <code>|result|.{{USBPermissionResult/devices}}</code> is empty,
           throw a {{NotFoundError}} and abort these steps.
        2. Return <code>|result|.{{USBPermissionResult/devices}}[0]</code>.
@@ -1829,7 +1828,7 @@ spec: html
         text: triggered by user activation
         text: in parallel
         text: incumbent settings object
-spec: promises-guide-1
+spec: webidl
     type: dfn
         text: resolve
 </pre>

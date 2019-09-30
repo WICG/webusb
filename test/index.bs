@@ -414,5 +414,5 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
 
 <pre class="link-defaults">
 spec:html; type:dfn; for:/; text:global object
-spec:promises-guide-1; type:dfn; text:resolve
+spec:webidl; type:dfn; text:resolve
 </pre>
