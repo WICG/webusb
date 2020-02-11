@@ -487,9 +487,9 @@ order to keep the interface up-to-date,
 
 If this is the first time the user has visited the page then it won't have
 permission to access any devices so the page must first call
-{{USB/requestDevice()}} in response to a user gesture. In this case the page
-supports devices from vendor <code>0xABCD</code> that carry the vendor-specific
-subclass <code>0x01</code>,
+{{USB/requestDevice()}} while the [=relevant global object=] has a
+<a>transient activation</a>. In this case the page supports devices from vendor
+<code>0xABCD</code> that carry the vendor-specific subclass <code>0x01</code>,
 
 <pre highlight="js">
   let button = document.getElementById('request-device');
@@ -642,8 +642,9 @@ steps <a>in parallel</a>:
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
      <a>is not a valid filter</a> <a>reject</a> |promise| with a {{TypeError}}
      and abort these steps.
-  2. If the algorithm is not <a>triggered by user activation</a>, <a>reject</a>
-     |promise| with a {{SecurityError}} and abort these steps.
+  2. Check that the algorithm was triggered while the [=relevant global object=]
+     had a <a>transient activation</a>. Otherwise, <a>reject</a> |promise| with
+     a {{SecurityError}} and abort these steps.
   3. Set <code>|status|.{{PermissionStatus/state}}</code> to `"ask"`.
   4. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
@@ -1825,7 +1826,7 @@ spec: Feature Policy; urlPrefix: https://wicg.github.io/feature-policy/#
 <pre class="link-defaults">
 spec: html
     type: dfn
-        text: triggered by user activation
+        text: transient activation
         text: in parallel
         text: incumbent settings object
 spec: webidl
