@@ -6,7 +6,7 @@ Shortname: webusb
 Level: 1
 Editor: Reilly Grant 83788, Google LLC https://www.google.com, reillyg@google.com
 Editor: Ken Rockot 87080, Google LLC https://www.google.com, rockot@google.com
-Editor: Ovidio Henriquez 106543, Google LLC https://www.google.com, odejesush@google.com
+Editor: Ovidio Ruiz-Henríquez 106543, Google LLC https://www.google.com, odejesush@google.com
 Abstract: This document describes an API for securely providing access to Universal Serial Bus devices from web pages.
 Group: wicg
 Repository: https://github.com/WICG/webusb/
