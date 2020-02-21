@@ -1,6 +1,6 @@
 <pre class="metadata">
 Title: WebUSB Testing API
-Status: ED
+Status: w3c/CG-DRAFT
 ED: https://wicg.github.io/webusb/test/
 Shortname: webusb-test
 Level: 1
