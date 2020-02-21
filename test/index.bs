@@ -1,11 +1,11 @@
 <pre class="metadata">
 Title: WebUSB Testing API
-Status: ED
+Status: w3c/CG-DRAFT
 ED: https://wicg.github.io/webusb/test/
 Shortname: webusb-test
 Level: 1
 Editor: Reilly Grant 83788, Google LLC https://www.google.com, reillyg@google.com
-Editor: Ovidio Henriquez 106543, Google LLC https://www.google.com, odejesush@google.com
+Editor: Ovidio Ruiz-Henríquez 106543, Google LLC https://www.google.com, odejesush@google.com
 Abstract: This document describes an API for testing a User Agent's implementation of the WebUSB API.
 Group: wicg
 Repository: https://github.com/WICG/webusb/
