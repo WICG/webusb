@@ -1222,7 +1222,7 @@ Possible extra rowspan handling
 	}
 </style>
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 576ef4f5126e3fb83bf07d9bbe1a64f99aa4944e" name="generator">
+  <meta content="Bikeshed version c80ee3ab, updated Thu Mar 26 10:21:28 2020 -0700" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1241,91 +1241,6 @@ table td, table th {
   padding: 3px;
 }
 </style>
-<style>/* style-md-lists */
-
-/* This is a weird hack for me not yet following the commonmark spec
-   regarding paragraph and lists. */
-[data-md] > :first-child {
-    margin-top: 0;
-}
-[data-md] > :last-child {
-    margin-bottom: 0;
-}</style>
-<style>/* style-selflinks */
-
-.heading, .issue, .note, .example, li, dt {
-    position: relative;
-}
-a.self-link {
-    position: absolute;
-    top: 0;
-    left: calc(-1 * (3.5rem - 26px));
-    width: calc(3.5rem - 26px);
-    height: 2em;
-    text-align: center;
-    border: none;
-    transition: opacity .2s;
-    opacity: .5;
-}
-a.self-link:hover {
-    opacity: 1;
-}
-.heading > a.self-link {
-    font-size: 83%;
-}
-li > a.self-link {
-    left: calc(-1 * (3.5rem - 26px) - 2em);
-}
-dfn > a.self-link {
-    top: auto;
-    left: auto;
-    opacity: 0;
-    width: 1.5em;
-    height: 1.5em;
-    background: gray;
-    color: white;
-    font-style: normal;
-    transition: opacity .2s, background-color .2s, color .2s;
-}
-dfn:hover > a.self-link {
-    opacity: 1;
-}
-dfn > a.self-link:hover {
-    color: black;
-}
-
-a.self-link::before            { content: "¶"; }
-.heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }</style>
-<style>/* style-counters */
-
-body {
-    counter-reset: example figure issue;
-}
-.issue {
-    counter-increment: issue;
-}
-.issue:not(.no-marker)::before {
-    content: "Issue " counter(issue);
-}
-
-.example {
-    counter-increment: example;
-}
-.example:not(.no-marker)::before {
-    content: "Example " counter(example);
-}
-.invalid.example:not(.no-marker)::before,
-.illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
-}
-
-figcaption {
-    counter-increment: figure;
-}
-figcaption:not(.no-marker)::before {
-    content: "Figure " counter(figure) " ";
-}</style>
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -1388,6 +1303,35 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }</style>
+<style>/* style-counters */
+
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
+}
+
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}</style>
 <style>/* style-dfn-panel */
 
 .dfn-panel {
@@ -1425,6 +1369,108 @@ pre .property::before, pre .property::after {
 
 .dfn-paneled { cursor: pointer; }
 </style>
+<style>/* style-md-lists */
+
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}</style>
+<style>/* style-mdn-anno */
+
+            @media (max-width: 767px) { .mdn-anno { opacity: .1 } }
+            .mdn-anno { font: 1em sans-serif; padding: 0.3em; position: absolute; z-index: 8; right: 0.3em; background: #EEE; color: black; box-shadow: 0 0 3px #999; overflow: hidden; border-collapse: initial; border-spacing: initial; min-width: 9em; max-width: min-content; white-space: nowrap; word-wrap: normal; hyphens: none}
+            .mdn-anno:not(.wrapped) { opacity: 1}
+            .mdn-anno:hover { z-index: 9 }
+            .mdn-anno.wrapped { min-width: 0 }
+            .mdn-anno.wrapped > :not(button) { display: none; }
+            .mdn-anno > .mdn-anno-btn { cursor: pointer; border: none; color: #000; background: transparent; margin: -8px; float: right; padding: 10px 8px 8px 8px; outline: none; }
+            .mdn-anno > .mdn-anno-btn > .less-than-two-engines-flag { color: red; padding-right: 2px; }
+            .mdn-anno > .mdn-anno-btn > .all-engines-flag { color: green; padding-right: 2px; }
+            .mdn-anno > .mdn-anno-btn > span { color: #fff; background-color: #000; font-weight: normal; font-family: zillaslab, Palatino, "Palatino Linotype", serif; padding: 2px 3px 0px 3px; line-height: 1.3em; vertical-align: top; }
+            .mdn-anno > .feature { margin-top: 20px; }
+            .mdn-anno > .feature:not(:first-of-type) { border-top: 1px solid #999; margin-top: 6px; padding-top: 2px; }
+            .mdn-anno > .feature > .less-than-two-engines-text { color: red }
+            .mdn-anno > .feature > .all-engines-text { color: green }
+            .mdn-anno > .feature > p { font-size: .75em; margin-top: 6px; margin-bottom: 0; }
+            .mdn-anno > .feature > p + p { margin-top: 3px; }
+            .mdn-anno > .feature > .support { display: block; font-size: 0.6em; margin: 0; padding: 0; margin-top: 2px }
+            .mdn-anno > .feature > .support + div { padding-top: 0.5em; }
+            .mdn-anno > .feature > .support > hr { display: block; border: none; border-top: 1px dotted #999; padding: 3px 0px 0px 0px; margin: 2px 3px 0px 3px; }
+            .mdn-anno > .feature > .support > hr::before { content: ""; }
+            .mdn-anno > .feature > .support > span { padding: 0.2em 0; display: block; display: table; }
+            .mdn-anno > .feature > .support > span.no { color: #CCCCCC; filter: grayscale(100%); }
+            .mdn-anno > .feature > .support > span.no::before { opacity: 0.5; }
+            .mdn-anno > .feature > .support > span:first-of-type { padding-top: 0.5em; }
+            .mdn-anno > .feature > .support > span > span { padding: 0 0.5em; display: table-cell; }
+            .mdn-anno > .feature > .support > span > span:first-child { width: 100%; }
+            .mdn-anno > .feature > .support > span > span:last-child { width: 100%; white-space: pre; padding: 0; }
+            .mdn-anno > .feature > .support > span::before { content: ' '; display: table-cell; min-width: 1.5em; height: 1.5em; background: no-repeat center center; background-size: contain; text-align: right; font-size: 0.75em; font-weight: bold; }
+            .mdn-anno > .feature > .support > .chrome_android::before { background-image: url(https://resources.whatwg.org/browser-logos/chrome.svg); }
+            .mdn-anno > .feature > .support > .firefox_android::before { background-image: url(https://resources.whatwg.org/browser-logos/firefox.png); }
+            .mdn-anno > .feature > .support > .chrome::before { background-image: url(https://resources.whatwg.org/browser-logos/chrome.svg); }
+            .mdn-anno > .feature > .support > .edge_blink::before { background-image: url(https://resources.whatwg.org/browser-logos/edge.svg); }
+            .mdn-anno > .feature > .support > .edge::before { background-image: url(https://resources.whatwg.org/browser-logos/edge_legacy.svg); }
+            .mdn-anno > .feature > .support > .firefox::before { background-image: url(https://resources.whatwg.org/browser-logos/firefox.png); }
+            .mdn-anno > .feature > .support > .ie::before { background-image: url(https://resources.whatwg.org/browser-logos/ie.png); }
+            .mdn-anno > .feature > .support > .safari_ios::before { background-image: url(https://resources.whatwg.org/browser-logos/safari-ios.svg); }
+            .mdn-anno > .feature > .support > .nodejs::before { background-image: url(https://nodejs.org/static/images/favicons/favicon.ico); }
+            .mdn-anno > .feature > .support > .opera_android::before { background-image: url(https://resources.whatwg.org/browser-logos/opera.svg); }
+            .mdn-anno > .feature > .support > .opera::before { background-image: url(https://resources.whatwg.org/browser-logos/opera.svg); }
+            .mdn-anno > .feature > .support > .safari::before { background-image: url(https://resources.whatwg.org/browser-logos/safari.png); }
+            .mdn-anno > .feature > .support > .samsunginternet_android::before { background-image: url(https://resources.whatwg.org/browser-logos/samsung.svg); }
+            .mdn-anno > .feature > .support > .webview_android::before { background-image: url(https://resources.whatwg.org/browser-logos/android-webview.png); }
+            .name-slug-mismatch { color: red }
+            </style>
+<style>/* style-selflinks */
+
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: gray;
+    color: white;
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: black;
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }</style>
 <style>/* style-syntax-highlighting */
 pre.idl.highlight { color: #708090; }
 .highlight:not(.idl) { background: hsl(24, 20%, 95%); }
@@ -1487,7 +1533,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-03-30">30 March 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-03-31">31 March 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -3274,6 +3320,614 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 
 })();
 </script>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usb-getdevices">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB/getDevices" title="The getDevices method of the USB interface returns a Promise that resolves with an array of USBDevice objects for paired attached devices. For information on pairing devices, see USB.requestDevice().">USB/getDevices</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usb-onconnect">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB/onconnect" title="The onconnect property of the USB interface is an event handler called whenever a paired device is connected.">USB/onconnect</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usb-ondisconnect">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB/ondisconnect" title="The ondisconnect property of the USB is an event handler called whenever a paired device is disconnected.">USB/ondisconnect</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usb-requestdevice-options-options">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB/requestDevice" title="The requestDevice() method of the USB interface returns a Promise that resolves with an instance of USBDevice if the specified device is found. Calling this function triggers the user agent&apos;s pairing flow.">USB/requestDevice</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="enumeration">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB" title="The USB interface of the WebUSB API provides attributes and methods for finding and connecting USB devices from a web page.">USB</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-claiminterface">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/claimInterface" title="The claimInterface() method of the USBDevice interface returns a promise that resolves when the requested interface is claimed for exclusive access.">USBDevice/claimInterface</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-clearhalt">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/clearHalt" title="The clearHalt() method of the USBDevice interface returns a promise that resolves when a halt condition is cleared. A halt condition is when a data tranfer to or from the device has a status of &apos;stall&apos;, which requires the web page (the host system, in USB terminology) to clear that condition. See the for details.">USBDevice/clearHalt</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-close">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/close" title="The close() method of the USBDevice interface returns a promise that resolves when all open interfaces are released and the device session has ended.">USBDevice/close</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-configuration">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/configuration" title="The configuration read only property of the USBDevice interface returns a USBConfiguration object for the currently selected interface for a paired USB device.">USBDevice/configuration</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-configurations">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/configurations" title="The configurations read only property of the USBDevice interface an array of device-specific interfaces for controlling a paired USB device.">USBDevice/configurations</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-controltransferin">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/controlTransferIn" title="The controlTransferIn() method of the USBDevice interface returns a promise that resolves with a USBInTransferResult when a command or status operation has been transmitted to the USB device.">USBDevice/controlTransferIn</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-controltransferout">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/controlTransferOut" title="The controlTransferOut() method of the USBDevice interface returns a promise that resolves with a USBOutTransferResult when a command or status operation has been transmitted from the USB device.">USBDevice/controlTransferOut</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-deviceclass">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/deviceClass" title="The deviceClass read only property of the USBDevice interface one of three properties that identify USB devices for the purpose of loading a USB driver that will work with that device. The other two properties are USBDevice.deviceSubclass and USBDevice.deviceprotocol.">USBDevice/deviceClass</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-deviceprotocol">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/deviceProtocol" title="The deviceProtocol read only property of the USBDevice interface one of three properties that identify USB devices for the purpose of loading a USB driver that will work with that device. The other two properties are USBDevice.deviceClass and USBDevice.deviceSubclass.">USBDevice/deviceProtocol</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-devicesubclass">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/deviceSubclass" title="The deviceSubclass read only property of the USBDevice interface one of three properties that identify USB devices for the purpose of loading a USB driver that will work with that device. The other two properties are USBDevice.deviceClass and USBDevice.deviceProtocol.">USBDevice/deviceSubclass</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-deviceversionmajor">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/deviceVersionMajor" title="The deviceVersionMajor read only property of the USBDevice interface he major version number of the device in a semantic versioning scheme.">USBDevice/deviceVersionMajor</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-deviceversionminor">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/deviceVersionMinor" title="The deviceVersionMinor read only property of the USBDevice interface the minor version number of the device in a semantic versioning scheme.">USBDevice/deviceVersionMinor</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-deviceversionsubminor">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/deviceVersionSubminor" title="The deviceVersionSubminor read only property of the USBDevice interface the patch version number of the device in a semantic versioning scheme.">USBDevice/deviceVersionSubminor</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-isochronoustransferin">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/isochronousTransferIn" title="The isochronousTransferIn() method of the USBDevice interface returns a promise that resolves with a USBIsochronousInTransferResult when time sensitive information has been transmitted to the USB device.">USBDevice/isochronousTransferIn</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-isochronoustransferout">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/isochronousTransferOut" title="The isochronousTransferOut() method of the USBDevice interface returns a promise that resolves with a USBIsochronousOutTransferResult when time sensitive information has been transmitted from the USB device.">USBDevice/isochronousTransferOut</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-manufacturername">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/manufacturerName" title="The manufacturerName read only property of the USBDevice interface the of the organization that manufactured the USB device.">USBDevice/manufacturerName</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-open">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/open" title="The open() method of the USBDevice interface returns a promise that resolves when a device session has started.">USBDevice/open</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-opened">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/opened" title="The opened read only property of the USBDevice interface indicates whether a session has been started with a paired USB device. A device must be opened before it can be controlled by a web page.">USBDevice/opened</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-productid">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/productId" title="The productID read only property of the USBDevice interface the manufacturer-defined code that identifies a USB device.">USBDevice/productId</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-productname">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/productName" title="The productName read only property of the USBDevice interface the manufacturer-defined name that identifies a USB device.">USBDevice/productName</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-releaseinterface">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/releaseInterface" title="The releaseInterface() method of the USBDevice interface returns a promise that resolves when a cliamed interface is released from exclusive access.">USBDevice/releaseInterface</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-reset">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/reset" title="The reset() method of the USBDevice interface returns a promise that resolves when the device is reset and all app operations canceled and their promises rejected.">USBDevice/reset</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-selectalternateinterface">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/selectAlternateInterface" title="The selectAlternateInterface() method of the USBDevice interface returns a promise that resolves when the specified alternative endpoint is selected.">USBDevice/selectAlternateInterface</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-selectconfiguration">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/selectConfiguration" title="The selectConfiguration() method of the USBDevice interface returns a promise that resolves when the specified configuration is selected.">USBDevice/selectConfiguration</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-serialnumber">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/serialNumber" title="The serialNumber read only property of the USBDevice interface is the manufacturer-defined serial number for the specific USB device.">USBDevice/serialNumber</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-transferin">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/transferIn" title="The transferIn() method of the USBDevice interface returns a promise that resolves with a USBTransferInResult when bulk or interrupt data is transmitted to the USB device.">USBDevice/transferIn</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-transferout">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/transferOut" title="The transferOut() method of the USBDevice interface returns a promise that resolves with a USBTransferOutResult when bulk or interrupt data is transmitted from the USB device.">USBDevice/transferOut</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-usbversionmajor">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/usbVersionMajor" title="The usbVersionMajor read only property of the USBDevice interface is one of three properties that declare the USB protocol version supported by the device. The other two properties are USBDevice.usbVersionMinor and USBDevice.usbVersionSubminor.">USBDevice/usbVersionMajor</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-usbversionminor">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/usbVersionMinor" title="The usbVersionMinor read only property of the USBDevice interface is one of three properties that declare the USB protocol version supported by the device. The other two properties are USBDevice.usbVersionMajor and USBDevice.usbVersionSubminor.">USBDevice/usbVersionMinor</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-usbversionsubminor">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/usbVersionSubminor" title="The usbVersionSubminor read only property of the USBDevice interface is one of three properties that declare the USB protocol version supported by the device. The other two properties are USBDevice.usbVersionMajor and USBDevice.usbVersionMinor.">USBDevice/usbVersionSubminor</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="dom-usbdevice-vendorid">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/vendorId" title="The vendorID read only property of the USBDevice interface is the official usg.org-assigned vendor ID.">USBDevice/vendorId</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="device-usage">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice" title="The USBDevice interface of the the WebUSB API provides access to metadata about a paired USB device and methods for controlling it.">USBDevice</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+    </div>
+   </div>
+  </aside>
+  <aside class="mdn-anno wrapped" data-deco data-mdn-for="feature-policy">
+   <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+   <div class="feature">
+    <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy/usb" title="The HTTP Feature-Policy header usb directive controls whether the current document is allowed to use the WebUSB API.">Headers/Feature-Policy/usb</a></p>
+    <p class="less-than-two-engines-text">In only one current engine.</p>
+    <div class="support">
+     <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>60+</span></span>
+     <hr>
+     <span class="opera yes"><span>Opera</span><span>47+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+     <hr>
+     <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+     <hr>
+     <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>60+</span></span><span class="webview_android yes"><span>Android WebView</span><span>60+</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>44+</span></span>
+    </div>
+   </div>
+  </aside>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
@@ -3365,8 +4019,8 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdevice-deviceclass">deviceClass</a><span>, in §6</span>
    <li><a href="#device-descriptor">device descriptor</a><span>, in §8</span>
    <li><a href="#dom-usbdevice-deviceprotocol">deviceProtocol</a><span>, in §6</span>
-   <li><a href="#dom-usbpermissionresult-devices">devices</a><span>, in §7.2</span>
    <li><a href="#dom-allowedusbdevice-devices-slot">[[devices]]</a><span>, in §7.2</span>
+   <li><a href="#dom-usbpermissionresult-devices">devices</a><span>, in §7.2</span>
    <li><a href="#dom-usbdevice-devicesubclass">deviceSubclass</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-deviceversionmajor">deviceVersionMajor</a><span>, in §6</span>
    <li><a href="#dom-usbdevice-deviceversionminor">deviceVersionMinor</a><span>, in §6</span>
@@ -3424,6 +4078,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     </ul>
    <li><a href="#dom-usbendpoint-packetsize">packetSize</a><span>, in §6.4</span>
    <li><a href="#platform-descriptor">Platform Descriptor</a><span>, in §8</span>
+   <li><a href="#product-id">product ID</a><span>, in §8</span>
    <li>
     productId
     <ul>
@@ -3431,7 +4086,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><a href="#dom-allowedusbdevice-productid">dict-member for AllowedUSBDevice</a><span>, in §7.2</span>
      <li><a href="#dom-usbdevicefilter-productid">dict-member for USBDeviceFilter</a><span>, in §5</span>
     </ul>
-   <li><a href="#product-id">product ID</a><span>, in §8</span>
    <li><a href="#dom-usbdevice-productname">productName</a><span>, in §6</span>
    <li><a href="#dom-usbdevicefilter-protocolcode">protocolCode</a><span>, in §5</span>
    <li><a href="#dom-usbcontroltransferparameters-recipient">recipient</a><span>, in §6.1</span>
@@ -3471,13 +4125,13 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbendpoint-type">type</a><span>, in §6.4</span>
    <li><a href="#url-descriptor">URL Descriptor</a><span>, in §4.3</span>
    <li><a href="#dom-permissionname-usb">"usb"</a><span>, in §7.2</span>
+   <li><a href="#usb">USB</a><span>, in §5</span>
    <li>
     usb
     <ul>
      <li><a href="#dom-navigator-usb">attribute for Navigator</a><span>, in §5</span>
      <li><a href="#dom-workernavigator-usb">attribute for WorkerNavigator</a><span>, in §5</span>
     </ul>
-   <li><a href="#usb">USB</a><span>, in §5</span>
    <li><a href="#usbalternateinterface">USBAlternateInterface</a><span>, in §6.3</span>
    <li><a href="#dom-usbalternateinterface-usbalternateinterface">USBAlternateInterface(deviceInterface, alternateSetting)</a><span>, in §6.3</span>
    <li><a href="#usbconfiguration">USBConfiguration</a><span>, in §6.2</span>
@@ -3524,6 +4178,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdevice-usbversionsubminor">usbVersionSubminor</a><span>, in §6</span>
    <li><a href="#dom-usbcontroltransferparameters-value">value</a><span>, in §6.1</span>
    <li><a href="#dom-usbrequesttype-vendor">"vendor"</a><span>, in §6.1</span>
+   <li><a href="#vendor-id">vendor ID</a><span>, in §8</span>
    <li>
     vendorId
     <ul>
@@ -3531,7 +4186,6 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><a href="#dom-allowedusbdevice-vendorid">dict-member for AllowedUSBDevice</a><span>, in §7.2</span>
      <li><a href="#dom-usbdevicefilter-vendorid">dict-member for USBDeviceFilter</a><span>, in §5</span>
     </ul>
-   <li><a href="#vendor-id">vendor ID</a><span>, in §8</span>
    <li><a href="#webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a><span>, in §4</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-event">
@@ -3969,81 +4623,81 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>dictionary</c-> <a href="#dictdef-usbdevicefilter"><code><c- g>USBDeviceFilter</c-></code></a> {
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑦"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbdevicefilter-vendorid"><code><c- g>vendorId</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short①①"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbdevicefilter-productid"><code><c- g>productId</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③⑦"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbdevicefilter-classcode"><code><c- g>classCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①①⓪"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbdevicefilter-subclasscode"><code><c- g>subclassCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②①⓪"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbdevicefilter-protocolcode"><code><c- g>protocolCode</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑧"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-usbdevicefilter-serialnumber"><code><c- g>serialNumber</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbdevicefilter-vendorid"><code><c- g>vendorId</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbdevicefilter-productid"><code><c- g>productId</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbdevicefilter-classcode"><code><c- g>classCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbdevicefilter-subclasscode"><code><c- g>subclassCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbdevicefilter-protocolcode"><code><c- g>protocolCode</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-usbdevicefilter-serialnumber"><code><c- g>serialNumber</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-usbdevicerequestoptions"><code><c- g>USBDeviceRequestOptions</c-></code></a> {
-  <c- b>required</c-> <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter③"><c- n>USBDeviceFilter</c-></a>> <a data-type="sequence<USBDeviceFilter> " href="#dom-usbdevicerequestoptions-filters"><code><c- g>filters</c-></code></a>;
+  <c- b>required</c-> <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <a data-type="sequence<USBDeviceFilter> " href="#dom-usbdevicerequestoptions-filters"><code><c- g>filters</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑦"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①⑥"><c- g>SecureContext</c-></a>]
-<c- b>interface</c-> <a href="#usb"><code><c- g>USB</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget①"><c- n>EventTarget</c-></a> {
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler②"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usb-onconnect"><code><c- g>onconnect</c-></code></a>;
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①①"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usb-ondisconnect"><code><c- g>ondisconnect</c-></code></a>;
-  <c- b>Promise</c->&lt;<c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice②⓪"><c- n>USBDevice</c-></a>>> <a href="#dom-usb-getdevices"><code><c- g>getDevices</c-></code></a>();
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑧"><c- g>Exposed</c-></a>=<c- n>Window</c->] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①①⓪"><c- n>USBDevice</c-></a>> <a href="#dom-usb-requestdevice"><code><c- g>requestDevice</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions" id="ref-for-dictdef-usbdevicerequestoptions①"><c- n>USBDeviceRequestOptions</c-></a> <a href="#dom-usb-requestdevice-options-options"><code><c- g>options</c-></code></a>);
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>]
+<c- b>interface</c-> <a href="#usb"><code><c- g>USB</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
+  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usb-onconnect"><code><c- g>onconnect</c-></code></a>;
+  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usb-ondisconnect"><code><c- g>ondisconnect</c-></code></a>;
+  <c- b>Promise</c->&lt;<c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#usbdevice"><c- n>USBDevice</c-></a>>> <a href="#dom-usb-getdevices"><code><c- g>getDevices</c-></code></a>();
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->] <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbdevice"><c- n>USBDevice</c-></a>> <a href="#dom-usb-requestdevice"><code><c- g>requestDevice</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicerequestoptions"><c- n>USBDeviceRequestOptions</c-></a> <a href="#dom-usb-requestdevice-options-options"><code><c- g>options</c-></code></a>);
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②①"><c- g>Exposed</c-></a>=<c- n>Window</c->, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①⑤"><c- g>SecureContext</c-></a>]
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator②"><c- g>Navigator</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject③"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb②"><c- n>USB</c-></a> <a data-readonly data-type="USB" href="#dom-navigator-usb"><code><c- g>usb</c-></code></a>;
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=<c- n>Window</c->, <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>]
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator"><c- g>Navigator</c-></a> {
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usb"><c- n>USB</c-></a> <a data-readonly data-type="USB" href="#dom-navigator-usb"><code><c- g>usb</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed③①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext②①"><c- g>SecureContext</c-></a>]
-<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#workernavigator" id="ref-for-workernavigator①"><c- g>WorkerNavigator</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject①①"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usb" id="ref-for-usb①①"><c- n>USB</c-></a> <a data-readonly data-type="USB" href="#dom-workernavigator-usb"><code><c- g>usb</c-></code></a>;
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>]
+<c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://html.spec.whatwg.org/multipage/workers.html#workernavigator"><c- g>WorkerNavigator</c-></a> {
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usb"><c- n>USB</c-></a> <a data-readonly data-type="USB" href="#dom-workernavigator-usb"><code><c- g>usb</c-></code></a>;
 };
 
-<c- b>dictionary</c-> <a href="#dictdef-usbconnectioneventinit"><code><c- g>USBConnectionEventInit</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#dictdef-eventinit" id="ref-for-dictdef-eventinit①"><c- n>EventInit</c-></a> {
-    <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice④①"><c- n>USBDevice</c-></a> <a data-type="USBDevice " href="#dom-usbconnectioneventinit-device"><code><c- g>device</c-></code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-usbconnectioneventinit"><code><c- g>USBConnectionEventInit</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#dictdef-eventinit"><c- n>EventInit</c-></a> {
+    <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#usbdevice"><c- n>USBDevice</c-></a> <a data-type="USBDevice " href="#dom-usbconnectioneventinit-device"><code><c- g>device</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed④①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext③①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
-<c- b>interface</c-> <a href="#usbconnectionevent"><code><c- g>USBConnectionEvent</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event①"><c- n>Event</c-></a> {
-  <a href="#dom-usbconnectionevent-usbconnectionevent"><code><c- g>constructor</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①①"><c- b>DOMString</c-></a> <a href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code><c- g>type</c-></code></a>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit" id="ref-for-dictdef-usbconnectioneventinit①"><c- n>USBConnectionEventInit</c-></a> <a href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code><c- g>eventInitDict</c-></code></a>);
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject②①"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤①"><c- n>USBDevice</c-></a> <a data-readonly data-type="USBDevice" href="#dom-usbconnectionevent-device"><code><c- g>device</c-></code></a>;
+<c- b>interface</c-> <a href="#usbconnectionevent"><code><c- g>USBConnectionEvent</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event"><c- n>Event</c-></a> {
+  <a href="#dom-usbconnectionevent-usbconnectionevent"><code><c- g>constructor</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-type"><code><c- g>type</c-></code></a>, <a class="n" data-link-type="idl-name" href="#dictdef-usbconnectioneventinit"><c- n>USBConnectionEventInit</c-></a> <a href="#dom-usbconnectionevent-usbconnectionevent-type-eventinitdict-eventinitdict"><code><c- g>eventInitDict</c-></code></a>);
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbdevice"><c- n>USBDevice</c-></a> <a data-readonly data-type="USBDevice" href="#dom-usbconnectionevent-device"><code><c- g>device</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext④①"><c- g>SecureContext</c-></a>]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>]
 <c- b>interface</c-> <a href="#usbdevice"><code><c- g>USBDevice</c-></code></a> {
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③⑥"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-usbversionmajor"><code><c- g>usbVersionMajor</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet④①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-usbversionminor"><code><c- g>usbVersionMinor</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet⑤①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-usbversionsubminor"><code><c- g>usbVersionSubminor</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet⑥①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceclass"><code><c- g>deviceClass</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet⑦①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-devicesubclass"><code><c- g>deviceSubclass</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet⑧①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceprotocol"><code><c- g>deviceProtocol</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short②①"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-readonly data-type="unsigned short" href="#dom-usbdevice-vendorid"><code><c- g>vendorId</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short③①"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-readonly data-type="unsigned short" href="#dom-usbdevice-productid"><code><c- g>productId</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet⑨①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceversionmajor"><code><c- g>deviceVersionMajor</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⓪①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceversionminor"><code><c- g>deviceVersionMinor</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①①①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceversionsubminor"><code><c- g>deviceVersionSubminor</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②①"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbdevice-manufacturername"><code><c- g>manufacturerName</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString③①"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbdevice-productname"><code><c- g>productName</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString④①"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbdevice-serialnumber"><code><c- g>serialNumber</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration④"><c- n>USBConfiguration</c-></a>? <a data-readonly data-type="USBConfiguration?" href="#dom-usbdevice-configuration"><code><c- g>configuration</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration①①"><c- n>USBConfiguration</c-></a>> <a data-readonly data-type="FrozenArray<USBConfiguration>" href="#dom-usbdevice-configurations"><code><c- g>configurations</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean②"><c- b>boolean</c-></a> <a data-readonly data-type="boolean" href="#dom-usbdevice-opened"><code><c- g>opened</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-usbversionmajor"><code><c- g>usbVersionMajor</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-usbversionminor"><code><c- g>usbVersionMinor</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-usbversionsubminor"><code><c- g>usbVersionSubminor</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceclass"><code><c- g>deviceClass</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-devicesubclass"><code><c- g>deviceSubclass</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceprotocol"><code><c- g>deviceProtocol</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-readonly data-type="unsigned short" href="#dom-usbdevice-vendorid"><code><c- g>vendorId</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-readonly data-type="unsigned short" href="#dom-usbdevice-productid"><code><c- g>productId</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceversionmajor"><code><c- g>deviceVersionMajor</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceversionminor"><code><c- g>deviceVersionMinor</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbdevice-deviceversionsubminor"><code><c- g>deviceVersionSubminor</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbdevice-manufacturername"><code><c- g>manufacturerName</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbdevice-productname"><code><c- g>productName</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbdevice-serialnumber"><code><c- g>serialNumber</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbconfiguration"><c- n>USBConfiguration</c-></a>? <a data-readonly data-type="USBConfiguration?" href="#dom-usbdevice-configuration"><code><c- g>configuration</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbconfiguration"><c- n>USBConfiguration</c-></a>> <a data-readonly data-type="FrozenArray<USBConfiguration>" href="#dom-usbdevice-configurations"><code><c- g>configurations</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-readonly data-type="boolean" href="#dom-usbdevice-opened"><code><c- g>opened</c-></code></a>;
   <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-open"><code><c- g>open</c-></code></a>();
   <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-close"><code><c- g>close</c-></code></a>();
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-selectconfiguration"><code><c- g>selectConfiguration</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①②①"><c- b>octet</c-></a> <a href="#dom-usbdevice-selectconfiguration-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code></a>);
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-claiminterface"><code><c- g>claimInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①③①"><c- b>octet</c-></a> <a href="#dom-usbdevice-claiminterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-releaseinterface"><code><c- g>releaseInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①④①"><c- b>octet</c-></a> <a href="#dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-selectalternateinterface"><code><c- g>selectAlternateInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⑤①"><c- b>octet</c-></a> <a href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⑥①"><c- b>octet</c-></a> <a href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting"><code><c- g>alternateSetting</c-></code></a>);
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult④"><c- n>USBInTransferResult</c-></a>> <a href="#dom-usbdevice-controltransferin"><code><c- g>controlTransferIn</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters③"><c- n>USBControlTransferParameters</c-></a> <a href="#dom-usbdevice-controltransferin-setup-length-setup"><code><c- g>setup</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short④①"><c- b>unsigned</c-> <c- b>short</c-></a> <a href="#dom-usbdevice-controltransferin-setup-length-length"><code><c- g>length</c-></code></a>);
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult④"><c- n>USBOutTransferResult</c-></a>> <a href="#dom-usbdevice-controltransferout"><code><c- g>controlTransferOut</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters①①"><c- n>USBControlTransferParameters</c-></a> <a href="#dom-usbdevice-controltransferout-setup-data-setup"><code><c- g>setup</c-></code></a>, <c- b>optional</c-> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource③"><c- n>BufferSource</c-></a> <a href="#dom-usbdevice-controltransferout-setup-data-data"><code><c- g>data</c-></code></a>);
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-clearhalt"><code><c- g>clearHalt</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection③"><c- n>USBDirection</c-></a> <a href="#dom-usbdevice-clearhalt-direction-endpointnumber-direction"><code><c- g>direction</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⑦①"><c- b>octet</c-></a> <a href="#dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber"><code><c- g>endpointNumber</c-></code></a>);
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult①①"><c- n>USBInTransferResult</c-></a>> <a href="#dom-usbdevice-transferin"><code><c- g>transferIn</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⑧①"><c- b>octet</c-></a> <a href="#dom-usbdevice-transferin-endpointnumber-length-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑧"><c- b>unsigned</c-> <c- b>long</c-></a> <a href="#dom-usbdevice-transferin-endpointnumber-length-length"><code><c- g>length</c-></code></a>);
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult①①"><c- n>USBOutTransferResult</c-></a>> <a href="#dom-usbdevice-transferout"><code><c- g>transferOut</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⑨①"><c- b>octet</c-></a> <a href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource①①"><c- n>BufferSource</c-></a> <a href="#dom-usbdevice-transferout-endpointnumber-data-data"><code><c- g>data</c-></code></a>);
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferresult" id="ref-for-usbisochronousintransferresult②"><c- n>USBIsochronousInTransferResult</c-></a>> <a href="#dom-usbdevice-isochronoustransferin"><code><c- g>isochronousTransferIn</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⓪①"><c- b>octet</c-></a> <a href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long①①"><c- b>unsigned</c-> <c- b>long</c-></a>> <a href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code></a>);
-  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferresult" id="ref-for-usbisochronousouttransferresult②"><c- n>USBIsochronousOutTransferResult</c-></a>> <a href="#dom-usbdevice-isochronoustransferout"><code><c- g>isochronousTransferOut</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②①①"><c- b>octet</c-></a> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource" id="ref-for-BufferSource②①"><c- n>BufferSource</c-></a> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"><code><c- g>data</c-></code></a>, <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long②①"><c- b>unsigned</c-> <c- b>long</c-></a>> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code></a>);
+  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-selectconfiguration"><code><c- g>selectConfiguration</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-selectconfiguration-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code></a>);
+  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-claiminterface"><code><c- g>claimInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-claiminterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
+  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-releaseinterface"><code><c- g>releaseInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
+  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-selectalternateinterface"><code><c- g>selectAlternateInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting"><code><c- g>alternateSetting</c-></code></a>);
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbintransferresult"><c- n>USBInTransferResult</c-></a>> <a href="#dom-usbdevice-controltransferin"><code><c- g>controlTransferIn</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters"><c- n>USBControlTransferParameters</c-></a> <a href="#dom-usbdevice-controltransferin-setup-length-setup"><code><c- g>setup</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a href="#dom-usbdevice-controltransferin-setup-length-length"><code><c- g>length</c-></code></a>);
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbouttransferresult"><c- n>USBOutTransferResult</c-></a>> <a href="#dom-usbdevice-controltransferout"><code><c- g>controlTransferOut</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters"><c- n>USBControlTransferParameters</c-></a> <a href="#dom-usbdevice-controltransferout-setup-data-setup"><code><c- g>setup</c-></code></a>, <c- b>optional</c-> <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource"><c- n>BufferSource</c-></a> <a href="#dom-usbdevice-controltransferout-setup-data-data"><code><c- g>data</c-></code></a>);
+  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-clearhalt"><code><c- g>clearHalt</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbdirection"><c- n>USBDirection</c-></a> <a href="#dom-usbdevice-clearhalt-direction-endpointnumber-direction"><code><c- g>direction</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber"><code><c- g>endpointNumber</c-></code></a>);
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbintransferresult"><c- n>USBInTransferResult</c-></a>> <a href="#dom-usbdevice-transferin"><code><c- g>transferIn</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-transferin-endpointnumber-length-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a href="#dom-usbdevice-transferin-endpointnumber-length-length"><code><c- g>length</c-></code></a>);
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbouttransferresult"><c- n>USBOutTransferResult</c-></a>> <a href="#dom-usbdevice-transferout"><code><c- g>transferOut</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource"><c- n>BufferSource</c-></a> <a href="#dom-usbdevice-transferout-endpointnumber-data-data"><code><c- g>data</c-></code></a>);
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferresult"><c- n>USBIsochronousInTransferResult</c-></a>> <a href="#dom-usbdevice-isochronoustransferin"><code><c- g>isochronousTransferIn</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code></a>);
+  <c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferresult"><c- n>USBIsochronousOutTransferResult</c-></a>> <a href="#dom-usbdevice-isochronoustransferout"><code><c- g>isochronousTransferOut</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="n" data-link-type="idl-name" href="https://heycam.github.io/webidl/#BufferSource"><c- n>BufferSource</c-></a> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"><code><c- g>data</c-></code></a>, <c- b>sequence</c->&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a>> <a href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code></a>);
   <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbdevice-reset"><code><c- g>reset</c-></code></a>();
 };
 
@@ -4067,107 +4721,107 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-usbcontroltransferparameters"><code><c- g>USBControlTransferParameters</c-></code></a> {
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbrequesttype" id="ref-for-enumdef-usbrequesttype①"><c- n>USBRequestType</c-></a> <a data-type="USBRequestType " href="#dom-usbcontroltransferparameters-requesttype"><code><c- g>requestType</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbrecipient" id="ref-for-enumdef-usbrecipient①"><c- n>USBRecipient</c-></a> <a data-type="USBRecipient " href="#dom-usbcontroltransferparameters-recipient"><code><c- g>recipient</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②②①"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbcontroltransferparameters-request"><code><c- g>request</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑤①"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbcontroltransferparameters-value"><code><c- g>value</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short⑥①"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbcontroltransferparameters-index"><code><c- g>index</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbrequesttype"><c- n>USBRequestType</c-></a> <a data-type="USBRequestType " href="#dom-usbcontroltransferparameters-requesttype"><code><c- g>requestType</c-></code></a>;
+  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbrecipient"><c- n>USBRecipient</c-></a> <a data-type="USBRecipient " href="#dom-usbcontroltransferparameters-recipient"><code><c- g>recipient</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-usbcontroltransferparameters-request"><code><c- g>request</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbcontroltransferparameters-value"><code><c- g>value</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <a data-type="unsigned short " href="#dom-usbcontroltransferparameters-index"><code><c- g>index</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑥①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext⑤①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbintransferresult"><code><c- g>USBInTransferResult</c-></code></a> {
-  <a href="#dom-usbintransferresult-usbintransferresult"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑧"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbintransferresult-usbintransferresult-status-data-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView④①"><c- b>DataView</c-></a>? <a href="#dom-usbintransferresult-usbintransferresult-status-data-data"><code><c- g>data</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑤①"><c- b>DataView</c-></a>? <a data-readonly data-type="DataView?" href="#dom-usbintransferresult-data"><code><c- g>data</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus①①"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbintransferresult-status"><code><c- g>status</c-></code></a>;
+  <a href="#dom-usbintransferresult-usbintransferresult"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbintransferresult-usbintransferresult-status-data-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView"><c- b>DataView</c-></a>? <a href="#dom-usbintransferresult-usbintransferresult-status-data-data"><code><c- g>data</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView"><c- b>DataView</c-></a>? <a data-readonly data-type="DataView?" href="#dom-usbintransferresult-data"><code><c- g>data</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbintransferresult-status"><code><c- g>status</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑦①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext⑥①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbouttransferresult"><code><c- g>USBOutTransferResult</c-></code></a> {
-  <a href="#dom-usbouttransferresult-usbouttransferresult"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus②①"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long③①"><c- b>unsigned</c-> <c- b>long</c-></a> <a href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"><code><c- g>bytesWritten</c-></code></a> = 0);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long④①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-usbouttransferresult-byteswritten"><code><c- g>bytesWritten</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus③①"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbouttransferresult-status"><code><c- g>status</c-></code></a>;
+  <a href="#dom-usbouttransferresult-usbouttransferresult"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a href="#dom-usbouttransferresult-usbouttransferresult-status-byteswritten-byteswritten"><code><c- g>bytesWritten</c-></code></a> = 0);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-usbouttransferresult-byteswritten"><code><c- g>bytesWritten</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbouttransferresult-status"><code><c- g>status</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑧①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext⑦①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousintransferpacket"><code><c- g>USBIsochronousInTransferPacket</c-></code></a> {
-  <a href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus④①"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑥①"><c- b>DataView</c-></a>? <a href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"><code><c- g>data</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑦①"><c- b>DataView</c-></a>? <a data-readonly data-type="DataView?" href="#dom-usbisochronousintransferpacket-data"><code><c- g>data</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑤①"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbisochronousintransferpacket-status"><code><c- g>status</c-></code></a>;
+  <a href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView"><c- b>DataView</c-></a>? <a href="#dom-usbisochronousintransferpacket-usbisochronousintransferpacket-status-data-data"><code><c- g>data</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView"><c- b>DataView</c-></a>? <a data-readonly data-type="DataView?" href="#dom-usbisochronousintransferpacket-data"><code><c- g>data</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbisochronousintransferpacket-status"><code><c- g>status</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑨①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext⑧①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousintransferresult"><code><c- g>USBIsochronousInTransferResult</c-></code></a> {
-  <a href="#dom-usbisochronousintransferresult-usbisochronousintransferresult"><code><c- g>constructor</c-></code></a>(<c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket①①"><c- n>USBIsochronousInTransferPacket</c-></a>> <a href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"><code><c- g>packets</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑧①"><c- b>DataView</c-></a>? <a href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"><code><c- g>data</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView" id="ref-for-idl-DataView⑨①"><c- b>DataView</c-></a>? <a data-readonly data-type="DataView?" href="#dom-usbisochronousintransferresult-data"><code><c- g>data</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket" id="ref-for-usbisochronousintransferpacket②①"><c- n>USBIsochronousInTransferPacket</c-></a>> <a data-readonly data-type="FrozenArray<USBIsochronousInTransferPacket>" href="#dom-usbisochronousintransferresult-packets"><code><c- g>packets</c-></code></a>;
+  <a href="#dom-usbisochronousintransferresult-usbisochronousintransferresult"><code><c- g>constructor</c-></code></a>(<c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket"><c- n>USBIsochronousInTransferPacket</c-></a>> <a href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-packets"><code><c- g>packets</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView"><c- b>DataView</c-></a>? <a href="#dom-usbisochronousintransferresult-usbisochronousintransferresult-packets-data-data"><code><c- g>data</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DataView"><c- b>DataView</c-></a>? <a data-readonly data-type="DataView?" href="#dom-usbisochronousintransferresult-data"><code><c- g>data</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousintransferpacket"><c- n>USBIsochronousInTransferPacket</c-></a>> <a data-readonly data-type="FrozenArray<USBIsochronousInTransferPacket>" href="#dom-usbisochronousintransferresult-packets"><code><c- g>packets</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⓪①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext⑨①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousouttransferpacket"><code><c- g>USBIsochronousOutTransferPacket</c-></code></a> {
-  <a href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑥①"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑤①"><c- b>unsigned</c-> <c- b>long</c-></a> <a href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"><code><c- g>bytesWritten</c-></code></a> = 0);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑥①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-usbisochronousouttransferpacket-byteswritten"><code><c- g>bytesWritten</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus" id="ref-for-enumdef-usbtransferstatus⑦①"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbisochronousouttransferpacket-status"><code><c- g>status</c-></code></a>;
+  <a href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-status"><code><c- g>status</c-></code></a>, <c- b>optional</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a href="#dom-usbisochronousouttransferpacket-usbisochronousouttransferpacket-status-byteswritten-byteswritten"><code><c- g>bytesWritten</c-></code></a> = 0);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-usbisochronousouttransferpacket-byteswritten"><code><c- g>bytesWritten</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbtransferstatus"><c- n>USBTransferStatus</c-></a> <a data-readonly data-type="USBTransferStatus" href="#dom-usbisochronousouttransferpacket-status"><code><c- g>status</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①①①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①⓪①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousouttransferresult"><code><c- g>USBIsochronousOutTransferResult</c-></code></a> {
-  <a href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult"><code><c- g>constructor</c-></code></a>(<c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket①①"><c- n>USBIsochronousOutTransferPacket</c-></a>> <a href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"><code><c- g>packets</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket②①"><c- n>USBIsochronousOutTransferPacket</c-></a>> <a data-readonly data-type="FrozenArray<USBIsochronousOutTransferPacket>" href="#dom-usbisochronousouttransferresult-packets"><code><c- g>packets</c-></code></a>;
+  <a href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult"><code><c- g>constructor</c-></code></a>(<c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket"><c- n>USBIsochronousOutTransferPacket</c-></a>> <a href="#dom-usbisochronousouttransferresult-usbisochronousouttransferresult-packets-packets"><code><c- g>packets</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbisochronousouttransferpacket"><c- n>USBIsochronousOutTransferPacket</c-></a>> <a data-readonly data-type="FrozenArray<USBIsochronousOutTransferPacket>" href="#dom-usbisochronousouttransferresult-packets"><code><c- g>packets</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①②①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①①①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbconfiguration"><code><c- g>USBConfiguration</c-></code></a> {
-  <a href="#dom-usbconfiguration-usbconfiguration"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑦①"><c- n>USBDevice</c-></a> <a href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code><c- g>device</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②③①"><c- b>octet</c-></a> <a href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②④①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbconfiguration-configurationvalue"><code><c- g>configurationValue</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑤①"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbconfiguration-configurationname"><code><c- g>configurationName</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface②"><c- n>USBInterface</c-></a>> <a data-readonly data-type="FrozenArray<USBInterface>" href="#dom-usbconfiguration-interfaces"><code><c- g>interfaces</c-></code></a>;
+  <a href="#dom-usbconfiguration-usbconfiguration"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbdevice"><c- n>USBDevice</c-></a> <a href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code><c- g>device</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbconfiguration-configurationvalue"><code><c- g>configurationValue</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbconfiguration-configurationname"><code><c- g>configurationName</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbinterface"><c- n>USBInterface</c-></a>> <a data-readonly data-type="FrozenArray<USBInterface>" href="#dom-usbconfiguration-interfaces"><code><c- g>interfaces</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①③①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①②①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbinterface"><code><c- g>USBInterface</c-></code></a> {
-  <a href="#dom-usbinterface-usbinterface"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbconfiguration" id="ref-for-usbconfiguration②①"><c- n>USBConfiguration</c-></a> <a href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"><code><c- g>configuration</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑤①"><c- b>octet</c-></a> <a href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑥①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbinterface-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑥"><c- n>USBAlternateInterface</c-></a> <a data-readonly data-type="USBAlternateInterface" href="#dom-usbinterface-alternate"><code><c- g>alternate</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface①①"><c- n>USBAlternateInterface</c-></a>> <a data-readonly data-type="FrozenArray<USBAlternateInterface>" href="#dom-usbinterface-alternates"><code><c- g>alternates</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean" id="ref-for-idl-boolean①①"><c- b>boolean</c-></a> <a data-readonly data-type="boolean" href="#dom-usbinterface-claimed"><code><c- g>claimed</c-></code></a>;
+  <a href="#dom-usbinterface-usbinterface"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbconfiguration"><c- n>USBConfiguration</c-></a> <a href="#dom-usbinterface-usbinterface-configuration-interfacenumber-configuration"><code><c- g>configuration</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbinterface-usbinterface-configuration-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbinterface-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbalternateinterface"><c- n>USBAlternateInterface</c-></a> <a data-readonly data-type="USBAlternateInterface" href="#dom-usbinterface-alternate"><code><c- g>alternate</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbalternateinterface"><c- n>USBAlternateInterface</c-></a>> <a data-readonly data-type="FrozenArray<USBAlternateInterface>" href="#dom-usbinterface-alternates"><code><c- g>alternates</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-boolean"><c- b>boolean</c-></a> <a data-readonly data-type="boolean" href="#dom-usbinterface-claimed"><code><c- g>claimed</c-></code></a>;
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①④①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①③①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbalternateinterface"><code><c- g>USBAlternateInterface</c-></code></a> {
-  <a href="#dom-usbalternateinterface-usbalternateinterface"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface①①"><c- n>USBInterface</c-></a> <a href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"><code><c- g>deviceInterface</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑦①"><c- b>octet</c-></a> <a href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"><code><c- g>alternateSetting</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑧①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-alternatesetting"><code><c- g>alternateSetting</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet②⑨①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-interfaceclass"><code><c- g>interfaceClass</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③⓪①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-interfacesubclass"><code><c- g>interfaceSubclass</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③①①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-interfaceprotocol"><code><c- g>interfaceProtocol</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑥①"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbalternateinterface-interfacename"><code><c- g>interfaceName</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbendpoint" id="ref-for-usbendpoint①"><c- n>USBEndpoint</c-></a>> <a data-readonly data-type="FrozenArray<USBEndpoint>" href="#dom-usbalternateinterface-endpoints"><code><c- g>endpoints</c-></code></a>;
+  <a href="#dom-usbalternateinterface-usbalternateinterface"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbinterface"><c- n>USBInterface</c-></a> <a href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-deviceinterface"><code><c- g>deviceInterface</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbalternateinterface-usbalternateinterface-deviceinterface-alternatesetting-alternatesetting"><code><c- g>alternateSetting</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-alternatesetting"><code><c- g>alternateSetting</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-interfaceclass"><code><c- g>interfaceClass</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-interfacesubclass"><code><c- g>interfaceSubclass</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbalternateinterface-interfaceprotocol"><code><c- g>interfaceProtocol</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-readonly data-type="DOMString?" href="#dom-usbalternateinterface-interfacename"><code><c- g>interfaceName</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbendpoint"><c- n>USBEndpoint</c-></a>> <a data-readonly data-type="FrozenArray<USBEndpoint>" href="#dom-usbalternateinterface-endpoints"><code><c- g>endpoints</c-></code></a>;
 };
 
 <c- b>enum</c-> <a href="#enumdef-usbdirection"><code><c- g>USBDirection</c-></code></a> {
@@ -4182,34 +4836,34 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑤①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
-  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext①④①"><c- g>SecureContext</c-></a>
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbendpoint"><code><c- g>USBEndpoint</c-></code></a> {
-  <a href="#dom-usbendpoint-usbendpoint"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbalternateinterface" id="ref-for-usbalternateinterface⑤①"><c- n>USBAlternateInterface</c-></a> <a href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"><code><c- g>alternate</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③②①"><c- b>octet</c-></a> <a href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection①①"><c- n>USBDirection</c-></a> <a href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"><code><c- g>direction</c-></code></a>);
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③③①"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbendpoint-endpointnumber"><code><c- g>endpointNumber</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection②①"><c- n>USBDirection</c-></a> <a data-readonly data-type="USBDirection" href="#dom-usbendpoint-direction"><code><c- g>direction</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbendpointtype" id="ref-for-enumdef-usbendpointtype①"><c- n>USBEndpointType</c-></a> <a data-readonly data-type="USBEndpointType" href="#dom-usbendpoint-type"><code><c- g>type</c-></code></a>;
-  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long⑦①"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-usbendpoint-packetsize"><code><c- g>packetSize</c-></code></a>;
+  <a href="#dom-usbendpoint-usbendpoint"><code><c- g>constructor</c-></code></a>(<a class="n" data-link-type="idl-name" href="#usbalternateinterface"><c- n>USBAlternateInterface</c-></a> <a href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-alternate"><code><c- g>alternate</c-></code></a>, <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-endpointnumber"><code><c- g>endpointNumber</c-></code></a>, <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection"><c- n>USBDirection</c-></a> <a href="#dom-usbendpoint-usbendpoint-alternate-endpointnumber-direction-direction"><code><c- g>direction</c-></code></a>);
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-readonly data-type="octet" href="#dom-usbendpoint-endpointnumber"><code><c- g>endpointNumber</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbdirection"><c- n>USBDirection</c-></a> <a data-readonly data-type="USBDirection" href="#dom-usbendpoint-direction"><code><c- g>direction</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#enumdef-usbendpointtype"><c- n>USBEndpointType</c-></a> <a data-readonly data-type="USBEndpointType" href="#dom-usbendpoint-type"><code><c- g>type</c-></code></a>;
+  <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-readonly data-type="unsigned long" href="#dom-usbendpoint-packetsize"><code><c- g>packetSize</c-></code></a>;
 };
 
-<c- b>dictionary</c-> <a href="#dictdef-usbpermissiondescriptor"><code><c- g>USBPermissionDescriptor</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor" id="ref-for-dictdef-permissiondescriptor①"><c- n>PermissionDescriptor</c-></a> {
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter②①"><c- n>USBDeviceFilter</c-></a>> <a data-type="sequence<USBDeviceFilter> " href="#dom-usbpermissiondescriptor-filters"><code><c- g>filters</c-></code></a>;
+<c- b>dictionary</c-> <a href="#dictdef-usbpermissiondescriptor"><code><c- g>USBPermissionDescriptor</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#dictdef-permissiondescriptor"><c- n>PermissionDescriptor</c-></a> {
+  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <a data-type="sequence<USBDeviceFilter> " href="#dom-usbpermissiondescriptor-filters"><code><c- g>filters</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-allowedusbdevice"><code><c- g>AllowedUSBDevice</c-></code></a> {
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③④①"><c- b>octet</c-></a> <a data-type="octet " href="#dom-allowedusbdevice-vendorid"><code><c- g>vendorId</c-></code></a>;
-  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③⑤①"><c- b>octet</c-></a> <a data-type="octet " href="#dom-allowedusbdevice-productid"><code><c- g>productId</c-></code></a>;
-  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString⑦①"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-allowedusbdevice-serialnumber"><code><c- g>serialNumber</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-allowedusbdevice-vendorid"><code><c- g>vendorId</c-></code></a>;
+  <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-allowedusbdevice-productid"><code><c- g>productId</c-></code></a>;
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a> <a data-type="DOMString " href="#dom-allowedusbdevice-serialnumber"><code><c- g>serialNumber</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-usbpermissionstorage"><code><c- g>USBPermissionStorage</c-></code></a> {
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice②"><c- n>AllowedUSBDevice</c-></a>> <a data-default="[]" data-type="sequence<AllowedUSBDevice> " href="#dom-usbpermissionstorage-alloweddevices"><code><c- g>allowedDevices</c-></code></a> = [];
+  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-allowedusbdevice"><c- n>AllowedUSBDevice</c-></a>> <a data-default="[]" data-type="sequence<AllowedUSBDevice> " href="#dom-usbpermissionstorage-alloweddevices"><code><c- g>allowedDevices</c-></code></a> = [];
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①⑥①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->)]
-<c- b>interface</c-> <a href="#usbpermissionresult"><code><c- g>USBPermissionResult</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus" id="ref-for-permissionstatus①"><c- n>PermissionStatus</c-></a> {
-  <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑧①"><c- n>USBDevice</c-></a>> <a data-type="FrozenArray<USBDevice>" href="#dom-usbpermissionresult-devices"><code><c- g>devices</c-></code></a>;
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->)]
+<c- b>interface</c-> <a href="#usbpermissionresult"><code><c- g>USBPermissionResult</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://w3c.github.io/permissions/#permissionstatus"><c- n>PermissionStatus</c-></a> {
+  <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="#usbdevice"><c- n>USBDevice</c-></a>> <a data-type="FrozenArray<USBDevice>" href="#dom-usbpermissionresult-devices"><code><c- g>devices</c-></code></a>;
 };
 
 </pre>
@@ -5272,3 +5926,43 @@ document.body.addEventListener("click", function(e) {
 
 });
 </script>
+<script>/* script-mdn-anno */
+
+            function positionAnnos() {
+                var annos = [].slice.call(document.querySelectorAll(".mdn-anno"));
+                for(var i = 0; i < annos.length; i++) {
+                    var anno = annos[i];
+                    id = anno.getAttribute("data-mdn-for");
+                    var dfn = document.querySelector("[id='" + id +"']");
+                    if (dfn !== null) {
+                        var rect = dfn.getBoundingClientRect(id);
+                        anno.style.top = (window.scrollY + rect.top) + "px";
+                        /* See https://domspec.herokuapp.com/#dom-event-cancelable
+                         * for an example of a spec that defines multiple terms in
+                         * the same sentence on the same line. In such cases, we
+                         * need to offset the vertical positioning of each Nth anno
+                         * for that term, to prevent the annos from being placed
+                         * exactly on top of the previous ones at that position. */
+                        var top = anno.style.top;
+                        var offset = 10 * (document.querySelectorAll("[style='top: " + top + ";']").length - 1)
+                        anno.style.top = (Number(top.slice(0, -2)) + offset) + "px";
+                    } else {
+                        console.error('MDN anno references non-existent element ID "%s".%o', id, anno);
+                    }
+                }
+            }
+            window.addEventListener("load", positionAnnos())
+            document.body.addEventListener("click", (e) => {
+                if(e.target.closest(".mdn-anno-btn")) {
+                    e.target.closest(".mdn-anno").classList.toggle("wrapped");
+                }
+            });
+            /* If this is a document styled for W3C publication with a ToC
+             * sidebar, and the ToC "Collapse Sidebar" button is pushed, some
+             * MDN annos seem to end up getting wildly out of place unless we
+             * reposition them where they belong. */
+            const tocToggle = document.querySelector("#toc-toggle");
+            if (tocToggle) {
+                tocToggle.addEventListener("click", () => positionAnnos());
+            }
+            </script>
