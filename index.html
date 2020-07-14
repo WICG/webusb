@@ -1423,6 +1423,9 @@ figcaption:not(.no-marker)::before {
             .mdn-anno > .feature > .support > .safari::before { background-image: url(https://resources.whatwg.org/browser-logos/safari.png); }
             .mdn-anno > .feature > .support > .samsunginternet_android::before { background-image: url(https://resources.whatwg.org/browser-logos/samsung.svg); }
             .mdn-anno > .feature > .support > .webview_android::before { background-image: url(https://resources.whatwg.org/browser-logos/android-webview.png); }
+            .name-slug-mismatch { color: red }
+            .caniuse-status:hover { z-index: 9; }
+            
             /* dt, li, .issue, .note, and .example are "position: relative", so to put annotation at right margin, must move to right of containing block */
             .h-entry:not(.status-LS) dt > .mdn-anno, .h-entry:not(.status-LS) li > .mdn-anno, .h-entry:not(.status-LS) .issue > .mdn-anno, .h-entry:not(.status-LS) .note > .mdn-anno, .h-entry:not(.status-LS) .example > .mdn-anno { right: -6.7em; }
             .h-entry p + .mdn-anno { margin-top: 0; }
@@ -1540,7 +1543,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-07-10">10 July 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-07-14">14 July 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1967,8 +1970,7 @@ specification.</p>
    </table>
    <p>The special value <code>255</code> indicates that the entire URL, including
 scheme, is encoded in the <code>URL</code> field.</p>
-   <h2 class="heading settled" data-level="5" id="enumeration"><span class="secno">5. </span><span class="content">Device Enumeration</span><a class="self-link" href="#enumeration"></a></h2>
-   <aside class="mdn-anno wrapped after">
+   <aside class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB" title="The USB interface of the WebUSB API provides attributes and methods for finding and connecting USB devices from a web page.">USB</a></p>
@@ -1984,6 +1986,7 @@ scheme, is encoded in the <code>URL</code> field.</p>
      </div>
     </div>
    </aside>
+   <h2 class="heading settled" data-level="5" id="enumeration"><span class="secno">5. </span><span class="content">Device Enumeration</span><a class="self-link" href="#enumeration"></a></h2>
    <aside class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
@@ -2345,8 +2348,7 @@ host it MUST perform the following steps for each script execution environment:<
     <li data-md>
      <p>Fire an event named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="disconnect">disconnect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code>, using <var>event</var> as the event object.</p>
    </ol>
-   <h2 class="heading settled" data-level="6" id="device-usage"><span class="secno">6. </span><span class="content">Device Usage</span><a class="self-link" href="#device-usage"></a></h2>
-   <aside class="mdn-anno wrapped after">
+   <aside class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice" title="The USBDevice interface of the the WebUSB API provides access to metadata about a paired USB device and methods for controlling it.">USBDevice</a></p>
@@ -2362,6 +2364,7 @@ host it MUST perform the following steps for each script execution environment:<
      </div>
     </div>
    </aside>
+   <h2 class="heading settled" data-level="6" id="device-usage"><span class="secno">6. </span><span class="content">Device Usage</span><a class="self-link" href="#device-usage"></a></h2>
    <aside class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
@@ -3519,8 +3522,7 @@ multiple transactions per microframe. In a SuperSpeed device this value will
 include the multiplication factor provided by the <code>bMaxBurst</code> field
 of the SuperSpeed Endpoint Companion descriptor.</p>
    <h2 class="heading settled" data-level="7" id="integrations"><span class="secno">7. </span><span class="content">Integrations</span><a class="self-link" href="#integrations"></a></h2>
-   <h3 class="heading settled" data-level="7.1" id="feature-policy"><span class="secno">7.1. </span><span class="content">Feature Policy</span><a class="self-link" href="#feature-policy"></a></h3>
-   <aside class="mdn-anno wrapped after">
+   <aside class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy/usb" title="The HTTP Feature-Policy header usb directive controls whether the current document is allowed to use the WebUSB API.">Headers/Feature-Policy/usb</a></p>
@@ -3536,6 +3538,7 @@ of the SuperSpeed Endpoint Companion descriptor.</p>
      </div>
     </div>
    </aside>
+   <h3 class="heading settled" data-level="7.1" id="feature-policy"><span class="secno">7.1. </span><span class="content">Feature Policy</span><a class="self-link" href="#feature-policy"></a></h3>
    <p>This specification defines a <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#feature" id="ref-for-feature">feature</a> that controls whether the <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb②">usb</a></code> attribute is exposed on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator①">Navigator</a></code> object.</p>
    <p>The <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#feature-name" id="ref-for-feature-name">feature name</a> for this feature is <code>"usb"</code>.</p>
    <p>The <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#default-allowlist" id="ref-for-default-allowlist">default allowlist</a> for this feature is <code>["self"]</code>.</p>
