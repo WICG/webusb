@@ -1222,7 +1222,7 @@ Possible extra rowspan handling
 	}
 </style>
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 7c63c139, updated Fri Jul 17 17:12:19 2020 -0700" name="generator">
+  <meta content="Bikeshed version c05ebec3, updated Fri Jul 31 13:58:05 2020 -0700" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
 <style>
 table {
@@ -1543,7 +1543,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-07-31">31 July 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-08-01">1 August 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1791,7 +1791,7 @@ physical access to the device in order to apply some configuration changes.</p>
    <h2 class="heading settled" data-level="4" id="webusb-descriptors-and-requests"><span class="secno">4. </span><span class="content">WebUSB Descriptors and Requests</span><a class="self-link" href="#webusb-descriptors-and-requests"></a></h2>
    <p>This specification defines descriptors and commands the UA MAY use to gather
 information about the device specific to implementing this API.</p>
-   <h3 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="4.1" data-lt="WebUSB Platform Capability Descriptor" data-noexport id="webusb-platform-capability-descriptor"><span class="secno">4.1. </span><span class="content">WebUSB Platform Capability Descriptor</span></h3>
+   <h3 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="4.1" data-lt="WebUSB Platform Capability Descriptor" data-noexport id="webusb-platform-capability-descriptor"><span class="secno">4.1. </span><span class="content">WebUSB Platform Capability Descriptor</span><a class="self-link" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor"></a></h3>
    <p>A device announces support for the WebUSB command set by including the
 following <a data-link-type="dfn" href="#platform-descriptor" id="ref-for-platform-descriptor">Platform Descriptor</a> in its <a data-link-type="dfn" href="#binary-object-store" id="ref-for-binary-object-store">Binary Object
 Store</a>:</p>
@@ -1862,7 +1862,7 @@ above MUST be sent over the wire as the byte sequence <code>{0x38, 0xB6, 0x08,
    <h3 class="heading settled" data-level="4.2" id="device-requests"><span class="secno">4.2. </span><span class="content">WebUSB Device Requests</span><a class="self-link" href="#device-requests"></a></h3>
    <p>All <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer">control transfers</a> defined by this specification are considered to
 be vendor-specific requests. The <code>bVendorCode</code> value found
-in the <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor">WebUSB Platform Capability Descriptor</a> provides the UA
+in the <a data-link-type="dfn" href="#webusb-platform-capability-descriptor" id="ref-for-webusb-platform-capability-descriptor①">WebUSB Platform Capability Descriptor</a> provides the UA
 with the <code>bRequest</code> the device expects the host to use when
 issuing <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer①">control transfers</a> these requests. The request type is then
 specified in the <code>wIndex</code> field.</p>
@@ -1879,7 +1879,7 @@ specified in the <code>wIndex</code> field.</p>
       <td>GET_URL
       <td>2
    </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="4.2.1" data-lt="Get URL" data-noexport id="get-url"><span class="secno">4.2.1. </span><span class="content">Get URL</span></h4>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="4.2.1" data-lt="Get URL" data-noexport id="get-url"><span class="secno">4.2.1. </span><span class="content">Get URL</span><a class="self-link" href="#get-url" id="ref-for-get-url"></a></h4>
    <p>This request fetches the URL descriptor with the given index.</p>
    <p>The device MUST respond with the <a data-link-type="dfn" href="#url-descriptor" id="ref-for-url-descriptor">URL Descriptor</a> at the given
 index or stall the transfer if the index is invalid.</p>
@@ -1916,8 +1916,8 @@ specification.</p>
       <td>WEBUSB_URL
       <td>3
    </table>
-   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="4.3.1" data-lt="URL Descriptor" data-noexport id="url-descriptor"><span class="secno">4.3.1. </span><span class="content">URL Descriptor</span></h4>
-   <p>This descriptor contains a single URL and is returned by the <a data-link-type="dfn" href="#get-url" id="ref-for-get-url">Get URL</a> request.</p>
+   <h4 class="heading settled dfn-paneled" data-dfn-type="dfn" data-level="4.3.1" data-lt="URL Descriptor" data-noexport id="url-descriptor"><span class="secno">4.3.1. </span><span class="content">URL Descriptor</span><a class="self-link" href="#url-descriptor" id="ref-for-url-descriptor①"></a></h4>
+   <p>This descriptor contains a single URL and is returned by the <a data-link-type="dfn" href="#get-url" id="ref-for-get-url①">Get URL</a> request.</p>
    <table>
     <tbody>
      <tr>
@@ -4786,6 +4786,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="webusb-platform-capability-descriptor">
    <b><a href="#webusb-platform-capability-descriptor">#webusb-platform-capability-descriptor</a></b><b>Referenced in:</b>
    <ul>
+    <li><a href="#ref-for-webusb-platform-capability-descriptor">4.1. WebUSB Platform Capability Descriptor</a>
     <li><a href="#ref-for-webusb-platform-capability-descriptor">4.2. WebUSB Device Requests</a>
    </ul>
   </aside>
@@ -4799,6 +4800,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="get-url">
    <b><a href="#get-url">#get-url</a></b><b>Referenced in:</b>
    <ul>
+    <li><a href="#ref-for-get-url">4.2.1. Get URL</a>
     <li><a href="#ref-for-get-url">4.3.1. URL Descriptor</a>
    </ul>
   </aside>
@@ -4806,6 +4808,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <b><a href="#url-descriptor">#url-descriptor</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-url-descriptor">4.2.1. Get URL</a>
+    <li><a href="#ref-for-url-descriptor">4.3.1. URL Descriptor</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dictdef-usbdevicefilter">
