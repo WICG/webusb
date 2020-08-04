@@ -1543,7 +1543,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"></p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-08-02">2 August 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-08-04">4 August 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1970,7 +1970,7 @@ specification.</p>
    </table>
    <p>The special value <code>255</code> indicates that the entire URL, including
 scheme, is encoded in the <code>URL</code> field.</p>
-   <aside class="mdn-anno wrapped">
+   <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB" title="The USB interface of the WebUSB API provides attributes and methods for finding and connecting USB devices from a web page.">USB</a></p>
@@ -1985,9 +1985,9 @@ scheme, is encoded in the <code>URL</code> field.</p>
       <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
      </div>
     </div>
-   </aside>
+   </div>
    <h2 class="heading settled" data-level="5" id="enumeration"><span class="secno">5. </span><span class="content">Device Enumeration</span><a class="self-link" href="#enumeration"></a></h2>
-   <aside class="mdn-anno wrapped">
+   <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USB/getDevices" title="The getDevices method of the USB interface returns a Promise that resolves with an array of USBDevice objects for paired attached devices. For information on pairing devices, see USB.requestDevice().">USB/getDevices</a></p>
@@ -2041,7 +2041,7 @@ scheme, is encoded in the <code>URL</code> field.</p>
       <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
      </div>
     </div>
-   </aside>
+   </div>
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-usbdevicefilter"><code><c- g>USBDeviceFilter</c-></code></dfn> {
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-usbdevicefilter-vendorid"><code><c- g>vendorId</c-></code></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-short" id="ref-for-idl-unsigned-short①"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceFilter" data-dfn-type="dict-member" data-export data-type="unsigned short " id="dom-usbdevicefilter-productid"><code><c- g>productId</c-></code></dfn>;
@@ -2348,7 +2348,7 @@ host it MUST perform the following steps for each script execution environment:<
     <li data-md>
      <p>Fire an event named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="disconnect">disconnect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code>, using <var>event</var> as the event object.</p>
    </ol>
-   <aside class="mdn-anno wrapped">
+   <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice" title="The USBDevice interface of the the WebUSB API provides access to metadata about a paired USB device and methods for controlling it.">USBDevice</a></p>
@@ -2363,9 +2363,9 @@ host it MUST perform the following steps for each script execution environment:<
       <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
      </div>
     </div>
-   </aside>
+   </div>
    <h2 class="heading settled" data-level="6" id="device-usage"><span class="secno">6. </span><span class="content">Device Usage</span><a class="self-link" href="#device-usage"></a></h2>
-   <aside class="mdn-anno wrapped">
+   <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/claimInterface" title="The claimInterface() method of the USBDevice interface returns a promise that resolves when the requested interface is claimed for exclusive access.">USBDevice/claimInterface</a></p>
@@ -2770,7 +2770,7 @@ host it MUST perform the following steps for each script execution environment:<
       <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
      </div>
     </div>
-   </aside>
+   </div>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SecureContext" id="ref-for-SecureContext④"><c- g>SecureContext</c-></a>]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbdevice"><code><c- g>USBDevice</c-></code></dfn> {
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet③"><c- b>octet</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="attribute" data-export data-readonly data-type="octet" id="dom-usbdevice-usbversionmajor"><code><c- g>usbVersionMajor</c-></code></dfn>;
@@ -3522,7 +3522,7 @@ multiple transactions per microframe. In a SuperSpeed device this value will
 include the multiplication factor provided by the <code>bMaxBurst</code> field
 of the SuperSpeed Endpoint Companion descriptor.</p>
    <h2 class="heading settled" data-level="7" id="integrations"><span class="secno">7. </span><span class="content">Integrations</span><a class="self-link" href="#integrations"></a></h2>
-   <aside class="mdn-anno wrapped">
+   <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
      <p><a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Feature-Policy/usb" title="The HTTP Feature-Policy header usb directive controls whether the current document is allowed to use the WebUSB API.">Headers/Feature-Policy/usb</a></p>
@@ -3537,7 +3537,7 @@ of the SuperSpeed Endpoint Companion descriptor.</p>
       <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>60+</span></span><span class="webview_android yes"><span>Android WebView</span><span>60+</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>44+</span></span>
      </div>
     </div>
-   </aside>
+   </div>
    <h3 class="heading settled" data-level="7.1" id="feature-policy"><span class="secno">7.1. </span><span class="content">Feature Policy</span><a class="self-link" href="#feature-policy"></a></h3>
    <p>This specification defines a <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#feature" id="ref-for-feature">feature</a> that controls whether the <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb②">usb</a></code> attribute is exposed on the <code class="idl"><a data-link-type="idl" href="https://html.spec.whatwg.org/multipage/system-state.html#navigator" id="ref-for-navigator①">Navigator</a></code> object.</p>
    <p>The <a data-link-type="dfn" href="https://wicg.github.io/feature-policy/#feature-name" id="ref-for-feature-name">feature name</a> for this feature is <code>"usb"</code>.</p>
@@ -4513,7 +4513,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-permissions">[PERMISSIONS]
-   <dd>Mounir Lamouri; Marcos Caceres; Jeffrey Yasskin. <a href="https://www.w3.org/TR/permissions/">Permissions</a>. 25 September 2017. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+   <dd>Mounir Lamouri; Marcos Caceres; Jeffrey Yasskin. <a href="https://www.w3.org/TR/permissions/">Permissions</a>. 20 July 2020. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
    <dt id="biblio-permissions-request">[PERMISSIONS-REQUEST]
    <dd><a href="https://wicg.github.io/permissions-request/">Requesting Permissions</a>. cg-draft. URL: <a href="https://wicg.github.io/permissions-request/">https://wicg.github.io/permissions-request/</a>
    <dt id="biblio-rfc2119">[RFC2119]
