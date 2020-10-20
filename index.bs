@@ -178,7 +178,7 @@ who could take advantage of this new capability.
 
 After considering these options the authors have decided that the permission
 prompt encouraged by the {{USB/requestDevice()}} method and the integration with
-[[#feature-policy]] provide adequate protection against unwanted access to a
+[[#permissions-policy]] provide adequate protection against unwanted access to a
 device.
 
 ## Attacking the Host ## {#attacking-the-host}
@@ -1609,12 +1609,11 @@ of the SuperSpeed Endpoint Companion descriptor.
 
 # Integrations # {#integrations}
 
-## Feature Policy ## {#feature-policy}
+## Permissions Policy ## {#permissions-policy}
 
-This specification defines a <a>feature</a> that controls whether the
-{{Navigator/usb}} attribute is exposed on the {{Navigator}} object.
-
-The <a>feature name</a> for this feature is <code>"usb"</code>.
+This specification defines a <a>policy-controlled feature</a>, identified by the
+token <code>"usb"</code>, that controls whether the {{Navigator/usb}} attribute
+is exposed on the {{Navigator}} object.
 
 The <a>default allowlist</a> for this feature is <code>["self"]</code>.
 
@@ -1816,11 +1815,6 @@ spec: ECMAScript; urlPrefix: https://tc39.github.io/ecma262/#
         text: Array; url: sec-array-objects
         text: Promise; url:sec-promise-objects
         text: TypeError; url: sec-native-error-types-used-in-this-standard-typeerror
-spec: Feature Policy; urlPrefix: https://wicg.github.io/feature-policy/#
-    type: dfn
-        text: default allowlist
-        text: feature
-        text: feature name
 </pre>
 
 <pre class="link-defaults">
