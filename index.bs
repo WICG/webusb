@@ -1609,7 +1609,7 @@ of the SuperSpeed Endpoint Companion descriptor.
 
 # Integrations # {#integrations}
 
-## Permissions Policy ## {#permissions-policy}
+<h3 id="permissions-policy" oldids="feature-policy">Permissions Policy</h3>
 
 This specification defines a <a>policy-controlled feature</a>, identified by the
 token <code>"usb"</code>, that controls whether the {{Navigator/usb}} attribute
