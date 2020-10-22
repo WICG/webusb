@@ -155,16 +155,16 @@ two benefits,
   interface USBDeviceRequestEvent : Event {
     attribute FrozenArray<USBDeviceFilter> filters;
 
-    void respondWith(Promise<FakeUSBDevice> result);
+    undefined respondWith(Promise<FakeUSBDevice> result);
   };
 
   interface USBTest {
     attribute EventHandler onrequestdevice;
 
-    Promise<void> initialize();
-    Promise<void> attachToContext((HTMLIFrameElement or Worker) context);
+    Promise<undefined> initialize();
+    Promise<undefined> attachToContext((HTMLIFrameElement or Worker) context);
     FakeUSBDevice addFakeDevice(FakeUSBDeviceInit deviceInit);
-    Promise<void> reset();
+    Promise<undefined> reset();
   };
 </xmp>
 
@@ -268,7 +268,7 @@ device to be added.
   interface FakeUSBDevice : EventTarget {
     attribute EventHandler onclose;
 
-    void disconnect();
+    undefined disconnect();
   };
 
   dictionary FakeUSBDeviceInit {
