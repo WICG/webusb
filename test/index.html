@@ -68,9 +68,18 @@
  *
  ******************************************************************************/
 
+/* color variables included separately for reliability */
+
 /******************************************************************************/
 /*                                   Body                                     */
 /******************************************************************************/
+
+	html {
+		color: black;
+		color: var(--text);
+		background-color: white;
+		background-color: var(--bg);
+	}
 
 	body {
 		counter-reset: example figure issue;
@@ -90,9 +99,7 @@
 		overflow-wrap: break-word;
 		hyphens: auto;
 
-		/* Colors */
-		color: black;
-		background: white top left fixed no-repeat;
+		background: transparent top left fixed no-repeat;
 		background-size: 25px auto;
 	}
 
@@ -124,10 +131,13 @@
 	.head img[src*="logos/W3C"] {
 		display: block;
 		border: solid #1a5e9a;
+		border: solid var(--logo-bg);
 		border-width: .65rem .7rem .6rem;
 		border-radius: .4rem;
 		background: #1a5e9a;
+		background: var(--logo-bg);
 		color: white;
+		color: var(--logo-text);
 		font-weight: bold;
 	}
 
@@ -138,7 +148,9 @@
 
 	.head a:active > img[src*="logos/W3C"] {
 		background: #c00;
+		background: var(--logo-active-bg);
 		border-color: #c00;
+		border-color: var(--logo-active-bg);
 	}
 
 	/* see also additional rules in Link Styling section */
@@ -165,7 +177,6 @@
 			border-top-right-radius: 2rem;
 			box-shadow: 0 0 2px;
 			font-size: 1.5em;
-			color: black;
 		}
 		#toc-nav > a {
 			display: block;
@@ -175,23 +186,32 @@
 			padding: .1em 0.3em;
 			margin: 0;
 
-			background: white;
 			box-shadow: 0 0 2px;
 			border: none;
 			border-top-right-radius: 1.33em;
+
+			color: #707070;
+			color: var(--tocnav-normal-text);
 			background: white;
+			background: var(--tocnav-normal-bg);
 		}
+		#toc-nav > a:hover,
+		#toc-nav > a:focus {
+			color: black;
+			color: var(--tocnav-hover-text);
+			background: #f8f8f8;
+			background: var(--tocnav-hover-bg);
+		}
+		#toc-nav > a:active {
+			color: #c00;
+			color: var(--tocnav-active-text);
+			background: white;
+			background: var(--tocnav-active-bg);
+		}
+
 		#toc-nav > #toc-jump {
 			padding-bottom: 2em;
 			margin-bottom: -1.9em;
-		}
-
-		#toc-nav > a:hover,
-		#toc-nav > a:focus {
-			background: #f8f8f8;
-		}
-		#toc-nav > a:not(:hover):not(:focus) {
-			color: #707070;
 		}
 
 		/* statusbar gets in the way on keyboard focus; remove once browsers fix */
@@ -205,26 +225,6 @@
 		}
 		#toc-nav > a > span + span {
 			padding-right: 0.2em;
-		}
-
-		#toc-toggle-inline {
-			vertical-align: 0.05em;
-			font-size: 80%;
-			color: gray;
-			color: hsla(203,20%,40%,.7);
-			border-style: none;
-			background: transparent;
-			position: relative;
-		}
-		#toc-toggle-inline:hover:not(:active),
-		#toc-toggle-inline:focus:not(:active) {
-			text-shadow: 1px 1px silver;
-			top: -1px;
-			left: -1px;
-		}
-
-		#toc-nav :active {
-			color: #C00;
 		}
 	}
 
@@ -243,10 +243,14 @@
 			padding: 0 1em;
 			padding-left: 42px;
 			padding-left: calc(1em + 26px);
+			color: black;
+			color: var(--tocsidebar-text);
 			background: inherit;
 			background-color: #f7f8f9;
+			background-color: var(--tocsidebar-bg);
 			z-index: 1;
 			box-shadow: -.1em 0 .25em rgba(0,0,0,.1) inset;
+			box-shadow: -.1em 0 .25em var(--tocsidebar-shadow) inset;
 		}
 		body.toc-sidebar #toc h2 {
 			margin-top: .8rem;
@@ -256,6 +260,7 @@
 			font-weight: bold;
 			color: gray;
 			color: hsla(203,20%,40%,.7);
+			color: var(--tocsidebar-heading-text);
 		}
 		body.toc-sidebar #toc-jump:not(:focus) {
 			width: 0;
@@ -283,10 +288,14 @@
 			padding: 0 1em;
 			padding-left: 42px;
 			padding-left: calc(1em + 26px);
+			color: black;
+			color: var(--tocsidebar-text);
 			background: inherit;
 			background-color: #f7f8f9;
+			background-color: var(--tocsidebar-bg);
 			z-index: 1;
 			box-shadow: -.1em 0 .25em rgba(0,0,0,.1) inset;
+			box-shadow: -.1em 0 .25em var(--tocsidebar-shadow) inset;
 		}
 		body:not(.toc-inline) #toc h2 {
 			margin-top: .8rem;
@@ -296,6 +305,7 @@
 			font-weight: bold;
 			color: gray;
 			color: hsla(203,20%,40%,.7);
+			color: var(--tocsidebar-heading-text);
 		}
 
 		body:not(.toc-inline) {
@@ -338,7 +348,7 @@
 
 	h1, h2, h3 {
 		color: #005A9C;
-		background: transparent;
+		color: var(--heading-text);
 	}
 
 	h1 { font-size: 170%; }
@@ -365,11 +375,13 @@
 
 /** Section divider ***********************************************************/
 
-	:not(.head) > hr {
+	:not(.head) > :not(.head) + hr {
 		font-size: 1.5em;
 		text-align: center;
 		margin: 1em auto;
 		height: auto;
+		color: black;
+		color: var(--hr-text);
 		border: transparent solid 0;
 		background: transparent;
 	}
@@ -412,12 +424,15 @@
 	ol.algorithm ol:not(.algorithm),
 	.algorithm > ol ol:not(.algorithm) {
 	 border-left: 0.5em solid #DEF;
+	 border-left: 0.5em solid var(--algo-border);
 	}
 
 	/* Put nice boxes around each algorithm. */
 	[data-algorithm]:not(.heading) {
 	  padding: .5em;
-	  border: thin solid #ddd; border-radius: .5em;
+	  border: thin solid #ddd;
+	  border: thin solid var(--algo-border);
+	  border-radius: .5em;
 	  margin: .5em calc(-0.5em - 1px);
 	}
 	[data-algorithm]:not(.heading) > :first-child {
@@ -478,8 +493,20 @@
 
 /** Change Marking ************************************************************/
 
-	del { color: red;  text-decoration: line-through; }
-	ins { color: #080; text-decoration: underline;    }
+	del {
+		color: red;
+		color: var(--del-text);
+		background: transparent;
+		background: var(--del-bg);
+		text-decoration: line-through;
+	}
+	ins {
+		color: #080;
+		color: var(--ins-text);
+		background: transparent;
+		background: var(--ins-bg);
+		text-decoration: underline;
+	}
 
 /** Miscellaneous improvements to inline formatting ***************************/
 
@@ -497,9 +524,14 @@
 	pre, code, samp {
 		font-family: Menlo, Consolas, "DejaVu Sans Mono", Monaco, monospace;
 		font-size: .9em;
-		page-break-inside: avoid;
 		hyphens: none;
 		text-transform: none;
+		text-align: left;
+		text-align: start;
+		font-variant: normal;
+		orphans: 3;
+		widows: 3;
+		page-break-before: avoid;
 	}
 	pre code,
 	code code {
@@ -525,14 +557,19 @@
 	/* We hyperlink a lot, so make it less intrusive */
 	a[href] {
 		color: #034575;
+		color: var(--a-normal-text);
 		text-decoration: none;
 		border-bottom: 1px solid #707070;
+		border-bottom: 1px solid var(--a-normal-underline);
 		/* Need a bit of extending for it to look okay */
 		padding: 0 1px 0;
 		margin: 0 -1px 0;
 	}
 	a:visited {
-		border-bottom-color: #BBB;
+		color: #034575;
+		color: var(--a-visited-text);
+		border-bottom-color: #bbb;
+		border-bottom-color: var(--a-visited-underline);
 	}
 
 	/* Use distinguishing colors when user is interacting with the link */
@@ -540,12 +577,15 @@
 	a[href]:hover {
 		background: #f8f8f8;
 		background: rgba(75%, 75%, 75%, .25);
+		background: var(--a-hover-bg);
 		border-bottom-width: 3px;
 		margin-bottom: -2px;
 	}
 	a[href]:active {
-		color: #C00;
-		border-color: #C00;
+		color: #c00;
+		color: var(--a-active-text);
+		border-color: #c00;
+		border-color: var(--a-active-underline);
 	}
 
 	/* Backout above styling for W3C logo */
@@ -564,6 +604,11 @@
 		border-style: none;
 	}
 
+	img, svg {
+		/* Intentionally not color-scheme aware. */
+		background: white;
+	}
+
 	/* For autogen numbers, add
 	   .caption::before, figcaption::before { content: "Figure " counter(figure) ". "; }
 	*/
@@ -577,6 +622,7 @@
 	.figure object, .sidefigure object, figure object {
 		max-width: 100%;
 		margin: auto;
+		height: auto;
 	}
 	.figure pre, .sidefigure pre, figure pre {
 		text-align: left;
@@ -639,25 +685,46 @@
 		margin-bottom: 0;
 	}
 
+
+	.issue::before, .issue > .marker,
+	.example::before, .example > .marker,
+	.note::before, .note > .marker,
+	details.note > summary > .marker {
+		text-transform: uppercase;
+		padding-right: 1em;
+	}
+
+	.example::before, .example > .marker {
+		display: block;
+		padding-right: 0em;
+	}
+
 /** Blockquotes ***************************************************************/
 
 	blockquote {
 		border-color: silver;
+		border-color: var(--blockquote-border);
+		background: transparent;
+		background: var(--blockquote-bg);
+		color: currentcolor;
+		color: var(--blockquote-text);
 	}
 
 /** Open issue ****************************************************************/
 
 	.issue {
-		border-color: #E05252;
-		background: #FBE9E9;
+		border-color: #e05252;
+		border-color: var(--issue-border);
+		background: #fbe9e9;
+		background: var(--issue-bg);
+		color: black;
+		color: var(--issue-text);
 		counter-increment: issue;
 		overflow: auto;
 	}
 	.issue::before, .issue > .marker {
-		text-transform: uppercase;
-		color: #AE1E1E;
-		padding-right: 1em;
-		text-transform: uppercase;
+		color: #831616;
+		color: var(--issueheading-text);
 	}
 	/* Add .issue::before { content: "Issue " counter(issue) " "; } for autogen numbers,
 	   or use class="marker" to mark up the issue number in source. */
@@ -665,17 +732,19 @@
 /** Example *******************************************************************/
 
 	.example {
-		border-color: #E0CB52;
-		background: #FCFAEE;
+		border-color: #e0cb52;
+		border-color: var(--example-border);
+		background: #fcfaee;
+		background: var(--example-bg);
+		color: black;
+		color: var(--example-text);
 		counter-increment: example;
 		overflow: auto;
 		clear: both;
 	}
 	.example::before, .example > .marker {
-		text-transform: uppercase;
-		color: #827017;
-		min-width: 7.5em;
-		display: block;
+		color: #574b0f;
+		color: var(--exampleheading-text);
 	}
 	/* Add .example::before { content: "Example " counter(example) " "; } for autogen numbers,
 	   or use class="marker" to mark up the example number in source. */
@@ -683,27 +752,26 @@
 /** Non-normative Note ********************************************************/
 
 	.note {
-		border-color: #52E052;
-		background: #E9FBE9;
+		border-color: #52e052;
+		border-color: var(--note-border);
+		background: #e9fbe9;
+		background: var(--note-bg);
+		color: black;
+		color: var(--note-text);
 		overflow: auto;
 	}
 
 	.note::before, .note > .marker,
-	details.note > summary::before,
-	details.note > summary > .marker {
-		text-transform: uppercase;
-		display: block;
+	details.note > summary {
 		color: hsl(120, 70%, 30%);
+		color: var(--noteheading-text);
 	}
-	/* Add .note::before { content: "Note"; } for autogen label,
+	/* Add .note::before { content: "Note "; } for autogen label,
 	   or use class="marker" to mark up the label in source. */
 
-	details.note > summary {
-		display: block;
-		color: hsl(120, 70%, 30%);
-	}
 	details.note[open] > summary {
 		border-bottom: 1px silver solid;
+		border-bottom: 1px var(--notesummary-underline) solid;
 	}
 
 /** Assertion Box *************************************************************/
@@ -711,7 +779,11 @@
 
 	.assertion {
 		border-color: #AAA;
+		border-color: var(--assertion-border);
 		background: #EEE;
+		background: var(--assertion-bg);
+		color: black;
+		color: var(--assertion-text);
 	}
 
 /** Advisement Box ************************************************************/
@@ -719,15 +791,20 @@
 
 	.advisement {
 		border-color: orange;
+		border-color: var(--advisement-border);
 		border-style: none solid;
-		background: #FFEECC;
+		background: #fec;
+		background: var(--advisement-bg);
+		color: black;
+		color: var(--advisement-text);
 	}
 	strong.advisement {
 		display: block;
 		text-align: center;
 	}
-	.advisement > .marker {
-		color: #B35F00;
+	.advisement::before, .advisement > .marker {
+		color: #b35f00;
+		color: var(--advisementheading-text);
 	}
 
 /** Spec Obsoletion Notice ****************************************************/
@@ -743,27 +820,30 @@
 	.annoying-warning:not(details),
 	details.annoying-warning:not([open]) > summary,
 	details.annoying-warning[open] {
-		background: #fdd;
-		color: red;
-		font-weight: bold;
+		background: hsla(40,100%,50%,0.95);
+		background: var(--warning-bg);
+		color: black;
+		color: var(--warning-text);
 		padding: .75em 1em;
-		border: thick red;
-		border-style: solid;
-		border-radius: 1em;
+		border: red;
+		border: var(--warning-border);
+		border-style: solid none;
+		box-shadow: 0 2px 8px black;
+		text-align: center;
 	}
 	.annoying-warning :last-child {
 		margin-bottom: 0;
 	}
 
-@media not print {
-	details.annoying-warning[open] {
-		position: fixed;
-		left: 1em;
-		right: 1em;
-		bottom: 1em;
-		z-index: 1000;
+	@media not print {
+		details.annoying-warning[open] {
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 2em;
+			z-index: 1000;
+		}
 	}
-}
 
 	details.annoying-warning:not([open]) > summary {
 		text-align: center;
@@ -773,9 +853,13 @@
 
 	.def {
 		padding: .5em 1em;
-		background: #DEF;
+		background: #def;
+		background: var(--def-bg);
 		margin: 1.2em 0;
-		border-left: 0.5em solid #8CCBF2;
+		border-left: 0.5em solid #8ccbf2;
+		border-left: 0.5em solid var(--def-border);
+		color: black;
+		color: var(--def-text);
 	}
 
 /******************************************************************************/
@@ -800,6 +884,7 @@
 		padding: 0.5em;
 		vertical-align: baseline;
 		border-bottom: 1px solid #bbd7e9;
+		border-bottom: 1px solid var(--defrow-border);
 	}
 
 	table.def > tbody > tr:last-child th,
@@ -820,10 +905,10 @@
 	}
 
 	/* A footnote at the bottom of a def table */
-	table.def           td.footnote {
+	table.def td.footnote {
 		padding-top: 0.6em;
 	}
-	table.def           td.footnote::before {
+	table.def td.footnote::before {
 		content: " ";
 		display: block;
 		height: 0.6em;
@@ -868,6 +953,7 @@
 		padding: 0.5em 1em;
 		border-width: 1px;
 		border-color: silver;
+		border-color: var(--datacell-border);
 		border-top-style: solid;
 	}
 
@@ -892,6 +978,7 @@
 	table.index tbody th:first-child  {
 		border-right: 2px solid;
 		border-top: 1px solid silver;
+		border-top: 1px solid var(--datacell-border);
 		padding-right: 1em;
 	}
 
@@ -903,13 +990,14 @@
 	table.complex.data th,
 	table.complex.data td {
 		border: 1px solid silver;
+		border: 1px solid var(--datacell-border);
 		text-align: center;
 	}
 
 	table.data.longlastcol td:last-child,
 	table.data td.long {
-	 vertical-align: baseline;
-	 text-align: left;
+		vertical-align: baseline;
+		text-align: left;
 	}
 
 	table.data img {
@@ -967,12 +1055,15 @@ Possible extra rowspan handling
 		display: block;
 		/* Reverse color scheme */
 		color: black;
-		border-color: #3980B5;
-		border-bottom-width: 3px !important;
-		margin-bottom: 0px !important;
+		color: var(--toclink-text);
+		border-color: #3980b5;
+		border-color: var(--toclink-underline);
 	}
 	.toc a:visited {
+		color: black;
+		color: var(--toclink-visited-text);
 		border-color: #054572;
+		border-color: var(--toclink-visited-underline);
 	}
 	.toc a:not(:focus):not(:hover) {
 		/* Allow colors to cascade through from link styling */
@@ -1027,6 +1118,15 @@ Possible extra rowspan handling
 			.toc > li li li li .secno    { margin-left: -6rem; }
 			.toc > li li li li li .secno { margin-left: -7rem; }
 		}
+		/* Loosen it on wide screens */
+		@media screen and (min-width: 78em) {
+			body:not(.toc-inline) :not(li) > .toc              { margin-left:  4rem; }
+			body:not(.toc-inline) .toc .secno                  { margin-left: -4rem; }
+			body:not(.toc-inline) .toc > li li li              { margin-left:  1rem; }
+			body:not(.toc-inline) .toc > li li li .secno       { margin-left: -5rem; }
+			body:not(.toc-inline) .toc > li li li li .secno    { margin-left: -6rem; }
+			body:not(.toc-inline) .toc > li li li li li .secno { margin-left: -7rem; }
+	}
 	/* } */
 
 	@supports (display:grid) and (display:contents) {
@@ -1068,9 +1168,12 @@ Possible extra rowspan handling
 			width: auto;
 			margin-right: 1rem;
 		}
-		#toc .content:hover {
+		#toc .content:hover,
+		#toc .content:focus {
 			background: rgba(75%, 75%, 75%, .25);
+			background: var(--a-hover-bg);
 			border-bottom: 3px solid #054572;
+			border-bottom: 3px solid var(--toclink-underline);
 			margin-bottom: -3px;
 		}
 		#toc li li li .content {
@@ -1095,12 +1198,13 @@ Possible extra rowspan handling
 	ul.index ul,
 	ul.index dl { font-size: smaller; }
 	@media not print {
-		ul.index li span {
+		ul.index li span:not(.dfn-paneled) {
 			white-space: nowrap;
 			color: transparent; }
 		ul.index li a:hover + span,
 		ul.index li a:focus + span {
 			color: #707070;
+			color: var(--indexinfo-text);
 		}
 	}
 
@@ -1122,7 +1226,10 @@ Possible extra rowspan handling
 
 	table.index tr:hover td:not([rowspan]),
 	table.index tr:hover th:not([rowspan]) {
+		color: black;
+		color: var(--indextable-hover-text);
 		background: #f7f8f9;
+		background: var(--indextable-hover-bg);
 	}
 
 	/* The link in the first column in the property table (formerly a TD) */
@@ -1147,13 +1254,6 @@ Possible extra rowspan handling
 	@page {
 		margin: 1.5cm 1.1cm;
 	}
-
-/******************************************************************************/
-/*                                    Legacy                                  */
-/******************************************************************************/
-
-	/* This rule is inherited from past style sheets. No idea what it's for. */
-	.hide { display: none }
 
 
 
@@ -1222,12 +1322,18 @@ Possible extra rowspan handling
 	}
 </style>
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 6cf40e14, updated Fri Aug 14 17:42:41 2020 -0700" name="generator">
+  <meta content="Bikeshed version 89ebb6ab, updated Fri Oct 9 15:32:07 2020 -0700" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
+<style>/* darkmode */
+
+            @media (prefers-color-scheme: dark) {
+                html { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='400' height='400'%3E%3Cg fill='%23100808' transform='translate(200 200) rotate(-45) translate(-200 -200)' stroke='%23100808' stroke-width='3'%3E%3Ctext x='50%25' y='220' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EUNOFFICIAL%3C/text%3E%3Ctext x='50%25' y='305' style='font: bold 70px sans-serif; text-anchor: middle; letter-spacing: 6px;'%3EDRAFT%3C/text%3E%3C/g%3E%3C/svg%3E") !important; }
+            }
+            </style>
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
-    color: #005a9c;
+    color: var(--a-normal-text);
     font-size: inherit;
     font-family: inherit;
 }
@@ -1286,6 +1392,114 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }</style>
+<style>/* style-colors */
+
+/* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
+html {
+    color: black;
+    color: var(--text);
+    background-color: white;
+    background-color: var(--bg);
+}
+:root {
+    color-scheme: light dark;
+
+    --text: black;
+    --bg: white;
+
+    --logo-bg: #1a5e9a;
+    --logo-active-bg: #c00;
+    --logo-text: white;
+
+    --tocnav-normal-text: #707070;
+    --tocnav-normal-bg: var(--bg);
+    --tocnav-hover-text: var(--tocnav-normal-text);
+    --tocnav-hover-bg: #f8f8f8;
+    --tocnav-active-text: #c00;
+    --tocnav-active-bg: var(--tocnav-normal-bg);
+
+    --tocsidebar-text: var(--text);
+    --tocsidebar-bg: #f7f8f9;
+    --tocsidebar-shadow: rgba(0,0,0,.1);
+    --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+    --toclink-text: var(--text);
+    --toclink-underline: #3980b5;
+    --toclink-visited-text: var(--toclink-text);
+    --toclink-visited-underline: #054572;
+
+    --heading-text: #005a9c;
+
+    --hr-text: var(--text);
+
+    --algo-border: #def;
+
+    --del-text: red;
+    --del-bg: transparent;
+    --ins-text: #080;
+    --ins-bg: transparent;
+
+    --a-normal-text: #034575;
+    --a-normal-underline: #707070;
+    --a-visited-text: var(--a-normal-text);
+    --a-visited-underline: #bbb;
+    --a-hover-bg: rgba(75%, 75%, 75%, .25);
+    --a-active-text: #c00;
+    --a-active-underline: #c00;
+
+    --blockquote-border: silver;
+    --blockquote-bg: transparent;
+    --blockquote-text: currentcolor;
+
+    --issue-border: #e05252;
+    --issue-bg: #fbe9e9;
+    --issue-text: var(--text);
+    --issueheading-text: #831616;
+
+    --example-border: #e0cb52;
+    --example-bg: #fcfaee;
+    --example-text: var(--text);
+    --exampleheading-text: #574b0f;
+
+    --note-border: #52e052;
+    --note-bg: #e9fbe9;
+    --note-text: var(--text);
+    --noteheading-text: hsl(120, 70%, 30%);
+    --notesummary-underline: silver;
+
+    --assertion-border: #aaa;
+    --assertion-bg: #eee;
+    --assertion-text: black;
+
+    --advisement-border: orange;
+    --advisement-bg: #fec;
+    --advisement-text: var(--text);
+    --advisementheading-text: #b35f00;
+
+    --warning-border: red;
+    --warning-bg: hsla(40,100%,50%,0.95);
+    --warning-text: var(--text);
+
+    --def-border: #8ccbf2;
+    --def-bg: #def;
+    --def-text: var(--text);
+    --defrow-border: #bbd7e9;
+
+    --datacell-border: silver;
+
+    --indexinfo-text: #707070;
+
+    --indextable-hover-text: black;
+    --indextable-hover-bg: #f7f8f9;
+
+    --outdatedspec-bg: rgba(0, 0, 0, .5);
+    --outdatedspec-text: black;
+    --outdated-bg: maroon;
+    --outdated-text: white;
+    --outdated-shadow: red;
+
+    --editedrec-bg: darkorange;
+}</style>
 <style>/* style-counters */
 
 body {
@@ -1317,6 +1531,10 @@ figcaption:not(.no-marker)::before {
 }</style>
 <style>/* style-dfn-panel */
 
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 .dfn-panel {
     position: absolute;
     z-index: 35;
@@ -1328,14 +1546,14 @@ figcaption:not(.no-marker)::before {
     overflow: auto;
     padding: 0.5em 0.75em;
     font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: #DDDDDD;
-    color: black;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
     border: outset 0.2em;
 }
 .dfn-panel:not(.on) { display: none; }
 .dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
 .dfn-panel > b { display: block; }
-.dfn-panel a { color: black; }
+.dfn-panel a { color: var(--dfnpanel-text); }
 .dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
 .dfn-panel > b + b { margin-top: 0.25em; }
 .dfn-panel ul { padding: 0; }
@@ -1364,6 +1582,11 @@ figcaption:not(.no-marker)::before {
 }</style>
 <style>/* style-selflinks */
 
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
 .heading, .issue, .note, .example, li, dt {
     position: relative;
 }
@@ -1393,8 +1616,8 @@ dfn > a.self-link {
     opacity: 0;
     width: 1.5em;
     height: 1.5em;
-    background: gray;
-    color: white;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
     font-style: normal;
     transition: opacity .2s, background-color .2s, color .2s;
 }
@@ -1402,17 +1625,23 @@ dfn:hover > a.self-link {
     opacity: 1;
 }
 dfn > a.self-link:hover {
-    color: black;
+    color: var(--selflink-hover-text);
 }
 
 a.self-link::before            { content: "¶"; }
 .heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }</style>
+dfn > a.self-link::before      { content: "#"; }
+</style>
 <style>/* style-syntax-highlighting */
-pre.idl.highlight { color: #708090; }
-.highlight:not(.idl) { background: hsl(24, 20%, 95%); }
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
 code.highlight { padding: .1em; border-radius: .3em; }
 pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
 c-[a] { color: #990055 } /* Keyword.Declaration */
 c-[b] { color: #990055 } /* Keyword.Type */
 c-[c] { color: #708090 } /* Comment */
@@ -1466,11 +1695,194 @@ c-[vg] { color: #0077aa } /* Name.Variable.Global */
 c-[vi] { color: #0077aa } /* Name.Variable.Instance */
 c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
 </style>
+<style>/* style-darkmode */
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --text: #ddd;
+        --bg: black;
+
+        --logo-bg: #1a5e9a;
+        --logo-active-bg: #c00;
+        --logo-text: white;
+
+        --tocnav-normal-text: #999;
+        --tocnav-normal-bg: var(--bg);
+        --tocnav-hover-text: var(--tocnav-normal-text);
+        --tocnav-hover-bg: #080808;
+        --tocnav-active-text: #f44;
+        --tocnav-active-bg: var(--tocnav-normal-bg);
+
+        --tocsidebar-text: var(--text);
+        --tocsidebar-bg: #080808;
+        --tocsidebar-shadow: rgba(255,255,255,.1);
+        --tocsidebar-heading-text: hsla(203,20%,40%,.7);
+
+        --toclink-text: var(--text);
+        --toclink-underline: #6af;
+        --toclink-visited-text: var(--toclink-text);
+        --toclink-visited-underline: #054572;
+
+        --heading-text: #8af;
+
+        --hr-text: var(--text);
+
+        --algo-border: #456;
+
+        --del-text: #f44;
+        --del-bg: transparent;
+        --ins-text: #4a4;
+        --ins-bg: transparent;
+
+        --a-normal-text: #6af;
+        --a-normal-underline: #555;
+        --a-visited-text: var(--a-normal-text);
+        --a-visited-underline: var(--a-normal-underline);
+        --a-hover-bg: rgba(25%, 25%, 25%, .2);
+        --a-active-text: #f44;
+        --a-active-underline: var(--a-active-text);
+
+        --borderedblock-bg: rgba(255, 255, 255, .05);
+
+        --blockquote-border: silver;
+        --blockquote-bg: var(--borderedblock-bg);
+        --blockquote-text: currentcolor;
+
+        --issue-border: #e05252;
+        --issue-bg: var(--borderedblock-bg);
+        --issue-text: var(--text);
+        --issueheading-text: hsl(0deg, 70%, 70%);
+
+        --example-border: hsl(50deg, 90%, 60%);
+        --example-bg: var(--borderedblock-bg);
+        --example-text: var(--text);
+        --exampleheading-text: hsl(50deg, 70%, 70%);
+
+        --note-border: hsl(120deg, 100%, 35%);
+        --note-bg: var(--borderedblock-bg);
+        --note-text: var(--text);
+        --noteheading-text: hsl(120, 70%, 70%);
+        --notesummary-underline: silver;
+
+        --assertion-border: #444;
+        --assertion-bg: var(--borderedblock-bg);
+        --assertion-text: var(--text);
+
+        --advisement-border: orange;
+        --advisement-bg: #222218;
+        --advisement-text: var(--text);
+        --advisementheading-text: #f84;
+
+        --warning-border: red;
+        --warning-bg: hsla(40,100%,20%,0.95);
+        --warning-text: var(--text);
+
+        --def-border: #8ccbf2;
+        --def-bg: #080818;
+        --def-text: var(--text);
+        --defrow-border: #136;
+
+        --datacell-border: silver;
+
+        --indexinfo-text: #aaa;
+
+        --indextable-hover-text: var(--text);
+        --indextable-hover-bg: #181818;
+
+        --outdatedspec-bg: rgba(255, 255, 255, .5);
+        --outdatedspec-text: black;
+        --outdated-bg: maroon;
+        --outdated-text: white;
+        --outdated-shadow: red;
+
+        --editedrec-bg: darkorange;
+    }
+    /* In case a transparent-bg image doesn't expect to be on a dark bg,
+       which is quite common in practice... */
+    img { background: white; }
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+@media (prefers-color-scheme: dark) {
+    .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
+
+    c-[a] { color: #d33682 } /* Keyword.Declaration */
+    c-[b] { color: #d33682 } /* Keyword.Type */
+    c-[c] { color: #2aa198 } /* Comment */
+    c-[d] { color: #2aa198 } /* Comment.Multiline */
+    c-[e] { color: #268bd2 } /* Name.Attribute */
+    c-[f] { color: #b58900 } /* Name.Tag */
+    c-[g] { color: #cb4b16 } /* Name.Variable */
+    c-[k] { color: #d33682 } /* Keyword */
+    c-[l] { color: #657b83 } /* Literal */
+    c-[m] { color: #657b83 } /* Literal.Number */
+    c-[n] { color: #268bd2 } /* Name */
+    c-[o] { color: #657b83 } /* Operator */
+    c-[p] { color: #657b83 } /* Punctuation */
+    c-[s] { color: #6c71c4 } /* Literal.String */
+    c-[t] { color: #6c71c4 } /* Literal.String.Single */
+    c-[u] { color: #6c71c4 } /* Literal.String.Double */
+    c-[ch] { color: #2aa198 } /* Comment.Hashbang */
+    c-[cp] { color: #2aa198 } /* Comment.Preproc */
+    c-[cpf] { color: #2aa198 } /* Comment.PreprocFile */
+    c-[c1] { color: #2aa198 } /* Comment.Single */
+    c-[cs] { color: #2aa198 } /* Comment.Special */
+    c-[kc] { color: #d33682 } /* Keyword.Constant */
+    c-[kn] { color: #d33682 } /* Keyword.Namespace */
+    c-[kp] { color: #d33682 } /* Keyword.Pseudo */
+    c-[kr] { color: #d33682 } /* Keyword.Reserved */
+    c-[ld] { color: #657b83 } /* Literal.Date */
+    c-[nc] { color: #268bd2 } /* Name.Class */
+    c-[no] { color: #268bd2 } /* Name.Constant */
+    c-[nd] { color: #268bd2 } /* Name.Decorator */
+    c-[ni] { color: #268bd2 } /* Name.Entity */
+    c-[ne] { color: #268bd2 } /* Name.Exception */
+    c-[nf] { color: #268bd2 } /* Name.Function */
+    c-[nl] { color: #268bd2 } /* Name.Label */
+    c-[nn] { color: #268bd2 } /* Name.Namespace */
+    c-[py] { color: #268bd2 } /* Name.Property */
+    c-[ow] { color: #657b83 } /* Operator.Word */
+    c-[mb] { color: #657b83 } /* Literal.Number.Bin */
+    c-[mf] { color: #657b83 } /* Literal.Number.Float */
+    c-[mh] { color: #657b83 } /* Literal.Number.Hex */
+    c-[mi] { color: #657b83 } /* Literal.Number.Integer */
+    c-[mo] { color: #657b83 } /* Literal.Number.Oct */
+    c-[sa] { color: #6c71c4 } /* Literal.String.Affix */
+    c-[sb] { color: #6c71c4 } /* Literal.String.Backtick */
+    c-[sc] { color: #6c71c4 } /* Literal.String.Char */
+    c-[dl] { color: #6c71c4 } /* Literal.String.Delimiter */
+    c-[sd] { color: #6c71c4 } /* Literal.String.Doc */
+    c-[se] { color: #6c71c4 } /* Literal.String.Escape */
+    c-[sh] { color: #6c71c4 } /* Literal.String.Heredoc */
+    c-[si] { color: #6c71c4 } /* Literal.String.Interpol */
+    c-[sx] { color: #6c71c4 } /* Literal.String.Other */
+    c-[sr] { color: #6c71c4 } /* Literal.String.Regex */
+    c-[ss] { color: #6c71c4 } /* Literal.String.Symbol */
+    c-[fm] { color: #268bd2 } /* Name.Function.Magic */
+    c-[vc] { color: #cb4b16 } /* Name.Variable.Class */
+    c-[vg] { color: #cb4b16 } /* Name.Variable.Global */
+    c-[vi] { color: #cb4b16 } /* Name.Variable.Instance */
+    c-[vm] { color: #cb4b16 } /* Name.Variable.Magic */
+    c-[il] { color: #657b83 } /* Literal.Number.Integer.Long */
+}
+</style>
  <body class="h-entry">
   <div class="head">
-   <p data-fill-with="logo"></p>
+   <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-08-18">18 August 2020</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2020-10-21">21 October 2020</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1526,7 +1938,12 @@ A human-readable <a href="http://www.w3.org/community/about/agreements/cla-deed/
      <ol class="toc">
       <li><a href="#usbdevice-behavior"><span class="secno">4.1</span> <span class="content"><code class="idl"><span>USBDevice</span></code> Behavior</span></a>
      </ol>
-    <li><a href="#conformance"><span class="secno"></span> <span class="content"> Conformance</span></a>
+    <li>
+     <a href="#conformance"><span class="secno"></span> <span class="content">Conformance</span></a>
+     <ol class="toc">
+      <li><a href="#conventions"><span class="secno"></span> <span class="content">Document conventions</span></a>
+      <li><a href="#conformant-algorithms"><span class="secno"></span> <span class="content">Conformant Algorithms</span></a>
+     </ol>
     <li>
      <a href="#index"><span class="secno"></span> <span class="content">Index</span></a>
      <ol class="toc">
@@ -1658,22 +2075,22 @@ no increase in binary size to support an API that will rarely be used.</p>
    </div>
    <h2 class="heading settled" data-level="3" id="test-interface"><span class="secno">3. </span><span class="content">Global Testing Interface</span><a class="self-link" href="#test-interface"></a></h2>
 <pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://wicg.github.io/webusb/#usb" id="ref-for-usb"><c- g>USB</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbtest" id="ref-for-usbtest"><c- n>USBTest</c-></a> <dfn class="idl-code" data-dfn-for="USB" data-dfn-type="attribute" data-export data-readonly data-type="USBTest" id="dom-usb-test"><code><c- g>test</c-></code><a class="self-link" href="#dom-usb-test"></a></dfn>;
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#usbtest" id="ref-for-usbtest"><c- n>USBTest</c-></a> <dfn class="idl-code" data-dfn-for="USB" data-dfn-type="attribute" data-export data-readonly data-type="USBTest" id="dom-usb-test"><code><c- g>test</c-></code><a class="self-link" href="#dom-usb-test"></a></dfn>;
 };
 
-<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbdevicerequestevent"><code><c- g>USBDeviceRequestEvent</c-></code></dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event"><c- n>Event</c-></a> {
-  <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <dfn class="idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="attribute" data-export data-type="FrozenArray<USBDeviceFilter>" id="dom-usbdevicerequestevent-filters"><code><c- g>filters</c-></code><a class="self-link" href="#dom-usbdevicerequestevent-filters"></a></dfn>;
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbdevicerequestevent"><code><c- g>USBDeviceRequestEvent</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event"><c- n>Event</c-></a> {
+  <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <dfn class="idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="attribute" data-export data-type="FrozenArray<USBDeviceFilter>" id="dom-usbdevicerequestevent-filters"><code><c- g>filters</c-></code><a class="self-link" href="#dom-usbdevicerequestevent-filters"></a></dfn>;
 
-  <c- b>void</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="method" data-export data-lt="respondWith(result)" id="dom-usbdevicerequestevent-respondwith"><code><c- g>respondWith</c-></code></dfn>(<c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice"><c- n>FakeUSBDevice</c-></a>> <dfn class="idl-code" data-dfn-for="USBDeviceRequestEvent/respondWith(result)" data-dfn-type="argument" data-export id="dom-usbdevicerequestevent-respondwith-result-result"><code><c- g>result</c-></code><a class="self-link" href="#dom-usbdevicerequestevent-respondwith-result-result"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="method" data-export data-lt="respondWith(result)" id="dom-usbdevicerequestevent-respondwith"><code><c- g>respondWith</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice"><c- n>FakeUSBDevice</c-></a>> <dfn class="idl-code" data-dfn-for="USBDeviceRequestEvent/respondWith(result)" data-dfn-type="argument" data-export id="dom-usbdevicerequestevent-respondwith-result-result"><code><c- g>result</c-></code><a class="self-link" href="#dom-usbdevicerequestevent-respondwith-result-result"></a></dfn>);
 };
 
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbtest"><code><c- g>USBTest</c-></code></dfn> {
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code><a class="self-link" href="#dom-usbtest-onrequestdevice"></a></dfn>;
+  <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code><a class="self-link" href="#dom-usbtest-onrequestdevice"></a></dfn>;
 
-  <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="initialize()" id="dom-usbtest-initialize"><code><c- g>initialize</c-></code></dfn>();
-  <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="attachToContext(context)" id="dom-usbtest-attachtocontext"><code><c- g>attachToContext</c-></code></dfn>((<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement"><c- n>HTMLIFrameElement</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a>) <dfn class="idl-code" data-dfn-for="USBTest/attachToContext(context)" data-dfn-type="argument" data-export id="dom-usbtest-attachtocontext-context-context"><code><c- g>context</c-></code><a class="self-link" href="#dom-usbtest-attachtocontext-context-context"></a></dfn>);
-  <a class="n" data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①"><c- n>FakeUSBDevice</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="addFakeDevice(deviceInit)" id="dom-usbtest-addfakedevice"><code><c- g>addFakeDevice</c-></code></dfn>(<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit"><c- n>FakeUSBDeviceInit</c-></a> <dfn class="idl-code" data-dfn-for="USBTest/addFakeDevice(deviceInit)" data-dfn-type="argument" data-export id="dom-usbtest-addfakedevice-deviceinit-deviceinit"><code><c- g>deviceInit</c-></code><a class="self-link" href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"></a></dfn>);
-  <c- b>Promise</c->&lt;<c- b>void</c->> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="reset()" id="dom-usbtest-reset"><code><c- g>reset</c-></code></dfn>();
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="initialize()" id="dom-usbtest-initialize"><code><c- g>initialize</c-></code></dfn>();
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise③"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="attachToContext(context)" id="dom-usbtest-attachtocontext"><code><c- g>attachToContext</c-></code></dfn>((<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement" id="ref-for-htmliframeelement"><c- n>HTMLIFrameElement</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker" id="ref-for-worker"><c- n>Worker</c-></a>) <dfn class="idl-code" data-dfn-for="USBTest/attachToContext(context)" data-dfn-type="argument" data-export id="dom-usbtest-attachtocontext-context-context"><code><c- g>context</c-></code><a class="self-link" href="#dom-usbtest-attachtocontext-context-context"></a></dfn>);
+  <a data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice①"><c- n>FakeUSBDevice</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="addFakeDevice(deviceInit)" id="dom-usbtest-addfakedevice"><code><c- g>addFakeDevice</c-></code></dfn>(<a data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit"><c- n>FakeUSBDeviceInit</c-></a> <dfn class="idl-code" data-dfn-for="USBTest/addFakeDevice(deviceInit)" data-dfn-type="argument" data-export id="dom-usbtest-addfakedevice-deviceinit-deviceinit"><code><c- g>deviceInit</c-></code><a class="self-link" href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise④"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined③"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBTest" data-dfn-type="method" data-export data-lt="reset()" id="dom-usbtest-reset"><code><c- g>reset</c-></code></dfn>();
 };
 </pre>
    <p>By default, a UA SHALL NOT alter the behavior of a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usb" id="ref-for-usb①">USB</a></code> instance <var>usb</var> in any <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object" id="ref-for-global-object">global object</a> until it is reconfigured so that <var>usb</var> is <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="controlled by" data-noexport id="controlled-by">controlled
@@ -1687,7 +2104,7 @@ value of <code>null</code>.</p>
      <p>Let <var>test</var> be the <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest③">USBTest</a></code> instance on which this method was invoked.</p>
     <li data-md>
      <p>If <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot">[[initializationPromise]]</a></code> is <code>null</code> then
-set <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot①">[[initializationPromise]]</a></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise①">Promise</a></code> and
+set <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot①">[[initializationPromise]]</a></code> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise⑤">Promise</a></code> and
 run these sub-steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel">in parallel</a>:</p>
      <ol>
       <li data-md>
@@ -1699,7 +2116,7 @@ by</a> <var>test</var>.</p>
     <li data-md>
      <p>Return <var>test</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbtest-initializationpromise-slot" id="ref-for-dom-usbtest-initializationpromise-slot③">[[initializationPromise]]</a></code>.</p>
    </ol>
-   <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-attachtocontext" id="ref-for-dom-usbtest-attachtocontext">attachToContext(context)</a></code> method MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise②">Promise</a></code> <var>promise</var> and run these steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>:</p>
+   <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-attachtocontext" id="ref-for-dom-usbtest-attachtocontext">attachToContext(context)</a></code> method MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise⑥">Promise</a></code> <var>promise</var> and run these steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>Let <var>test</var> be the <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest④">USBTest</a></code> instance on which this method was invoked.</p>
@@ -1726,7 +2143,7 @@ that is connected to the system.</p>
     <li data-md>
      <p>Return <var>fakeDevice</var>.</p>
    </ol>
-   <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-reset" id="ref-for-dom-usbtest-reset①">reset()</a></code> method MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise③">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel②">in parallel</a>:</p>
+   <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbtest-reset" id="ref-for-dom-usbtest-reset①">reset()</a></code> method MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise⑦">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel②">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>Let <var>test</var> be the <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest⑥">USBTest</a></code> instance on which this method was invoked.</p>
@@ -1735,7 +2152,7 @@ that is connected to the system.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="https://heycam.github.io/webidl/#resolve" id="ref-for-resolve④">Resolve</a> <var>promise</var>.</p>
    </ol>
-   <p><code class="idl"><a data-link-type="idl" href="#usbdevicerequestevent" id="ref-for-usbdevicerequestevent">USBDeviceRequestEvent</a></code> instances have an <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots" id="ref-for-sec-object-internal-methods-and-internal-slots①">internal slot</a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="attribute" data-export id="dom-usbdevicerequestevent-promise-slot"><code>[[promise]]</code></dfn> that holds a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise④">Promise</a></code>.</p>
+   <p><code class="idl"><a data-link-type="idl" href="#usbdevicerequestevent" id="ref-for-usbdevicerequestevent">USBDeviceRequestEvent</a></code> instances have an <a data-link-type="dfn" href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots" id="ref-for-sec-object-internal-methods-and-internal-slots①">internal slot</a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="attribute" data-export id="dom-usbdevicerequestevent-promise-slot"><code>[[promise]]</code></dfn> that holds a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise⑧">Promise</a></code>.</p>
    <p>When invoked, the <code class="idl"><a data-link-type="idl" href="#dom-usbdevicerequestevent-respondwith" id="ref-for-dom-usbdevicerequestevent-respondwith">respondWith(result)</a></code> method MUST run
 the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel③">in parallel</a>:</p>
    <ol>
@@ -1750,12 +2167,12 @@ was invoked.</p>
      <p>Otherwise, reject <var>event</var>@<code class="idl"><a data-link-type="idl" href="#dom-usbdevicerequestevent-promise-slot" id="ref-for-dom-usbdevicerequestevent-promise-slot①">[[promise]]</a></code> with a <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#notfounderror" id="ref-for-notfounderror">NotFoundError</a></code>.</p>
    </ol>
    <h3 class="heading settled" data-level="3.1" id="usb-behavior"><span class="secno">3.1. </span><span class="content"><code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usb" id="ref-for-usb③">USB</a></code> Behavior</span><a class="self-link" href="#usb-behavior"></a></h3>
-   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice">requestDevice(options)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usb" id="ref-for-usb④">USB</a></code> instance <a data-link-type="dfn" href="#controlled-by" id="ref-for-controlled-by③">controlled by</a> a <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest⑦">USBTest</a></code> <var>test</var> the UA MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise⑤">Promise</a></code> <var>promise</var> and perform the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">in parallel</a>:</p>
+   <p>When <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice">requestDevice(options)</a></code> is invoked on a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usb" id="ref-for-usb④">USB</a></code> instance <a data-link-type="dfn" href="#controlled-by" id="ref-for-controlled-by③">controlled by</a> a <code class="idl"><a data-link-type="idl" href="#usbtest" id="ref-for-usbtest⑦">USBTest</a></code> <var>test</var> the UA MUST return a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise⑨">Promise</a></code> <var>promise</var> and perform the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>Let <var>event</var> be a new <code class="idl"><a data-link-type="idl" href="#usbdevicerequestevent" id="ref-for-usbdevicerequestevent②">USBDeviceRequestEvent</a></code>.</p>
     <li data-md>
-     <p>Set <var>event</var>.<var>filters</var> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array">FrozenArray</a></code>.</p>
+     <p>Set <var>event</var>.<var>filters</var> to a new <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array①">FrozenArray</a></code>.</p>
     <li data-md>
      <p>Copy the members of <var>options</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters" id="ref-for-dom-usbdevicerequestoptions-filters">filters</a></code> into <var>event</var>.<var>filters</var>.</p>
     <li data-md>
@@ -1770,10 +2187,10 @@ been called.</p>
    <p>To permit testing without physical hardware this specification defines a method
 for tests to add simulated USB devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usbtest-addfakedevice" id="ref-for-dom-usbtest-addfakedevice②">addFakeDevice()</a></code> with an instance of <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit①">FakeUSBDeviceInit</a></code> containing the properties of the
 device to be added.</p>
-<pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="fakeusbdevice"><code><c- g>FakeUSBDevice</c-></code></dfn> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-fakeusbdevice-onclose"><code><c- g>onclose</c-></code><a class="self-link" href="#dom-fakeusbdevice-onclose"></a></dfn>;
+<pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="fakeusbdevice"><code><c- g>FakeUSBDevice</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
+  <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-fakeusbdevice-onclose"><code><c- g>onclose</c-></code><a class="self-link" href="#dom-fakeusbdevice-onclose"></a></dfn>;
 
-  <c- b>void</c-> <dfn class="dfn-paneled idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="method" data-export data-lt="disconnect()" id="dom-fakeusbdevice-disconnect"><code><c- g>disconnect</c-></code></dfn>();
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined④"><c- b>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="method" data-export data-lt="disconnect()" id="dom-fakeusbdevice-disconnect"><code><c- g>disconnect</c-></code></dfn>();
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-fakeusbdeviceinit"><code><c- g>FakeUSBDeviceInit</c-></code></dfn> {
@@ -1792,18 +2209,18 @@ device to be added.</p>
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString①"><c- b>DOMString</c-></a>? <dfn class="idl-code" data-dfn-for="FakeUSBDeviceInit" data-dfn-type="dict-member" data-export data-type="DOMString? " id="dom-fakeusbdeviceinit-productname"><code><c- g>productName</c-></code><a class="self-link" href="#dom-fakeusbdeviceinit-productname"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString②"><c- b>DOMString</c-></a>? <dfn class="idl-code" data-dfn-for="FakeUSBDeviceInit" data-dfn-type="dict-member" data-export data-type="DOMString? " id="dom-fakeusbdeviceinit-serialnumber"><code><c- g>serialNumber</c-></code><a class="self-link" href="#dom-fakeusbdeviceinit-serialnumber"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet⑨"><c- b>octet</c-></a> <dfn class="dfn-paneled idl-code" data-default="0" data-dfn-for="FakeUSBDeviceInit" data-dfn-type="dict-member" data-export data-type="octet " id="dom-fakeusbdeviceinit-activeconfigurationvalue"><code><c- g>activeConfigurationValue</c-></code></dfn> = 0;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbconfigurationinit" id="ref-for-dictdef-fakeusbconfigurationinit"><c- n>FakeUSBConfigurationInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBDeviceInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBConfigurationInit> " id="dom-fakeusbdeviceinit-configurations"><code><c- g>configurations</c-></code><a class="self-link" href="#dom-fakeusbdeviceinit-configurations"></a></dfn>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence" id="ref-for-idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbconfigurationinit" id="ref-for-dictdef-fakeusbconfigurationinit"><c- n>FakeUSBConfigurationInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBDeviceInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBConfigurationInit> " id="dom-fakeusbdeviceinit-configurations"><code><c- g>configurations</c-></code><a class="self-link" href="#dom-fakeusbdeviceinit-configurations"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-fakeusbconfigurationinit"><code><c- g>FakeUSBConfigurationInit</c-></code></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⓪"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBConfigurationInit" data-dfn-type="dict-member" data-export data-type="octet " id="dom-fakeusbconfigurationinit-configurationvalue"><code><c- g>configurationValue</c-></code><a class="self-link" href="#dom-fakeusbconfigurationinit-configurationvalue"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString③"><c- b>DOMString</c-></a>? <dfn class="idl-code" data-dfn-for="FakeUSBConfigurationInit" data-dfn-type="dict-member" data-export data-type="DOMString? " id="dom-fakeusbconfigurationinit-configurationname"><code><c- g>configurationName</c-></code><a class="self-link" href="#dom-fakeusbconfigurationinit-configurationname"></a></dfn>;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbinterfaceinit" id="ref-for-dictdef-fakeusbinterfaceinit"><c- n>FakeUSBInterfaceInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBConfigurationInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBInterfaceInit> " id="dom-fakeusbconfigurationinit-interfaces"><code><c- g>interfaces</c-></code><a class="self-link" href="#dom-fakeusbconfigurationinit-interfaces"></a></dfn>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence" id="ref-for-idl-sequence①"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbinterfaceinit" id="ref-for-dictdef-fakeusbinterfaceinit"><c- n>FakeUSBInterfaceInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBConfigurationInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBInterfaceInit> " id="dom-fakeusbconfigurationinit-interfaces"><code><c- g>interfaces</c-></code><a class="self-link" href="#dom-fakeusbconfigurationinit-interfaces"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-fakeusbinterfaceinit"><code><c- g>FakeUSBInterfaceInit</c-></code></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①①"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBInterfaceInit" data-dfn-type="dict-member" data-export data-type="octet " id="dom-fakeusbinterfaceinit-interfacenumber"><code><c- g>interfaceNumber</c-></code><a class="self-link" href="#dom-fakeusbinterfaceinit-interfacenumber"></a></dfn>;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbalternateinterfaceinit" id="ref-for-dictdef-fakeusbalternateinterfaceinit"><c- n>FakeUSBAlternateInterfaceInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBInterfaceInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBAlternateInterfaceInit> " id="dom-fakeusbinterfaceinit-alternates"><code><c- g>alternates</c-></code><a class="self-link" href="#dom-fakeusbinterfaceinit-alternates"></a></dfn>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbalternateinterfaceinit" id="ref-for-dictdef-fakeusbalternateinterfaceinit"><c- n>FakeUSBAlternateInterfaceInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBInterfaceInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBAlternateInterfaceInit> " id="dom-fakeusbinterfaceinit-alternates"><code><c- g>alternates</c-></code><a class="self-link" href="#dom-fakeusbinterfaceinit-alternates"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-fakeusbalternateinterfaceinit"><code><c- g>FakeUSBAlternateInterfaceInit</c-></code></dfn> {
@@ -1812,13 +2229,13 @@ device to be added.</p>
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①④"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBAlternateInterfaceInit" data-dfn-type="dict-member" data-export data-type="octet " id="dom-fakeusbalternateinterfaceinit-interfacesubclass"><code><c- g>interfaceSubclass</c-></code><a class="self-link" href="#dom-fakeusbalternateinterfaceinit-interfacesubclass"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⑤"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBAlternateInterfaceInit" data-dfn-type="dict-member" data-export data-type="octet " id="dom-fakeusbalternateinterfaceinit-interfaceprotocol"><code><c- g>interfaceProtocol</c-></code><a class="self-link" href="#dom-fakeusbalternateinterfaceinit-interfaceprotocol"></a></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString" id="ref-for-idl-DOMString④"><c- b>DOMString</c-></a>? <dfn class="idl-code" data-dfn-for="FakeUSBAlternateInterfaceInit" data-dfn-type="dict-member" data-export data-type="DOMString? " id="dom-fakeusbalternateinterfaceinit-interfacename"><code><c- g>interfaceName</c-></code><a class="self-link" href="#dom-fakeusbalternateinterfaceinit-interfacename"></a></dfn>;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbendpointinit" id="ref-for-dictdef-fakeusbendpointinit"><c- n>FakeUSBEndpointInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBAlternateInterfaceInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBEndpointInit> " id="dom-fakeusbalternateinterfaceinit-endpoints"><code><c- g>endpoints</c-></code><a class="self-link" href="#dom-fakeusbalternateinterfaceinit-endpoints"></a></dfn>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence" id="ref-for-idl-sequence③"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbendpointinit" id="ref-for-dictdef-fakeusbendpointinit"><c- n>FakeUSBEndpointInit</c-></a>> <dfn class="idl-code" data-dfn-for="FakeUSBAlternateInterfaceInit" data-dfn-type="dict-member" data-export data-type="sequence<FakeUSBEndpointInit> " id="dom-fakeusbalternateinterfaceinit-endpoints"><code><c- g>endpoints</c-></code><a class="self-link" href="#dom-fakeusbalternateinterfaceinit-endpoints"></a></dfn>;
 };
 
 <c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-fakeusbendpointinit"><code><c- g>FakeUSBEndpointInit</c-></code></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet" id="ref-for-idl-octet①⑥"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBEndpointInit" data-dfn-type="dict-member" data-export data-type="octet " id="dom-fakeusbendpointinit-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-fakeusbendpointinit-endpointnumber"></a></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbdirection" id="ref-for-enumdef-usbdirection"><c- n>USBDirection</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBEndpointInit" data-dfn-type="dict-member" data-export data-type="USBDirection " id="dom-fakeusbendpointinit-direction"><code><c- g>direction</c-></code><a class="self-link" href="#dom-fakeusbendpointinit-direction"></a></dfn>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbendpointtype" id="ref-for-enumdef-usbendpointtype"><c- n>USBEndpointType</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBEndpointInit" data-dfn-type="dict-member" data-export data-type="USBEndpointType " id="dom-fakeusbendpointinit-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-fakeusbendpointinit-type"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbdirection" id="ref-for-enumdef-usbdirection"><c- n>USBDirection</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBEndpointInit" data-dfn-type="dict-member" data-export data-type="USBDirection " id="dom-fakeusbendpointinit-direction"><code><c- g>direction</c-></code><a class="self-link" href="#dom-fakeusbendpointinit-direction"></a></dfn>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbendpointtype" id="ref-for-enumdef-usbendpointtype"><c- n>USBEndpointType</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBEndpointInit" data-dfn-type="dict-member" data-export data-type="USBEndpointType " id="dom-fakeusbendpointinit-type"><code><c- g>type</c-></code><a class="self-link" href="#dom-fakeusbendpointinit-type"></a></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBEndpointInit" data-dfn-type="dict-member" data-export data-type="unsigned long " id="dom-fakeusbendpointinit-packetsize"><code><c- g>packetSize</c-></code><a class="self-link" href="#dom-fakeusbendpointinit-packetsize"></a></dfn>;
 };
 </pre>
@@ -1832,7 +2249,7 @@ attributes of <var>device</var> SHALL be initialized as follows and <var>device<
      <p>For each sequence of <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbconfigurationinit" id="ref-for-dictdef-fakeusbconfigurationinit①">FakeUSBConfigurationInit</a></code>, <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbinterfaceinit" id="ref-for-dictdef-fakeusbinterfaceinit①">FakeUSBInterfaceInit</a></code> <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbalternateinterfaceinit" id="ref-for-dictdef-fakeusbalternateinterfaceinit①">FakeUSBAlternateInterfaceInit</a></code> and <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbendpointinit" id="ref-for-dictdef-fakeusbendpointinit①">FakeUSBEndpointInit</a></code> objects
 corresponding <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbconfiguration" id="ref-for-usbconfiguration">USBConfiguration</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbinterface" id="ref-for-usbinterface">USBInterface</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbalternateinterface" id="ref-for-usbalternateinterface">USBAlternateInterface</a></code> and <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbendpoint" id="ref-for-usbendpoint">USBEndpoint</a></code> objects SHALL be created by
 similarly copying attributes with the same names and be used to build an
-identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-configurations" id="ref-for-dom-usbdevice-configurations">configurations</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces">interfaces</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates">alternates</a></code> and <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints" id="ref-for-dom-usbalternateinterface-endpoints">endpoints</a></code> <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array①">FrozenArray</a></code>s.</p>
+identical hierarchy of objects in the <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-configurations" id="ref-for-dom-usbdevice-configurations">configurations</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces" id="ref-for-dom-usbconfiguration-interfaces">interfaces</a></code>, <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbinterface-alternates" id="ref-for-dom-usbinterface-alternates">alternates</a></code> and <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints" id="ref-for-dom-usbalternateinterface-endpoints">endpoints</a></code> <code class="idl"><a data-link-type="idl" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array②">FrozenArray</a></code>s.</p>
     <li data-md>
      <p>If a <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#usbconfiguration" id="ref-for-usbconfiguration①">USBConfiguration</a></code> instance <var>config</var> with <code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue" id="ref-for-dom-usbconfiguration-configurationvalue">configurationValue</a></code> equal to <var>init</var>.<code class="idl"><a data-link-type="idl" href="#dom-fakeusbdeviceinit-activeconfigurationvalue" id="ref-for-dom-fakeusbdeviceinit-activeconfigurationvalue①">activeConfigurationValue</a></code> then <var>device</var>.<code class="idl"><a data-link-type="idl" href="https://wicg.github.io/webusb/#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration">configuration</a></code> SHALL be set to <var>config</var>, otherwise <code>null</code>.</p>
    </ol>
@@ -1865,151 +2282,47 @@ behave as though the device responded with <var>packetLengths</var>.<code>length
 operation are satisfied, behave as though the transfer succeeded in sending <var>packetLengths</var>.<code>length</code> packets, each containing <var>packetLengths</var><code>[i]</code> bytes.</p>
   </main>
   <div data-fill-with="conformance">
-   <h2 class="no-ref no-num heading settled" id="conformance"><span class="content"> Conformance</span><a class="self-link" href="#conformance"></a></h2>
-   <p> Conformance requirements are expressed with a combination of descriptive assertions and RFC 2119 terminology.
-            The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
-            in the normative parts of this document
-            are to be interpreted as described in RFC 2119.
-            However, for readability,
-            these words do not appear in all uppercase letters in this specification. </p>
-   <p> All of the text of this specification is normative
-            except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
-   <p> Examples in this specification are introduced with the words “for example”
-            or are set apart from the normative text with <code>class="example"</code>, like this: </p>
-   <div class="example" id="example-example"><a class="self-link" href="#example-example"></a> This is an example of an informative example. </div>
-   <p> Informative notes begin with the word “Note”
-            and are set apart from the normative text with <code>class="note"</code>, like this: </p>
-   <p class="note" role="note"> Note, this is an informative note. </p>
+   <h2 class="no-ref no-num heading settled" id="conformance"><span class="content">Conformance</span><a class="self-link" href="#conformance"></a></h2>
+   <h3 class="no-ref no-num heading settled" id="conventions"><span class="content">Document conventions</span><a class="self-link" href="#conventions"></a></h3>
+   <p>Conformance requirements are expressed
+    with a combination of descriptive assertions
+    and RFC 2119 terminology.
+    The key words “MUST”, “MUST NOT”, “REQUIRED”, “SHALL”, “SHALL NOT”, “SHOULD”, “SHOULD NOT”, “RECOMMENDED”, “MAY”, and “OPTIONAL”
+    in the normative parts of this document
+    are to be interpreted as described in RFC 2119.
+    However, for readability,
+    these words do not appear in all uppercase letters in this specification. </p>
+   <p>All of the text of this specification is normative
+    except sections explicitly marked as non-normative, examples, and notes. <a data-link-type="biblio" href="#biblio-rfc2119">[RFC2119]</a> </p>
+   <p>Examples in this specification are introduced with the words “for example”
+    or are set apart from the normative text
+    with <code>class="example"</code>,
+    like this: </p>
+   <div class="example" id="example-ae2b6bc0">
+    <a class="self-link" href="#example-ae2b6bc0"></a> 
+    <p>This is an example of an informative example. </p>
+   </div>
+   <p>Informative notes begin with the word “Note”
+    and are set apart from the normative text
+    with <code>class="note"</code>,
+    like this: </p>
+   <p class="note" role="note">Note, this is an informative note. </p>
+   <h3 class="no-ref no-num heading settled" id="conformant-algorithms"><span class="content">Conformant Algorithms</span><a class="self-link" href="#conformant-algorithms"></a></h3>
+   <p>Requirements phrased in the imperative as part of algorithms
+    (such as "strip any leading space characters"
+    or "return false and abort these steps")
+    are to be interpreted with the meaning of the key word
+    ("must", "should", "may", etc)
+    used in introducing the algorithm. </p>
+   <p>Conformance requirements phrased as algorithms or specific steps
+    can be implemented in any manner,
+    so long as the end result is equivalent.
+    In particular, the algorithms defined in this specification
+    are intended to be easy to understand
+    and are not intended to be performant.
+    Implementers are encouraged to optimize. </p>
   </div>
-<script>
-(function() {
-  "use strict";
-  var collapseSidebarText = '<span aria-hidden="true">←</span> '
-                          + '<span>Collapse Sidebar</span>';
-  var expandSidebarText   = '<span aria-hidden="true">→</span> '
-                          + '<span>Pop Out Sidebar</span>';
-  var tocJumpText         = '<span aria-hidden="true">↑</span> '
-                          + '<span>Jump to Table of Contents</span>';
-
-  var sidebarMedia = window.matchMedia('screen and (min-width: 78em)');
-  var autoToggle   = function(e){ toggleSidebar(e.matches) };
-  if(sidebarMedia.addListener) {
-    sidebarMedia.addListener(autoToggle);
-  }
-
-  function toggleSidebar(on) {
-    if (on == undefined) {
-      on = !document.body.classList.contains('toc-sidebar');
-    }
-
-    /* Don’t scroll to compensate for the ToC if we’re above it already. */
-    var headY = 0;
-    var head = document.querySelector('.head');
-    if (head) {
-      // terrible approx of "top of ToC"
-      headY += head.offsetTop + head.offsetHeight;
-    }
-    var skipScroll = window.scrollY < headY;
-
-    var toggle = document.getElementById('toc-toggle');
-    var tocNav = document.getElementById('toc');
-    if (on) {
-      var tocHeight = tocNav.offsetHeight;
-      document.body.classList.add('toc-sidebar');
-      document.body.classList.remove('toc-inline');
-      toggle.innerHTML = collapseSidebarText;
-      if (!skipScroll) {
-        window.scrollBy(0, 0 - tocHeight);
-      }
-      tocNav.focus();
-      sidebarMedia.addListener(autoToggle); // auto-collapse when out of room
-    }
-    else {
-      document.body.classList.add('toc-inline');
-      document.body.classList.remove('toc-sidebar');
-      toggle.innerHTML = expandSidebarText;
-      if (!skipScroll) {
-        window.scrollBy(0, tocNav.offsetHeight);
-      }
-      if (toggle.matches(':hover')) {
-        /* Unfocus button when not using keyboard navigation,
-           because I don’t know where else to send the focus. */
-        toggle.blur();
-      }
-    }
-  }
-
-  function createSidebarToggle() {
-    /* Create the sidebar toggle in JS; it shouldn’t exist when JS is off. */
-    var toggle = document.createElement('a');
-      /* This should probably be a button, but appearance isn’t standards-track.*/
-    toggle.id = 'toc-toggle';
-    toggle.class = 'toc-toggle';
-    toggle.href = '#toc';
-    toggle.innerHTML = collapseSidebarText;
-
-    sidebarMedia.addListener(autoToggle);
-    var toggler = function(e) {
-      e.preventDefault();
-      sidebarMedia.removeListener(autoToggle); // persist explicit off states
-      toggleSidebar();
-      return false;
-    }
-    toggle.addEventListener('click', toggler, false);
-
-
-    /* Get <nav id=toc-nav>, or make it if we don’t have one. */
-    var tocNav = document.getElementById('toc-nav');
-    if (!tocNav) {
-      tocNav = document.createElement('p');
-      tocNav.id = 'toc-nav';
-      /* Prepend for better keyboard navigation */
-      document.body.insertBefore(tocNav, document.body.firstChild);
-    }
-    /* While we’re at it, make sure we have a Jump to Toc link. */
-    var tocJump = document.getElementById('toc-jump');
-    if (!tocJump) {
-      tocJump = document.createElement('a');
-      tocJump.id = 'toc-jump';
-      tocJump.href = '#toc';
-      tocJump.innerHTML = tocJumpText;
-      tocNav.appendChild(tocJump);
-    }
-
-    tocNav.appendChild(toggle);
-  }
-
-  var toc = document.getElementById('toc');
-  if (toc) {
-    createSidebarToggle();
-    toggleSidebar(sidebarMedia.matches);
-
-    /* If the sidebar has been manually opened and is currently overlaying the text
-       (window too small for the MQ to add the margin to body),
-       then auto-close the sidebar once you click on something in there. */
-    toc.addEventListener('click', function(e) {
-      if(e.target.tagName.toLowerCase() == "a" && document.body.classList.contains('toc-sidebar') && !sidebarMedia.matches) {
-        toggleSidebar(false);
-      }
-    }, false);
-  }
-  else {
-    console.warn("Can’t find Table of Contents. Please use <nav id='toc'> around the ToC.");
-  }
-
-  /* Wrap tables in case they overflow */
-  var tables = document.querySelectorAll(':not(.overlarge) > table.data, :not(.overlarge) > table.index');
-  var numTables = tables.length;
-  for (var i = 0; i < numTables; i++) {
-    var table = tables[i];
-    var wrapper = document.createElement('div');
-    wrapper.className = 'overlarge';
-    table.parentNode.insertBefore(wrapper, table);
-    wrapper.appendChild(table);
-  }
-
-})();
-</script>
+<script src="https://www.w3.org/scripts/TR/2016/fixup.js"></script>
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
@@ -2148,8 +2461,9 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   <aside class="dfn-panel" data-for="term-for-idl-frozen-array">
    <a href="https://heycam.github.io/webidl/#idl-frozen-array">https://heycam.github.io/webidl/#idl-frozen-array</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-frozen-array">3.1. USB Behavior</a>
-    <li><a href="#ref-for-idl-frozen-array①">4. Fake Devices</a>
+    <li><a href="#ref-for-idl-frozen-array">3. Global Testing Interface</a>
+    <li><a href="#ref-for-idl-frozen-array①">3.1. USB Behavior</a>
+    <li><a href="#ref-for-idl-frozen-array②">4. Fake Devices</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-invalidstateerror">
@@ -2168,8 +2482,8 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <a href="https://heycam.github.io/webidl/#idl-promise">https://heycam.github.io/webidl/#idl-promise</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-promise">1.1. Examples</a>
-    <li><a href="#ref-for-idl-promise①">3. Global Testing Interface</a> <a href="#ref-for-idl-promise②">(2)</a> <a href="#ref-for-idl-promise③">(3)</a> <a href="#ref-for-idl-promise④">(4)</a>
-    <li><a href="#ref-for-idl-promise⑤">3.1. USB Behavior</a>
+    <li><a href="#ref-for-idl-promise①">3. Global Testing Interface</a> <a href="#ref-for-idl-promise②">(2)</a> <a href="#ref-for-idl-promise③">(3)</a> <a href="#ref-for-idl-promise④">(4)</a> <a href="#ref-for-idl-promise⑤">(5)</a> <a href="#ref-for-idl-promise⑥">(6)</a> <a href="#ref-for-idl-promise⑦">(7)</a> <a href="#ref-for-idl-promise⑧">(8)</a>
+    <li><a href="#ref-for-idl-promise⑨">3.1. USB Behavior</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-SameObject">
@@ -2188,6 +2502,19 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <a href="https://heycam.github.io/webidl/#resolve">https://heycam.github.io/webidl/#resolve</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-resolve">3. Global Testing Interface</a> <a href="#ref-for-resolve①">(2)</a> <a href="#ref-for-resolve②">(3)</a> <a href="#ref-for-resolve③">(4)</a> <a href="#ref-for-resolve④">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-sequence">
+   <a href="https://heycam.github.io/webidl/#idl-sequence">https://heycam.github.io/webidl/#idl-sequence</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-sequence">4. Fake Devices</a> <a href="#ref-for-idl-sequence①">(2)</a> <a href="#ref-for-idl-sequence②">(3)</a> <a href="#ref-for-idl-sequence③">(4)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-idl-undefined">
+   <a href="https://heycam.github.io/webidl/#idl-undefined">https://heycam.github.io/webidl/#idl-undefined</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-idl-undefined">3. Global Testing Interface</a> <a href="#ref-for-idl-undefined①">(2)</a> <a href="#ref-for-idl-undefined②">(3)</a> <a href="#ref-for-idl-undefined③">(4)</a>
+    <li><a href="#ref-for-idl-undefined④">4. Fake Devices</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -2421,78 +2748,80 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-event" style="color:initial">Event</span>
-     <li><span class="dfn-paneled" id="term-for-eventtarget" style="color:initial">EventTarget</span>
-     <li><span class="dfn-paneled" id="term-for-concept-event-fire" style="color:initial">fire an event</span>
+     <li><span class="dfn-paneled" id="term-for-event">Event</span>
+     <li><span class="dfn-paneled" id="term-for-eventtarget">EventTarget</span>
+     <li><span class="dfn-paneled" id="term-for-concept-event-fire">fire an event</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-sec-object-internal-methods-and-internal-slots" style="color:initial">internal slot</span>
+     <li><span class="dfn-paneled" id="term-for-sec-object-internal-methods-and-internal-slots">internal slot</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-eventhandler" style="color:initial">EventHandler</span>
-     <li><span class="dfn-paneled" id="term-for-htmliframeelement" style="color:initial">HTMLIFrameElement</span>
-     <li><span class="dfn-paneled" id="term-for-worker" style="color:initial">Worker</span>
-     <li><span class="dfn-paneled" id="term-for-current-global-object" style="color:initial">current global object</span>
-     <li><span class="dfn-paneled" id="term-for-global-object" style="color:initial">global object</span>
-     <li><span class="dfn-paneled" id="term-for-in-parallel" style="color:initial">in parallel</span>
-     <li><span class="dfn-paneled" id="term-for-queue-a-task" style="color:initial">queue a task</span>
+     <li><span class="dfn-paneled" id="term-for-eventhandler">EventHandler</span>
+     <li><span class="dfn-paneled" id="term-for-htmliframeelement">HTMLIFrameElement</span>
+     <li><span class="dfn-paneled" id="term-for-worker">Worker</span>
+     <li><span class="dfn-paneled" id="term-for-current-global-object">current global object</span>
+     <li><span class="dfn-paneled" id="term-for-global-object">global object</span>
+     <li><span class="dfn-paneled" id="term-for-in-parallel">in parallel</span>
+     <li><span class="dfn-paneled" id="term-for-queue-a-task">queue a task</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-idl-DOMString" style="color:initial">DOMString</span>
-     <li><span class="dfn-paneled" id="term-for-idl-frozen-array" style="color:initial">FrozenArray</span>
-     <li><span class="dfn-paneled" id="term-for-invalidstateerror" style="color:initial">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="term-for-notfounderror" style="color:initial">NotFoundError</span>
-     <li><span class="dfn-paneled" id="term-for-idl-promise" style="color:initial">Promise</span>
-     <li><span class="dfn-paneled" id="term-for-SameObject" style="color:initial">SameObject</span>
-     <li><span class="dfn-paneled" id="term-for-idl-octet" style="color:initial">octet</span>
-     <li><span class="dfn-paneled" id="term-for-resolve" style="color:initial">resolve</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long" style="color:initial">unsigned long</span>
-     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short" style="color:initial">unsigned short</span>
+     <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-idl-frozen-array">FrozenArray</span>
+     <li><span class="dfn-paneled" id="term-for-invalidstateerror">InvalidStateError</span>
+     <li><span class="dfn-paneled" id="term-for-notfounderror">NotFoundError</span>
+     <li><span class="dfn-paneled" id="term-for-idl-promise">Promise</span>
+     <li><span class="dfn-paneled" id="term-for-SameObject">SameObject</span>
+     <li><span class="dfn-paneled" id="term-for-idl-octet">octet</span>
+     <li><span class="dfn-paneled" id="term-for-resolve">resolve</span>
+     <li><span class="dfn-paneled" id="term-for-idl-sequence">sequence</span>
+     <li><span class="dfn-paneled" id="term-for-idl-undefined">undefined</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-long">unsigned long</span>
+     <li><span class="dfn-paneled" id="term-for-idl-unsigned-short">unsigned short</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebUSB]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="term-for-usb" style="color:initial">USB</span>
-     <li><span class="dfn-paneled" id="term-for-usbalternateinterface" style="color:initial">USBAlternateInterface</span>
-     <li><span class="dfn-paneled" id="term-for-usbconfiguration" style="color:initial">USBConfiguration</span>
-     <li><span class="dfn-paneled" id="term-for-usbdevice" style="color:initial">USBDevice</span>
-     <li><span class="dfn-paneled" id="term-for-dictdef-usbdevicefilter" style="color:initial">USBDeviceFilter</span>
-     <li><span class="dfn-paneled" id="term-for-enumdef-usbdirection" style="color:initial">USBDirection</span>
-     <li><span class="dfn-paneled" id="term-for-usbendpoint" style="color:initial">USBEndpoint</span>
-     <li><span class="dfn-paneled" id="term-for-enumdef-usbendpointtype" style="color:initial">USBEndpointType</span>
-     <li><span class="dfn-paneled" id="term-for-usbinterface" style="color:initial">USBInterface</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbinterface-alternates" style="color:initial">alternates</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-claiminterface" style="color:initial">claimInterface(interfaceNumber)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-clearhalt" style="color:initial">clearHalt(direction, endpointNumber)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-close" style="color:initial">close()</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-configuration" style="color:initial">configuration</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbconfiguration-configurationvalue" style="color:initial">configurationValue</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-configurations" style="color:initial">configurations</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-controltransferin" style="color:initial">controlTransferIn(setup, length)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-controltransferout" style="color:initial">controlTransferOut(setup, data)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbalternateinterface-endpoints" style="color:initial">endpoints</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevicerequestoptions-filters" style="color:initial">filters</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-index" style="color:initial">index</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbconfiguration-interfaces" style="color:initial">interfaces</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-isochronoustransferin" style="color:initial">isochronousTransferIn(endpointNumber, packetLengths)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-isochronoustransferout" style="color:initial">isochronousTransferOut(endpointNumber, data, packetLengths)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-open" style="color:initial">open()</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-releaseinterface" style="color:initial">releaseInterface(interfaceNumber)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-request" style="color:initial">request</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usb-requestdevice" style="color:initial">requestDevice(options)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-reset" style="color:initial">reset()</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-selectalternateinterface" style="color:initial">selectAlternateInterface(interfaceNumber, alternateSetting)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-selectconfiguration" style="color:initial">selectConfiguration(configurationValue)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-transferin" style="color:initial">transferIn(endpointNumber, length)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-transferout" style="color:initial">transferOut(endpointNumber, data)</span>
-     <li><span class="dfn-paneled" id="term-for-dom-navigator-usb" style="color:initial">usb</span>
-     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-value" style="color:initial">value</span>
+     <li><span class="dfn-paneled" id="term-for-usb">USB</span>
+     <li><span class="dfn-paneled" id="term-for-usbalternateinterface">USBAlternateInterface</span>
+     <li><span class="dfn-paneled" id="term-for-usbconfiguration">USBConfiguration</span>
+     <li><span class="dfn-paneled" id="term-for-usbdevice">USBDevice</span>
+     <li><span class="dfn-paneled" id="term-for-dictdef-usbdevicefilter">USBDeviceFilter</span>
+     <li><span class="dfn-paneled" id="term-for-enumdef-usbdirection">USBDirection</span>
+     <li><span class="dfn-paneled" id="term-for-usbendpoint">USBEndpoint</span>
+     <li><span class="dfn-paneled" id="term-for-enumdef-usbendpointtype">USBEndpointType</span>
+     <li><span class="dfn-paneled" id="term-for-usbinterface">USBInterface</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbinterface-alternates">alternates</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-claiminterface">claimInterface(interfaceNumber)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-clearhalt">clearHalt(direction, endpointNumber)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-close">close()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-configuration">configuration</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbconfiguration-configurationvalue">configurationValue</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-configurations">configurations</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-controltransferin">controlTransferIn(setup, length)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-controltransferout">controlTransferOut(setup, data)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbalternateinterface-endpoints">endpoints</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevicerequestoptions-filters">filters</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-index">index</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbconfiguration-interfaces">interfaces</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-isochronoustransferin">isochronousTransferIn(endpointNumber, packetLengths)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-open">open()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-releaseinterface">releaseInterface(interfaceNumber)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-request">request</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usb-requestdevice">requestDevice(options)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-reset">reset()</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-selectalternateinterface">selectAlternateInterface(interfaceNumber, alternateSetting)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-selectconfiguration">selectConfiguration(configurationValue)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-transferin">transferIn(endpointNumber, length)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbdevice-transferout">transferOut(endpointNumber, data)</span>
+     <li><span class="dfn-paneled" id="term-for-dom-navigator-usb">usb</span>
+     <li><span class="dfn-paneled" id="term-for-dom-usbcontroltransferparameters-value">value</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -2513,28 +2842,28 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://wicg.github.io/webusb/#usb"><c- g>USB</c-></a> {
-  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="#usbtest"><c- n>USBTest</c-></a> <a data-readonly data-type="USBTest" href="#dom-usb-test"><code><c- g>test</c-></code></a>;
+  [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#usbtest"><c- n>USBTest</c-></a> <a data-readonly data-type="USBTest" href="#dom-usb-test"><code><c- g>test</c-></code></a>;
 };
 
-<c- b>interface</c-> <a href="#usbdevicerequestevent"><code><c- g>USBDeviceRequestEvent</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event"><c- n>Event</c-></a> {
-  <c- b>attribute</c-> <c- b>FrozenArray</c->&lt;<a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <a data-type="FrozenArray<USBDeviceFilter>" href="#dom-usbdevicerequestevent-filters"><code><c- g>filters</c-></code></a>;
+<c- b>interface</c-> <a href="#usbdevicerequestevent"><code><c- g>USBDeviceRequestEvent</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event"><c- n>Event</c-></a> {
+  <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <a data-type="FrozenArray<USBDeviceFilter>" href="#dom-usbdevicerequestevent-filters"><code><c- g>filters</c-></code></a>;
 
-  <c- b>void</c-> <a href="#dom-usbdevicerequestevent-respondwith"><code><c- g>respondWith</c-></code></a>(<c- b>Promise</c->&lt;<a class="n" data-link-type="idl-name" href="#fakeusbdevice"><c- n>FakeUSBDevice</c-></a>> <a href="#dom-usbdevicerequestevent-respondwith-result-result"><code><c- g>result</c-></code></a>);
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a> <a href="#dom-usbdevicerequestevent-respondwith"><code><c- g>respondWith</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#fakeusbdevice"><c- n>FakeUSBDevice</c-></a>> <a href="#dom-usbdevicerequestevent-respondwith-result-result"><code><c- g>result</c-></code></a>);
 };
 
 <c- b>interface</c-> <a href="#usbtest"><code><c- g>USBTest</c-></code></a> {
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code></a>;
+  <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code></a>;
 
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbtest-initialize"><code><c- g>initialize</c-></code></a>();
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbtest-attachtocontext"><code><c- g>attachToContext</c-></code></a>((<a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement"><c- n>HTMLIFrameElement</c-></a> <c- b>or</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a>) <a href="#dom-usbtest-attachtocontext-context-context"><code><c- g>context</c-></code></a>);
-  <a class="n" data-link-type="idl-name" href="#fakeusbdevice"><c- n>FakeUSBDevice</c-></a> <a href="#dom-usbtest-addfakedevice"><code><c- g>addFakeDevice</c-></code></a>(<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit"><c- n>FakeUSBDeviceInit</c-></a> <a href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"><code><c- g>deviceInit</c-></code></a>);
-  <c- b>Promise</c->&lt;<c- b>void</c->> <a href="#dom-usbtest-reset"><code><c- g>reset</c-></code></a>();
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbtest-initialize"><code><c- g>initialize</c-></code></a>();
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbtest-attachtocontext"><code><c- g>attachToContext</c-></code></a>((<a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement"><c- n>HTMLIFrameElement</c-></a> <c- b>or</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/workers.html#worker"><c- n>Worker</c-></a>) <a href="#dom-usbtest-attachtocontext-context-context"><code><c- g>context</c-></code></a>);
+  <a data-link-type="idl-name" href="#fakeusbdevice"><c- n>FakeUSBDevice</c-></a> <a href="#dom-usbtest-addfakedevice"><code><c- g>addFakeDevice</c-></code></a>(<a data-link-type="idl-name" href="#dictdef-fakeusbdeviceinit"><c- n>FakeUSBDeviceInit</c-></a> <a href="#dom-usbtest-addfakedevice-deviceinit-deviceinit"><code><c- g>deviceInit</c-></code></a>);
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbtest-reset"><code><c- g>reset</c-></code></a>();
 };
 
-<c- b>interface</c-> <a href="#fakeusbdevice"><code><c- g>FakeUSBDevice</c-></code></a> : <a class="n" data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
-  <c- b>attribute</c-> <a class="n" data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-fakeusbdevice-onclose"><code><c- g>onclose</c-></code></a>;
+<c- b>interface</c-> <a href="#fakeusbdevice"><code><c- g>FakeUSBDevice</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
+  <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-fakeusbdevice-onclose"><code><c- g>onclose</c-></code></a>;
 
-  <c- b>void</c-> <a href="#dom-fakeusbdevice-disconnect"><code><c- g>disconnect</c-></code></a>();
+  <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a> <a href="#dom-fakeusbdevice-disconnect"><code><c- g>disconnect</c-></code></a>();
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-fakeusbdeviceinit"><code><c- g>FakeUSBDeviceInit</c-></code></a> {
@@ -2553,18 +2882,18 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-type="DOMString? " href="#dom-fakeusbdeviceinit-productname"><code><c- g>productName</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-type="DOMString? " href="#dom-fakeusbdeviceinit-serialnumber"><code><c- g>serialNumber</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-default="0" data-type="octet " href="#dom-fakeusbdeviceinit-activeconfigurationvalue"><code><c- g>activeConfigurationValue</c-></code></a> = 0;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbconfigurationinit"><c- n>FakeUSBConfigurationInit</c-></a>> <a data-type="sequence<FakeUSBConfigurationInit> " href="#dom-fakeusbdeviceinit-configurations"><code><c- g>configurations</c-></code></a>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbconfigurationinit"><c- n>FakeUSBConfigurationInit</c-></a>> <a data-type="sequence<FakeUSBConfigurationInit> " href="#dom-fakeusbdeviceinit-configurations"><code><c- g>configurations</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-fakeusbconfigurationinit"><code><c- g>FakeUSBConfigurationInit</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-fakeusbconfigurationinit-configurationvalue"><code><c- g>configurationValue</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-type="DOMString? " href="#dom-fakeusbconfigurationinit-configurationname"><code><c- g>configurationName</c-></code></a>;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbinterfaceinit"><c- n>FakeUSBInterfaceInit</c-></a>> <a data-type="sequence<FakeUSBInterfaceInit> " href="#dom-fakeusbconfigurationinit-interfaces"><code><c- g>interfaces</c-></code></a>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbinterfaceinit"><c- n>FakeUSBInterfaceInit</c-></a>> <a data-type="sequence<FakeUSBInterfaceInit> " href="#dom-fakeusbconfigurationinit-interfaces"><code><c- g>interfaces</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-fakeusbinterfaceinit"><code><c- g>FakeUSBInterfaceInit</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-fakeusbinterfaceinit-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbalternateinterfaceinit"><c- n>FakeUSBAlternateInterfaceInit</c-></a>> <a data-type="sequence<FakeUSBAlternateInterfaceInit> " href="#dom-fakeusbinterfaceinit-alternates"><code><c- g>alternates</c-></code></a>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbalternateinterfaceinit"><c- n>FakeUSBAlternateInterfaceInit</c-></a>> <a data-type="sequence<FakeUSBAlternateInterfaceInit> " href="#dom-fakeusbinterfaceinit-alternates"><code><c- g>alternates</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-fakeusbalternateinterfaceinit"><code><c- g>FakeUSBAlternateInterfaceInit</c-></code></a> {
@@ -2573,13 +2902,13 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-fakeusbalternateinterfaceinit-interfacesubclass"><code><c- g>interfaceSubclass</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-fakeusbalternateinterfaceinit-interfaceprotocol"><code><c- g>interfaceProtocol</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-DOMString"><c- b>DOMString</c-></a>? <a data-type="DOMString? " href="#dom-fakeusbalternateinterfaceinit-interfacename"><code><c- g>interfaceName</c-></code></a>;
-  <c- b>sequence</c->&lt;<a class="n" data-link-type="idl-name" href="#dictdef-fakeusbendpointinit"><c- n>FakeUSBEndpointInit</c-></a>> <a data-type="sequence<FakeUSBEndpointInit> " href="#dom-fakeusbalternateinterfaceinit-endpoints"><code><c- g>endpoints</c-></code></a>;
+  <a data-link-type="dfn" href="https://heycam.github.io/webidl/#idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-fakeusbendpointinit"><c- n>FakeUSBEndpointInit</c-></a>> <a data-type="sequence<FakeUSBEndpointInit> " href="#dom-fakeusbalternateinterfaceinit-endpoints"><code><c- g>endpoints</c-></code></a>;
 };
 
 <c- b>dictionary</c-> <a href="#dictdef-fakeusbendpointinit"><code><c- g>FakeUSBEndpointInit</c-></code></a> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-octet"><c- b>octet</c-></a> <a data-type="octet " href="#dom-fakeusbendpointinit-endpointnumber"><code><c- g>endpointNumber</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbdirection"><c- n>USBDirection</c-></a> <a data-type="USBDirection " href="#dom-fakeusbendpointinit-direction"><code><c- g>direction</c-></code></a>;
-  <c- b>required</c-> <a class="n" data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbendpointtype"><c- n>USBEndpointType</c-></a> <a data-type="USBEndpointType " href="#dom-fakeusbendpointinit-type"><code><c- g>type</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbdirection"><c- n>USBDirection</c-></a> <a data-type="USBDirection " href="#dom-fakeusbendpointinit-direction"><code><c- g>direction</c-></code></a>;
+  <c- b>required</c-> <a data-link-type="idl-name" href="https://wicg.github.io/webusb/#enumdef-usbendpointtype"><c- n>USBEndpointType</c-></a> <a data-type="USBEndpointType " href="#dom-fakeusbendpointinit-type"><code><c- g>type</c-></code></a>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <a data-type="unsigned long " href="#dom-fakeusbendpointinit-packetsize"><code><c- g>packetSize</c-></code></a>;
 };
 
