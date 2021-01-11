@@ -639,7 +639,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-01-09">9 January 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-01-11">11 January 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1178,8 +1178,8 @@ scheme, is encoded in the <code>URL</code> field.</p>
     <a class="self-link" href="#example-b99cd6c6"></a> In this example, we retrieve some devices to include in a UI. When the page is
 first loaded, it should check if it already has permission to access any
 connected devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usb-getdevices" id="ref-for-dom-usb-getdevices">getDevices()</a></code>, 
-<pre class="highlight">document<c- p>.</c->addEventListener<c- p>(</c-><c- t>'DOMContentLoaded'</c-><c- p>,</c-> async <c- p>()</c-> <c- p>=></c-> <c- p>{</c->
-  <c- a>let</c-> devices <c- o>=</c-> await navigator<c- p>.</c->usb<c- p>.</c->getDevices<c- p>();</c->
+<pre class="highlight">document<c- p>.</c->addEventListener<c- p>(</c-><c- t>'DOMContentLoaded'</c-><c- p>,</c-> <c- k>async</c-> <c- p>()</c-> <c- p>=></c-> <c- p>{</c->
+  <c- a>let</c-> devices <c- o>=</c-> <c- k>await</c-> navigator<c- p>.</c->usb<c- p>.</c->getDevices<c- p>();</c->
   devices<c- p>.</c->forEach<c- p>(</c->device <c- p>=></c-> <c- p>{</c->
     <c- c1>// Add |device| to the UI.</c->
   <c- p>});</c->
@@ -1199,10 +1199,10 @@ navigator<c- p>.</c->usb<c- p>.</c->addEventListener<c- p>(</c-><c- t>'disconnec
     <p>If this is the first time the user has visited the page then it won’t have
 permission to access any devices so the page must first call <code class="idl"><a data-link-type="idl" href="#dom-usb-requestdevice" id="ref-for-dom-usb-requestdevice②">requestDevice()</a></code> while the <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/webappapis.html#concept-relevant-global" id="ref-for-concept-relevant-global">relevant global object</a> has a <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/interaction.html#transient-activation" id="ref-for-transient-activation">transient activation</a>. In this case the page supports devices from vendor <code>0xABCD</code> that carry the vendor-specific subclass <code>0x01</code>,</p>
 <pre class="highlight"><c- a>let</c-> button <c- o>=</c-> document<c- p>.</c->getElementById<c- p>(</c-><c- t>'request-device'</c-><c- p>);</c->
-button<c- p>.</c->addEventListener<c- p>(</c-><c- t>'click'</c-><c- p>,</c-> async <c- p>()</c-> <c- p>=></c-> <c- p>{</c->
+button<c- p>.</c->addEventListener<c- p>(</c-><c- t>'click'</c-><c- p>,</c-> <c- k>async</c-> <c- p>()</c-> <c- p>=></c-> <c- p>{</c->
   <c- a>let</c-> device<c- p>;</c->
   <c- k>try</c-> <c- p>{</c->
-    device <c- o>=</c-> await navigator<c- p>.</c->usb<c- p>.</c->requestDevice<c- p>({</c-> filters<c- o>:</c-> <c- p>[{</c->
+    device <c- o>=</c-> <c- k>await</c-> navigator<c- p>.</c->usb<c- p>.</c->requestDevice<c- p>({</c-> filters<c- o>:</c-> <c- p>[{</c->
         vendorId<c- o>:</c-> <c- mh>0xABCD</c-><c- p>,</c->
         classCode<c- o>:</c-> <c- mh>0xFF</c-><c- p>,</c-> <c- c1>// vendor-specific</c->
         protocolCode<c- o>:</c-> <c- mh>0x01</c->
@@ -1920,14 +1920,14 @@ be the length necessary to transmit the data collected.
     <p>To get started we open the device, select the first configuration (it only has
 one but the operating system may not have already done this during enumeration)
 and claim the data logging interface,</p>
-<pre class="highlight">await device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open">open</a><c- p>();</c->
+<pre class="highlight"><c- k>await</c-> device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-open" id="ref-for-dom-usbdevice-open">open</a><c- p>();</c->
 <c- k>if</c-> <c- p>(</c->device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration">configuration</a> <c- o>===</c-> <c- kc>null</c-><c- p>)</c->
-  await device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration">selectConfiguration</a><c- p>(</c-><c- mi>1</c-><c- p>);</c->
-await device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface①">claimInterface</a><c- p>(</c-><c- mi>1</c-><c- p>);</c->
+  <c- k>await</c-> device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration">selectConfiguration</a><c- p>(</c-><c- mf>1</c-><c- p>);</c->
+<c- k>await</c-> device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface①">claimInterface</a><c- p>(</c-><c- mf>1</c-><c- p>);</c->
 </pre>
     <p>For this particular application we care about reading from channels 1, 2 and 5
 so we issue a <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer②">control transfer</a> to activate these channels,</p>
-<pre class="highlight">await device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-controltransferout" id="ref-for-dom-usbdevice-controltransferout">controlTransferOut</a><c- p>({</c->
+<pre class="highlight"><c- k>await</c-> device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-controltransferout" id="ref-for-dom-usbdevice-controltransferout">controlTransferOut</a><c- p>({</c->
     <a data-link-type="idl" href="#dom-usbcontroltransferparameters-requesttype" id="ref-for-dom-usbcontroltransferparameters-requesttype">requestType</a><c- o>:</c-> <c- t>'</c-><a data-link-type="idl" href="#dom-usbrequesttype-vendor" id="ref-for-dom-usbrequesttype-vendor"><c- t>vendor</c-></a><c- t>'</c-><c- p>,</c->
     <a data-link-type="idl" href="#dom-usbcontroltransferparameters-recipient" id="ref-for-dom-usbcontroltransferparameters-recipient">recipient</a><c- o>:</c-> <c- t>'</c-><a data-link-type="idl" href="#dom-usbrecipient-interface" id="ref-for-dom-usbrecipient-interface"><c- t>interface</c-></a><c- t>'</c-><c- p>,</c->
     <a data-link-type="idl" href="#dom-usbcontroltransferparameters-request" id="ref-for-dom-usbcontroltransferparameters-request">request</a><c- o>:</c-> <c- mh>0x01</c-><c- p>,</c->  <c- c1>// vendor-specific request: enable channels</c->
@@ -1941,17 +1941,17 @@ complete buffer the captured values (transmitted in big endian) are printed to
 the console log. If the device has encountered an error and signals this by
 stalling the endpoint then the error is cleared before continuing,</p>
 <pre class="highlight"><c- k>while</c-> <c- p>(</c-><c- kc>true</c-><c- p>)</c-> <c- p>{</c->
-  <c- a>let</c-> result <c- o>=</c-> await data<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-transferin" id="ref-for-dom-usbdevice-transferin">transferIn</a><c- p>(</c-><c- mi>1</c-><c- p>,</c-> <c- mi>6</c-><c- p>);</c->
+  <c- a>let</c-> result <c- o>=</c-> <c- k>await</c-> data<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-transferin" id="ref-for-dom-usbdevice-transferin">transferIn</a><c- p>(</c-><c- mf>1</c-><c- p>,</c-> <c- mf>6</c-><c- p>);</c->
 
-  <c- k>if</c-> <c- p>(</c->result<c- p>.</c-><a data-link-type="idl" href="#dom-usbintransferresult-data" id="ref-for-dom-usbintransferresult-data">data</a> <c- o>&amp;&amp;</c-> result<c- p>.</c->data<c- p>.</c->byteLength <c- o>===</c-> <c- mi>6</c-><c- p>)</c-> <c- p>{</c->
-    console<c- p>.</c->log<c- p>(</c-><c- t>'Channel 1: '</c-> <c- o>+</c-> result<c- p>.</c->data<c- p>.</c->getUint16<c- p>(</c-><c- mi>0</c-><c- p>));</c->
-    console<c- p>.</c->log<c- p>(</c-><c- t>'Channel 2: '</c-> <c- o>+</c-> result<c- p>.</c->data<c- p>.</c->getUint16<c- p>(</c-><c- mi>2</c-><c- p>));</c->
-    console<c- p>.</c->log<c- p>(</c-><c- t>'Channel 5: '</c-> <c- o>+</c-> result<c- p>.</c->data<c- p>.</c->getUint16<c- p>(</c-><c- mi>4</c-><c- p>));</c->
+  <c- k>if</c-> <c- p>(</c->result<c- p>.</c-><a data-link-type="idl" href="#dom-usbintransferresult-data" id="ref-for-dom-usbintransferresult-data">data</a> <c- o>&amp;&amp;</c-> result<c- p>.</c->data<c- p>.</c->byteLength <c- o>===</c-> <c- mf>6</c-><c- p>)</c-> <c- p>{</c->
+    console<c- p>.</c->log<c- p>(</c-><c- t>'Channel 1: '</c-> <c- o>+</c-> result<c- p>.</c->data<c- p>.</c->getUint16<c- p>(</c-><c- mf>0</c-><c- p>));</c->
+    console<c- p>.</c->log<c- p>(</c-><c- t>'Channel 2: '</c-> <c- o>+</c-> result<c- p>.</c->data<c- p>.</c->getUint16<c- p>(</c-><c- mf>2</c-><c- p>));</c->
+    console<c- p>.</c->log<c- p>(</c-><c- t>'Channel 5: '</c-> <c- o>+</c-> result<c- p>.</c->data<c- p>.</c->getUint16<c- p>(</c-><c- mf>4</c-><c- p>));</c->
   <c- p>}</c->
 
   <c- k>if</c-> <c- p>(</c->result<c- p>.</c-><a data-link-type="idl" href="#dom-usbintransferresult-status" id="ref-for-dom-usbintransferresult-status">status</a> <c- o>===</c-> <c- t>'stall'</c-><c- p>)</c-> <c- p>{</c->
     console<c- p>.</c->warn<c- p>(</c-><c- t>'Endpoint stalled. Clearing.'</c-><c- p>);</c->
-    await device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-clearhalt" id="ref-for-dom-usbdevice-clearhalt">clearHalt</a><c- p>(</c-><c- mi>1</c-><c- p>);</c->
+    <c- k>await</c-> device<c- p>.</c-><a data-link-type="idl" href="#dom-usbdevice-clearhalt" id="ref-for-dom-usbdevice-clearhalt">clearHalt</a><c- p>(</c-><c- mf>1</c-><c- p>);</c->
   <c- p>}</c->
 <c- p>}</c->
 </pre>
