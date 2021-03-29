@@ -14,8 +14,10 @@ jobs:
           SOURCE: index.bs
           DESTINATION: index.html
           TOOLCHAIN: bikeshed
+          GH_PAGES_BRANCH: gh-pages
       - uses: w3c/spec-prod@v2
         with:
           SOURCE: test/index.bs
           DESTINATION: test/index.html
           TOOLCHAIN: bikeshed
+          GH_PAGES_BRANCH: gh-pages
