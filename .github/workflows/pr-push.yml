@@ -12,6 +12,8 @@ jobs:
       - uses: w3c/spec-prod@v2
         with:
           SOURCE: index.bs
+          TOOLCHAIN: bikeshed
       - uses: w3c/spec-prod@v2
         with:
           SOURCE: test/index.bs
+          TOOLCHAIN: bikeshed
