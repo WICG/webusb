@@ -15,9 +15,10 @@ jobs:
           DESTINATION: index.html
           TOOLCHAIN: bikeshed
           GH_PAGES_BRANCH: gh-pages
-      - uses: w3c/spec-prod@v2
-        with:
-          SOURCE: test/index.bs
-          DESTINATION: test/index.html
-          TOOLCHAIN: bikeshed
-          GH_PAGES_BRANCH: gh-pages
+# Disable pushing test/index.html until w3c/spec-prod#45 has been released.
+#      - uses: w3c/spec-prod@v2
+#        with:
+#          SOURCE: test/index.bs
+#          DESTINATION: test/index.html
+#          TOOLCHAIN: bikeshed
+#          GH_PAGES_BRANCH: gh-pages
