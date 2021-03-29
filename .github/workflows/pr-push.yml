@@ -12,5 +12,6 @@ jobs:
       - uses: w3c/spec-prod@v2
         with:
           SOURCE: index.bs
+      - uses: w3c/spec-prod@v2
         with:
           SOURCE: test/index.bs
