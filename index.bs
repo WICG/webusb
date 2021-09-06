@@ -957,7 +957,8 @@ parallel:
 The {{USBDevice/claimInterface(interfaceNumber)}} method, when invoked, MUST
 return a new {{Promise}} |promise| and run the following steps <a>in
 parallel</a>:
-
+  
+  1. Let |device| be the target {{USBDevice}} object.
   1. If the device is no longer connected to the system, <a>reject</a> |promise|
      with a {{NotFoundError}} and abort these steps.
   1. Let |interface| be the interface in the <a>active configuration</a> with
