@@ -4,9 +4,9 @@
   <title>WebUSB Testing API</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version b94c7e755, updated Fri Feb 19 16:28:59 2021 -0800" name="generator">
+  <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
-  <meta content="55d24aab307e3b72078215ed3113d21d1006b9fa" name="document-revision">
+  <meta content="798c30ce000e414561269fd8b3ac595e045f6d5f" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -113,9 +113,9 @@ pre .property::before, pre .property::after {
     --ins-bg: transparent;
 
     --a-normal-text: #034575;
-    --a-normal-underline: #707070;
+    --a-normal-underline: #bbb;
     --a-visited-text: var(--a-normal-text);
-    --a-visited-underline: #bbb;
+    --a-visited-underline: #707070;
     --a-hover-bg: rgba(75%, 75%, 75%, .25);
     --a-active-text: #c00;
     --a-active-underline: #c00;
@@ -567,7 +567,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="subtitle"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-03-30">30 March 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-09-09">9 September 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1011,61 +1011,61 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   <h2 class="no-num no-ref heading settled" id="index"><span class="content">Index</span><a class="self-link" href="#index"></a></h2>
   <h3 class="no-num no-ref heading settled" id="index-defined-here"><span class="content">Terms defined by this specification</span><a class="self-link" href="#index-defined-here"></a></h3>
   <ul class="index">
-   <li><a href="#dom-fakeusbdeviceinit-activeconfigurationvalue">activeConfigurationValue</a><span>, in §4</span>
-   <li><a href="#dom-usbtest-addfakedevice">addFakeDevice(deviceInit)</a><span>, in §3</span>
-   <li><a href="#dom-fakeusbinterfaceinit-alternates">alternates</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbalternateinterfaceinit-alternatesetting">alternateSetting</a><span>, in §4</span>
-   <li><a href="#dom-usbtest-attachtocontext">attachToContext(context)</a><span>, in §3</span>
-   <li><a href="#dom-fakeusbconfigurationinit-configurationname">configurationName</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-configurations">configurations</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbconfigurationinit-configurationvalue">configurationValue</a><span>, in §4</span>
-   <li><a href="#controlled-by">controlled by</a><span>, in §3</span>
-   <li><a href="#correspond-to">corresponding to</a><span>, in §4</span>
-   <li><a href="#correspond-to">correspond to</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-deviceclass">deviceClass</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-deviceprotocol">deviceProtocol</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-devicesubclass">deviceSubclass</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-deviceversionmajor">deviceVersionMajor</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-deviceversionminor">deviceVersionMinor</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-deviceversionsubminor">deviceVersionSubminor</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbendpointinit-direction">direction</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdevice-disconnect">disconnect()</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbendpointinit-endpointnumber">endpointNumber</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbalternateinterfaceinit-endpoints">endpoints</a><span>, in §4</span>
-   <li><a href="#dictdef-fakeusbalternateinterfaceinit">FakeUSBAlternateInterfaceInit</a><span>, in §4</span>
-   <li><a href="#dictdef-fakeusbconfigurationinit">FakeUSBConfigurationInit</a><span>, in §4</span>
-   <li><a href="#fakeusbdevice">FakeUSBDevice</a><span>, in §4</span>
-   <li><a href="#dictdef-fakeusbdeviceinit">FakeUSBDeviceInit</a><span>, in §4</span>
-   <li><a href="#dictdef-fakeusbendpointinit">FakeUSBEndpointInit</a><span>, in §4</span>
-   <li><a href="#dictdef-fakeusbinterfaceinit">FakeUSBInterfaceInit</a><span>, in §4</span>
-   <li><a href="#dom-usbdevicerequestevent-filters">filters</a><span>, in §3</span>
-   <li><a href="#dom-usbtest-initializationpromise-slot">[[initializationPromise]]</a><span>, in §3</span>
-   <li><a href="#dom-usbtest-initialize">initialize()</a><span>, in §3</span>
-   <li><a href="#dom-fakeusbalternateinterfaceinit-interfaceclass">interfaceClass</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbalternateinterfaceinit-interfacename">interfaceName</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbinterfaceinit-interfacenumber">interfaceNumber</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbalternateinterfaceinit-interfaceprotocol">interfaceProtocol</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbconfigurationinit-interfaces">interfaces</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbalternateinterfaceinit-interfacesubclass">interfaceSubclass</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-manufacturername">manufacturerName</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdevice-onclose">onclose</a><span>, in §4</span>
-   <li><a href="#dom-usbtest-onrequestdevice">onrequestdevice</a><span>, in §3</span>
-   <li><a href="#dom-fakeusbendpointinit-packetsize">packetSize</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-productid">productId</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-productname">productName</a><span>, in §4</span>
-   <li><a href="#dom-usbdevicerequestevent-promise-slot">[[promise]]</a><span>, in §3</span>
-   <li><a href="#requestdevice">requestdevice</a><span>, in §3.2</span>
-   <li><a href="#dom-usbtest-reset">reset()</a><span>, in §3</span>
-   <li><a href="#dom-usbdevicerequestevent-respondwith">respondWith(result)</a><span>, in §3</span>
-   <li><a href="#dom-fakeusbdeviceinit-serialnumber">serialNumber</a><span>, in §4</span>
-   <li><a href="#dom-usb-test">test</a><span>, in §3</span>
-   <li><a href="#dom-fakeusbendpointinit-type">type</a><span>, in §4</span>
-   <li><a href="#usbdevicerequestevent">USBDeviceRequestEvent</a><span>, in §3</span>
-   <li><a href="#usbtest">USBTest</a><span>, in §3</span>
-   <li><a href="#dom-fakeusbdeviceinit-usbversionmajor">usbVersionMajor</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-usbversionminor">usbVersionMinor</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-usbversionsubminor">usbVersionSubminor</a><span>, in §4</span>
-   <li><a href="#dom-fakeusbdeviceinit-vendorid">vendorId</a><span>, in §4</span>
+   <li><a href="#dom-fakeusbdeviceinit-activeconfigurationvalue">activeConfigurationValue</a><span>, in § 4</span>
+   <li><a href="#dom-usbtest-addfakedevice">addFakeDevice(deviceInit)</a><span>, in § 3</span>
+   <li><a href="#dom-fakeusbinterfaceinit-alternates">alternates</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbalternateinterfaceinit-alternatesetting">alternateSetting</a><span>, in § 4</span>
+   <li><a href="#dom-usbtest-attachtocontext">attachToContext(context)</a><span>, in § 3</span>
+   <li><a href="#dom-fakeusbconfigurationinit-configurationname">configurationName</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-configurations">configurations</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbconfigurationinit-configurationvalue">configurationValue</a><span>, in § 4</span>
+   <li><a href="#controlled-by">controlled by</a><span>, in § 3</span>
+   <li><a href="#correspond-to">corresponding to</a><span>, in § 4</span>
+   <li><a href="#correspond-to">correspond to</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-deviceclass">deviceClass</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-deviceprotocol">deviceProtocol</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-devicesubclass">deviceSubclass</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-deviceversionmajor">deviceVersionMajor</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-deviceversionminor">deviceVersionMinor</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-deviceversionsubminor">deviceVersionSubminor</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbendpointinit-direction">direction</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdevice-disconnect">disconnect()</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbendpointinit-endpointnumber">endpointNumber</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbalternateinterfaceinit-endpoints">endpoints</a><span>, in § 4</span>
+   <li><a href="#dictdef-fakeusbalternateinterfaceinit">FakeUSBAlternateInterfaceInit</a><span>, in § 4</span>
+   <li><a href="#dictdef-fakeusbconfigurationinit">FakeUSBConfigurationInit</a><span>, in § 4</span>
+   <li><a href="#fakeusbdevice">FakeUSBDevice</a><span>, in § 4</span>
+   <li><a href="#dictdef-fakeusbdeviceinit">FakeUSBDeviceInit</a><span>, in § 4</span>
+   <li><a href="#dictdef-fakeusbendpointinit">FakeUSBEndpointInit</a><span>, in § 4</span>
+   <li><a href="#dictdef-fakeusbinterfaceinit">FakeUSBInterfaceInit</a><span>, in § 4</span>
+   <li><a href="#dom-usbdevicerequestevent-filters">filters</a><span>, in § 3</span>
+   <li><a href="#dom-usbtest-initializationpromise-slot">[[initializationPromise]]</a><span>, in § 3</span>
+   <li><a href="#dom-usbtest-initialize">initialize()</a><span>, in § 3</span>
+   <li><a href="#dom-fakeusbalternateinterfaceinit-interfaceclass">interfaceClass</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbalternateinterfaceinit-interfacename">interfaceName</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbinterfaceinit-interfacenumber">interfaceNumber</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbalternateinterfaceinit-interfaceprotocol">interfaceProtocol</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbconfigurationinit-interfaces">interfaces</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbalternateinterfaceinit-interfacesubclass">interfaceSubclass</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-manufacturername">manufacturerName</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdevice-onclose">onclose</a><span>, in § 4</span>
+   <li><a href="#dom-usbtest-onrequestdevice">onrequestdevice</a><span>, in § 3</span>
+   <li><a href="#dom-fakeusbendpointinit-packetsize">packetSize</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-productid">productId</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-productname">productName</a><span>, in § 4</span>
+   <li><a href="#dom-usbdevicerequestevent-promise-slot">[[promise]]</a><span>, in § 3</span>
+   <li><a href="#requestdevice">requestdevice</a><span>, in § 3.2</span>
+   <li><a href="#dom-usbtest-reset">reset()</a><span>, in § 3</span>
+   <li><a href="#dom-usbdevicerequestevent-respondwith">respondWith(result)</a><span>, in § 3</span>
+   <li><a href="#dom-fakeusbdeviceinit-serialnumber">serialNumber</a><span>, in § 4</span>
+   <li><a href="#dom-usb-test">test</a><span>, in § 3</span>
+   <li><a href="#dom-fakeusbendpointinit-type">type</a><span>, in § 4</span>
+   <li><a href="#usbdevicerequestevent">USBDeviceRequestEvent</a><span>, in § 3</span>
+   <li><a href="#usbtest">USBTest</a><span>, in § 3</span>
+   <li><a href="#dom-fakeusbdeviceinit-usbversionmajor">usbVersionMajor</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-usbversionminor">usbVersionMinor</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-usbversionsubminor">usbVersionSubminor</a><span>, in § 4</span>
+   <li><a href="#dom-fakeusbdeviceinit-vendorid">vendorId</a><span>, in § 4</span>
   </ul>
   <aside class="dfn-panel" data-for="term-for-event">
    <a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
@@ -1513,17 +1513,17 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   <h3 class="no-num no-ref heading settled" id="normative"><span class="content">Normative References</span><a class="self-link" href="#normative"></a></h3>
   <dl>
    <dt id="biblio-dom">[DOM]
-   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/">DOM Standard</a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
+   <dd>Anne van Kesteren. <a href="https://dom.spec.whatwg.org/"><cite>DOM Standard</cite></a>. Living Standard. URL: <a href="https://dom.spec.whatwg.org/">https://dom.spec.whatwg.org/</a>
    <dt id="biblio-ecmascript">[ECMASCRIPT]
-   <dd><a href="https://tc39.es/ecma262/">ECMAScript Language Specification</a>. URL: <a href="https://tc39.es/ecma262/">https://tc39.es/ecma262/</a>
+   <dd><a href="https://tc39.es/ecma262/multipage/"><cite>ECMAScript Language Specification</cite></a>. URL: <a href="https://tc39.es/ecma262/multipage/">https://tc39.es/ecma262/multipage/</a>
    <dt id="biblio-html">[HTML]
-   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/">HTML Standard</a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
+   <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-rfc2119">[RFC2119]
-   <dd>S. Bradner. <a href="https://tools.ietf.org/html/rfc2119">Key words for use in RFCs to Indicate Requirement Levels</a>. March 1997. Best Current Practice. URL: <a href="https://tools.ietf.org/html/rfc2119">https://tools.ietf.org/html/rfc2119</a>
+   <dd>S. Bradner. <a href="https://datatracker.ietf.org/doc/html/rfc2119"><cite>Key words for use in RFCs to Indicate Requirement Levels</cite></a>. March 1997. Best Current Practice. URL: <a href="https://datatracker.ietf.org/doc/html/rfc2119">https://datatracker.ietf.org/doc/html/rfc2119</a>
    <dt id="biblio-webidl">[WebIDL]
-   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/">Web IDL</a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
+   <dd>Boris Zbarsky. <a href="https://heycam.github.io/webidl/"><cite>Web IDL</cite></a>. 15 December 2016. ED. URL: <a href="https://heycam.github.io/webidl/">https://heycam.github.io/webidl/</a>
    <dt id="biblio-webusb">[WebUSB]
-   <dd><a href="https://wicg.github.io/webusb/">WebUSB API</a>. cg-draft. URL: <a href="https://wicg.github.io/webusb/">https://wicg.github.io/webusb/</a>
+   <dd><a href="https://wicg.github.io/webusb/"><cite>WebUSB API</cite></a>. cg-draft. URL: <a href="https://wicg.github.io/webusb/">https://wicg.github.io/webusb/</a>
   </dl>
   <h2 class="no-num no-ref heading settled" id="idl-index"><span class="content">IDL Index</span><a class="self-link" href="#idl-index"></a></h2>
 <pre class="idl highlight def"><c- b>partial</c-> <c- b>interface</c-> <a class="idl-code" data-link-type="interface" href="https://wicg.github.io/webusb/#usb"><c- g>USB</c-></a> {
