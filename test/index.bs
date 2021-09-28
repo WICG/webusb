@@ -152,12 +152,14 @@ two benefits,
     [SameObject] readonly attribute USBTest test;
   };
 
+  [Exposed=(Window,Worker)]
   interface USBDeviceRequestEvent : Event {
     attribute FrozenArray<USBDeviceFilter> filters;
 
     undefined respondWith(Promise<FakeUSBDevice> result);
   };
 
+  [Exposed=(Window,Worker)]
   interface USBTest {
     attribute EventHandler onrequestdevice;
 
@@ -265,6 +267,7 @@ with an instance of {{FakeUSBDeviceInit}} containing the properties of the
 device to be added.
 
 <xmp class="idl">
+  [Exposed=(Window,Worker)]
   interface FakeUSBDevice : EventTarget {
     attribute EventHandler onclose;
 
