@@ -51,6 +51,7 @@
 10c4:8acf  # U2F Zero
 18d1:5026  # Titan
 1a44:00bb  # VASCO
+1d50:60fc  # OnlyKey
 1e0d:f1ae  # Keydo AES
 1e0d:f1d0  # Neowave Keydo
 1ea8:f025  # Thetis
