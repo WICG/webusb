@@ -4,9 +4,9 @@
   <title>WebUSB Testing API</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2016/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 4f053d00e, updated Tue Aug 10 14:13:32 2021 -0700" name="generator">
+  <meta content="Bikeshed version a210b7d86, updated Thu Sep 16 13:45:19 2021 -0700" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
-  <meta content="798c30ce000e414561269fd8b3ac595e045f6d5f" name="document-revision">
+  <meta content="8628170112965e24cbdcdbc7fba71eb90e6da819" name="document-revision">
 <style>/* style-autolinks */
 
 .css.css, .property.property, .descriptor.descriptor {
@@ -567,7 +567,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2016/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-09-09">9 September 2021</time></span></h2>
+   <h2 class="no-num no-toc no-ref heading settled" id="profile-and-date"><span class="content">Draft Community Group Report, <time class="dt-updated" datetime="2021-09-29">29 September 2021</time></span></h2>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -763,12 +763,14 @@ no increase in binary size to support an API that will rarely be used.</p>
   [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject" id="ref-for-SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#usbtest" id="ref-for-usbtest"><c- n>USBTest</c-></a> <dfn class="idl-code" data-dfn-for="USB" data-dfn-type="attribute" data-export data-readonly data-type="USBTest" id="dom-usb-test"><code><c- g>test</c-></code><a class="self-link" href="#dom-usb-test"></a></dfn>;
 };
 
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbdevicerequestevent"><code><c- g>USBDeviceRequestEvent</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event"><c- n>Event</c-></a> {
   <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array" id="ref-for-idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter" id="ref-for-dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <dfn class="idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="attribute" data-export data-type="FrozenArray<USBDeviceFilter>" id="dom-usbdevicerequestevent-filters"><code><c- g>filters</c-></code><a class="self-link" href="#dom-usbdevicerequestevent-filters"></a></dfn>;
 
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDeviceRequestEvent" data-dfn-type="method" data-export data-lt="respondWith(result)" id="dom-usbdevicerequestevent-respondwith"><code><c- g>respondWith</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise" id="ref-for-idl-promise①"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#fakeusbdevice" id="ref-for-fakeusbdevice"><c- n>FakeUSBDevice</c-></a>> <dfn class="idl-code" data-dfn-for="USBDeviceRequestEvent/respondWith(result)" data-dfn-type="argument" data-export id="dom-usbdevicerequestevent-respondwith-result-result"><code><c- g>result</c-></code><a class="self-link" href="#dom-usbdevicerequestevent-respondwith-result-result"></a></dfn>);
 };
 
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed①"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbtest"><code><c- g>USBTest</c-></code></dfn> {
   <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="USBTest" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code><a class="self-link" href="#dom-usbtest-onrequestdevice"></a></dfn>;
 
@@ -872,7 +874,8 @@ been called.</p>
    <p>To permit testing without physical hardware this specification defines a method
 for tests to add simulated USB devices by calling <code class="idl"><a data-link-type="idl" href="#dom-usbtest-addfakedevice" id="ref-for-dom-usbtest-addfakedevice②">addFakeDevice()</a></code> with an instance of <code class="idl"><a data-link-type="idl" href="#dictdef-fakeusbdeviceinit" id="ref-for-dictdef-fakeusbdeviceinit①">FakeUSBDeviceInit</a></code> containing the properties of the
 device to be added.</p>
-<pre class="idl highlight def"><c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="fakeusbdevice"><code><c- g>FakeUSBDevice</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
+<pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed" id="ref-for-Exposed②"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
+<c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="fakeusbdevice"><code><c- g>FakeUSBDevice</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget" id="ref-for-eventtarget"><c- n>EventTarget</c-></a> {
   <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler" id="ref-for-eventhandler①"><c- n>EventHandler</c-></a> <dfn class="idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="attribute" data-export data-type="EventHandler" id="dom-fakeusbdevice-onclose"><code><c- g>onclose</c-></code><a class="self-link" href="#dom-fakeusbdevice-onclose"></a></dfn>;
 
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined" id="ref-for-idl-undefined④"><c- b>undefined</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="FakeUSBDevice" data-dfn-type="method" data-export data-lt="disconnect()" id="dom-fakeusbdevice-disconnect"><code><c- g>disconnect</c-></code></dfn>();
@@ -1141,6 +1144,13 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <a href="https://heycam.github.io/webidl/#idl-DOMString">https://heycam.github.io/webidl/#idl-DOMString</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-DOMString">4. Fake Devices</a> <a href="#ref-for-idl-DOMString①">(2)</a> <a href="#ref-for-idl-DOMString②">(3)</a> <a href="#ref-for-idl-DOMString③">(4)</a> <a href="#ref-for-idl-DOMString④">(5)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="term-for-Exposed">
+   <a href="https://heycam.github.io/webidl/#Exposed">https://heycam.github.io/webidl/#Exposed</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-Exposed">3. Global Testing Interface</a> <a href="#ref-for-Exposed①">(2)</a>
+    <li><a href="#ref-for-Exposed②">4. Fake Devices</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-frozen-array">
@@ -1457,6 +1467,7 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
     <a data-link-type="biblio">[WebIDL]</a> defines the following terms:
     <ul>
      <li><span class="dfn-paneled" id="term-for-idl-DOMString">DOMString</span>
+     <li><span class="dfn-paneled" id="term-for-Exposed">Exposed</span>
      <li><span class="dfn-paneled" id="term-for-idl-frozen-array">FrozenArray</span>
      <li><span class="dfn-paneled" id="term-for-invalidstateerror">InvalidStateError</span>
      <li><span class="dfn-paneled" id="term-for-notfounderror">NotFoundError</span>
@@ -1530,12 +1541,14 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   [<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#SameObject"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#usbtest"><c- n>USBTest</c-></a> <a data-readonly data-type="USBTest" href="#dom-usb-test"><code><c- g>test</c-></code></a>;
 };
 
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <a href="#usbdevicerequestevent"><code><c- g>USBDeviceRequestEvent</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event"><c- n>Event</c-></a> {
   <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter"><c- n>USBDeviceFilter</c-></a>> <a data-type="FrozenArray<USBDeviceFilter>" href="#dom-usbdevicerequestevent-filters"><code><c- g>filters</c-></code></a>;
 
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a> <a href="#dom-usbdevicerequestevent-respondwith"><code><c- g>respondWith</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#fakeusbdevice"><c- n>FakeUSBDevice</c-></a>> <a href="#dom-usbdevicerequestevent-respondwith-result-result"><code><c- g>result</c-></code></a>);
 };
 
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <a href="#usbtest"><code><c- g>USBTest</c-></code></a> {
   <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-usbtest-onrequestdevice"><code><c- g>onrequestdevice</c-></code></a>;
 
@@ -1545,6 +1558,7 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
   <a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://heycam.github.io/webidl/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbtest-reset"><code><c- g>reset</c-></code></a>();
 };
 
+[<a class="idl-code" data-link-type="extended-attribute" href="https://heycam.github.io/webidl/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Window</c->,<c- n>Worker</c->)]
 <c- b>interface</c-> <a href="#fakeusbdevice"><code><c- g>FakeUSBDevice</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#eventtarget"><c- n>EventTarget</c-></a> {
   <c- b>attribute</c-> <a data-link-type="idl-name" href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler"><c- n>EventHandler</c-></a> <a data-type="EventHandler" href="#dom-fakeusbdevice-onclose"><code><c- g>onclose</c-></code></a>;
 
