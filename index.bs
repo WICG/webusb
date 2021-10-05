@@ -970,8 +970,7 @@ parallel</a>:
      steps.
   1. If <code>|interface|.{{USBInterface/claimed}}</code> is <code>true</code>,
      <a>resolve</a> |promise| and abort these steps.
-  1. If invoking the [=check for a protected interface class=] steps on
-     |interface| returns <code>true</code>, [=reject=] |promise| with a
+  1. If |interface| [=has a protected interface class=], [=reject=] |promise| with a
      {{SecurityError}} and abort these steps.
   1. Perform the necessary platform-specific steps to request exclusive control
      over |interface| for the current execution context. If this fails,
@@ -1563,9 +1562,9 @@ device.
 
 ### Protected Interface Classes ### {#protected-interface-classes}
 
-To <dfn>check for a protected interface class</dfn> given |interface|, return
-<code>true</code> if |interface|'s <code>bInterfaceClass</code> is equal to one
-of the following values. Otherwise return <code>false</code>.
+An [=interface descriptor=] |interface| <dfn>has a protected interface class</dfn>
+if and only if |interface|'s <code>bInterfaceClass</code> is equal to one
+of the following values.
 
 <table>
   <caption>Protected interface classes</caption>
@@ -1604,11 +1603,11 @@ of the following values. Otherwise return <code>false</code>.
 </table>
 
 Note: This specification attempts to strike a balance between protecting users
-from malicious content by limiting access sensitive devices while enabling
+from malicious content by limiting access to sensitive devices while enabling
 support for as many devices as possible. As stated in the introduction the goal
 of this API is to support devices which are not covered by other, more high
 level APIs. The list above includes interface classes for which such high level
-APIs exist which provide greater protection for user privacy and security than
+APIs exist and provide greater protection for user privacy and security than
 low level access through this API would.
 
 ## Endpoints ## {#endpoints}
