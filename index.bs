@@ -645,7 +645,7 @@ steps <a>in parallel</a>:
   2. Check that the algorithm was triggered while the [=relevant global object=]
      had a <a>transient activation</a>. Otherwise, <a>reject</a> |promise| with
      a {{SecurityError}} and abort these steps.
-  3. Set <code>|status|.{{PermissionStatus/state}}</code> to `"ask"`.
+  3. Set <code>|status|.{{PermissionStatus/state}}</code> to <code>"ask"</code>.
   4. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
   5. Remove devices from |enumerationResult| if they do not <a>match a device
@@ -970,6 +970,8 @@ parallel</a>:
      steps.
   1. If <code>|interface|.{{USBInterface/claimed}}</code> is <code>true</code>,
      <a>resolve</a> |promise| and abort these steps.
+  1. If |interface| [=has a protected interface class=], [=reject=] |promise| with a
+     {{SecurityError}} and abort these steps.
   1. Perform the necessary platform-specific steps to request exclusive control
      over |interface| for the current execution context. If this fails,
      <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
@@ -1557,6 +1559,56 @@ is therefore unnecessary to call
 {{USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)}} with
 |alternateSetting| equal to <code>0</code> for each interface when opening a
 device.
+
+### Protected Interface Classes ### {#protected-interface-classes}
+
+An [=interface descriptor=] |interface| <dfn>has a protected interface class</dfn>
+if and only if |interface|'s <code>bInterfaceClass</code> is equal to one
+of the following values.
+
+<table>
+  <caption>Protected interface classes</caption>
+  <tr>
+    <th>Code</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><code>0x01</code></td>
+    <td>Audio</td>
+  </tr>
+  <tr>
+    <td><code>0x03</code></td>
+    <td>HID (Human Interface Device)</td>
+  </tr>
+  <tr>
+    <td><code>0x08</code></td>
+    <td>Mass Storage</td>
+  </tr>
+  <tr>
+    <td><code>0x0B</code></td>
+    <td>Smart Card</td>
+  </tr>
+  <tr>
+    <td><code>0x0E</code></td>
+    <td>Video</td>
+  </tr>
+  <tr>
+    <td><code>0x10</code></td>
+    <td>Audio/Video Devices</td>
+  </tr>
+  <tr>
+    <td><code>0xE0</code></td>
+    <td>Wireless Controller</td>
+  </tr>
+</table>
+
+Note: This specification attempts to strike a balance between protecting users
+from malicious content by limiting access to sensitive devices while enabling
+support for as many devices as possible. As stated in the introduction the goal
+of this API is to support devices which are not covered by other, more high
+level APIs. The list above includes interface classes for which such high level
+APIs exist and provide greater protection for user privacy and security than
+low level access through this API would.
 
 ## Endpoints ## {#endpoints}
 
