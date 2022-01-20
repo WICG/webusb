@@ -35,6 +35,7 @@ Demos
 * [USB Device Firmware Upgrade (DFU)](https://github.com/devanlai/webdfu)
 * [WebADB](https://github.com/webadb/webadb.js)
 * [Zephyr JS IDE](https://github.com/01org/zephyrjs-ide), [hosted IDE](https://01org.github.io/zephyrjs-ide/)
+* [DSLR camera control](https://web-gphoto2.rreverser.com/)
 
 Articles
 --------
