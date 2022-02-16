@@ -701,6 +701,18 @@ the UA MUST run the following steps:
   5. Add |device| to |allowedDevice|@{{[[devices]]}}.
   6. Return |allowedDevice|.
 
+To <dfn data-lt="remove device from storage">remove an allowed <a>USB
+device</a></dfn> |device|, given a {{USBPermissionStorage}} |storage|,
+the UA MUST run the following steps:
+
+  1. Search for an element |allowedDevice| in
+     <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code> where
+     |device| is in |allowedDevice|@{{[[devices]]}}, if no such element exists,
+     abort these steps.
+  2. Remove |device| from |allowedDevice|@{{[[devices]]}}.
+  3. Remove |allowedDevice| from
+     <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code>.
+
 ## Events ## {#events}
 
 <xmp class="idl">
@@ -776,6 +788,7 @@ host it MUST perform the following steps for each script execution environment:
     readonly attribute boolean opened;
     Promise<undefined> open();
     Promise<undefined> close();
+    Promise<undefined> forget();
     Promise<undefined> selectConfiguration(octet configurationValue);
     Promise<undefined> claimInterface(octet interfaceNumber);
     Promise<undefined> releaseInterface(octet interfaceNumber);
@@ -929,6 +942,20 @@ The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
 
 When no [[!ECMAScript]] code can observe an instance of {{USBDevice}} |device|
 anymore, the UA SHOULD run |device|.{{USBDevice/close()}}.
+
+The {{USBDevice/forget()}} method, when invoked, MUST return a new {{Promise}}
+|promise| and run the following steps <a>in parallel</a>:
+
+  1. Let |device| be the target {{USBDevice}} object.
+  2. Let |storage| be the {{USBPermissionStorage}} object in the current
+     script execution environment.
+  3. <a>Remove |device| from storage</a> with |storage|.
+  4. <a>Resolve</a> |promise|.
+
+Note: The user agent MAY decide to combine permissions across APIs, for instance
+tracking WebHID + WebUSB device access under a unified low-level device access
+permission. This is why this method may also revoke additional (unspecified yet)
+permissions in the future.
 
 The {{USBDevice/selectConfiguration(configurationValue)}} method, when invoked,
 MUST return a new {{Promise}} |promise| and run the following steps in
