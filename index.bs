@@ -31,6 +31,22 @@ table td, table th {
   border: 1px solid black;
   padding: 3px;
 }
+
+/* Put nice boxes around each algorithm. */
+[data-algorithm]:not(.heading) {
+  padding: .5em;
+  border: thin solid #ddd; border-radius: .5em;
+  margin: .5em calc(-0.5em - 1px);
+}
+[data-algorithm]:not(.heading) > :first-child {
+  margin-top: 0;
+}
+[data-algorithm]:not(.heading) > :last-child {
+  margin-bottom: 0;
+}
+[data-algorithm] [data-algorithm] {
+    margin: 1em 0;
+}
 </style>
 
 # Introduction # {#introduction}
@@ -1079,7 +1095,7 @@ slots</a> described in the following table:
 </div>
 
 All USB devices MUST have a <a>default control pipe</a> which is
-|endpointNumber| <code>0</code>.
+<code>endpointNumber 0</code>.
 
 ### Attributes ### {#usbdevice-attributes}
 
@@ -1161,424 +1177,405 @@ All USB devices MUST have a <a>default control pipe</a> which is
 
 ### Methods ### {#usbdevice-methods}
 
-<dl dfn-type=method dfn-for="USBDevice">
-    : <dfn>open()</dfn>
-    ::
-        The {{USBDevice/open()}} method, when invoked, MUST return a new {{Promise}}
-        |promise| and run the following steps <a>in parallel</a>:
+<div algorithm="USBDevice.open()">
+    The <dfn for=USBDevice method>open()</dfn> method,
+    when invoked, MUST return a new {{Promise}}
+    |promise| and run the following steps <a>in parallel</a>:
+    1. Let |device| be <a>this</a>.
+    1. If |device| is no longer connected to the system, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. If <code>|device|.{{USBDevice/opened}}</code> is <code>true</code>
+        <a>resolve</a> |promise| and abort these steps.
+    1. Perform the necessary platform-specific steps to begin a session with the
+        device. If these fail for any reason <a>reject</a> |promise| with a
+        {{NetworkError}} and abort these steps.
+    1. Set <code>|device|.{{USBDevice/opened}}</code> to <code>true</code> and
+        <a>resolve</a> |promise|.
+</div>
 
-        1. Let |device| be <a>this</a>.
-        1. If |device| is no longer connected to the system, <a>reject</a> |promise|
-            with a {{NotFoundError}} and abort these steps.
-        1. If <code>|device|.{{USBDevice/opened}}</code> is <code>true</code>
-            <a>resolve</a> |promise| and abort these steps.
-        1. Perform the necessary platform-specific steps to begin a session with the
-            device. If these fail for any reason <a>reject</a> |promise| with a
-            {{NetworkError}} and abort these steps.
-        1. Set <code>|device|.{{USBDevice/opened}}</code> to <code>true</code> and
-            <a>resolve</a> |promise|.
+<div algorithm="USBDevice.close()">
+    The <dfn for=USBDevice method>close()</dfn> method,
+    when invoked, MUST return a new {{Promise}}
+    |promise| and run the following steps <a>in parallel</a>:
+    1. Let |device| be the <a>this</a>.
+    1. If |device| is no longer connected to the system, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. If <code>|device|.{{USBDevice/opened}}</code> is <code>false</code>
+        <a>resolve</a> |promise| and abort these steps.
+    1. Abort all other algorithms currently running against this device and
+        <a>reject</a> their associated promises with an {{AbortError}}.
+    1. Perform the necessary platform-specific steps to release any claimed
+        interfaces as if {{USBDevice/releaseInterface(interfaceNumber)}} had been
+        called for each claimed interface.
+    1. Perform the necessary platform-specific steps to end the session with the
+        device.
+    1. Set <code>|device|.{{USBDevice/opened}}</code> to <code>false</code> and
+        <a>resolve</a> |promise|.
 
-    : <dfn>close()</dfn>
-    ::
-        The {{USBDevice/close()}} method, when invoked, MUST return a new {{Promise}}
-        |promise| and run the following steps <a>in parallel</a>:
+    Note: When no [[!ECMAScript]] code can observe an instance of {{USBDevice}} |device|
+    anymore, the UA SHOULD run |device|.{{USBDevice/close()}}.
+</div>
 
-        1. Let |device| be the <a>this</a>.
-        1. If |device| is no longer connected to the system, <a>reject</a> |promise|
-            with a {{NotFoundError}} and abort these steps.
-        1. If <code>|device|.{{USBDevice/opened}}</code> is <code>false</code>
-            <a>resolve</a> |promise| and abort these steps.
-        1. Abort all other algorithms currently running against this device and
-            <a>reject</a> their associated promises with an {{AbortError}}.
-        1. Perform the necessary platform-specific steps to release any claimed
-            interfaces as if {{USBDevice/releaseInterface(interfaceNumber)}} had been
-            called for each claimed interface.
-        1. Perform the necessary platform-specific steps to end the session with the
-            device.
-        1. Set <code>|device|.{{USBDevice/opened}}</code> to <code>false</code> and
-            <a>resolve</a> |promise|.
-
-        Note: When no [[!ECMAScript]] code can observe an instance of {{USBDevice}} |device|
-        anymore, the UA SHOULD run |device|.{{USBDevice/close()}}.
-
-    : <dfn>selectConfiguration(configurationValue)</dfn>
-    ::
-        <div algorithm="selectConfiguration">
-            When invoked, MUST return a new {{Promise}} |promise| and run the following steps in
-            parallel:
-            1. Let |configurationValue| be the parameter of <code>configurationValue</code>.
-            1. Let |device| be the <a>this</a>.
-            1. If |device| is no longer connected to the system, <a>reject</a> |promise|
-                with a {{NotFoundError}} and abort these steps.
-            1. Let |selectedConfiguration| be <code>null</code>.
-            1. <a>For each</a> |configuration| of |device|.{{USBDevice/[[configurations]]}}:
-                1. If |configuration|.{{USBConfiguration/[[configurationValue]]}} is equal to 
-                    |configurationValue|, set |selectedConfiguration| to |configuration|
-                    and break.
-            1. If |selectedConfiguration| is <code>null</code>, <a>reject</a> |promise| 
-                with a {{NotFoundError}} and abort these steps.
-            1. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
-                <code>true</code> <a>reject</a> |promise| with an {{InvalidStateError}} and
-                abort these steps.
-            1. If |device|.{{USBDevice/configuration}} is not <code>null</code>:
-                1. <a>For each</a> |interface| of
-                    |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}:
-                    1. Perform <a>aborting transfers currently scheduled on an interface</a> with |interface|.
-            1. Issue a <code>SET_CONFIGURATION</code> <a>control transfer</a> with
-                <code>configurationValue</code> set to the |configurationValue|.
-                If this step fails <a>reject</a> |promise| with a {{NetworkError}} and
-                abort these steps.
-            1. Let |numInterfaces| be the <a>size</a> of |selectedConfiguration|.{{USBConfiguration/[[interfaces]]}}.
-            1. Resize |device|.{{USBDevice/[[selectedAlternateSetting]]}} to |numInterfaces|.
-            1. Fill |device|.{{USBDevice/[[selectedAlternateSetting]]}} with 0.
-            1. Resize |device|.{{USBDevice/[[claimedInterface]]}} to |numInterfaces|.
-            1. Fill |device|.{{USBDevice/[[claimedInterface]]}} with <code>false</code>.
-            1. Set |device|.{{USBDevice/[[configurationValue]]}} to |configurationValue| 
-                and <a>resolve</a> |promise|.
-        </div>
-
-    : <dfn>claimInterface(interfaceNumber)</dfn>
-    ::
-        <div algorithm="claimInterface">
-            When invoked, MUST return a new {{Promise}} |promise| and run the following 
-            steps <a>in parallel</a>:
-            1. Let |interfaceNumber| be the parameter of <code>interfaceNumber</code>.
-            1. Let |device| be the <a>this</a>.
-            1. <a>Check if the device is configured</a> with |device| and |promise|
-                and abort these steps if promise is rejected.
-            1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
-            1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-                |interfaceNumber| and |device|.{{USBDevice/configuration}}.
-            1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
-                with a {{NotFoundError}} and abort these steps.
-            1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>true</code>,
-                <a>resolve</a> |promise| and abort these steps.
-            1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is <code>true</code>,
-                [=reject=] |promise| with a {{SecurityError}} and abort these steps.
-            1. Perform the necessary platform-specific steps to request exclusive control
-                over |interfaces|[|interfaceIndex|] for the current execution context. If this fails,
-                <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
-            1. Set |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>true</code>
-                and <a>resolve</a> |promise|.
-        </div>
-
-    : <dfn>releaseInterface(interfaceNumber)</dfn>
-    ::
-        <div algorithm="releaseInterface">
-            When invoked, MUST return a new {{Promise}} |promise| and run the following
-            steps <a>in parallel</a>:
-            1. Let |interfaceNumber| be the parameter of <code>interfaceNumber</code>.
-            1. Let |device| be the <a>this</a>.
-            1. <a>Check if the device is configured</a> with |device| and |promise|
-                and abort these steps if promise is rejected.
-            1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
-            1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-                |interfaceNumber| and |device|.{{USBDevice/configuration}}.
-            1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
-                with a {{NotFoundError}} and abort these steps.
-            1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>false</code>,
-                <a>resolve</a> |promise| and abort these steps.
-            1. Perform the necessary platform-specific steps to reliquish exclusive
-                control over |interfaces|[|interfaceIndex|].
-            1. Set |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|] to <code>0</code>.
-            1. Set |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>false</code>
-                and <a>resolve</a> |promise|.
-        </div>
-
-    : <dfn>selectAlternateInterface(interfaceNumber, alternateSetting)</dfn>
-    ::
-        <div algorithm="selectAlternateInterface">
-            When invoked, MUST return a new {{Promise}} |promise| and run the
-            following steps <a>in parallel</a>:
-            1. Let |interfaceNumber| be the parameter of <code>interfaceNumber</code>.
-            1. Let |alternateSetting| be the parameter of <code>alternateSetting</code>.
-            1. Let |device| be the <a>this</a>.
-            1. <a>Check if the device is configured</a> with |device| and |promise|
-                and abort these steps if promise is rejected.
-            1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
-            1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-                |interfaceNumber| and |device|.{{USBDevice/configuration}}.
-            1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
-                with a {{NotFoundError}} and abort these steps.
-            1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|
-                is not <code>true</code>, <a>reject</a> |promise| with an
-                {{InvalidStateError}} and abort these steps.
-            1. Let |interface| be |interfaces|[|interfaceIndex|].
-            1. Let |alternateIndex| be the result of <a>finding the alternate index</a> with
-                |alternateSetting| and |interface|.
-            1. If |alternateIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
-                with a {{NotFoundError}} and abort these steps.
+<div algorithm="USBDevice.selectConfiguration(configurationValue)">
+    The <dfn for=USBDevice method>selectConfiguration(|configurationValue|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following steps in
+    parallel:
+    1. Let |device| be the <a>this</a>.
+    1. If |device| is no longer connected to the system, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. Let |selectedConfiguration| be <code>null</code>.
+    1. <a>For each</a> |configuration| of |device|.{{USBDevice/[[configurations]]}}:
+        1. If |configuration|.{{USBConfiguration/[[configurationValue]]}} is equal to
+            |configurationValue|, set |selectedConfiguration| to |configuration|
+            and break.
+    1. If |selectedConfiguration| is <code>null</code>, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
+        <code>true</code> <a>reject</a> |promise| with an {{InvalidStateError}} and
+        abort these steps.
+    1. If |device|.{{USBDevice/configuration}} is not <code>null</code>:
+        1. <a>For each</a> |interface| of
+            |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}:
             1. Perform <a>aborting transfers currently scheduled on an interface</a> with |interface|.
-            1. Issue a <code>SET_INTERFACE</code> <a>control transfer</a> with
-                <code>interfaceNumber</code> set to the |interfaceNumber| and
-                <code>alternateSetting</code> set to the |alternateSetting|.
-                If this step fails <a>reject</a> |promise| with a {{NetworkError}} and
-                abort these steps.
-            1. Set |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|]
-                to |alternateSetting|.
-            1. <a>Resolve</a> |promise|.
-        </div>
+    1. Issue a <code>SET_CONFIGURATION</code> <a>control transfer</a> with
+        <code>configurationValue</code> set to the |configurationValue|.
+        If this step fails <a>reject</a> |promise| with a {{NetworkError}} and
+        abort these steps.
+    1. Let |numInterfaces| be the <a>size</a> of |selectedConfiguration|.{{USBConfiguration/[[interfaces]]}}.
+    1. Resize |device|.{{USBDevice/[[selectedAlternateSetting]]}} to |numInterfaces|.
+    1. Fill |device|.{{USBDevice/[[selectedAlternateSetting]]}} with 0.
+    1. Resize |device|.{{USBDevice/[[claimedInterface]]}} to |numInterfaces|.
+    1. Fill |device|.{{USBDevice/[[claimedInterface]]}} with <code>false</code>.
+    1. Set |device|.{{USBDevice/[[configurationValue]]}} to |configurationValue| 
+        and <a>resolve</a> |promise|.
+</div>
 
-    : <dfn>controlTransferIn(setup, length)</dfn>
-    ::
-        The {{USBDevice/controlTransferIn(setup, length)}} method, when invoked, MUST
-        return a new {{Promise}} |promise| and run the following steps in
-        parallel:
+<div algorithm="USBDevice.claimInterface(interfaceNumber)">
+    The <dfn for=USBDevice method>claimInterface(|interfaceNumber|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following 
+    steps <a>in parallel</a>:
+    1. Let |device| be the <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
+    1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
+        |interfaceNumber| and |device|.{{USBDevice/configuration}}.
+    1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>true</code>,
+        <a>resolve</a> |promise| and abort these steps.
+    1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is <code>true</code>,
+        [=reject=] |promise| with a {{SecurityError}} and abort these steps.
+    1. Perform the necessary platform-specific steps to request exclusive control
+        over |interfaces|[|interfaceIndex|] for the current execution context. If this fails,
+        <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
+    1. Set |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>true</code>
+        and <a>resolve</a> |promise|.
+</div>
 
-            1. Let |device| be the <a>this</a>.
-            1. <a>Check if the device is configured</a> with |device| and |promise|
-                and abort these steps if promise is rejected.
-            1. <a>Check the validity of the control transfer parameters</a> with |device|
-                and abort these steps if |promise| is rejected.
-            1. If |length| is greater than 0, let |buffer| be a host buffer with space
-                for |length| bytes.
-            1. Issue a <a>control transfer</a> to |device| with the setup packet parameters
-                provided in |setup|, the data transfer direction in
-                <code>bmRequestType</code> set to "device to host" and <code>wLength</code>
-                set to |length|. If defined also provide |buffer| as the destination to
-                write data received in response to this transfer.
-            1. Let |bytesTransferred| be the number of bytes written to |buffer|.
-            1. Let |result| be a new {{USBInTransferResult}}.
-            1. If data was received from |device| create a new {{ArrayBuffer}} containing
-                the first |bytesTransferred| bytes of |buffer| and set
-                <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
-                constructed over it.
-            1. If |device| responded by stalling the
-                <a>default control pipe</a> set
-                <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-            1. If |device| responded with more than |length| bytes of data set
-                <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}} and
-                otherwise set it to {{"ok"}}.
-            1. If the transfer fails for any other reason <a>reject</a> |promise| with a
-                {{NetworkError}} and abort these steps.
-            1. <a>Resolve</a> |promise| with |result|.
+<div algorithm="USBDevice.releaseInterface(interfaceNumber)">
+    The <dfn for=USBDevice method>releaseInterface(|interfaceNumber|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following
+    steps <a>in parallel</a>:
+    1. Let |device| be the <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
+    1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
+        |interfaceNumber| and |device|.{{USBDevice/configuration}}.
+    1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>false</code>,
+        <a>resolve</a> |promise| and abort these steps.
+    1. Perform the necessary platform-specific steps to reliquish exclusive
+        control over |interfaces|[|interfaceIndex|].
+    1. Set |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|] to <code>0</code>.
+    1. Set |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>false</code>
+        and <a>resolve</a> |promise|.
+</div>
 
-    : <dfn>controlTransferOut(setup, data)</dfn>
-    ::
-        The {{USBDevice/controlTransferOut(setup, data)}} method, when invoked, must
-        return a new {{Promise}} |promise| and run the following steps <a>in
-        parallel</a>:
+<div algorithm="USBDevice.selectAlternateInterface(interfaceNumber, alternateSetting)">
+    The <dfn for=USBDevice method>selectAlternateInterface(|interfaceNumber|, |alternateSetting|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the
+    following steps <a>in parallel</a>:
+    1. Let |device| be the <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
+    1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
+        |interfaceNumber| and |device|.{{USBDevice/configuration}}.
+    1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|
+        is not <code>true</code>, <a>reject</a> |promise| with an
+        {{InvalidStateError}} and abort these steps.
+    1. Let |interface| be |interfaces|[|interfaceIndex|].
+    1. Let |alternateIndex| be the result of <a>finding the alternate index</a> with
+        |alternateSetting| and |interface|.
+    1. If |alternateIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
+        with a {{NotFoundError}} and abort these steps.
+    1. Perform <a>aborting transfers currently scheduled on an interface</a> with |interface|.
+    1. Issue a <code>SET_INTERFACE</code> <a>control transfer</a> with
+        <code>interfaceNumber</code> set to the |interfaceNumber| and
+        <code>alternateSetting</code> set to the |alternateSetting|.
+        If this step fails <a>reject</a> |promise| with a {{NetworkError}} and
+        abort these steps.
+    1. Set |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|]
+        to |alternateSetting|.
+    1. <a>Resolve</a> |promise|.
+</div>
 
-            1. Let |device| be the <a>this</a>.
-            1. <a>Check if the device is configured</a> with |device| and |promise|
-                and abort these steps if promise is rejected.
-            1. <a>Check the validity of the control transfer parameters</a> with |device|
-                and abort these steps if |promise| is rejected.
-            1. Issue a <a>control transfer</a> with the <a>setup packet</a> populated by
-                |setup| and the data transfer direction in <code>bmRequestType</code> set
-                to "host to device" and <code>wLength</code> set to
-                <code>|data|.length</code>. Transmit |data| in the <a>data stage</a> of
-                the transfer.
-            1. Let |result| be a new {{USBOutTransferResult}}.
-            1. If the device responds by stalling the
-                <a>default control pipe</a> set
-                <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
-            1. If the device acknowledges the transfer set
-                <code>|result|.{{USBOutTransferResult/status}}</code> to {{"ok"}} and
-                <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to
-                <code>|data|.length</code>.
-            1. If the transfer fails for any other reason <a>reject</a> |promise| with a
-                {{NetworkError}} and abort these steps.
-            1. <a>Resolve</a> |promise| with |result|.
+<div algorithm="USBDevice.controlTransferIn(setup, length)">
+    The <dfn for=USBDevice method>controlTransferIn(|setup|, |length|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following steps
+    in parallel:
+    1. Let |device| be the <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. <a>Check the validity of the control transfer parameters</a> with |device|
+        and abort these steps if |promise| is rejected.
+    1. If |length| is greater than 0, let |buffer| be a host buffer with space
+        for |length| bytes.
+    1. Issue a <a>control transfer</a> to |device| with the setup packet parameters
+        provided in |setup|, the data transfer direction in
+        <code>bmRequestType</code> set to "device to host" and <code>wLength</code>
+        set to |length|. If defined also provide |buffer| as the destination to
+        write data received in response to this transfer.
+    1. Let |bytesTransferred| be the number of bytes written to |buffer|.
+    1. Let |result| be a new {{USBInTransferResult}}.
+    1. If data was received from |device| create a new {{ArrayBuffer}} containing
+        the first |bytesTransferred| bytes of |buffer| and set
+        <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
+        constructed over it.
+    1. If |device| responded by stalling the
+        <a>default control pipe</a> set
+        <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
+    1. If |device| responded with more than |length| bytes of data set
+        <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}} and
+        otherwise set it to {{"ok"}}.
+    1. If the transfer fails for any other reason <a>reject</a> |promise| with a
+        {{NetworkError}} and abort these steps.
+    1. <a>Resolve</a> |promise| with |result|.
+</div>
 
-    : <dfn>clearHalt(|direction|, |endpointNumber|)</dfn>
-    ::
-        The {{USBDevice/clearHalt(direction, endpointNumber)}} method, when invoked,
-        MUST return a new {{Promise}} |promise| and run the following steps <a>in
-        parallel</a>:
+<div algorithm="USBDevice.controlTransferOut(setup, data)">
+    The <dfn for=USBDevice method>controlTransferOut(|setup|, |data|)</dfn> method,
+    when invoked, must return a new {{Promise}} |promise| and run the following
+    steps <a>in parallel</a>:
+    1. Let |device| be the <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. <a>Check the validity of the control transfer parameters</a> with |device|
+        and abort these steps if |promise| is rejected.
+    1. Issue a <a>control transfer</a> with the <a>setup packet</a> populated by
+        |setup| and the data transfer direction in <code>bmRequestType</code> set
+        to "host to device" and <code>wLength</code> set to
+        <code>|data|.length</code>. Transmit |data| in the <a>data stage</a> of
+        the transfer.
+    1. Let |result| be a new {{USBOutTransferResult}}.
+    1. If the device responds by stalling the
+        <a>default control pipe</a> set
+        <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
+    1. If the device acknowledges the transfer set
+        <code>|result|.{{USBOutTransferResult/status}}</code> to {{"ok"}} and
+        <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to
+        <code>|data|.length</code>.
+    1. If the transfer fails for any other reason <a>reject</a> |promise| with a
+        {{NetworkError}} and abort these steps.
+    1. <a>Resolve</a> |promise| with |result|.
+</div>
 
-        1. Let |device| be <a>this</a>.
-        1. <a>Check if the device is configured</a> with |device| and |promise|
-            and abort these steps if promise is rejected.
-        1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code> if
-            |direction| is equal to {{USBDirection/"in"}}, and |endpointNumber|
-            otherwise.
-        1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-            |endpointAddress| and |device|.
-        1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
-            {{NotFoundError}} and abort these steps.
-        1. Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a>control transfer</a> to
-            the device to clear the halt condition on |endpoint|.
-        1. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
-            <a>resolve</a> |promise|.
+<div algorithm="USBDevice.clearHalt(direction, endpointNumber)">
+    The <dfn for=USBDevice method>clearHalt(|direction|, |endpointNumber|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following steps
+    <a>in parallel</a>:
+    1. Let |device| be <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code> if
+        |direction| is equal to {{USBDirection/"in"}}, and |endpointNumber|
+        otherwise.
+    1. Let |endpoint| be the result of <a>finding the endpoint</a> with
+        |endpointAddress| and |device|.
+    1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
+        {{NotFoundError}} and abort these steps.
+    1. Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a>control transfer</a> to
+        the device to clear the halt condition on |endpoint|.
+    1. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
+        <a>resolve</a> |promise|.
+</div>
 
-    : <dfn>transferIn(endpointNumber, length)</dfn>
-    ::
-        The {{USBDevice/transferIn(endpointNumber, length)}} method, when invoked, MUST
-        return a new {{Promise}} |promise| and run the following steps <a>in
-        parallel</a>:
 
-        1. Let |device| be <a>this</a>.
-        1. <a>Check if the device is configured</a> with |device| and |promise|
-            and abort these steps if promise is rejected.
-        1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
-            (i.e {{USBDirection/"in"}} direction).
-        1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-            |endpointAddress| and |device|.
-        1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
-            {{NotFoundError}} and abort these steps.
-        1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"bulk"}},
-            <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
-        1. Let |buffer| be a host buffer with space for |length| bytes.
-        1. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
-            <a lt="interrupt transfer">interrupt</a> <a>IN transfer</a> on |endpoint|
-            to receive |length| bytes of data from the device into |buffer|.
-        1. Let |bytesTransferred| be the number of bytes written to |buffer|.
-        1. Let |result| be a new {{USBInTransferResult}}.
-        1. If data was received from |device| create a new {{ArrayBuffer}} containing
-            the first |bytesTransferred| bytes of |buffer| and set
-            <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
-            constructed over it.
-        1. If |device| responded with more than |length| bytes of data set
-            <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}}.
-        1. If the transfer ended because |endpoint| is halted set
-            <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-        1. If |device| acknowledged the complete transfer set
-            <code>|result|.{{USBInTransferResult/status}}</code> to {{"ok"}}.
-        1. If the transfer failed for any other reason <a>reject</a> |promise| with a
-            {{NetworkError}} and abort these steps.
-        1. <a>Resolve</a> |promise| with |result|.
+<div algorithm="USBDevice.transferIn(endpointNumber, length)">
+    The <dfn for=USBDevice method>transferIn(|endpointNumber|, |length|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following steps
+    <a>in parallel</a>:
+    1. Let |device| be <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
+        (i.e {{USBDirection/"in"}} direction).
+    1. Let |endpoint| be the result of <a>finding the endpoint</a> with
+        |endpointAddress| and |device|.
+    1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
+        {{NotFoundError}} and abort these steps.
+    1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"bulk"}},
+        <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
+    1. Let |buffer| be a host buffer with space for |length| bytes.
+    1. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
+        <a lt="interrupt transfer">interrupt</a> <a>IN transfer</a> on |endpoint|
+        to receive |length| bytes of data from the device into |buffer|.
+    1. Let |bytesTransferred| be the number of bytes written to |buffer|.
+    1. Let |result| be a new {{USBInTransferResult}}.
+    1. If data was received from |device| create a new {{ArrayBuffer}} containing
+        the first |bytesTransferred| bytes of |buffer| and set
+        <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
+        constructed over it.
+    1. If |device| responded with more than |length| bytes of data set
+        <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}}.
+    1. If the transfer ended because |endpoint| is halted set
+        <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
+    1. If |device| acknowledged the complete transfer set
+        <code>|result|.{{USBInTransferResult/status}}</code> to {{"ok"}}.
+    1. If the transfer failed for any other reason <a>reject</a> |promise| with a
+        {{NetworkError}} and abort these steps.
+    1. <a>Resolve</a> |promise| with |result|.
+</div>
 
-    : <dfn>transferOut(endpointNumber, data)</dfn>
-    ::
-        The {{USBDevice/transferOut(endpointNumber, data)}} method, when invoked, MUST
-        return a new {{Promise}} |promise| and run the following steps in
-        parallel:
+<div algorithm="USBDevice.transferOut(endpointNumber, data)">
+    The <dfn for=USBDevice method>transferOut(|endpointNumber|, |data|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following steps
+    in parallel:
+    1. Let |device| be <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
+    1. Let |endpoint| be the result of <a>finding the endpoint</a> with
+        |endpointAddress| and |device|.
+    1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
+        {{NotFoundError}} and abort these steps.
+    1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"bulk"}},
+        <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
+    1. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
+        <a lt="interrupt transfer">interrupt</a> <a>OUT transfer</a> on |endpoint|
+        to transmit |data| to the device.
+    1. Let |result| be a new {{USBOutTransferResult}}.
+    1. Set <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to the
+        amount of data successfully sent to the device.
+    1. If the endpoint is stalled set
+        <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
+    1. If the device acknowledges the complete transfer set
+        <code>|result|.{{USBOutTransferResult/status}}</code> to {{"ok"}}.
+    1. If the transfer fails for any other reason <a>reject</a> |promise| with a
+        {{NetworkError}} and abort these steps.
+    1. <a>Resolve</a> |promise| with |result|.
+</div>
 
-        1. Let |device| be <a>this</a>.
-        1. <a>Check if the device is configured</a> with |device| and |promise|
-            and abort these steps if promise is rejected.
-        1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
-        1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-            |endpointAddress| and |device|.
-        1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
-            {{NotFoundError}} and abort these steps.
-        1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"bulk"}},
-            <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
-        1. As appropriate for |endpoint| enqueue a <a lt="bulk transfer">bulk</a> or
-            <a lt="interrupt transfer">interrupt</a> <a>OUT transfer</a> on |endpoint|
-            to transmit |data| to the device.
-        1. Let |result| be a new {{USBOutTransferResult}}.
-        1. Set <code>|result|.{{USBOutTransferResult/bytesWritten}}</code> to the
-            amount of data successfully sent to the device.
-        1. If the endpoint is stalled set
-            <code>|result|.{{USBOutTransferResult/status}}</code> to {{"stall"}}.
+<div algorithm="USBDevice.isochronousTransferIn(endpointNumber, packetLengths)">
+    The <dfn for=USBDevice method>isochronousTransferIn(|endpointNumber|, |packetLengths|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the following
+    steps <a>in parallel</a>:
+    1. Let |device| be <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
+        (i.e {{USBDirection/"in"}} direction).
+    1. Let |endpoint| be the result of <a>finding the endpoint</a> with
+        |endpointAddress| and |device|.
+    1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
+        {{NotFoundError}} and abort these steps.
+    1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"isochronous"}},
+        <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
+    1. Let |length| be the sum of the elements of |packetLengths|.
+    1. Let |buffer| be a new {{ArrayBuffer}} of |length| bytes.
+    1. Let |result| be a new {{USBIsochronousInTransferResult}} and set
+        <code>|result|.{{USBIsochronousInTransferResult/data}}</code> to a new
+        {{DataView}} constructed over |buffer|.
+    1. Enqueue an <a lt="isochronous transfers">isochronous IN transfer</a> on
+        |endpoint| that will write up to |length| bytes of data from the device
+        into |buffer|.
+    1. For each packet |i| from <code>0</code> to <code>|packetLengths|.length -
+        1</code>:
+        1. Let |packet| be a new {{USBIsochronousInTransferPacket}} and set
+            <code>|result|.{{USBIsochronousInTransferResult/packets}}[|i|]</code>
+            to |packet|.
+        1. Let |view| be a new {{DataView}} over the portion of |buffer|
+            containing the data received from the device for this packet and set
+            <code>|packet|.{{USBIsochronousInTransferPacket/data}}</code> to
+            |view|.
+        1. If the device responds with more than <code>|packetLengths|[i]</code>
+            bytes of data set
+            <code>|packet|.{{USBIsochronousInTransferPacket/status}}</code> to
+            {{"babble"}}.
+        1. If the transfer ends because |endpoint| is stalled set
+            <code>|packet|.{{USBIsochronousInTransferPacket/status}}</code> to
+            {{"stall"}}.
         1. If the device acknowledges the complete transfer set
-            <code>|result|.{{USBOutTransferResult/status}}</code> to {{"ok"}}.
-        1. If the transfer fails for any other reason <a>reject</a> |promise| with a
-            {{NetworkError}} and abort these steps.
-        1. <a>Resolve</a> |promise| with |result|.
+            <code>|packet|.{{USBIsochronousInTransferPacket/status}}</code> to
+            {{"ok"}}.
+        1. If the transfer fails for any other reason <a>reject</a> |promise|
+            with a {{NetworkError}} and abort these steps.
+    1. <a>Resolve</a> |promise| with |result|.
+</div>
 
-    : <dfn>isochronousTransferIn(endpointNumber, packetLengths)</dfn>
-    ::
-        The {{USBDevice/isochronousTransferIn(endpointNumber, packetLengths)}} method,
-        when invoked, MUST return a new {{Promise}} |promise| and run the following
-        steps <a>in parallel</a>:
+<div algorithm="USBDevice.isochronousTransferOut(endpointNumber, data, packetLengths)">
+    The <dfn for=USBDevice method>isochronousTransferOut(|endpointNumber|, |data|, |packetLengths|)</dfn> method,
+    when invoked, MUST return a new {{Promise}} |promise| and run the
+    following steps <a>in parallel</a>:
 
-        1. Let |device| be <a>this</a>.
-        1. <a>Check if the device is configured</a> with |device| and |promise|
-            and abort these steps if promise is rejected.
-        1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
-            (i.e {{USBDirection/"in"}} direction).
-        1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-            |endpointAddress| and |device|.
-        1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
-            {{NotFoundError}} and abort these steps.
-        1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"isochronous"}},
-            <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
-        1. Let |length| be the sum of the elements of |packetLengths|.
-        1. Let |buffer| be a new {{ArrayBuffer}} of |length| bytes.
-        1. Let |result| be a new {{USBIsochronousInTransferResult}} and set
-            <code>|result|.{{USBIsochronousInTransferResult/data}}</code> to a new
-            {{DataView}} constructed over |buffer|.
-        1. Enqueue an <a lt="isochronous transfers">isochronous IN transfer</a> on
-            |endpoint| that will write up to |length| bytes of data from the device
-            into |buffer|.
-        1. For each packet |i| from <code>0</code> to <code>|packetLengths|.length -
-            1</code>:
-
-            1. Let |packet| be a new {{USBIsochronousInTransferPacket}} and set
-                <code>|result|.{{USBIsochronousInTransferResult/packets}}[i]</code>
+    1. Let |device| be <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
+    1. Let |endpoint| be the result of <a>finding the endpoint</a> with
+        |endpointAddress| and |device|.
+    1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
+        {{NotFoundError}} and abort these steps.
+    1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"isochronous"}},
+        <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
+    1. Let |result| be a new {{USBIsochronousOutTransferResult}}.
+    1. Enqueue an <a lt="isochronous transfers">isochronous OUT transfer</a> on
+        |endpoint| that will write |data| to the device, divided into
+        <code>|packetLength|.length</code> packets of
+        <code>|packetLength|[i]</code> bytes (for packets |i| from <code>0</code>
+        to <code>|packetLengths|.length - 1</code>).
+    1. For each packet |i| from <code>0</code> to <code>|packetLengths|.length -
+        1</code> the host attempts to send to the device:
+            1. Let |packet| be a new {{USBIsochronousOutTransferPacket}} and set
+                <code>|result|.{{USBIsochronousOutTransferResult/packets}}[i]</code>
                 to |packet|.
-            1. Let |view| be a new {{DataView}} over the portion of |buffer|
-                containing the data received from the device for this packet and set
-                <code>|packet|.{{USBIsochronousInTransferPacket/data}}</code> to
-                |view|.
-            1. If the device responds with more than <code>|packetLengths|[i]</code>
-                bytes of data set
-                <code>|packet|.{{USBIsochronousInTransferPacket/status}}</code> to
-                {{"babble"}}.
+            1. Let
+                <code>|packet|.{{USBIsochronousOutTransferPacket/bytesWritten}}</code>
+                be the amount of data successfully sent to the device as part of this
+                packet.
             1. If the transfer ends because |endpoint| is stalled set
-                <code>|packet|.{{USBIsochronousInTransferPacket/status}}</code> to
+                <code>|packet|.{{USBIsochronousOutTransferPacket/status}}</code> to
                 {{"stall"}}.
             1. If the device acknowledges the complete transfer set
-                <code>|packet|.{{USBIsochronousInTransferPacket/status}}</code> to
+                <code>|packet|.{{USBIsochronousOutTransferPacket/status}}</code> to
                 {{"ok"}}.
             1. If the transfer fails for any other reason <a>reject</a> |promise|
                 with a {{NetworkError}} and abort these steps.
-        1. <a>Resolve</a> |promise| with |result|.
+    1. <a>Resolve</a> |promise| with |result|.
+</div>
 
-    : <dfn>isochronousTransferOut(endpointNumber, data, packetLengths)</dfn>
-    ::
-        The {{USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)}}
-        method, when invoked, MUST return a new {{Promise}} |promise| and run the
-        following steps <a>in parallel</a>:
+<div algorithm="USBDevice.reset()">
+    The <dfn for=USBDevice method>reset()</dfn> method,
+    when invoked, MUST return a new {{Promise}}
+    |promise| and run the following steps <a>in parallel</a>:
 
-        1. Let |device| be <a>this</a>.
-        1. <a>Check if the device is configured</a> with |device| and |promise|
-            and abort these steps if promise is rejected.
-        1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
-        1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-            |endpointAddress| and |device|.
-        1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
-            {{NotFoundError}} and abort these steps.
-        1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"isochronous"}},
-            <a>reject</a> |promise| with an {{InvalidAccessError}} and abort these steps.
+    1. Let |device| be the <a>this</a>.
+    1. <a>Check if the device is configured</a> with |device| and |promise|
+        and abort these steps if promise is rejected.
+    1. Abort all operations on the device and <a>reject</a> their associated
+        promises with an {{AbortError}}.
+    1. Perform the necessary platform-specific operation to soft reset the device.
+    1. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
+        <a>resolve</a> |promise|.
 
-        1. Let |length| be the sum of the elements of |packetLengths|.
-        1. Let |result| be a new {{USBIsochronousOutTransferResult}}.
-        1. Enqueue an <a lt="isochronous transfers">isochronous OUT transfer</a> on
-            |endpoint| that will write |buffer| to the device, divided into
-            <code>|packetLength|.length</code> packets of
-            <code>|packetLength|[i]</code> bytes (for packets |i| from <code>0</code>
-            to <code>|packetLengths|.length - 1</code>).
-        1. For each packet |i| from <code>0</code> to <code>|packetLengths|.length -
-            1</code> the host attempts to send to the device:
-
-                1. Let |packet| be a new {{USBIsochronousOutTransferPacket}} and set
-                    <code>|result|.{{USBIsochronousOutTransferResult/packets}}[i]</code>
-                    to |packet|.
-                1. Let
-                    <code>|packet|.{{USBIsochronousOutTransferPacket/bytesWritten}}</code>
-                    be the amount of data successfully sent to the device as part of this
-                    packet.
-                1. If the transfer ends because |endpoint| is stalled set
-                    <code>|packet|.{{USBIsochronousOutTransferPacket/status}}</code> to
-                    {{"stall"}}.
-                1. If the device acknowledges the complete transfer set
-                    <code>|packet|.{{USBIsochronousOutTransferPacket/status}}</code> to
-                    {{"ok"}}.
-                1. If the transfer fails for any other reason <a>reject</a> |promise|
-                    with a {{NetworkError}} and abort these steps.
-        1. <a>Resolve</a> |promise| with |result|.
-
-    : <dfn>reset()</dfn>
-    ::
-        The {{USBDevice/reset()}} method, when invoked, MUST return a new {{Promise}}
-        |promise| and run the following steps <a>in parallel</a>:
-
-        1. Let |device| be the <a>this</a>.
-        1. <a>Check if the device is configured</a> with |device| and |promise|
-            and abort these steps if promise is rejected.
-        1. Abort all operations on the device and <a>reject</a> their associated
-            promises with an {{AbortError}}.
-        1. Perform the necessary platform-specific operation to soft reset the device.
-        1. On failure <a>reject</a> |promise| with a {{NetworkError}}, otherwise
-            <a>resolve</a> |promise|.
-
-        Issue(36):
-        What configuration is the device in after it resets?
-</dl>
+    Issue(36):
+    What configuration is the device in after it resets?
+</div>
 
 ## The USBControlTransferParameters Dictionary ## {#usbtransfers-dictionary}
 
@@ -1738,30 +1735,26 @@ slots</a> described in the following table:
 
 ### Constructors ### {#usbconfiguration-constructors}
 
-<dl dfn-type=constructor dfn-for="USBConfiguration">
-    : <dfn>USBConfiguration(device,configurationValue)</dfn>
-    ::
-        <div algorithm="USBConfiguration constructor">
-            1. Let |device| be the parameter of <code>device</code>.
-            1. Let |configurationValue| be the parameter of <code>configurationValue</code>.
-            1. Set <a>this</a>.{{USBConfiguration/[[device]]}} to |device|.
-            1. Set <a>this</a>.{{USBConfiguration/[[configurationValue]]}} to |configurationValue|.
-            1. Let |descriptors| be the result of <a>finding a list of descriptors for a configuration</a>
-                with <code>configurationValue</code> set to |configurationValue|.
-            1. Let |seen| be an empty <a>ordered set</a>.
-            1. <a>For each</a> |descriptor| of |descriptors|:
-                1. If the <code>bDescriptorType</code> of the |descriptor|
-                    is not equal to <code>INTERFACE</code>, continue.
-                1. If the <code>bInterfaceNumber</code> of the |descriptor|
-                    is in |seen|, continue.
-                1. Let |interface| be a <a>new</a> {{USBInterface}} object using
-                    <a>USBInterface(|configuration|,|interfaceNumber|)</a> with
-                    |configuration| set to <a>this</a> and
-                    |interfaceNumber| set to <code>bInterfaceNumber</code> of |descriptor|.
-                1. <a>Append</a> |interface| to <a>this</a>.{{USBConfiguration/[[interfaces]]}}.
-                1. <a>Append</a> <code>bInterfaceNumber</code> of |descriptor| to |seen|.
-        </div>
-</dl>
+<div algorithm="USBConfiguration constructor">
+    The <dfn constructor for=USBConfiguration>USBConfiguration(|device|, |configurationValue|)</dfn>
+    constructor MUST, when called, perform the following steps:
+    1. Set <a>this</a>.{{USBConfiguration/[[device]]}} to |device|.
+    1. Set <a>this</a>.{{USBConfiguration/[[configurationValue]]}} to |configurationValue|.
+    1. Let |descriptors| be the result of <a>finding a list of descriptors for a configuration</a>
+        with <code>configurationValue</code> set to |configurationValue|.
+    1. Let |seen| be an empty <a>ordered set</a>.
+    1. <a>For each</a> |descriptor| of |descriptors|:
+        1. If the <code>bDescriptorType</code> of the |descriptor|
+            is not equal to <code>INTERFACE</code>, continue.
+        1. If the <code>bInterfaceNumber</code> of the |descriptor|
+            is in |seen|, continue.
+        1. Let |interface| be a <a>new</a> {{USBInterface}} object using
+            <a>USBInterface(|configuration|,|interfaceNumber|)</a> with
+            |configuration| set to <a>this</a> and
+            |interfaceNumber| set to <code>bInterfaceNumber</code> of |descriptor|.
+        1. <a>Append</a> |interface| to <a>this</a>.{{USBConfiguration/[[interfaces]]}}.
+        1. <a>Append</a> <code>bInterfaceNumber</code> of |descriptor| to |seen|.
+</div>
 
 ### Attributes ### {#usbconfiguration-attributes}
 <dl dfn-type=attribute dfn-for="USBConfiguration">
@@ -1895,31 +1888,27 @@ low level access through this API would.
 
 ### Constructors ### {#usbinterface-constructors}
 
-<dl dfn-type=constructor dfn-for="USBInterface">
-    : <dfn>USBInterface(configuration,interfaceNumber)</dfn>
-    ::
-        <div algorithm="USBInterface constructor"> 
-            1. Let |configuration| be the parameter of <code>configuration</code>.
-            1. Let |interfaceNumber| be the parameter of <code>interfaceNumber</code>.
-            1. Set <a>this</a>.{{USBInterface/[[configuration]]}} to |configuration|.
-            1. Set <a>this</a>.{{USBInterface/[[interfaceNumber]]}} to |interfaceNumber|.
-            1. Let |descriptors| be the result of
-                <a>finding a list of descriptors for a configuration</a> with
-                <code>configurationValue</code> set to
-                |configuration|.{{USBConfiguration/[[configurationValue]]}}.
-            1. <a>For each</a> |descriptor| of |descriptors|:
-                1. If <code>bDescriptorType</code> of |descriptor| is not equal to <code>INTERFACE</code>,
-                    continue.
-                1. If <code>bInterfaceNumber</code> of |descriptor| is not equal to |interfaceNumber|,
-                    continue.
-                1. If |descriptor| <a>has a protected interface class</a>,
-                    set <a>this</a>.{{USBInterface/[[isProtectedClass]]}} to <code>true</code>.
-                1. Let |alternate| be a <a>new</a> {{USBAlternateInterface}} object 
-                    using <a>USBAlternateInterface(|deviceInterface|,|alternateSetting|)</a> with
-                    |deviceInterface| set to <a>this</a> and
-                    |alternateSetting| set to the <code>bAlternateSetting</code> of the |descriptor|.
-                1. <a>Append</a> |alternate| to <a>this</a>.{{USBInterface/[[alternates]]}}.
-        </div>
+<div algorithm="USBInterface constructor">
+    The <dfn constructor for=USBInterface>USBInterface(|configuration|, |interfaceNumber|)</dfn>
+    constructor MUST, when called, perform the following steps:
+    1. Set <a>this</a>.{{USBInterface/[[configuration]]}} to |configuration|.
+    1. Set <a>this</a>.{{USBInterface/[[interfaceNumber]]}} to |interfaceNumber|.
+    1. Let |descriptors| be the result of
+        <a>finding a list of descriptors for a configuration</a> with
+        <code>configurationValue</code> set to
+        |configuration|.{{USBConfiguration/[[configurationValue]]}}.
+    1. <a>For each</a> |descriptor| of |descriptors|:
+        1. If <code>bDescriptorType</code> of |descriptor| is not equal to <code>INTERFACE</code>,
+            continue.
+        1. If <code>bInterfaceNumber</code> of |descriptor| is not equal to |interfaceNumber|,
+            continue.
+        1. If |descriptor| <a>has a protected interface class</a>,
+            set <a>this</a>.{{USBInterface/[[isProtectedClass]]}} to <code>true</code>.
+        1. Let |alternate| be a <a>new</a> {{USBAlternateInterface}} object 
+            using <a>USBAlternateInterface(|deviceInterface|,|alternateSetting|)</a> with
+            |deviceInterface| set to <a>this</a> and
+            |alternateSetting| set to the <code>bAlternateSetting</code> of the |descriptor|.
+        1. <a>Append</a> |alternate| to <a>this</a>.{{USBInterface/[[alternates]]}}.
 </dl>
 
 ### Attributes ### {#usbinterface-attributes}
@@ -2066,34 +2055,30 @@ slots</a> described in the following table:
 
 ### Constructors ### {#usbalternateinterface-constructors}
 
-<dl dfn-type=constructor dfn-for="USBAlternateInterface">
-    : <dfn>USBAlternateInterface(deviceInterface,alternateSetting)</dfn>
-    ::
-        <div algorithm="USBAlternateInterface constructor">
-            1. Let |deviceInterface| be the parameter of <code>deviceInterface</code>.
-            1. Let |alternateSetting| be the parameter of <code>alternateSetting</code>.
-            1. Set <a>this</a>.{{USBAlternateInterface/[[interface]]}} to |deviceInterface|.
-            1. Set <a>this</a>.{{USBAlternateInterface/[[alternateSetting]]}} to be |alternateSetting|.
-            1. Let |descriptors| be the result of <a>finding a list of endpoint descriptors</a> with 
-                <code>interfaceNumber</code> set to |deviceInterface|.{{USBInterface/interfaceNumber}},
-                <code>alternateSetting</code> set to |alternateSetting|,
-                and <code>configurationValue</code> set to
-                |deviceInterface|.{{USBInterface/[[configuration]]}}.{{USBConfiguration/[[configurationValue]]}}.
-            1. <a>For each</a> |descriptor| of |descriptors|:
-                1. If <code>bmAttributes</code> of |descriptor| indicates it is a 
-                    Control Transfer Type (i.e. bits <code>0..1</code> is <code>00</code> 
-                    according to <a>endpoint descriptor</a>), continue.
-                1. Let |endpointAddress| be <code>bEndpointAddress</code> of |descriptor|.
-                1. Let |dir| be {{USBDirection/"out"}} if <code>|endpointAddress| & 0x80</code> is <code>0</code>,
-                    and {{USBDirection/"in"}} otherwise.
-                1. Let |endpoint| be a <a>new</a> {{USBEndpoint}} object 
-                    using <a>USBEndpoint(|alternate|,|endpointNumber|,|direction|)</a>
-                    with |alternate| set to <a>this</a>,
-                    |endpointNumber| set to <code>|endpointAddress| & 0xF</code>, and
-                    |direction| set to |dir|.
-                1. <a>Append</a> |endpoint| to <a>this</a>.{{USBAlternateInterface/[[endpoints]]}}.
-        </div>
-</dl>
+<div algorithm="USBAlternateInterface constructor">
+    The <dfn constructor for=USBAlternateInterface>USBAlternateInterface(|deviceInterface|, |alternateSetting|)</dfn>
+    constructor MUST, when called, perform the following steps:
+    1. Set <a>this</a>.{{USBAlternateInterface/[[interface]]}} to |deviceInterface|.
+    1. Set <a>this</a>.{{USBAlternateInterface/[[alternateSetting]]}} to be |alternateSetting|.
+    1. Let |descriptors| be the result of <a>finding a list of endpoint descriptors</a> with
+        <code>interfaceNumber</code> set to |deviceInterface|.{{USBInterface/interfaceNumber}},
+        <code>alternateSetting</code> set to |alternateSetting|,
+        and <code>configurationValue</code> set to
+        |deviceInterface|.{{USBInterface/[[configuration]]}}.{{USBConfiguration/[[configurationValue]]}}.
+    1. <a>For each</a> |descriptor| of |descriptors|:
+        1. If <code>bmAttributes</code> of |descriptor| indicates it is a 
+            Control Transfer Type (i.e. bits <code>0..1</code> is <code>00</code>
+            according to <a>endpoint descriptor</a>), continue.
+        1. Let |endpointAddress| be <code>bEndpointAddress</code> of |descriptor|.
+        1. Let |dir| be {{USBDirection/"out"}} if <code>|endpointAddress| & 0x80</code> is <code>0</code>,
+            and {{USBDirection/"in"}} otherwise.
+        1. Let |endpoint| be a <a>new</a> {{USBEndpoint}} object
+            using <a>USBEndpoint(|alternate|,|endpointNumber|,|direction|)</a>
+            with |alternate| set to <a>this</a>,
+            |endpointNumber| set to <code>|endpointAddress| & 0xF</code>, and
+            |direction| set to |dir|.
+        1. <a>Append</a> |endpoint| to <a>this</a>.{{USBAlternateInterface/[[endpoints]]}}.
+</div>
 
 ### Attributes ### {#usbalternateinterface-attributes}
 
@@ -2206,19 +2191,14 @@ slots</a> described in the following table:
 
 ### Constructors ### {#usbendpoint-constructors}
 
-<dl dfn-type=constructor dfn-for="USBEndpoint">
-    : <dfn>USBEndpoint(alternate,endpointNumber,direction)</dfn>
-    ::
-        <div algorithm="USBEndpoint constructor">
-            1. Let |alternate| be the parameter of <code>alternate</code>.
-            1. Let |endpointNumber| be the parameter of <code>endpointNumber</code>.
-            1. Let |direction| be the parameter of <code>direction</code>.
-            1. Set <a>this</a>.{{USBEndpoint/[[alternateInterface]]}} to |alternate|.
-            1. Set |endpointAddress| to <code>|endpointNumber| | 0x80</code>
-                If |direction| is {{USBDirection/"in"}}, and |endpointNumber| otherwise.
-            1. Set <a>this</a>.{{USBEndpoint/[[endpointAddress]]}} to |endpointAddress|.
-        </div>
-</dl>
+<div algorithm="endpointNumber constructor">
+    The <dfn constructor for=endpointNumber>endpointNumber(|alternate|, |endpointNumber|, |direction|)</dfn>
+    constructor MUST, when called, perform the following steps:
+    1. Set <a>this</a>.{{USBEndpoint/[[alternateInterface]]}} to |alternate|.
+    1. Set |endpointAddress| to <code>|endpointNumber| | 0x80</code>
+        If |direction| is {{USBDirection/"in"}}, and |endpointNumber| otherwise.
+    1. Set <a>this</a>.{{USBEndpoint/[[endpointAddress]]}} to |endpointAddress|.
+</div>
 
 ### Attributes ### {#usbendpoint-attributes}
 
