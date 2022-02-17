@@ -709,8 +709,7 @@ the UA MUST run the following steps:
      <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code> where
      |device| is in |allowedDevice|@{{[[devices]]}}, if no such element exists,
      abort these steps.
-  2. Remove |device| from |allowedDevice|@{{[[devices]]}}.
-  3. Remove |allowedDevice| from
+  2. Remove |allowedDevice| from
      <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code>.
 
 ## Events ## {#events}
@@ -954,8 +953,8 @@ The {{USBDevice/forget()}} method, when invoked, MUST return a new {{Promise}}
 
 Note: The user agent MAY decide to combine permissions across APIs, for instance
 tracking WebHID + WebUSB device access under a unified low-level device access
-permission. This is why this method may also revoke additional (unspecified yet)
-permissions in the future.
+permission. For this reason, this method may also revoke additional (unspecified
+yet) permissions in the future.
 
 The {{USBDevice/selectConfiguration(configurationValue)}} method, when invoked,
 MUST return a new {{Promise}} |promise| and run the following steps in
