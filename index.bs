@@ -974,7 +974,7 @@ slots</a> described in the following table:
 
 <div algorithm="find the device descriptor for the connected USB device">
     To <dfn>find the device descriptor for the connected USB device</dfn>,
-    performing the following steps:
+    perform the following steps:
     1. Let |deviceDescriptor| be the <a>device descriptor</a> of the connected
         device by performing <a>Get Descriptor</a> with
         <code>DescriptorType</code> set to <code>DEVICE</code>.
@@ -983,81 +983,81 @@ slots</a> described in the following table:
 
 <div algorithm="find a list of configuration descriptors for the connected USB device">
     To <dfn>find a list of configuration descriptors for the connected USB device</dfn>,
-    performing the following steps:
+    perform the following steps:
     1. Let |deviceDescriptor| be the result of
         <a>finding the device descriptor for the connected USB device</a>.
     1. Let |numConfigurations| be <code>bNumConfigurations</code> of |deviceDescriptor|.
     1. Let |configurationIndex| be 0.
     1. Let |configurationDescriptors| be an <a>empty</a> <a>list</a>.
-    1. While |configurationIndex| is smaller than |numConfigurations|:
+    1. While |configurationIndex| is less than |numConfigurations|:
         1. Let |descriptors| be the a list of <a>descriptors</a>
             by performing <a>Get Descriptor</a> with
             <code>DescriptorType</code> set to <code>CONFIGURATION</code> and
             <code>DescriptorIndex</code> set to |configurationIndex|.
         1. If the <code>bDescriptorType</code> of the |descriptors|[0] is equal to <code>CONFIGURATION</code>,
             <a>append</a> |descriptors|[0] to |configurationDescriptors|.
-        1. Advance |configurationIndex| by 1.
+        1. Increment |configurationIndex| by 1.
     1. Return |configurationDescriptors|.
 </div>
 
 <div algorithm="abort transfers currently scheduled on an interface">
     To <dfn>abort transfers currently scheduled on an interface</dfn> with the given |interface| object,
-    performing the following steps:
+    perform the following steps:
     1. Let |configuration| be |interface|.{{USBInterface/[[configuration]]}}.
     1. Let |device| be |configuration|.{{USBConfiguration/[[device]]}}.
-    1. If |device|.{{USBDevice/[[configurationValue]]}} is equal to 0, return.
-    1. If |device|.{{USBDevice/[[configurationValue]]}} is not
-        equal to |configuration|.{{USBConfiguration/[[configurationValue]]}},
-        return.
-    1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-        |interface|.{{USBInterface/[[interfaceNumber]]}} and
-        |interface|.{{USBInterface/[[configuration]]}}.
-    1. <a>Assert</a>: |interfaceIndex| is not equal to <code>-1</code>.
-    1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is not <code>true</code>, return.
-    1. Let |currAlternateSetting| be |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|].
-    1. Let |currAlternateIndex| be the result of <a>finding the alternate index</a> with
-        |currAlternateSetting| and |interface|.
-    1. <a>Assert</a>: |currAlternateIndex| is not equal to <code>-1</code>.
-    1. Let |currAlternateInterface| be |interface|.{{USBInterface/[[alternates]]}}[|currAlternateIndex|].
+    1. If |configuration| is not the same as the result of <a>finding the current configuration</a>
+        with |device|, return.
+    1. If the result of <a>finding if the interface is claimed</a> with |interface|
+        is not <code>true</code>, return.
+    1. Let |currAlternateInterface| be the result of
+        <a>finding the alternateInterface for the current alternate setting</a> with |interface|.
     1. <a>For each</a> |endpoint| of |currAlternateInterface|.{{USBAlternateInterface/endpoints}}:
-        1. Abort transfer currently scheduled on |endpoint| and <a>reject</a>
-            the associated promise with a {{AbortError}}.
+        1. Abort all transfers currently scheduled on |endpoint| and <a>reject</a>
+            the associated promises with an {{AbortError}}.
 </div>
 
 <div algorithm="find the interface index">
     To <dfn>find the interface index</dfn> with the given |interfaceNumber| and |configuration| object,
-    performing the following steps:
+    perform the following steps:
     1. Let |interfaceIndex| be 0.
-    1. While |interfaceIndex| smaller than the <a>size</a> of |configuration|.{{USBConfiguration/[[interfaces]]}}:
+    1. While |interfaceIndex| is less than the <a>size</a> of |configuration|.{{USBConfiguration/[[interfaces]]}}:
         1. If |configuration|.{{USBConfiguration/[[interfaces]]}}[|interfaceIndex|].{{USBInterface/[[interfaceNumber]]}}
             is equal to |interfaceNumber|, return |interfaceIndex|.
+        1. Increment |interfaceIndex| by 1.
     1. Return <code>-1</code>.
 </div>
 
 <div algorithm="find the alternate index">
     To <dfn>find the alternate index</dfn> with the given |alternateSetting| and |interface| object,
-    performing the following steps:
+    perform the following steps:
     1. Let |alternateIndex| be 0.
-    1. While |alternateIndex| smaller than the <a>size</a> of |interface|.{{USBInterface/[[alternates]]}}:
+    1. While |alternateIndex| is less than the <a>size</a> of |interface|.{{USBInterface/[[alternates]]}}:
         1. If |interface|.{{USBInterface/[[alternates]]}}[|alternateIndex|].{{USBAlternateInterface/[[alternateSetting]]}}
             is equal to |alternateSetting|, return |alternateIndex|.
+        1. Increment |alternateIndex| by 1.
     1. Return <code>-1</code>.
+</div>
+
+<div algorithm="find the current configuration">
+    To <dfn>find the current configuration</dfn> with the given |device| object,
+    perform the following steps:
+    1. <a>For each</a> |configuration| of |device|.{{USBDevice/[[configurations]]}}:
+        1. If |configuration|.{{USBConfiguration/[[configurationValue]]}} is equal to 
+            |device|.{{USBDevice/[[configurationValue]]}}, return |configuration|.
+    1. Return <code>null</code>.
 </div>
 
 <div algorithm="find the endpoint">
     To <dfn>find the endpoint</dfn> with the given |endpointAddress| and |device| object,
-    performing the following steps:
-    1. Let |configuration| be |device|.{{USBDevice/configuration}}.
+    perform the following steps:
+    1. Let |configuration| be the result of <a>finding the current configuration</a>
+        with |device|.
     1. If |configuration| is <code>null</code>, return <code>null</code>.
     1. <a>For each</a> |interface| of |configuration|.{{USBConfiguration/[[interfaces]]}}:
-        1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-            |interface|.{{USBInterface/[[interfaceNumber]]}} and |configuration|.
-        1. <a>Assert</a>: |interfaceIndex| is not equal to <code>-1</code>.
-        1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is not <code>true</code>, continue.
-        1. Let |alternateIndex| be the result of <a>finding the alternate index</a> with
-            |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|] and |interface|.
-        1. <a>Assert</a>: |alternateIndex| is not equal to <code>-1</code>.
-        1. Let |alternate| be |interface|.{{USBInterface/[[alternates]]}}[|alternateIndex|].
+        1. If the result of <a>finding if the interface is claimed</a> with |interface|
+            is not <code>true</code>, continue.
+        1. Let |alternate| be the result of
+            <a>finding the alternateInterface for the current alternate setting</a> with |interface|.
         1. <a>For each</a> |endpoint| of |alternate|.{{USBAlternateInterface/[[endpoints]]}}:
             1. If |endpoint|.{{USBEndpoint/[[endpointAddress]]}} is equal to |endpointAddress|, return |endpoint|
     1. Return <code>null</code>.
@@ -1065,12 +1065,12 @@ slots</a> described in the following table:
 
 <div algorithm="check if the device is configured">
     To <dfn>check if the device is configured</dfn> with the given |device| and |promise|,
-    performing the following steps:
+    perform the following steps:
     1. If the |device| is no longer connected to the system, <a>reject</a> |promise| 
         with a {{NotFoundError}} and abort these steps.
     1. If <code>|device|.{{USBDevice/opened}}</code> is not <code>true</code>, or
         |device|.{{USBDevice/[[configurationValue]]}} is equal to <code>0</code>,
-        <a>reject</a> |promise| with a {{InvalidStateError}}.
+        <a>reject</a> |promise| with an {{InvalidStateError}}.
 </div>
 
 <div algorithm="USBDevice constructor">
@@ -1080,7 +1080,7 @@ slots</a> described in the following table:
     1. Let |configurationDescriptors| be the result of
         <a>finding a list of configuration descriptors for the connected USB device</a>.
     1. <a>For each</a> |configurationDescriptor| of |configurationDescriptors|:
-        1. Let |configuration| be a <a>new</a> {{USBConfiguration}} object 
+        1. Let |configuration| be a <a>new</a> {{USBConfiguration}} object
             using <a>USBConfiguration(|device|,|configurationValue|)</a>
             with |device| set to <a>this</a> and
             |configurationValue| set to <code>bConfigurationValue</code> of |configurationDescriptor|.
@@ -1155,10 +1155,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
         {{USBDevice/configurations}}.
 
         The {{USBDevice/configuration}} getter steps are:
-          1. <a>For each</a> |configuration| of <a>this</a>.{{USBDevice/configurations}}:
-              1. If |configuration|.{{USBConfiguration/[[configurationValue]]}} is equal to 
-                  <a>this</a>.{{USBDevice/[[configurationValue]]}}, return |configuration|.
-          1. Return <code>null</code>.
+          1. Return the result of <a>finding the current configuration</a> with <a>this</a>.
 
     : <dfn>configurations</dfn>
     ::
@@ -1181,15 +1178,14 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>open()</dfn> method,
     when invoked, MUST return a new {{Promise}}
     |promise| and run the following steps <a>in parallel</a>:
-    1. Let |device| be <a>this</a>.
-    1. If |device| is no longer connected to the system, <a>reject</a> |promise|
+    1. If <a>this</a> is no longer connected to the system, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
-    1. If <code>|device|.{{USBDevice/opened}}</code> is <code>true</code>
+    1. If <code><a>this</a>.{{USBDevice/opened}}</code> is <code>true</code>
         <a>resolve</a> |promise| and abort these steps.
     1. Perform the necessary platform-specific steps to begin a session with the
         device. If these fail for any reason <a>reject</a> |promise| with a
         {{NetworkError}} and abort these steps.
-    1. Set <code>|device|.{{USBDevice/opened}}</code> to <code>true</code> and
+    1. Set <code><a>this</a>.{{USBDevice/opened}}</code> to <code>true</code> and
         <a>resolve</a> |promise|.
 </div>
 
@@ -1197,10 +1193,9 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>close()</dfn> method,
     when invoked, MUST return a new {{Promise}}
     |promise| and run the following steps <a>in parallel</a>:
-    1. Let |device| be the <a>this</a>.
-    1. If |device| is no longer connected to the system, <a>reject</a> |promise|
+    1. If <a>this</a> is no longer connected to the system, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
-    1. If <code>|device|.{{USBDevice/opened}}</code> is <code>false</code>
+    1. If <code><a>this</a>.{{USBDevice/opened}}</code> is <code>false</code>
         <a>resolve</a> |promise| and abort these steps.
     1. Abort all other algorithms currently running against this device and
         <a>reject</a> their associated promises with an {{AbortError}}.
@@ -1209,7 +1204,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
         called for each claimed interface.
     1. Perform the necessary platform-specific steps to end the session with the
         device.
-    1. Set <code>|device|.{{USBDevice/opened}}</code> to <code>false</code> and
+    1. Set <code><a>this</a>.{{USBDevice/opened}}</code> to <code>false</code> and
         <a>resolve</a> |promise|.
 
     Note: When no [[!ECMAScript]] code can observe an instance of {{USBDevice}} |device|
@@ -1218,35 +1213,35 @@ All USB devices MUST have a <a>default control pipe</a> which is
 
 <div algorithm="USBDevice.selectConfiguration(configurationValue)">
     The <dfn for=USBDevice method>selectConfiguration(|configurationValue|)</dfn> method,
-    when invoked, MUST return a new {{Promise}} |promise| and run the following steps in
-    parallel:
-    1. Let |device| be the <a>this</a>.
-    1. If |device| is no longer connected to the system, <a>reject</a> |promise|
+    when invoked, MUST return a new {{Promise}} |promise| and run the following steps <a>in
+    parallel</a>:
+    1. If <a>this</a> is no longer connected to the system, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
     1. Let |selectedConfiguration| be <code>null</code>.
-    1. <a>For each</a> |configuration| of |device|.{{USBDevice/[[configurations]]}}:
+    1. <a>For each</a> |configuration| of <a>this</a>.{{USBDevice/[[configurations]]}}:
         1. If |configuration|.{{USBConfiguration/[[configurationValue]]}} is equal to
             |configurationValue|, set |selectedConfiguration| to |configuration|
             and break.
     1. If |selectedConfiguration| is <code>null</code>, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
-    1. If <code>|device|.{{USBDevice/opened}}</code> is not equal to
+    1. If <code><a>this</a>.{{USBDevice/opened}}</code> is not equal to
         <code>true</code> <a>reject</a> |promise| with an {{InvalidStateError}} and
         abort these steps.
-    1. If |device|.{{USBDevice/configuration}} is not <code>null</code>:
-        1. <a>For each</a> |interface| of
-            |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}:
-            1. Perform <a>aborting transfers currently scheduled on an interface</a> with |interface|.
+    1. Let |activeConfiguration| be the result of <a>finding the current configuration</a>
+        with <a>this</a>.
+    1. If |activeConfiguration| is not <code>null</code>.
+        1. <a>For each</a> |interface| of |activeConfiguration|.{{USBConfiguration/[[interfaces]]}}:
+            1. <a>Abort transfers currently scheduled on an interface</a> with |interface|.
     1. Issue a <code>SET_CONFIGURATION</code> <a>control transfer</a> with
         <code>configurationValue</code> set to the |configurationValue|.
         If this step fails <a>reject</a> |promise| with a {{NetworkError}} and
         abort these steps.
     1. Let |numInterfaces| be the <a>size</a> of |selectedConfiguration|.{{USBConfiguration/[[interfaces]]}}.
-    1. Resize |device|.{{USBDevice/[[selectedAlternateSetting]]}} to |numInterfaces|.
-    1. Fill |device|.{{USBDevice/[[selectedAlternateSetting]]}} with 0.
-    1. Resize |device|.{{USBDevice/[[claimedInterface]]}} to |numInterfaces|.
-    1. Fill |device|.{{USBDevice/[[claimedInterface]]}} with <code>false</code>.
-    1. Set |device|.{{USBDevice/[[configurationValue]]}} to |configurationValue| 
+    1. Resize <a>this</a>.{{USBDevice/[[selectedAlternateSetting]]}} to |numInterfaces|.
+    1. Fill <a>this</a>.{{USBDevice/[[selectedAlternateSetting]]}} with 0.
+    1. Resize <a>this</a>.{{USBDevice/[[claimedInterface]]}} to |numInterfaces|.
+    1. Fill <a>this</a>.{{USBDevice/[[claimedInterface]]}} with <code>false</code>.
+    1. Set <a>this</a>.{{USBDevice/[[configurationValue]]}} to |configurationValue| 
         and <a>resolve</a> |promise|.
 </div>
 
@@ -1254,22 +1249,23 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>claimInterface(|interfaceNumber|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the following 
     steps <a>in parallel</a>:
-    1. Let |device| be the <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
-    1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
+    1. Let |activeConfiguration| be the result of <a>finding the current configuration</a>
+        with <a>this</a>.
+    1. Let |interfaces| be |activeConfiguration|.{{USBConfiguration/[[interfaces]]}}.
     1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-        |interfaceNumber| and |device|.{{USBDevice/configuration}}.
+        |interfaceNumber| and |activeConfiguration|.
     1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
-    1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>true</code>,
+    1. If <a>this</a>.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>true</code>,
         <a>resolve</a> |promise| and abort these steps.
     1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is <code>true</code>,
         [=reject=] |promise| with a {{SecurityError}} and abort these steps.
     1. Perform the necessary platform-specific steps to request exclusive control
         over |interfaces|[|interfaceIndex|] for the current execution context. If this fails,
         <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
-    1. Set |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>true</code>
+    1. Set <a>this</a>.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>true</code>
         and <a>resolve</a> |promise|.
 </div>
 
@@ -1277,20 +1273,21 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>releaseInterface(|interfaceNumber|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the following
     steps <a>in parallel</a>:
-    1. Let |device| be the <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
-    1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
+    1. Let |activeConfiguration| be the result of <a>finding the current configuration</a>
+        with <a>this</a>.
+    1. Let |interfaces| be |activeConfiguration|.{{USBConfiguration/[[interfaces]]}}.
     1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-        |interfaceNumber| and |device|.{{USBDevice/configuration}}.
+        |interfaceNumber| and |activeConfiguration|.
     1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
-    1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>false</code>,
+    1. If <a>this</a>.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>false</code>,
         <a>resolve</a> |promise| and abort these steps.
     1. Perform the necessary platform-specific steps to reliquish exclusive
         control over |interfaces|[|interfaceIndex|].
-    1. Set |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|] to <code>0</code>.
-    1. Set |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>false</code>
+    1. Set <a>this</a>.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|] to <code>0</code>.
+    1. Set <a>this</a>.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] to <code>false</code>
         and <a>resolve</a> |promise|.
 </div>
 
@@ -1298,15 +1295,16 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>selectAlternateInterface(|interfaceNumber|, |alternateSetting|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the
     following steps <a>in parallel</a>:
-    1. Let |device| be the <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
-    1. Let |interfaces| be |device|.{{USBDevice/configuration}}.{{USBConfiguration/[[interfaces]]}}.
+    1. Let |activeConfiguration| be the result of <a>finding the current configuration</a>
+        with <a>this</a>.
+    1. Let |interfaces| be |activeConfiguration|.{{USBConfiguration/[[interfaces]]}}.
     1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
-        |interfaceNumber| and |device|.{{USBDevice/configuration}}.
+        |interfaceNumber| and |activeConfiguration|.
     1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
-    1. If |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|
+    1. If <a>this</a>.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|
         is not <code>true</code>, <a>reject</a> |promise| with an
         {{InvalidStateError}} and abort these steps.
     1. Let |interface| be |interfaces|[|interfaceIndex|].
@@ -1314,13 +1312,13 @@ All USB devices MUST have a <a>default control pipe</a> which is
         |alternateSetting| and |interface|.
     1. If |alternateIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
         with a {{NotFoundError}} and abort these steps.
-    1. Perform <a>aborting transfers currently scheduled on an interface</a> with |interface|.
+    1. <a>Abort transfers currently scheduled on an interface</a> with |interface|.
     1. Issue a <code>SET_INTERFACE</code> <a>control transfer</a> with
         <code>interfaceNumber</code> set to the |interfaceNumber| and
         <code>alternateSetting</code> set to the |alternateSetting|.
         If this step fails <a>reject</a> |promise| with a {{NetworkError}} and
         abort these steps.
-    1. Set |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|]
+    1. Set <a>this</a>.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|]
         to |alternateSetting|.
     1. <a>Resolve</a> |promise|.
 </div>
@@ -1328,29 +1326,28 @@ All USB devices MUST have a <a>default control pipe</a> which is
 <div algorithm="USBDevice.controlTransferIn(setup, length)">
     The <dfn for=USBDevice method>controlTransferIn(|setup|, |length|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
-    in parallel:
-    1. Let |device| be the <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    <a>in parallel</a>:
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
-    1. <a>Check the validity of the control transfer parameters</a> with |device|
+    1. <a>Check the validity of the control transfer parameters</a> with <a>this</a>
         and abort these steps if |promise| is rejected.
     1. If |length| is greater than 0, let |buffer| be a host buffer with space
         for |length| bytes.
-    1. Issue a <a>control transfer</a> to |device| with the setup packet parameters
+    1. Issue a <a>control transfer</a> to <a>this</a> with the setup packet parameters
         provided in |setup|, the data transfer direction in
         <code>bmRequestType</code> set to "device to host" and <code>wLength</code>
         set to |length|. If defined also provide |buffer| as the destination to
         write data received in response to this transfer.
     1. Let |bytesTransferred| be the number of bytes written to |buffer|.
     1. Let |result| be a new {{USBInTransferResult}}.
-    1. If data was received from |device| create a new {{ArrayBuffer}} containing
+    1. If data was received from <a>this</a> create a new {{ArrayBuffer}} containing
         the first |bytesTransferred| bytes of |buffer| and set
         <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
         constructed over it.
-    1. If |device| responded by stalling the
+    1. If <a>this</a> responded by stalling the
         <a>default control pipe</a> set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-    1. If |device| responded with more than |length| bytes of data set
+    1. If <a>this</a> responded with more than |length| bytes of data set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}} and
         otherwise set it to {{"ok"}}.
     1. If the transfer fails for any other reason <a>reject</a> |promise| with a
@@ -1362,10 +1359,9 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>controlTransferOut(|setup|, |data|)</dfn> method,
     when invoked, must return a new {{Promise}} |promise| and run the following
     steps <a>in parallel</a>:
-    1. Let |device| be the <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
-    1. <a>Check the validity of the control transfer parameters</a> with |device|
+    1. <a>Check the validity of the control transfer parameters</a> with <a>this</a>
         and abort these steps if |promise| is rejected.
     1. Issue a <a>control transfer</a> with the <a>setup packet</a> populated by
         |setup| and the data transfer direction in <code>bmRequestType</code> set
@@ -1389,14 +1385,13 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>clearHalt(|direction|, |endpointNumber|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
     <a>in parallel</a>:
-    1. Let |device| be <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
     1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code> if
         |direction| is equal to {{USBDirection/"in"}}, and |endpointNumber|
         otherwise.
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-        |endpointAddress| and |device|.
+        |endpointAddress| and <a>this</a>.
     1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
         {{NotFoundError}} and abort these steps.
     1. Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a>control transfer</a> to
@@ -1410,13 +1405,12 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>transferIn(|endpointNumber|, |length|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
     <a>in parallel</a>:
-    1. Let |device| be <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
     1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
         (i.e {{USBDirection/"in"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-        |endpointAddress| and |device|.
+        |endpointAddress| and <a>this</a>.
     1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
         {{NotFoundError}} and abort these steps.
     1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"bulk"}},
@@ -1427,15 +1421,15 @@ All USB devices MUST have a <a>default control pipe</a> which is
         to receive |length| bytes of data from the device into |buffer|.
     1. Let |bytesTransferred| be the number of bytes written to |buffer|.
     1. Let |result| be a new {{USBInTransferResult}}.
-    1. If data was received from |device| create a new {{ArrayBuffer}} containing
+    1. If data was received from <a>this</a> create a new {{ArrayBuffer}} containing
         the first |bytesTransferred| bytes of |buffer| and set
         <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
         constructed over it.
-    1. If |device| responded with more than |length| bytes of data set
+    1. If <a>this</a> responded with more than |length| bytes of data set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}}.
     1. If the transfer ended because |endpoint| is halted set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-    1. If |device| acknowledged the complete transfer set
+    1. If <a>this</a> acknowledged the complete transfer set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"ok"}}.
     1. If the transfer failed for any other reason <a>reject</a> |promise| with a
         {{NetworkError}} and abort these steps.
@@ -1445,13 +1439,12 @@ All USB devices MUST have a <a>default control pipe</a> which is
 <div algorithm="USBDevice.transferOut(endpointNumber, data)">
     The <dfn for=USBDevice method>transferOut(|endpointNumber|, |data|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
-    in parallel:
-    1. Let |device| be <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    <a>in parallel</a>:
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
     1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-        |endpointAddress| and |device|.
+        |endpointAddress| and <a>this</a>.
     1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
         {{NotFoundError}} and abort these steps.
     1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"bulk"}},
@@ -1475,13 +1468,12 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>isochronousTransferIn(|endpointNumber|, |packetLengths|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the following
     steps <a>in parallel</a>:
-    1. Let |device| be <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
     1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
         (i.e {{USBDirection/"in"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-        |endpointAddress| and |device|.
+        |endpointAddress| and <a>this</a>.
     1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
         {{NotFoundError}} and abort these steps.
     1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"isochronous"}},
@@ -1522,13 +1514,11 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>isochronousTransferOut(|endpointNumber|, |data|, |packetLengths|)</dfn> method,
     when invoked, MUST return a new {{Promise}} |promise| and run the
     following steps <a>in parallel</a>:
-
-    1. Let |device| be <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
     1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
-        |endpointAddress| and |device|.
+        |endpointAddress| and <a>this</a>.
     1. If |endpoint| is <code>null</code>, <a>reject</a> |promise| with a
         {{NotFoundError}} and abort these steps.
     1. If |endpoint|.{{USBEndpoint/type}} is not equal to {{USBEndpointType/"isochronous"}},
@@ -1563,9 +1553,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     The <dfn for=USBDevice method>reset()</dfn> method,
     when invoked, MUST return a new {{Promise}}
     |promise| and run the following steps <a>in parallel</a>:
-
-    1. Let |device| be the <a>this</a>.
-    1. <a>Check if the device is configured</a> with |device| and |promise|
+    1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
         and abort these steps if promise is rejected.
     1. Abort all operations on the device and <a>reject</a> their associated
         promises with an {{AbortError}}.
@@ -1604,22 +1592,24 @@ All USB devices MUST have a <a>default control pipe</a> which is
 
 <div algorithm="check the validity of the control transfer parameters">
     To <dfn>check the validity of the control transfer parameters</dfn> with the given
-    |device|, performing the following steps:
+    |device|, perform the following steps:
 
     1. Let |setup| be the {{USBControlTransferParameters}} created for the transfer.
     1. Let |promise| be the promise created for the transfer.
-    1. Let |configuration| be |device|.{{USBDevice/configuration}}.
+    1. Let |configuration| be the result of <a>finding the current configuration</a>
+        with |device|.
     1. If |configuration| is <code>null</code>, abort these steps.
     1. If <code>|setup|.{{USBControlTransferParameters/recipient}}</code> is
         {{"interface"}}, perform the following steps:
         1. Let |interfaceNumber| be the lower 8 bits of
             <code>|setup|.{{USBControlTransferParameters/index}}</code>.
-        1. Let |interface| be the interface in the |configuration| with
-            <code>bInterfaceNumber</code> equal to |interfaceNumber|. If no such
-            interface exists, <a>reject</a> |promise| with a {{NotFoundError}} and
-            abort these steps.
-        1. If <code>|interface|.{{USBInterface/claimed}}</code> is not equal to
-            <code>true</code>, <a>reject</a> |promise| with an
+        1. Let |interfaceIndex| be the result of <a>finding the interface index</a> with
+            |interfaceNumber| and |configuration|.
+        1. If |interfaceIndex| is equal to <code>-1</code>, <a>reject</a> |promise|
+            with a {{NotFoundError}} and abort these steps.
+        1. Let |interface| be |configuration|.{{USBConfiguration/[[interfaces]]}}[|interfaceIndex|].
+        1. If the result of <a>finding if the interface is claimed</a> with |interface|
+            is not <code>true</code>, <a>reject</a> |promise| with an
             {{InvalidStateError}} and abort these steps.
     1. If <code>|setup|.{{USBControlTransferParameters/recipient}}</code> is
         {{"endpoint"}}, run the following steps:
@@ -1630,9 +1620,9 @@ All USB devices MUST have a <a>default control pipe</a> which is
             {{NotFoundError}} and abort these steps.
         1. Let |alternate| be |endpoint|.{{USBEndpoint/[[alternateInterface]]}}.
         1. Let |interface| be |alternate|.{{USBAlternateInterface/[[interface]]}}.
-        1. If <code>|interface|.{{USBInterface/claimed}}</code> is not equal to
-            <code>true</code>, <a>reject</a> |promise| with an
-            {{InvalidStateError}}.
+        1. If the result of <a>finding if the interface is claimed</a> with |interface|
+            is not <code>true</code>, <a>reject</a> |promise| with an
+            {{InvalidStateError}} and abort these steps.
 </div>
 
 ### Members ### {#usbtransfers-members}
@@ -1716,20 +1706,20 @@ slots</a> described in the following table:
 
 <div algorithm="find a list of descriptors for a configuration">
     To <dfn>find a list of descriptors for a configuration</dfn> with the given |configurationValue|,
-    performing the following steps:
+    perform the following steps:
     1. Let |deviceDescriptor| be the result of
         <a>finding the device descriptor for the connected USB device</a>.
     1. Let |numConfigurations| be <code>bNumConfigurations</code> of |deviceDescriptor|.
     1. Let |configurationIndex| be 0.
-    1. While |configurationIndex| is smaller than |numConfigurations|:
+    1. While |configurationIndex| is less than |numConfigurations|:
         1. Let |descriptors| be the a list of <a>descriptors</a>
             by performing <a>Get Descriptor</a> with
             <code>DescriptorType</code> set to <code>CONFIGURATION</code> and
             <code>DescriptorIndex</code> set to |configurationIndex|.
         1. If <code>bDescriptorType</code> of |descriptors|[0] is equal to <code>CONFIGURATION</code> and
-            <code>bConfigurationValue</code> of |descriptors| is equal to |configurationValue|, return 
+            <code>bConfigurationValue</code> of |descriptors| is equal to |configurationValue|, return
             |descriptors|.
-        1. Advance |configurationIndex| by 1.
+        1. Increment |configurationIndex| by 1.
     1. Return <a>empty</a> result.
 </div>
 
@@ -1826,7 +1816,7 @@ slots</a> described in the following table:
     <td><dfn>\[[alternates]]</dfn></td>
     <td>An empty <a>sequence</a> of {{USBAlternateInterface}}</td>
     <td>
-      All alternate setting supported by this interface.
+      All alternate settings supported by this interface.
     </td>
   </tr>
   <tr>
@@ -1886,6 +1876,39 @@ level APIs. The list above includes interface classes for which such high level
 APIs exist and provide greater protection for user privacy and security than
 low level access through this API would.
 
+<div algorithm="find if the interface is claimed">
+    To <dfn>find if the interface is claimed</dfn> with the given |interface|,
+    perform the following steps:
+    1. Let |configuration| be |interface|.{{USBInterface/[[configuration]]}}.
+    1. Let |device| be |configuration|.{{USBConfiguration/[[device]]}}.
+    1. If |configuration| is not the same as the result of <a>finding the current configuration</a>
+        with |device|, return <code>false</code>.
+    1. Let |interfaceIndex| be the result of <a>finding the interface index</a>
+        with |interface|.{{USBInterface/[[interfaceNumber]]}} and |configuration|.
+    1. <a>Assert</a>: |interfaceIndex| is not equal to <code>-1</code>.
+    1. Return |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|].
+</div>
+
+<div algorithm="find the alternateInterface for the current alternate setting">
+    To <dfn>find the alternateInterface for the current alternate setting</dfn> with the given |interface|,
+    perform the following steps:
+    1. Let |configuration| be |interface|.{{USBInterface/[[configuration]]}}.
+    1. Let |device| be |configuration|.{{USBConfiguration/[[device]]}}.
+    1. Let |alternateIndex| be 0.
+    1. If the result of <a>finding if the interface is claimed</a> with |interface| is <code>true</code>:
+        1. Let |interfaceIndex| be the result of <a>finding the interface index</a>
+            with |interface|.{{USBInterface/[[interfaceNumber]]}} and |configuration|.
+        1. <a>Assert</a>: |interfaceIndex| is not equal to <code>-1</code>.
+        1. Set |alternateIndex| to be the result of <a>finding the alternate index</a>
+            with |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|] and |interface|.
+    1. <a>Assert</a>: |alternateIndex| is not equal to <code>-1</code>.
+    1. Return |interface|.{{USBInterface/alternates}}[|alternateIndex|].
+    
+    Note: There is at least one alternate setting for an interface according to
+    <a>Interface Descriptor</a> [[!USB31]], as there must at least one alternate setting 
+    in the <a>Interface Descriptor</a>.
+</div>
+
 ### Constructors ### {#usbinterface-constructors}
 
 <div algorithm="USBInterface constructor">
@@ -1909,7 +1932,7 @@ low level access through this API would.
             |deviceInterface| set to <a>this</a> and
             |alternateSetting| set to the <code>bAlternateSetting</code> of the |descriptor|.
         1. <a>Append</a> |alternate| to <a>this</a>.{{USBInterface/[[alternates]]}}.
-</dl>
+</div>
 
 ### Attributes ### {#usbinterface-attributes}
 
@@ -1932,22 +1955,9 @@ low level access through this API would.
         <code>0</code>.
 
         The {{USBInterface/alternate}} getter steps are:
-            1. Let |configuration| be <a>this</a>.{{USBInterface/[[configuration]]}}.
-            1. Let |device| be |configuration|.{{USBConfiguration/[[device]]}}.
-            1. Let |alternateIndex| be 0.
-            1. If <a>this</a>.{{USBInterface/claimed}} is <code>true</code>:
-                1. Let |interfaceIndex| be the result of <a>finding the interface index</a>
-                    with <a>this</a>.{{USBInterface/[[interfaceNumber]]}} and |configuration|.
-                1. If |interfaceIndex| is not equal to <code>-1</code>:
-                    1. Let |interface| be |configuration|.{{USBConfiguration/[[interfaces]]}}[|interfaceIndex|].
-                    1. Set |alternateIndex| to the result of <a>finding the alternate index</a>
-                        with |device|.{{USBDevice/[[selectedAlternateSetting]]}}[|interfaceIndex|] and |interface|.
-            1. <a>Assert</a>: |alternateIndex| is not equal to <code>-1</code>.
-            1. Return <a>this</a>.{{USBInterface/alternates}}[|alternateIndex|].
-        
-        Note: There is at least one alternate setting for an interface according to
-        <a>Interface Descriptor</a> [[!USB31]], as there must at least one alternate setting 
-        in the <a>Interface Descriptor</a>.
+            1. Return the result of
+                <a>finding the alternateInterface for the current alternate setting</a>
+                with <a>this</a>.
 
     : <dfn>alternates</dfn>
     ::
@@ -1965,15 +1975,7 @@ low level access through this API would.
         <code>false</code> otherwise.
 
         The {{USBInterface/claimed}} getter steps are:
-            1. Let |configuration| be {{USBInterface/[[configuration]]}}.
-            1. Let |device| be |configuration|.{{USBConfiguration/[[device]]}}.
-            1. If |configuration| is not the same as |device|.{{USBDevice/configuration}},
-                return <code>false</code>.
-            1. Let |interfaceIndex| be the result of <a>finding the interface index</a>
-                with <a>this</a>.{{USBInterface/[[interfaceNumber]]}} and
-                <a>this</a>.{{USBInterface/[[configuration]]}}.
-            1. If |interfaceIndex| is equal to <code>-1</code>, return <code>false</code>.
-            1. Return |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|].
+            1. Return the result of <a>finding if the interface is claimed</a> with <a>this</a>.
 </dl>
 
 
@@ -2030,26 +2032,26 @@ slots</a> described in the following table:
 
 <div algorithm="find a list of endpoint descriptors">
     To <dfn>find a list of endpoint descriptors</dfn> with the given |alternateSetting|
-    , |interfaceNumber|, and |configurationValue|, performing the following steps:
+    , |interfaceNumber|, and |configurationValue|, perform the following steps:
     1. Let |descriptors| as a result of <a>finding a list of descriptors for a configuration</a>
         with |configurationValue|.
     1. Let |endpointDescriptors| as an empty <a>list</a>.
     1. Let |index| be 0.
-    1. While |index| is smaller than the size of |descriptors|:
-        1. Let |descriptor| be |descriptors|[|index|]
+    1. While |index| is less than the <a>size</a> of |descriptors|:
+        1. Let |descriptor| be |descriptors|[|index|].
         1. If <code>bDescriptorType</code> of |descriptor| is not equal to <code>INTERFACE</code>,
-            advance |index| by 1 and continue.
+            increment |index| by 1 and continue.
         1. if <code>bInterfaceNumber</code> of |descriptor| is not equal |interfaceNumber|,
-            advance |index| by 1 and continue.
+            increment |index| by 1 and continue.
         1. if <code>bAlternateSetting</code> of |descriptor| is not equal |alternateSetting|,
-            advance |index| by 1 and continue.
+            increment |index| by 1 and continue.
         1. If <code>bNumEndpoints</code> is equal to 0, return |endpointDescriptors|.
         1. Let |numEndpoints| be <code>bNumEndpoints</code> of |descriptor|.
         1. Let |indexEndpoints| be 0.
         1. Let |offset| be |index| + 1
-        1. While |indexEndpoints| is smaller than |numEndpoints|:
+        1. While |indexEndpoints| is less than |numEndpoints|:
             1. <a>Append</a> |descriptors|[|indexEndpoints| + |offset|] to |endpointDescriptors|.
-            1. Advance |indexEndpoints| by 1.
+            1. Increment |indexEndpoints| by 1.
         1. Return |endpointDescriptors|.
 </div>
 
@@ -2176,7 +2178,7 @@ slots</a> described in the following table:
 
 <div algorithm="find the endpoint descriptor">
     To <dfn>find the endpoint descriptor</dfn> with the given |endpoint| object,
-    performing the following steps:
+    perform the following steps:
     1. Let |alternateInterface| be |endpoint|.{{USBEndpoint/[[alternateInterface]]}}.
     1. Let |interface| be |alternateInterface|.{{USBAlternateInterface/[[interface]]}}.
     1. Let |configuration| be |interface|.{{USBInterface/[[configuration]]}}.
@@ -2398,8 +2400,8 @@ Descriptor Type and Descriptor Index, described in in section 9.4.3 of [[!USB31]
 
 Note: As <a>descriptors</a> of the device stay the same for the most of the time (with
 occasional occurrences of <a>Set Descriptor</a> which might modify the <a>descriptors</a>).
-In order to save the redundant <a>Get Descriptor</a> traffic to the device, implementation
-could have a read-through & wirte-through cache layer to store the <a>descriptors</a>
+In order to save the redundant <a>Get Descriptor</a> traffic to the device, implementations
+could have a read-through & write-through cache layer to store the <a>descriptors</a>
 of the device.
 
 A <dfn>control transfer</dfn> is a special class of USB traffic most commonly
