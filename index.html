@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
-  <meta content="fa3c54ac4d311737bbf187da99688d660f3f3395" name="document-revision">
+  <meta content="80342dee41c88d8307650d7b76226ae3ebceff8b" name="document-revision">
 <style>
 table {
   border-collapse: collapse;
@@ -650,7 +650,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-01-20">20 January 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-02-23">23 February 2022</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1422,6 +1422,16 @@ the UA MUST run the following steps:</p>
     <li data-md>
      <p>Return <var>allowedDevice</var>.</p>
    </ol>
+   <p>To <dfn class="dfn-paneled" data-dfn-type="dfn" data-lt="remove device from storage" data-noexport id="remove-device-from-storage">remove an allowed <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device②">USB
+device</a></dfn> <var>device</var>, given a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage③">USBPermissionStorage</a></code> <var>storage</var>,
+the UA MUST run the following steps:</p>
+   <ol>
+    <li data-md>
+     <p>Search for an element <var>allowedDevice</var> in <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices④">allowedDevices</a></code></code> where <var>device</var> is in <var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot④">[[devices]]</a></code>, if no such element exists,
+ abort these steps.</p>
+    <li data-md>
+     <p>Remove <var>allowedDevice</var> from <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices⑤">allowedDevices</a></code></code>.</p>
+   </ol>
    <h3 class="heading settled" data-level="5.1" id="events"><span class="secno">5.1. </span><span class="content">Events</span><a class="self-link" href="#events"></a></h3>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -1478,11 +1488,11 @@ the UA MUST run the following steps:</p>
   [<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SameObject" id="ref-for-SameObject②"><c- g>SameObject</c-></a>] <c- b>readonly</c-> <c- b>attribute</c-> <a data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice⑤"><c- n>USBDevice</c-></a> <dfn class="idl-code" data-dfn-for="USBConnectionEvent" data-dfn-type="attribute" data-export data-readonly data-type="USBDevice" id="dom-usbconnectionevent-device"><code><c- g>device</c-></code><a class="self-link" href="#dom-usbconnectionevent-device"></a></dfn>;
 };
 </pre>
-   <p>When the UA detects a new <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device②">USB device</a> <var>device</var> connected to the host it
+   <p>When the UA detects a new <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device③">USB device</a> <var>device</var> connected to the host it
 MUST perform the following steps for each script execution environment:</p>
    <ol>
     <li data-md>
-     <p>Let <var>storage</var> be the <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage③">USBPermissionStorage</a></code> object in the current
+     <p>Let <var>storage</var> be the <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage④">USBPermissionStorage</a></code> object in the current
  script execution environment.</p>
     <li data-md>
      <p><a data-link-type="dfn" href="#check-permissions-for-device" id="ref-for-check-permissions-for-device①">Check permissions for <var>device</var></a> with <var>storage</var> and let <var>allowedDevice</var> be the result.</p>
@@ -1511,19 +1521,19 @@ MUST perform the following steps for each script execution environment:</p>
      </div>
      <p>Fire an event named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="connect">connect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb">usb</a></code>, using <var>event</var> as the event object.</p>
    </ol>
-   <p>When the UA detects a <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device③">USB device</a> <var>device</var> has been disconnected from the
+   <p>When the UA detects a <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device④">USB device</a> <var>device</var> has been disconnected from the
 host it MUST perform the following steps for each script execution environment:</p>
    <ol>
     <li data-md>
-     <p>Let <var>storage</var> be the <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage④">USBPermissionStorage</a></code> object in the current
+     <p>Let <var>storage</var> be the <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑤">USBPermissionStorage</a></code> object in the current
  script execution environment.</p>
     <li data-md>
-     <p>Search for an element <var>allowedDevice</var> in <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices④">allowedDevices</a></code></code> where <var>device</var> is in <var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot④">[[devices]]</a></code>, if no such element exists,
+     <p>Search for an element <var>allowedDevice</var> in <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices⑥">allowedDevices</a></code></code> where <var>device</var> is in <var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot⑤">[[devices]]</a></code>, if no such element exists,
  abort these steps.</p>
     <li data-md>
-     <p>Remove <var>device</var> from <var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot⑤">[[devices]]</a></code>.</p>
+     <p>Remove <var>device</var> from <var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot⑥">[[devices]]</a></code>.</p>
     <li data-md>
-     <p>If <code><var>allowedDevice</var>.<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-serialnumber" id="ref-for-dom-allowedusbdevice-serialnumber①">serialNumber</a></code></code> is <code>undefined</code> and <var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot⑥">[[devices]]</a></code> is empty remove <var>allowedDevice</var> from <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices⑤">allowedDevices</a></code></code>.</p>
+     <p>If <code><var>allowedDevice</var>.<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-serialnumber" id="ref-for-dom-allowedusbdevice-serialnumber①">serialNumber</a></code></code> is <code>undefined</code> and <var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot⑦">[[devices]]</a></code> is empty remove <var>allowedDevice</var> from <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices⑦">allowedDevices</a></code></code>.</p>
     <li data-md>
      <p>Let <var>device</var> be the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice⑦">USBDevice</a></code> object representing <var>device</var>.</p>
     <li data-md>
@@ -1601,18 +1611,19 @@ host it MUST perform the following steps for each script execution environment:<
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean" id="ref-for-idl-boolean"><c- b>boolean</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="attribute" data-export data-readonly data-type="boolean" id="dom-usbdevice-opened"><code><c- g>opened</c-></code></dfn>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise②"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="open()" id="dom-usbdevice-open"><code><c- g>open</c-></code></dfn>();
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise③"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined①"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="close()" id="dom-usbdevice-close"><code><c- g>close</c-></code></dfn>();
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise④"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="selectConfiguration(configurationValue)" id="dom-usbdevice-selectconfiguration"><code><c- g>selectConfiguration</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①②"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/selectConfiguration(configurationValue)" data-dfn-type="argument" data-export id="dom-usbdevice-selectconfiguration-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code><a class="self-link" href="#dom-usbdevice-selectconfiguration-configurationvalue-configurationvalue"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑤"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined③"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="claimInterface(interfaceNumber)" id="dom-usbdevice-claiminterface"><code><c- g>claimInterface</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①③"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/claimInterface(interfaceNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-claiminterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code><a class="self-link" href="#dom-usbdevice-claiminterface-interfacenumber-interfacenumber"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑥"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined④"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="releaseInterface(interfaceNumber)" id="dom-usbdevice-releaseinterface"><code><c- g>releaseInterface</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①④"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/releaseInterface(interfaceNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code><a class="self-link" href="#dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑦"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined⑤"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="selectAlternateInterface(interfaceNumber, alternateSetting)" id="dom-usbdevice-selectalternateinterface"><code><c- g>selectAlternateInterface</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑤"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)" data-dfn-type="argument" data-export id="dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber"><code><c- g>interfaceNumber</c-></code><a class="self-link" href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑥"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)" data-dfn-type="argument" data-export id="dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting"><code><c- g>alternateSetting</c-></code><a class="self-link" href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑧"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult"><c- n>USBInTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="controlTransferIn(setup, length)" id="dom-usbdevice-controltransferin"><code><c- g>controlTransferIn</c-></code></dfn>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters"><c- n>USBControlTransferParameters</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferIn(setup, length)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferin-setup-length-setup"><code><c- g>setup</c-></code><a class="self-link" href="#dom-usbdevice-controltransferin-setup-length-setup"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short④"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferIn(setup, length)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferin-setup-length-length"><code><c- g>length</c-></code><a class="self-link" href="#dom-usbdevice-controltransferin-setup-length-length"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑨"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult"><c- n>USBOutTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="controlTransferOut(setup, data)|controlTransferOut(setup)" id="dom-usbdevice-controltransferout"><code><c- g>controlTransferOut</c-></code></dfn>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters①"><c- n>USBControlTransferParameters</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferout-setup-data-setup"><code><c- g>setup</c-></code><a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-setup"></a></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource"><c- n>BufferSource</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferout-setup-data-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-data"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①⓪"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined⑥"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="clearHalt(direction, endpointNumber)" id="dom-usbdevice-clearhalt"><code><c- g>clearHalt</c-></code></dfn>(<a data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection"><c- n>USBDirection</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/clearHalt(direction, endpointNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-clearhalt-direction-endpointnumber-direction"><code><c- g>direction</c-></code><a class="self-link" href="#dom-usbdevice-clearhalt-direction-endpointnumber-direction"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑦"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/clearHalt(direction, endpointNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①①"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult①"><c- n>USBInTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="transferIn(endpointNumber, length)" id="dom-usbdevice-transferin"><code><c- g>transferIn</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑧"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferIn(endpointNumber, length)" data-dfn-type="argument" data-export id="dom-usbdevice-transferin-endpointnumber-length-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-transferin-endpointnumber-length-endpointnumber"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferIn(endpointNumber, length)" data-dfn-type="argument" data-export id="dom-usbdevice-transferin-endpointnumber-length-length"><code><c- g>length</c-></code><a class="self-link" href="#dom-usbdevice-transferin-endpointnumber-length-length"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①②"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult①"><c- n>USBOutTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="transferOut(endpointNumber, data)" id="dom-usbdevice-transferout"><code><c- g>transferOut</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑨"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export id="dom-usbdevice-transferout-endpointnumber-data-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber"></a></dfn>, <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource①"><c- n>BufferSource</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export id="dom-usbdevice-transferout-endpointnumber-data-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-data"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①③"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbisochronousintransferresult" id="ref-for-usbisochronousintransferresult"><c- n>USBIsochronousInTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="isochronousTransferIn(endpointNumber, packetLengths)" id="dom-usbdevice-isochronoustransferin"><code><c- g>isochronousTransferIn</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②⓪"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferIn(endpointNumber, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber"></a></dfn>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferIn(endpointNumber, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①④"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferresult" id="ref-for-usbisochronousouttransferresult"><c- n>USBIsochronousOutTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="isochronousTransferOut(endpointNumber, data, packetLengths)" id="dom-usbdevice-isochronoustransferout"><code><c- g>isochronousTransferOut</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②①"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"></a></dfn>, <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource②"><c- n>BufferSource</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"></a></dfn>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence③"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"></a></dfn>);
-  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①⑤"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined⑦"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="reset()" id="dom-usbdevice-reset"><code><c- g>reset</c-></code></dfn>();
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise④"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined②"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="forget()" id="dom-usbdevice-forget"><code><c- g>forget</c-></code></dfn>();
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑤"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined③"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="selectConfiguration(configurationValue)" id="dom-usbdevice-selectconfiguration"><code><c- g>selectConfiguration</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①②"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/selectConfiguration(configurationValue)" data-dfn-type="argument" data-export id="dom-usbdevice-selectconfiguration-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code><a class="self-link" href="#dom-usbdevice-selectconfiguration-configurationvalue-configurationvalue"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑥"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined④"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="claimInterface(interfaceNumber)" id="dom-usbdevice-claiminterface"><code><c- g>claimInterface</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①③"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/claimInterface(interfaceNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-claiminterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code><a class="self-link" href="#dom-usbdevice-claiminterface-interfacenumber-interfacenumber"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑦"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined⑤"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="releaseInterface(interfaceNumber)" id="dom-usbdevice-releaseinterface"><code><c- g>releaseInterface</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①④"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/releaseInterface(interfaceNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code><a class="self-link" href="#dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑧"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined⑥"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="selectAlternateInterface(interfaceNumber, alternateSetting)" id="dom-usbdevice-selectalternateinterface"><code><c- g>selectAlternateInterface</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑤"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)" data-dfn-type="argument" data-export id="dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber"><code><c- g>interfaceNumber</c-></code><a class="self-link" href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-interfacenumber"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑥"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/selectAlternateInterface(interfaceNumber, alternateSetting)" data-dfn-type="argument" data-export id="dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting"><code><c- g>alternateSetting</c-></code><a class="self-link" href="#dom-usbdevice-selectalternateinterface-interfacenumber-alternatesetting-alternatesetting"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise⑨"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult"><c- n>USBInTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="controlTransferIn(setup, length)" id="dom-usbdevice-controltransferin"><code><c- g>controlTransferIn</c-></code></dfn>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters"><c- n>USBControlTransferParameters</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferIn(setup, length)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferin-setup-length-setup"><code><c- g>setup</c-></code><a class="self-link" href="#dom-usbdevice-controltransferin-setup-length-setup"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-short" id="ref-for-idl-unsigned-short④"><c- b>unsigned</c-> <c- b>short</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferIn(setup, length)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferin-setup-length-length"><code><c- g>length</c-></code><a class="self-link" href="#dom-usbdevice-controltransferin-setup-length-length"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①⓪"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult"><c- n>USBOutTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="controlTransferOut(setup, data)|controlTransferOut(setup)" id="dom-usbdevice-controltransferout"><code><c- g>controlTransferOut</c-></code></dfn>(<a data-link-type="idl-name" href="#dictdef-usbcontroltransferparameters" id="ref-for-dictdef-usbcontroltransferparameters①"><c- n>USBControlTransferParameters</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferout-setup-data-setup"><code><c- g>setup</c-></code><a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-setup"></a></dfn>, <c- b>optional</c-> <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource"><c- n>BufferSource</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/controlTransferOut(setup, data), USBDevice/controlTransferOut(setup)" data-dfn-type="argument" data-export id="dom-usbdevice-controltransferout-setup-data-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-usbdevice-controltransferout-setup-data-data"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①①"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined⑦"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="clearHalt(direction, endpointNumber)" id="dom-usbdevice-clearhalt"><code><c- g>clearHalt</c-></code></dfn>(<a data-link-type="idl-name" href="#enumdef-usbdirection" id="ref-for-enumdef-usbdirection"><c- n>USBDirection</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/clearHalt(direction, endpointNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-clearhalt-direction-endpointnumber-direction"><code><c- g>direction</c-></code><a class="self-link" href="#dom-usbdevice-clearhalt-direction-endpointnumber-direction"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑦"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/clearHalt(direction, endpointNumber)" data-dfn-type="argument" data-export id="dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-clearhalt-direction-endpointnumber-endpointnumber"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①②"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbintransferresult" id="ref-for-usbintransferresult①"><c- n>USBInTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="transferIn(endpointNumber, length)" id="dom-usbdevice-transferin"><code><c- g>transferIn</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑧"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferIn(endpointNumber, length)" data-dfn-type="argument" data-export id="dom-usbdevice-transferin-endpointnumber-length-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-transferin-endpointnumber-length-endpointnumber"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long"><c- b>unsigned</c-> <c- b>long</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferIn(endpointNumber, length)" data-dfn-type="argument" data-export id="dom-usbdevice-transferin-endpointnumber-length-length"><code><c- g>length</c-></code><a class="self-link" href="#dom-usbdevice-transferin-endpointnumber-length-length"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①③"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbouttransferresult" id="ref-for-usbouttransferresult①"><c- n>USBOutTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="transferOut(endpointNumber, data)" id="dom-usbdevice-transferout"><code><c- g>transferOut</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet①⑨"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export id="dom-usbdevice-transferout-endpointnumber-data-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-endpointnumber"></a></dfn>, <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource①"><c- n>BufferSource</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/transferOut(endpointNumber, data)" data-dfn-type="argument" data-export id="dom-usbdevice-transferout-endpointnumber-data-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-usbdevice-transferout-endpointnumber-data-data"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①④"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbisochronousintransferresult" id="ref-for-usbisochronousintransferresult"><c- n>USBIsochronousInTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="isochronousTransferIn(endpointNumber, packetLengths)" id="dom-usbdevice-isochronoustransferin"><code><c- g>isochronousTransferIn</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②⓪"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferIn(endpointNumber, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-endpointnumber"></a></dfn>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence②"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long①"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferIn(endpointNumber, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferin-endpointnumber-packetlengths-packetlengths"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①⑤"><c- b>Promise</c-></a>&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferresult" id="ref-for-usbisochronousouttransferresult"><c- n>USBIsochronousOutTransferResult</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="isochronousTransferOut(endpointNumber, data, packetLengths)" id="dom-usbdevice-isochronoustransferout"><code><c- g>isochronousTransferOut</c-></code></dfn>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②①"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"><code><c- g>endpointNumber</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-endpointnumber"></a></dfn>, <a data-link-type="idl-name" href="https://webidl.spec.whatwg.org/#BufferSource" id="ref-for-BufferSource②"><c- n>BufferSource</c-></a> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"><code><c- g>data</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-data"></a></dfn>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence" id="ref-for-idl-sequence③"><c- b>sequence</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-unsigned-long" id="ref-for-idl-unsigned-long②"><c- b>unsigned</c-> <c- b>long</c-></a>> <dfn class="idl-code" data-dfn-for="USBDevice/isochronousTransferOut(endpointNumber, data, packetLengths)" data-dfn-type="argument" data-export id="dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"><code><c- g>packetLengths</c-></code><a class="self-link" href="#dom-usbdevice-isochronoustransferout-endpointnumber-data-packetlengths-packetlengths"></a></dfn>);
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise" id="ref-for-idl-promise①⑥"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined" id="ref-for-idl-undefined⑧"><c- b>undefined</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export data-lt="reset()" id="dom-usbdevice-reset"><code><c- g>reset</c-></code></dfn>();
 };
 </pre>
    <div class="example" id="example-9924ab8f">
@@ -1986,6 +1997,22 @@ device is opened by the current execution context and SHALL be set to <code>fals
      <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened④">opened</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑥">resolve</a> <var>promise</var>.</p>
    </ol>
    <p>When no <a data-link-type="biblio" href="#biblio-ecmascript">[ECMAScript]</a> code can observe an instance of <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⓪">USBDevice</a></code> <var>device</var> anymore, the UA SHOULD run <var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-close" id="ref-for-dom-usbdevice-close①">close()</a></code>.</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-forget" id="ref-for-dom-usbdevice-forget">forget()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑤">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">in parallel</a>:</p>
+   <ol>
+    <li data-md>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①①">USBDevice</a></code> object.</p>
+    <li data-md>
+     <p>Let <var>storage</var> be the <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑥">USBPermissionStorage</a></code> object in the current
+ script execution environment.</p>
+    <li data-md>
+     <p><a data-link-type="dfn" href="#remove-device-from-storage" id="ref-for-remove-device-from-storage">Remove <var>device</var> from storage</a> with <var>storage</var>.</p>
+    <li data-md>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑦">Resolve</a> <var>promise</var>.</p>
+   </ol>
+   <p class="note" role="note"><span>Note:</span> The user agent MAY decide to combine permissions across APIs, for instance
+tracking WebHID + WebUSB device access under a unified low-level device access
+permission. For this reason, this method may also revoke additional (unspecified
+yet) permissions in the future.</p>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
@@ -2003,11 +2030,11 @@ device is opened by the current execution context and SHALL be set to <code>fals
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectconfiguration" id="ref-for-dom-usbdevice-selectconfiguration②">selectConfiguration(configurationValue)</a></code> method, when invoked,
-MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑤">Promise</a></code> <var>promise</var> and run the following steps in
+MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑥">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md>
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①①">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①②">USBDevice</a></code> object.</p>
     <li data-md>
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror③">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
@@ -2026,7 +2053,7 @@ parallel:</p>
  If this step fails <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①⓪">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror①">NetworkError</a></code> and
  abort these steps.</p>
     <li data-md>
-     <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration②">configuration</a></code></code> to <var>configuration</var> and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑦">resolve</a> <var>promise</var>.</p>
+     <p>Set <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-configuration" id="ref-for-dom-usbdevice-configuration②">configuration</a></code></code> to <var>configuration</var> and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑧">resolve</a> <var>promise</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -2045,11 +2072,11 @@ parallel:</p>
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-claiminterface" id="ref-for-dom-usbdevice-claiminterface②">claimInterface(interfaceNumber)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑥">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel④">in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑦">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑤">in
 parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①②">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①③">USBDevice</a></code> object.</p>
     <li data-md>
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①①">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror⑤">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
@@ -2060,19 +2087,19 @@ parallel</a>:</p>
      <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened⑥">opened</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①③">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror①">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md>
-     <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed">claimed</a></code></code> is <code>true</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑧">resolve</a> <var>promise</var> and abort these steps.</p>
+     <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed">claimed</a></code></code> is <code>true</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑨">resolve</a> <var>promise</var> and abort these steps.</p>
     <li data-md>
      <p>If <var>interface</var> <a data-link-type="dfn" href="#has-a-protected-interface-class" id="ref-for-has-a-protected-interface-class">has a protected interface class</a>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#securityerror" id="ref-for-securityerror①">SecurityError</a></code> and abort these steps.</p>
     <li data-md>
      <p>Perform the necessary platform-specific steps to request exclusive control
  over <var>interface</var> for the current execution context. If this fails, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①⑤">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror②">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①">claimed</a></code></code> to <code>true</code> and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve⑨">resolve</a> <var>promise</var>.</p>
+     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed①">claimed</a></code></code> to <code>true</code> and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⓪">resolve</a> <var>promise</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
-     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/releaseInterface" title="The releaseInterface() method of the USBDevice interface returns a promise that resolves when a cliamed interface is released from exclusive access.">USBDevice/releaseInterface</a></p>
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/releaseInterface" title="The releaseInterface() method of the USBDevice interface returns a promise that resolves when a claimed interface is released from exclusive access.">USBDevice/releaseInterface</a></p>
      <p class="less-than-two-engines-text">In only one current engine.</p>
      <div class="support">
       <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
@@ -2086,11 +2113,11 @@ parallel</a>:</p>
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-releaseinterface" id="ref-for-dom-usbdevice-releaseinterface①">releaseInterface(interfaceNumber)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑦">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑤">in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑧">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑥">in
 parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①③">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①④">USBDevice</a></code> object.</p>
     <li data-md>
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror⑦">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
@@ -2101,12 +2128,12 @@ parallel</a>:</p>
      <p>If <code><var>device</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbdevice-opened" id="ref-for-dom-usbdevice-opened⑦">opened</a></code></code> is not <code>true</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①⑧">reject</a> <var>promise</var> with an <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#invalidstateerror" id="ref-for-invalidstateerror②">InvalidStateError</a></code> and abort these
  steps.</p>
     <li data-md>
-     <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed②">claimed</a></code></code> is <code>false</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⓪">resolve</a> <var>promise</var> and abort these steps.</p>
+     <p>If <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed②">claimed</a></code></code> is <code>false</code>, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①①">resolve</a> <var>promise</var> and abort these steps.</p>
     <li data-md>
      <p>Perform the necessary platform-specific steps to reliquish exclusive
  control over <var>interface</var>.</p>
     <li data-md>
-     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed③">claimed</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①①">resolve</a> <var>promise</var>.</p>
+     <p>Set <code><var>interface</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbinterface-claimed" id="ref-for-dom-usbinterface-claimed③">claimed</a></code></code> to <code>false</code> and <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①②">resolve</a> <var>promise</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -2124,11 +2151,11 @@ parallel</a>:</p>
      </div>
     </div>
    </div>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑧">Promise</a></code> <var>promise</var> and run the
-following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑥">in parallel</a>:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-selectalternateinterface" id="ref-for-dom-usbdevice-selectalternateinterface">selectAlternateInterface(interfaceNumber, alternateSetting)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑨">Promise</a></code> <var>promise</var> and run the
+following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑦">in parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①④">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑤">USBDevice</a></code> object.</p>
     <li data-md>
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject①⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror⑨">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
@@ -2147,7 +2174,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
  this step fails <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject②③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror③">NetworkError</a></code> and abort
  these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①②">Resolve</a> <var>promise</var>.</p>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①③">Resolve</a> <var>promise</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -2166,11 +2193,11 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-controltransferin" id="ref-for-dom-usbdevice-controltransferin">controlTransferIn(setup, length)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑨">Promise</a></code> <var>promise</var> and run the following steps in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⓪">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md>
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑤">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑥">USBDevice</a></code> object.</p>
     <li data-md>
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject②④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror①①">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
@@ -2200,7 +2227,7 @@ parallel:</p>
     <li data-md>
      <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject②⑥">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror④">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①③">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①④">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -2219,7 +2246,7 @@ parallel:</p>
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-controltransferout" id="ref-for-dom-usbdevice-controltransferout①">controlTransferOut(setup, data)</a></code> method, when invoked, must
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⓪">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑦">in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①①">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑧">in
 parallel</a>:</p>
    <ol>
     <li data-md>
@@ -2244,12 +2271,12 @@ parallel</a>:</p>
     <li data-md>
      <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject②⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror⑤">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①④">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑤">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
-     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/clearHalt" title="The clearHalt() method of the USBDevice interface returns a promise that resolves when a halt condition is cleared. A halt condition is when a data tranfer to or from the device has a status of &apos;stall&apos;, which requires the web page (the host system, in USB terminology) to clear that condition. See the for details.">USBDevice/clearHalt</a></p>
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/clearHalt" title="The clearHalt() method of the USBDevice interface returns a promise that resolves when a halt condition is cleared. A halt condition is when a data transfer to or from the device has a status of &apos;stall&apos;, which requires the web page (the host system, in USB terminology) to clear that condition. See the for details.">USBDevice/clearHalt</a></p>
      <p class="less-than-two-engines-text">In only one current engine.</p>
      <div class="support">
       <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
@@ -2263,7 +2290,7 @@ parallel</a>:</p>
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-clearhalt" id="ref-for-dom-usbdevice-clearhalt①">clearHalt(direction, endpointNumber)</a></code> method, when invoked,
-MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①①">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑧">in
+MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①②">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑨">in
 parallel</a>:</p>
    <ol>
     <li data-md>
@@ -2278,12 +2305,12 @@ parallel</a>:</p>
      <p>Issue a <code>ClearFeature(ENDPOINT_HALT)</code> <a data-link-type="dfn" href="#control-transfer" id="ref-for-control-transfer⑦">control transfer</a> to
  the device to clear the halt condition on <var>endpoint</var>.</p>
     <li data-md>
-     <p>On failure <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject③③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror⑥">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑤">resolve</a> <var>promise</var>.</p>
+     <p>On failure <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject③③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror⑥">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑥">resolve</a> <var>promise</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
-     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/transferIn" title="The transferIn() method of the USBDevice interface returns a promise that resolves with a USBTransferInResult when bulk or interrupt data is received from the USB device.">USBDevice/transferIn</a></p>
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/transferIn" title="The transferIn() method of the USBDevice interface returns a promise that resolves with a USBInTransferResult when bulk or interrupt data is received from the USB device.">USBDevice/transferIn</a></p>
      <p class="less-than-two-engines-text">In only one current engine.</p>
      <div class="support">
       <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
@@ -2297,11 +2324,11 @@ parallel</a>:</p>
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-transferin" id="ref-for-dom-usbdevice-transferin①">transferIn(endpointNumber, length)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①②">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑨">in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①③">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①⓪">in
 parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑥">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑦">USBDevice</a></code> object.</p>
     <li data-md>
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject③④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror①④">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
@@ -2333,12 +2360,12 @@ parallel</a>:</p>
     <li data-md>
      <p>If the transfer failed for any other reason <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject③⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror⑦">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑥">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑦">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
-     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/transferOut" title="The transferOut() method of the USBDevice interface returns a promise that resolves with a USBTransferOutResult when bulk or interrupt data is sent to the USB device.">USBDevice/transferOut</a></p>
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/transferOut" title="The transferOut() method of the USBDevice interface returns a promise that resolves with a USBOutTransferResult when bulk or interrupt data is sent to the USB device.">USBDevice/transferOut</a></p>
      <p class="less-than-two-engines-text">In only one current engine.</p>
      <div class="support">
       <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
@@ -2352,7 +2379,7 @@ parallel</a>:</p>
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-transferout" id="ref-for-dom-usbdevice-transferout">transferOut(endpointNumber, data)</a></code> method, when invoked, MUST
-return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①③">Promise</a></code> <var>promise</var> and run the following steps in
+return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①④">Promise</a></code> <var>promise</var> and run the following steps in
 parallel:</p>
    <ol>
     <li data-md>
@@ -2380,7 +2407,7 @@ parallel:</p>
     <li data-md>
      <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject④③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror⑧">NetworkError</a></code> and abort these steps.</p>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑦">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑧">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -2399,8 +2426,8 @@ parallel:</p>
     </div>
    </div>
    <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferin" id="ref-for-dom-usbdevice-isochronoustransferin">isochronousTransferIn(endpointNumber, packetLengths)</a></code> method,
-when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①④">Promise</a></code> <var>promise</var> and run the following
-steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①⓪">in parallel</a>:</p>
+when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑤">Promise</a></code> <var>promise</var> and run the following
+steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①①">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject④④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror①⑧">NotFoundError</a></code> and abort these steps.</p>
@@ -2441,7 +2468,7 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
        <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject④⑧">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror⑨">NetworkError</a></code> and abort these steps.</p>
      </ol>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑧">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑨">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -2459,8 +2486,8 @@ steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infra
      </div>
     </div>
    </div>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferout" id="ref-for-dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑤">Promise</a></code> <var>promise</var> and run the
-following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①①">in parallel</a>:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-isochronoustransferout" id="ref-for-dom-usbdevice-isochronoustransferout">isochronousTransferOut(endpointNumber, data, packetLengths)</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑥">Promise</a></code> <var>promise</var> and run the
+following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①②">in parallel</a>:</p>
    <ol>
     <li data-md>
      <p>If the device is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject④⑨">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror②⓪">NotFoundError</a></code> and abort these steps.</p>
@@ -2497,7 +2524,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
        <p>If the transfer fails for any other reason <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject⑤③">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror①⓪">NetworkError</a></code> and abort these steps.</p>
      </ol>
     <li data-md>
-     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve①⑨">Resolve</a> <var>promise</var> with <var>result</var>.</p>
+     <p><a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②⓪">Resolve</a> <var>promise</var> with <var>result</var>.</p>
    </ol>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
@@ -2515,10 +2542,10 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
      </div>
     </div>
    </div>
-   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset">reset()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑥">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①②">in parallel</a>:</p>
+   <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbdevice-reset" id="ref-for-dom-usbdevice-reset">reset()</a></code> method, when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects①⑦">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel①③">in parallel</a>:</p>
    <ol>
     <li data-md>
-     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑦">USBDevice</a></code> object.</p>
+     <p>Let <var>device</var> be the target <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice①⑧">USBDevice</a></code> object.</p>
     <li data-md>
      <p>If <var>device</var> is no longer connected to the system, <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject⑤④">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#notfounderror" id="ref-for-notfounderror②②">NotFoundError</a></code> and abort these steps.</p>
     <li data-md>
@@ -2530,7 +2557,7 @@ following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multi
     <li data-md>
      <p>Perform the necessary platform-specific operation to soft reset the device.</p>
     <li data-md>
-     <p>On failure <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject⑤⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror①①">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②⓪">resolve</a> <var>promise</var>.</p>
+     <p>On failure <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#reject" id="ref-for-reject⑤⑦">reject</a> <var>promise</var> with a <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#networkerror" id="ref-for-networkerror①①">NetworkError</a></code>, otherwise <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#resolve" id="ref-for-resolve②①">resolve</a> <var>promise</var>.</p>
    </ol>
    <p class="issue" id="issue-0de671a3"><a class="self-link" href="#issue-0de671a3"></a> What configuration is the device in after it resets? <a href="https://github.com/WICG/webusb/issues/36">[Issue #36]</a></p>
    <h3 class="heading settled" data-level="6.1" id="transfers"><span class="secno">6.1. </span><span class="content">Transfers</span><a class="self-link" href="#transfers"></a></h3>
@@ -2792,7 +2819,7 @@ vendor.</p>
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①①"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbconfiguration"><code><c- g>USBConfiguration</c-></code></dfn> {
-  <dfn class="idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export data-lt="USBConfiguration(device, configurationValue)|constructor(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration"><code><c- g>constructor</c-></code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑧"><c- n>USBDevice</c-></a> <dfn class="idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue), USBConfiguration/constructor(device, configurationValue)" data-dfn-type="argument" data-export id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code><c- g>device</c-></code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②③"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue), USBConfiguration/constructor(device, configurationValue)" data-dfn-type="argument" data-export id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>);
+  <dfn class="idl-code" data-dfn-for="USBConfiguration" data-dfn-type="constructor" data-export data-lt="USBConfiguration(device, configurationValue)|constructor(device, configurationValue)" id="dom-usbconfiguration-usbconfiguration"><code><c- g>constructor</c-></code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration"></a></dfn>(<a data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑨"><c- n>USBDevice</c-></a> <dfn class="idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue), USBConfiguration/constructor(device, configurationValue)" data-dfn-type="argument" data-export id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"><code><c- g>device</c-></code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-device"></a></dfn>, <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②③"><c- b>octet</c-></a> <dfn class="idl-code" data-dfn-for="USBConfiguration/USBConfiguration(device, configurationValue), USBConfiguration/constructor(device, configurationValue)" data-dfn-type="argument" data-export id="dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code><a class="self-link" href="#dom-usbconfiguration-usbconfiguration-device-configurationvalue-configurationvalue"></a></dfn>);
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet②④"><c- b>octet</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export data-readonly data-type="octet" id="dom-usbconfiguration-configurationvalue"><code><c- g>configurationValue</c-></code></dfn>;
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-DOMString" id="ref-for-idl-DOMString⑤"><c- b>DOMString</c-></a>? <dfn class="dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export data-readonly data-type="DOMString?" id="dom-usbconfiguration-configurationname"><code><c- g>configurationName</c-></code></dfn>;
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array⑤"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#usbinterface" id="ref-for-usbinterface"><c- n>USBInterface</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBConfiguration" data-dfn-type="attribute" data-export data-readonly data-type="FrozenArray<USBInterface>" id="dom-usbconfiguration-interfaces"><code><c- g>interfaces</c-></code></dfn>;
@@ -3048,7 +3075,7 @@ of the SuperSpeed Endpoint Companion descriptor.</p>
       <hr>
       <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
       <hr>
-      <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>60+</span></span><span class="webview_android yes"><span>Android WebView</span><span>60+</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>44+</span></span>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>60+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>44+</span></span>
      </div>
     </div>
    </div>
@@ -3070,7 +3097,7 @@ defined as follows:</p>
 </pre>
     <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#dfn-extra-permission-data-type" id="ref-for-dfn-extra-permission-data-type">extra permission data type</a>
     <dd>
-      <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑤">USBPermissionStorage</a></code>, defined as: 
+      <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑦">USBPermissionStorage</a></code>, defined as: 
 <pre class="idl highlight def"><c- b>dictionary</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="dictionary" data-export id="dictdef-allowedusbdevice"><code><c- g>AllowedUSBDevice</c-></code></dfn> {
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet③④"><c- b>octet</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export data-type="octet " id="dom-allowedusbdevice-vendorid"><code><c- g>vendorId</c-></code></dfn>;
   <c- b>required</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet③⑤"><c- b>octet</c-></a> <dfn class="dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="dict-member" data-export data-type="octet " id="dom-allowedusbdevice-productid"><code><c- g>productId</c-></code></dfn>;
@@ -3082,17 +3109,17 @@ defined as follows:</p>
 };
 </pre>
      <p><code class="idl"><a data-link-type="idl" href="#dictdef-allowedusbdevice" id="ref-for-dictdef-allowedusbdevice①">AllowedUSBDevice</a></code> instances have an internal slot <dfn class="dfn-paneled idl-code" data-dfn-for="AllowedUSBDevice" data-dfn-type="attribute" data-export id="dom-allowedusbdevice-devices-slot"><code>[[devices]]</code></dfn> that holds an
-    array of <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device④">USB devices</a>.</p>
+    array of <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device⑤">USB devices</a>.</p>
     <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#dfn-permission-result-type" id="ref-for-dfn-permission-result-type">permission result type</a>
     <dd>
 <pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①⑥"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbpermissionresult"><code><c- g>USBPermissionResult</c-></code></dfn> : <a data-link-type="idl-name" href="https://w3c.github.io/permissions/#dom-permissionstatus" id="ref-for-dom-permissionstatus"><c- n>PermissionStatus</c-></a> {
-  <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array⑧"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①⑨"><c- n>USBDevice</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBPermissionResult" data-dfn-type="attribute" data-export data-type="FrozenArray<USBDevice>" id="dom-usbpermissionresult-devices"><code><c- g>devices</c-></code></dfn>;
+  <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array⑧"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice②⓪"><c- n>USBDevice</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBPermissionResult" data-dfn-type="attribute" data-export data-type="FrozenArray<USBDevice>" id="dom-usbpermissionresult-devices"><code><c- g>devices</c-></code></dfn>;
 };
 </pre>
     <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#dfn-permission-query-algorithm" id="ref-for-dfn-permission-query-algorithm">permission query algorithm</a>
     <dd>
-      To <strong><em>query the "usb" permission</em></strong> with a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissiondescriptor" id="ref-for-dictdef-usbpermissiondescriptor①">USBPermissionDescriptor</a></code> <var>desc</var>, a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑥">USBPermissionStorage</a></code> <var>storage</var>,
+      To <strong><em>query the "usb" permission</em></strong> with a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissiondescriptor" id="ref-for-dictdef-usbpermissiondescriptor①">USBPermissionDescriptor</a></code> <var>desc</var>, a <code class="idl"><a data-link-type="idl" href="#dictdef-usbpermissionstorage" id="ref-for-dictdef-usbpermissionstorage⑧">USBPermissionStorage</a></code> <var>storage</var>,
     and a <code class="idl"><a data-link-type="idl" href="#usbpermissionresult" id="ref-for-usbpermissionresult①">USBPermissionResult</a></code> <var>status</var>, the UA must: 
      <ol>
       <li data-md>
@@ -3104,8 +3131,8 @@ defined as follows:</p>
       <li data-md>
        <p>Let <var>matchingDevices</var> be a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-array-objects" id="ref-for-sec-array-objects①">Array</a></code>.</p>
       <li data-md>
-       <p>For each <var>allowedDevice</var> in <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices⑥">allowedDevices</a></code></code> and
- for each <var>device</var> in <code><var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot⑦">[[devices]]</a></code></code>, run
+       <p>For each <var>allowedDevice</var> in <code><var>storage</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionstorage-alloweddevices" id="ref-for-dom-usbpermissionstorage-alloweddevices⑧">allowedDevices</a></code></code> and
+ for each <var>device</var> in <code><var>allowedDevice</var>@<code class="idl"><a data-link-type="idl" href="#dom-allowedusbdevice-devices-slot" id="ref-for-dom-allowedusbdevice-devices-slot⑧">[[devices]]</a></code></code>, run
  the following substeps:</p>
        <ol>
         <li data-md>
@@ -3113,7 +3140,7 @@ defined as follows:</p>
   and <var>device</var> does not <a data-link-type="dfn" href="#match-a-device-filter" id="ref-for-match-a-device-filter①">match a device filter</a> in <code><var>desc</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissiondescriptor-filters" id="ref-for-dom-usbpermissiondescriptor-filters⑤">filters</a></code></code>, continue
   to the next <var>device</var>.</p>
         <li data-md>
-         <p>Get the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice②⓪">USBDevice</a></code> representing <var>device</var> and add it to <var>matchingDevices</var>.</p>
+         <p>Get the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice②①">USBDevice</a></code> representing <var>device</var> and add it to <var>matchingDevices</var>.</p>
        </ol>
       <li data-md>
        <p>Set <code><var>status</var>.<code class="idl"><a data-link-type="idl" href="#dom-usbpermissionresult-devices" id="ref-for-dom-usbpermissionresult-devices④">devices</a></code></code> to a new <code class="idl"><a data-link-type="idl" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array⑨">FrozenArray</a></code> whose contents are <var>matchingDevices</var>.</p>
@@ -3359,6 +3386,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><a href="#dom-usbdevicerequestoptions-filters">dict-member for USBDeviceRequestOptions</a><span>, in § 5</span>
      <li><a href="#dom-usbpermissiondescriptor-filters">dict-member for USBPermissionDescriptor</a><span>, in § 7.2</span>
     </ul>
+   <li><a href="#dom-usbdevice-forget">forget()</a><span>, in § 6</span>
    <li><a href="#dom-usb-getdevices">getDevices()</a><span>, in § 5</span>
    <li><a href="#get-url">Get URL</a><span>, in § 4.2</span>
    <li><a href="#has-a-protected-interface-class">has a protected interface class</a><span>, in § 6.3.1</span>
@@ -3412,6 +3440,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <li><a href="#dom-usbdevicefilter-protocolcode">protocolCode</a><span>, in § 5</span>
    <li><a href="#dom-usbcontroltransferparameters-recipient">recipient</a><span>, in § 6.1</span>
    <li><a href="#dom-usbdevice-releaseinterface">releaseInterface(interfaceNumber)</a><span>, in § 6</span>
+   <li><a href="#remove-device-from-storage">remove device from storage</a><span>, in § 5</span>
    <li><a href="#dom-usbcontroltransferparameters-request">request</a><span>, in § 6.1</span>
    <li><a href="#dom-usb-requestdevice">requestDevice(options)</a><span>, in § 5</span>
    <li><a href="#request-the-usb-permission">request the "usb" permission</a><span>, in § 5</span>
@@ -3539,7 +3568,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://tc39.github.io/ecma262/#sec-promise-objects">https://tc39.github.io/ecma262/#sec-promise-objects</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-sec-promise-objects">5. Device Enumeration</a> <a href="#ref-for-sec-promise-objects①">(2)</a> <a href="#ref-for-sec-promise-objects②">(3)</a>
-    <li><a href="#ref-for-sec-promise-objects③">6. Device Usage</a> <a href="#ref-for-sec-promise-objects④">(2)</a> <a href="#ref-for-sec-promise-objects⑤">(3)</a> <a href="#ref-for-sec-promise-objects⑥">(4)</a> <a href="#ref-for-sec-promise-objects⑦">(5)</a> <a href="#ref-for-sec-promise-objects⑧">(6)</a> <a href="#ref-for-sec-promise-objects⑨">(7)</a> <a href="#ref-for-sec-promise-objects①⓪">(8)</a> <a href="#ref-for-sec-promise-objects①①">(9)</a> <a href="#ref-for-sec-promise-objects①②">(10)</a> <a href="#ref-for-sec-promise-objects①③">(11)</a> <a href="#ref-for-sec-promise-objects①④">(12)</a> <a href="#ref-for-sec-promise-objects①⑤">(13)</a> <a href="#ref-for-sec-promise-objects①⑥">(14)</a>
+    <li><a href="#ref-for-sec-promise-objects③">6. Device Usage</a> <a href="#ref-for-sec-promise-objects④">(2)</a> <a href="#ref-for-sec-promise-objects⑤">(3)</a> <a href="#ref-for-sec-promise-objects⑥">(4)</a> <a href="#ref-for-sec-promise-objects⑦">(5)</a> <a href="#ref-for-sec-promise-objects⑧">(6)</a> <a href="#ref-for-sec-promise-objects⑨">(7)</a> <a href="#ref-for-sec-promise-objects①⓪">(8)</a> <a href="#ref-for-sec-promise-objects①①">(9)</a> <a href="#ref-for-sec-promise-objects①②">(10)</a> <a href="#ref-for-sec-promise-objects①③">(11)</a> <a href="#ref-for-sec-promise-objects①④">(12)</a> <a href="#ref-for-sec-promise-objects①⑤">(13)</a> <a href="#ref-for-sec-promise-objects①⑥">(14)</a> <a href="#ref-for-sec-promise-objects①⑦">(15)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-sec-native-error-types-used-in-this-standard-typeerror">
@@ -3572,7 +3601,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-in-parallel">5. Device Enumeration</a> <a href="#ref-for-in-parallel①">(2)</a>
-    <li><a href="#ref-for-in-parallel②">6. Device Usage</a> <a href="#ref-for-in-parallel③">(2)</a> <a href="#ref-for-in-parallel④">(3)</a> <a href="#ref-for-in-parallel⑤">(4)</a> <a href="#ref-for-in-parallel⑥">(5)</a> <a href="#ref-for-in-parallel⑦">(6)</a> <a href="#ref-for-in-parallel⑧">(7)</a> <a href="#ref-for-in-parallel⑨">(8)</a> <a href="#ref-for-in-parallel①⓪">(9)</a> <a href="#ref-for-in-parallel①①">(10)</a> <a href="#ref-for-in-parallel①②">(11)</a>
+    <li><a href="#ref-for-in-parallel②">6. Device Usage</a> <a href="#ref-for-in-parallel③">(2)</a> <a href="#ref-for-in-parallel④">(3)</a> <a href="#ref-for-in-parallel⑤">(4)</a> <a href="#ref-for-in-parallel⑥">(5)</a> <a href="#ref-for-in-parallel⑦">(6)</a> <a href="#ref-for-in-parallel⑧">(7)</a> <a href="#ref-for-in-parallel⑨">(8)</a> <a href="#ref-for-in-parallel①⓪">(9)</a> <a href="#ref-for-in-parallel①①">(10)</a> <a href="#ref-for-in-parallel①②">(11)</a> <a href="#ref-for-in-parallel①③">(12)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-concept-relevant-global">
@@ -3757,7 +3786,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://webidl.spec.whatwg.org/#idl-promise">https://webidl.spec.whatwg.org/#idl-promise</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-idl-promise">5. Device Enumeration</a> <a href="#ref-for-idl-promise①">(2)</a>
-    <li><a href="#ref-for-idl-promise②">6. Device Usage</a> <a href="#ref-for-idl-promise③">(2)</a> <a href="#ref-for-idl-promise④">(3)</a> <a href="#ref-for-idl-promise⑤">(4)</a> <a href="#ref-for-idl-promise⑥">(5)</a> <a href="#ref-for-idl-promise⑦">(6)</a> <a href="#ref-for-idl-promise⑧">(7)</a> <a href="#ref-for-idl-promise⑨">(8)</a> <a href="#ref-for-idl-promise①⓪">(9)</a> <a href="#ref-for-idl-promise①①">(10)</a> <a href="#ref-for-idl-promise①②">(11)</a> <a href="#ref-for-idl-promise①③">(12)</a> <a href="#ref-for-idl-promise①④">(13)</a> <a href="#ref-for-idl-promise①⑤">(14)</a>
+    <li><a href="#ref-for-idl-promise②">6. Device Usage</a> <a href="#ref-for-idl-promise③">(2)</a> <a href="#ref-for-idl-promise④">(3)</a> <a href="#ref-for-idl-promise⑤">(4)</a> <a href="#ref-for-idl-promise⑥">(5)</a> <a href="#ref-for-idl-promise⑦">(6)</a> <a href="#ref-for-idl-promise⑧">(7)</a> <a href="#ref-for-idl-promise⑨">(8)</a> <a href="#ref-for-idl-promise①⓪">(9)</a> <a href="#ref-for-idl-promise①①">(10)</a> <a href="#ref-for-idl-promise①②">(11)</a> <a href="#ref-for-idl-promise①③">(12)</a> <a href="#ref-for-idl-promise①④">(13)</a> <a href="#ref-for-idl-promise①⑤">(14)</a> <a href="#ref-for-idl-promise①⑥">(15)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-SameObject">
@@ -3817,7 +3846,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <a href="https://webidl.spec.whatwg.org/#resolve">https://webidl.spec.whatwg.org/#resolve</a><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-resolve">5. Device Enumeration</a> <a href="#ref-for-resolve①">(2)</a> <a href="#ref-for-resolve②">(3)</a>
-    <li><a href="#ref-for-resolve③">6. Device Usage</a> <a href="#ref-for-resolve④">(2)</a> <a href="#ref-for-resolve⑤">(3)</a> <a href="#ref-for-resolve⑥">(4)</a> <a href="#ref-for-resolve⑦">(5)</a> <a href="#ref-for-resolve⑧">(6)</a> <a href="#ref-for-resolve⑨">(7)</a> <a href="#ref-for-resolve①⓪">(8)</a> <a href="#ref-for-resolve①①">(9)</a> <a href="#ref-for-resolve①②">(10)</a> <a href="#ref-for-resolve①③">(11)</a> <a href="#ref-for-resolve①④">(12)</a> <a href="#ref-for-resolve①⑤">(13)</a> <a href="#ref-for-resolve①⑥">(14)</a> <a href="#ref-for-resolve①⑦">(15)</a> <a href="#ref-for-resolve①⑧">(16)</a> <a href="#ref-for-resolve①⑨">(17)</a> <a href="#ref-for-resolve②⓪">(18)</a>
+    <li><a href="#ref-for-resolve③">6. Device Usage</a> <a href="#ref-for-resolve④">(2)</a> <a href="#ref-for-resolve⑤">(3)</a> <a href="#ref-for-resolve⑥">(4)</a> <a href="#ref-for-resolve⑦">(5)</a> <a href="#ref-for-resolve⑧">(6)</a> <a href="#ref-for-resolve⑨">(7)</a> <a href="#ref-for-resolve①⓪">(8)</a> <a href="#ref-for-resolve①①">(9)</a> <a href="#ref-for-resolve①②">(10)</a> <a href="#ref-for-resolve①③">(11)</a> <a href="#ref-for-resolve①④">(12)</a> <a href="#ref-for-resolve①⑤">(13)</a> <a href="#ref-for-resolve①⑥">(14)</a> <a href="#ref-for-resolve①⑦">(15)</a> <a href="#ref-for-resolve①⑧">(16)</a> <a href="#ref-for-resolve①⑨">(17)</a> <a href="#ref-for-resolve②⓪">(18)</a> <a href="#ref-for-resolve②①">(19)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-sequence">
@@ -3832,7 +3861,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="term-for-idl-undefined">
    <a href="https://webidl.spec.whatwg.org/#idl-undefined">https://webidl.spec.whatwg.org/#idl-undefined</a><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-idl-undefined">6. Device Usage</a> <a href="#ref-for-idl-undefined①">(2)</a> <a href="#ref-for-idl-undefined②">(3)</a> <a href="#ref-for-idl-undefined③">(4)</a> <a href="#ref-for-idl-undefined④">(5)</a> <a href="#ref-for-idl-undefined⑤">(6)</a> <a href="#ref-for-idl-undefined⑥">(7)</a> <a href="#ref-for-idl-undefined⑦">(8)</a>
+    <li><a href="#ref-for-idl-undefined">6. Device Usage</a> <a href="#ref-for-idl-undefined①">(2)</a> <a href="#ref-for-idl-undefined②">(3)</a> <a href="#ref-for-idl-undefined③">(4)</a> <a href="#ref-for-idl-undefined④">(5)</a> <a href="#ref-for-idl-undefined⑤">(6)</a> <a href="#ref-for-idl-undefined⑥">(7)</a> <a href="#ref-for-idl-undefined⑦">(8)</a> <a href="#ref-for-idl-undefined⑧">(9)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="term-for-idl-unsigned-long">
@@ -3947,7 +3976,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <dt id="biblio-html">[HTML]
    <dd>Anne van Kesteren; et al. <a href="https://html.spec.whatwg.org/multipage/"><cite>HTML Standard</cite></a>. Living Standard. URL: <a href="https://html.spec.whatwg.org/multipage/">https://html.spec.whatwg.org/multipage/</a>
    <dt id="biblio-permissions">[PERMISSIONS]
-   <dd>Marcos Caceres; Mike Taylor. <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. 18 January 2022. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+   <dd>Marcos Caceres; Mike Taylor. <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. 22 February 2022. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
    <dt id="biblio-permissions-policy-1">[PERMISSIONS-POLICY-1]
    <dd>Ian Clelland. <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. 16 July 2020. WD. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
    <dt id="biblio-permissions-request">[PERMISSIONS-REQUEST]
@@ -4034,6 +4063,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-boolean"><c- b>boolean</c-></a> <a data-readonly data-type="boolean" href="#dom-usbdevice-opened"><code><c- g>opened</c-></code></a>;
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbdevice-open"><code><c- g>open</c-></code></a>();
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbdevice-close"><code><c- g>close</c-></code></a>();
+  <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbdevice-forget"><code><c- g>forget</c-></code></a>();
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbdevice-selectconfiguration"><code><c- g>selectConfiguration</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-selectconfiguration-configurationvalue-configurationvalue"><code><c- g>configurationValue</c-></code></a>);
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbdevice-claiminterface"><code><c- g>claimInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-claiminterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
   <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-promise"><c- b>Promise</c-></a>&lt;<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-undefined"><c- b>undefined</c-></a>> <a href="#dom-usbdevice-releaseinterface"><code><c- g>releaseInterface</c-></code></a>(<a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a href="#dom-usbdevice-releaseinterface-interfacenumber-interfacenumber"><code><c- g>interfaceNumber</c-></code></a>);
@@ -4386,6 +4416,12 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     <li><a href="#ref-for-check-permissions-for-device①">5.1. Events</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="remove-device-from-storage">
+   <b><a href="#remove-device-from-storage">#remove-device-from-storage</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-remove-device-from-storage">6. Device Usage</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="dictdef-usbconnectioneventinit">
    <b><a href="#dictdef-usbconnectioneventinit">#dictdef-usbconnectioneventinit</a></b><b>Referenced in:</b>
    <ul>
@@ -4415,9 +4451,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <ul>
     <li><a href="#ref-for-usbdevice">5. Device Enumeration</a> <a href="#ref-for-usbdevice①">(2)</a> <a href="#ref-for-usbdevice②">(3)</a> <a href="#ref-for-usbdevice③">(4)</a>
     <li><a href="#ref-for-usbdevice④">5.1. Events</a> <a href="#ref-for-usbdevice⑤">(2)</a> <a href="#ref-for-usbdevice⑥">(3)</a> <a href="#ref-for-usbdevice⑦">(4)</a>
-    <li><a href="#ref-for-usbdevice⑧">6. Device Usage</a> <a href="#ref-for-usbdevice⑨">(2)</a> <a href="#ref-for-usbdevice①⓪">(3)</a> <a href="#ref-for-usbdevice①①">(4)</a> <a href="#ref-for-usbdevice①②">(5)</a> <a href="#ref-for-usbdevice①③">(6)</a> <a href="#ref-for-usbdevice①④">(7)</a> <a href="#ref-for-usbdevice①⑤">(8)</a> <a href="#ref-for-usbdevice①⑥">(9)</a> <a href="#ref-for-usbdevice①⑦">(10)</a>
-    <li><a href="#ref-for-usbdevice①⑧">6.2. Configurations</a>
-    <li><a href="#ref-for-usbdevice①⑨">7.2. Permission API</a> <a href="#ref-for-usbdevice②⓪">(2)</a>
+    <li><a href="#ref-for-usbdevice⑧">6. Device Usage</a> <a href="#ref-for-usbdevice⑨">(2)</a> <a href="#ref-for-usbdevice①⓪">(3)</a> <a href="#ref-for-usbdevice①①">(4)</a> <a href="#ref-for-usbdevice①②">(5)</a> <a href="#ref-for-usbdevice①③">(6)</a> <a href="#ref-for-usbdevice①④">(7)</a> <a href="#ref-for-usbdevice①⑤">(8)</a> <a href="#ref-for-usbdevice①⑥">(9)</a> <a href="#ref-for-usbdevice①⑦">(10)</a> <a href="#ref-for-usbdevice①⑧">(11)</a>
+    <li><a href="#ref-for-usbdevice①⑨">6.2. Configurations</a>
+    <li><a href="#ref-for-usbdevice②⓪">7.2. Permission API</a> <a href="#ref-for-usbdevice②①">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevice-usbversionmajor">
@@ -4532,6 +4568,12 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <b><a href="#dom-usbdevice-close">#dom-usbdevice-close</a></b><b>Referenced in:</b>
    <ul>
     <li><a href="#ref-for-dom-usbdevice-close">6. Device Usage</a> <a href="#ref-for-dom-usbdevice-close①">(2)</a>
+   </ul>
+  </aside>
+  <aside class="dfn-panel" data-for="dom-usbdevice-forget">
+   <b><a href="#dom-usbdevice-forget">#dom-usbdevice-forget</a></b><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-dom-usbdevice-forget">6. Device Usage</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbdevice-selectconfiguration">
@@ -5065,25 +5107,26 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="dictdef-usbpermissionstorage">
    <b><a href="#dictdef-usbpermissionstorage">#dictdef-usbpermissionstorage</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dictdef-usbpermissionstorage">5. Device Enumeration</a> <a href="#ref-for-dictdef-usbpermissionstorage①">(2)</a> <a href="#ref-for-dictdef-usbpermissionstorage②">(3)</a>
-    <li><a href="#ref-for-dictdef-usbpermissionstorage③">5.1. Events</a> <a href="#ref-for-dictdef-usbpermissionstorage④">(2)</a>
-    <li><a href="#ref-for-dictdef-usbpermissionstorage⑤">7.2. Permission API</a> <a href="#ref-for-dictdef-usbpermissionstorage⑥">(2)</a>
+    <li><a href="#ref-for-dictdef-usbpermissionstorage">5. Device Enumeration</a> <a href="#ref-for-dictdef-usbpermissionstorage①">(2)</a> <a href="#ref-for-dictdef-usbpermissionstorage②">(3)</a> <a href="#ref-for-dictdef-usbpermissionstorage③">(4)</a>
+    <li><a href="#ref-for-dictdef-usbpermissionstorage④">5.1. Events</a> <a href="#ref-for-dictdef-usbpermissionstorage⑤">(2)</a>
+    <li><a href="#ref-for-dictdef-usbpermissionstorage⑥">6. Device Usage</a>
+    <li><a href="#ref-for-dictdef-usbpermissionstorage⑦">7.2. Permission API</a> <a href="#ref-for-dictdef-usbpermissionstorage⑧">(2)</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-usbpermissionstorage-alloweddevices">
    <b><a href="#dom-usbpermissionstorage-alloweddevices">#dom-usbpermissionstorage-alloweddevices</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices">5. Device Enumeration</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices①">(2)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices②">(3)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices③">(4)</a>
-    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices④">5.1. Events</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices⑤">(2)</a>
-    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices⑥">7.2. Permission API</a>
+    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices">5. Device Enumeration</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices①">(2)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices②">(3)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices③">(4)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices④">(5)</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices⑤">(6)</a>
+    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices⑥">5.1. Events</a> <a href="#ref-for-dom-usbpermissionstorage-alloweddevices⑦">(2)</a>
+    <li><a href="#ref-for-dom-usbpermissionstorage-alloweddevices⑧">7.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="dom-allowedusbdevice-devices-slot">
    <b><a href="#dom-allowedusbdevice-devices-slot">#dom-allowedusbdevice-devices-slot</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot">5. Device Enumeration</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot①">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot②">(3)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot③">(4)</a>
-    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot④">5.1. Events</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot⑤">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot⑥">(3)</a>
-    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot⑦">7.2. Permission API</a>
+    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot">5. Device Enumeration</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot①">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot②">(3)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot③">(4)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot④">(5)</a>
+    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot⑤">5.1. Events</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot⑥">(2)</a> <a href="#ref-for-dom-allowedusbdevice-devices-slot⑦">(3)</a>
+    <li><a href="#ref-for-dom-allowedusbdevice-devices-slot⑧">7.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="usbpermissionresult">
@@ -5164,9 +5207,9 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <aside class="dfn-panel" data-for="usb-device">
    <b><a href="#usb-device">#usb-device</a></b><b>Referenced in:</b>
    <ul>
-    <li><a href="#ref-for-usb-device">5. Device Enumeration</a> <a href="#ref-for-usb-device①">(2)</a>
-    <li><a href="#ref-for-usb-device②">5.1. Events</a> <a href="#ref-for-usb-device③">(2)</a>
-    <li><a href="#ref-for-usb-device④">7.2. Permission API</a>
+    <li><a href="#ref-for-usb-device">5. Device Enumeration</a> <a href="#ref-for-usb-device①">(2)</a> <a href="#ref-for-usb-device②">(3)</a>
+    <li><a href="#ref-for-usb-device③">5.1. Events</a> <a href="#ref-for-usb-device④">(2)</a>
+    <li><a href="#ref-for-usb-device⑤">7.2. Permission API</a>
    </ul>
   </aside>
   <aside class="dfn-panel" data-for="vendor-id">
