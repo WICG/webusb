@@ -1010,8 +1010,8 @@ slots</a> described in the following table:
     1. If the result of <a>finding if the interface is claimed</a> with |interface|
         is not <code>true</code>, return.
     1. Let |currAlternateInterface| be the result of
-        <a>finding the alternateInterface for the current alternate setting</a> with |interface|.
-    1. <a>For each</a> |endpoint| of |currAlternateInterface|.{{USBAlternateInterface/endpoints}}:
+        <a>finding the alternate interface for the current alternate setting</a> with |interface|.
+    1. <a>For each</a> |endpoint| of |currAlternateInterface|.{{USBAlternateInterface/[[endpoints]]}}:
         1. Abort all transfers currently scheduled on |endpoint| and <a>reject</a>
             the associated promises with an {{AbortError}}.
 </div>
@@ -1057,7 +1057,7 @@ slots</a> described in the following table:
         1. If the result of <a>finding if the interface is claimed</a> with |interface|
             is not <code>true</code>, continue.
         1. Let |alternate| be the result of
-            <a>finding the alternateInterface for the current alternate setting</a> with |interface|.
+            <a>finding the alternate interface for the current alternate setting</a> with |interface|.
         1. <a>For each</a> |endpoint| of |alternate|.{{USBAlternateInterface/[[endpoints]]}}:
             1. If |endpoint|.{{USBEndpoint/[[endpointAddress]]}} is equal to |endpointAddress|, return |endpoint|
     1. Return <code>null</code>.
@@ -1250,7 +1250,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the following 
     steps <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |activeConfiguration| be the result of <a>finding the current configuration</a>
         with <a>this</a>.
     1. Let |interfaces| be |activeConfiguration|.{{USBConfiguration/[[interfaces]]}}.
@@ -1274,7 +1274,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the following
     steps <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |activeConfiguration| be the result of <a>finding the current configuration</a>
         with <a>this</a>.
     1. Let |interfaces| be |activeConfiguration|.{{USBConfiguration/[[interfaces]]}}.
@@ -1296,7 +1296,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the
     following steps <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |activeConfiguration| be the result of <a>finding the current configuration</a>
         with <a>this</a>.
     1. Let |interfaces| be |activeConfiguration|.{{USBConfiguration/[[interfaces]]}}.
@@ -1328,7 +1328,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
     <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. <a>Check the validity of the control transfer parameters</a> with <a>this</a>
         and abort these steps if |promise| is rejected.
     1. If |length| is greater than 0, let |buffer| be a host buffer with space
@@ -1340,14 +1340,14 @@ All USB devices MUST have a <a>default control pipe</a> which is
         write data received in response to this transfer.
     1. Let |bytesTransferred| be the number of bytes written to |buffer|.
     1. Let |result| be a new {{USBInTransferResult}}.
-    1. If data was received from <a>this</a> create a new {{ArrayBuffer}} containing
+    1. If data was received from the device create a new {{ArrayBuffer}} containing
         the first |bytesTransferred| bytes of |buffer| and set
         <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
         constructed over it.
-    1. If <a>this</a> responded by stalling the
+    1. If the device responded by stalling the
         <a>default control pipe</a> set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-    1. If <a>this</a> responded with more than |length| bytes of data set
+    1. If the device responded with more than |length| bytes of data set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}} and
         otherwise set it to {{"ok"}}.
     1. If the transfer fails for any other reason <a>reject</a> |promise| with a
@@ -1360,7 +1360,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, must return a new {{Promise}} |promise| and run the following
     steps <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. <a>Check the validity of the control transfer parameters</a> with <a>this</a>
         and abort these steps if |promise| is rejected.
     1. Issue a <a>control transfer</a> with the <a>setup packet</a> populated by
@@ -1386,7 +1386,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
     <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code> if
         |direction| is equal to {{USBDirection/"in"}}, and |endpointNumber|
         otherwise.
@@ -1406,7 +1406,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
     <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
         (i.e {{USBDirection/"in"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
@@ -1421,15 +1421,15 @@ All USB devices MUST have a <a>default control pipe</a> which is
         to receive |length| bytes of data from the device into |buffer|.
     1. Let |bytesTransferred| be the number of bytes written to |buffer|.
     1. Let |result| be a new {{USBInTransferResult}}.
-    1. If data was received from <a>this</a> create a new {{ArrayBuffer}} containing
+    1. If data was received from the device create a new {{ArrayBuffer}} containing
         the first |bytesTransferred| bytes of |buffer| and set
         <code>|result|.{{USBInTransferResult/data}}</code> to a new {{DataView}}
         constructed over it.
-    1. If <a>this</a> responded with more than |length| bytes of data set
+    1. If the device responded with more than |length| bytes of data set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"babble"}}.
     1. If the transfer ended because |endpoint| is halted set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"stall"}}.
-    1. If <a>this</a> acknowledged the complete transfer set
+    1. If the device acknowledged the complete transfer set
         <code>|result|.{{USBInTransferResult/status}}</code> to {{"ok"}}.
     1. If the transfer failed for any other reason <a>reject</a> |promise| with a
         {{NetworkError}} and abort these steps.
@@ -1441,7 +1441,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the following steps
     <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
         |endpointAddress| and <a>this</a>.
@@ -1469,7 +1469,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the following
     steps <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |endpointAddress| be <code>|endpointNumber| | 0x80</code>
         (i.e {{USBDirection/"in"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
@@ -1515,7 +1515,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}} |promise| and run the
     following steps <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Let |endpointAddress| be |endpointNumber| (i.e {{USBDirection/"out"}} direction).
     1. Let |endpoint| be the result of <a>finding the endpoint</a> with
         |endpointAddress| and <a>this</a>.
@@ -1554,7 +1554,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
     when invoked, MUST return a new {{Promise}}
     |promise| and run the following steps <a>in parallel</a>:
     1. <a>Check if the device is configured</a> with <a>this</a> and |promise|
-        and abort these steps if promise is rejected.
+        and abort these steps if |promise| is rejected.
     1. Abort all operations on the device and <a>reject</a> their associated
         promises with an {{AbortError}}.
     1. Perform the necessary platform-specific operation to soft reset the device.
@@ -1889,8 +1889,8 @@ low level access through this API would.
     1. Return |device|.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|].
 </div>
 
-<div algorithm="find the alternateInterface for the current alternate setting">
-    To <dfn>find the alternateInterface for the current alternate setting</dfn> with the given |interface|,
+<div algorithm="find the alternate interface for the current alternate setting">
+    To <dfn>find the alternate interface for the current alternate setting</dfn> with the given |interface|,
     perform the following steps:
     1. Let |configuration| be |interface|.{{USBInterface/[[configuration]]}}.
     1. Let |device| be |configuration|.{{USBConfiguration/[[device]]}}.
@@ -1956,7 +1956,7 @@ low level access through this API would.
 
         The {{USBInterface/alternate}} getter steps are:
             1. Return the result of
-                <a>finding the alternateInterface for the current alternate setting</a>
+                <a>finding the alternate interface for the current alternate setting</a>
                 with <a>this</a>.
 
     : <dfn>alternates</dfn>
