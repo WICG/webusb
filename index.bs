@@ -840,6 +840,8 @@ stalling the endpoint then the error is cleared before continuing,
 </pre>
 </div>
 
+## The USBDevice Interface ## {#usbdevice-interface}
+
 <xmp class="idl">
   enum USBTransferStatus {
     "ok",
