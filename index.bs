@@ -717,6 +717,17 @@ the UA MUST run the following steps:
   5. Add |device| to |allowedDevice|@{{[[devices]]}}.
   6. Return |allowedDevice|.
 
+To <dfn data-lt="remove device from storage">remove an allowed <a>USB
+device</a></dfn> |device|, given a {{USBPermissionStorage}} |storage|,
+the UA MUST run the following steps:
+
+  1. Search for an element |allowedDevice| in
+     <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code> where
+     |device| is in |allowedDevice|@{{[[devices]]}}, if no such element exists,
+     abort these steps.
+  2. Remove |allowedDevice| from
+     <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code>.
+
 ## Events ## {#events}
 
 <xmp class="idl">
@@ -829,8 +840,6 @@ stalling the endpoint then the error is cleared before continuing,
 </pre>
 </div>
 
-## The USBDevice Interface ## {#usbdevice-interface}
-
 <xmp class="idl">
   enum USBTransferStatus {
     "ok",
@@ -918,6 +927,7 @@ stalling the endpoint then the error is cleared before continuing,
     readonly attribute boolean opened;
     Promise<undefined> open();
     Promise<undefined> close();
+    Promise<undefined> forget();
     Promise<undefined> selectConfiguration(octet configurationValue);
     Promise<undefined> claimInterface(octet interfaceNumber);
     Promise<undefined> releaseInterface(octet interfaceNumber);
@@ -1209,6 +1219,23 @@ All USB devices MUST have a <a>default control pipe</a> which is
 
     Note: When no [[!ECMAScript]] code can observe an instance of {{USBDevice}} |device|
     anymore, the UA SHOULD run |device|.{{USBDevice/close()}}.
+</div>
+
+<div algorithm="USBDevice.forget()">
+    The <dfn for=USBDevice method>forget()</dfn> method,
+    when invoked, MUST return a new {{Promise}}
+    |promise| and run the following steps <a>in parallel</a>:
+
+    1. Let |device| be <a>this</a>.
+    1. Let |storage| be the {{USBPermissionStorage}} object in the current
+        script execution environment.
+    1. <a>Remove |device| from storage</a> with |storage|.
+    1. <a>Resolve</a> |promise|.
+
+    Note: The user agent MAY decide to combine permissions across APIs, for instance
+    tracking WebHID + WebUSB device access under a unified low-level device access
+    permission. For this reason, this method may also revoke additional (unspecified
+    yet) permissions in the future.
 </div>
 
 <div algorithm="USBDevice.selectConfiguration(configurationValue)">
