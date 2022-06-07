@@ -755,7 +755,7 @@ MUST perform the following steps for each script execution environment:
   3. If |allowedDevice| is <code>null</code>, abort these steps.
   4. Let |deviceObj| be the {{USBDevice}} object representing |device|.
   5. [=Fire an event=] named <dfn>connect</dfn> on {{Navigator/usb}}, using 
-     {{USBConnectionEvent}}, with the <code>device</code>   attribute set to 
+     {{USBConnectionEvent}}, with the <code>device</code> attribute set to 
      |deviceObj|.
 
 When the UA detects a <a>USB device</a> |device| has been disconnected from the
@@ -774,7 +774,7 @@ host it MUST perform the following steps for each script execution environment:
      <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code>.
   5. Let |device| be the {{USBDevice}} object representing |device|.
   6. [=Fire an event=] named <dfn>disconnect</dfn> on {{Navigator/usb}}, using
-     {{USBConnectionEvent}}, with the <code>device</code>  attribute set to 
+     {{USBConnectionEvent}}, with the <code>device</code> attribute set to 
      |device|.
 
 # Device Usage # {#device-usage}
