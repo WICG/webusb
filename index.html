@@ -4,9 +4,9 @@
   <title>WebUSB API</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version 2e3c4c68b, updated Fri Jan 14 14:49:00 2022 -0800" name="generator">
+  <meta content="Bikeshed version 37b7e7e68, updated Fri May 27 15:08:11 2022 -0700" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
-  <meta content="2077761ce1840c51f48253af4cb5769c08ba59db" name="document-revision">
+  <meta content="aa961ae30ea64bd7bce2769a43ecf59ae4ea572a" name="document-revision">
 <style>
 table {
   border-collapse: collapse;
@@ -677,7 +677,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-02-25">25 February 2022</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2022-06-07">7 June 2022</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1490,7 +1490,7 @@ the UA MUST run the following steps:</p>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
-     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBConnectionEvent/USBConnectionEvent" title="The USBConnectionEvent() constructor creates a new USBConnectionEvent object which is passed to USB.onconnect and USB.ondisconnect. This constructor is not typically used, it is created by the browser in response to the connection and disconnection of a USB device.">USBConnectionEvent/USBConnectionEvent</a></p>
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBConnectionEvent/USBConnectionEvent" title="The USBConnectionEvent() constructor creates a new USBConnectionEvent object. This constructor is not typically used, it is created by the browser in response to the connection and disconnection of a USB device.">USBConnectionEvent/USBConnectionEvent</a></p>
      <p class="less-than-two-engines-text">In only one current engine.</p>
      <div class="support">
       <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
@@ -1555,8 +1555,6 @@ MUST perform the following steps for each script execution environment:</p>
     <li data-md>
      <p>Let <var>deviceObj</var> be the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice⑥">USBDevice</a></code> object representing <var>device</var>.</p>
     <li data-md>
-     <p>Let <var>event</var> be a new <code class="idl"><a data-link-type="idl" href="#usbconnectionevent" id="ref-for-usbconnectionevent">USBConnectionEvent</a></code>, with the <code>device</code> attribute set to <var>deviceObj</var>.</p>
-    <li data-md>
      <div class="mdn-anno wrapped">
       <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
       <div class="feature">
@@ -1573,7 +1571,7 @@ MUST perform the following steps for each script execution environment:</p>
        </div>
       </div>
      </div>
-     <p>Fire an event named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="connect">connect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb">usb</a></code>, using <var>event</var> as the event object.</p>
+     <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire">Fire an event</a> named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="connect">connect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb">usb</a></code>, using <code class="idl"><a data-link-type="idl" href="#usbconnectionevent" id="ref-for-usbconnectionevent">USBConnectionEvent</a></code>, with the <code>device</code> attribute set to <var>deviceObj</var>.</p>
    </ol>
    <p>When the UA detects a <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device④">USB device</a> <var>device</var> has been disconnected from the
 host it MUST perform the following steps for each script execution environment:</p>
@@ -1591,8 +1589,6 @@ host it MUST perform the following steps for each script execution environment:<
     <li data-md>
      <p>Let <var>device</var> be the <code class="idl"><a data-link-type="idl" href="#usbdevice" id="ref-for-usbdevice⑦">USBDevice</a></code> object representing <var>device</var>.</p>
     <li data-md>
-     <p>Let <var>event</var> be a new <code class="idl"><a data-link-type="idl" href="#usbconnectionevent" id="ref-for-usbconnectionevent①">USBConnectionEvent</a></code>, with the <code>device</code> attribute set to <var>device</var>.</p>
-    <li data-md>
      <div class="mdn-anno wrapped">
       <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
       <div class="feature">
@@ -1609,7 +1605,7 @@ host it MUST perform the following steps for each script execution environment:<
        </div>
       </div>
      </div>
-     <p>Fire an event named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="disconnect">disconnect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code>, using <var>event</var> as the event object.</p>
+     <p><a data-link-type="dfn" href="https://dom.spec.whatwg.org/#concept-event-fire" id="ref-for-concept-event-fire①">Fire an event</a> named <dfn class="dfn-paneled" data-dfn-type="dfn" data-noexport id="disconnect">disconnect</dfn> on <code class="idl"><a data-link-type="idl" href="#dom-navigator-usb" id="ref-for-dom-navigator-usb①">usb</a></code>, using <code class="idl"><a data-link-type="idl" href="#usbconnectionevent" id="ref-for-usbconnectionevent①">USBConnectionEvent</a></code>, with the <code>device</code> attribute set to <var>device</var>.</p>
    </ol>
    <h2 class="heading settled" data-level="6" id="device-usage"><span class="secno">6. </span><span class="content">Device Usage</span><a class="self-link" href="#device-usage"></a></h2>
    <div class="mdn-anno wrapped after">
@@ -2577,6 +2573,22 @@ script execution environment.</p>
     permission. For this reason, this method may also revoke additional (unspecified
     yet) permissions in the future.</p>
    </div>
+   <div class="mdn-anno wrapped">
+    <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+    <div class="feature">
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBDevice/selectConfiguration" title="The selectConfiguration() method of the USBDevice interface returns a promise that resolves when the specified configuration is selected.">USBDevice/selectConfiguration</a></p>
+     <p class="less-than-two-engines-text">In only one current engine.</p>
+     <div class="support">
+      <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+      <hr>
+      <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+      <hr>
+      <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+      <hr>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+     </div>
+    </div>
+   </div>
    <div class="algorithm" data-algorithm="USBDevice.selectConfiguration(configurationValue)">
      The <dfn class="dfn-paneled idl-code" data-dfn-for="USBDevice" data-dfn-type="method" data-export id="dom-usbdevice-selectconfiguration"><code>selectConfiguration(<var>configurationValue</var>)</code></dfn> method,
     when invoked, MUST return a new <code class="idl"><a data-link-type="idl" href="https://tc39.github.io/ecma262/#sec-promise-objects" id="ref-for-sec-promise-objects⑥">Promise</a></code> <var>promise</var> and run the following steps <a data-link-type="dfn" href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel" id="ref-for-in-parallel⑤">in
@@ -3048,6 +3060,22 @@ vendor.</p>
      <p>The <code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-value" id="ref-for-dom-usbcontroltransferparameters-value②">value</a></code> and <code class="idl"><a data-link-type="idl" href="#dom-usbcontroltransferparameters-index" id="ref-for-dom-usbcontroltransferparameters-index③">index</a></code> attributes populate the <code>wValue</code> and <code>wIndex</code> fields of the <a data-link-type="dfn" href="#setup-packet" id="ref-for-setup-packet④">setup packet</a> respectively. The meaning of these fields depends on the request being made.</p>
    </dl>
    <h3 class="heading settled" data-level="6.3" id="usbconfiguration-interface"><span class="secno">6.3. </span><span class="content">The USBConfiguration Interface</span><a class="self-link" href="#usbconfiguration-interface"></a></h3>
+   <div class="mdn-anno wrapped after">
+    <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+    <div class="feature">
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBConfiguration" title="The USBConfiguration interface of the WebUSB API provides information about a particular configuration of a USB device and the interfaces that it supports.">USBConfiguration</a></p>
+     <p class="less-than-two-engines-text">In only one current engine.</p>
+     <div class="support">
+      <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+      <hr>
+      <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+      <hr>
+      <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+      <hr>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+     </div>
+    </div>
+   </div>
    <div class="mdn-anno wrapped">
     <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
     <div class="feature">
@@ -3577,6 +3605,22 @@ match the value of the <code>bNumEndpoints</code> field of the <a data-link-type
      </ol>
    </dl>
    <h3 class="heading settled" data-level="6.6" id="usbendpoint-interface"><span class="secno">6.6. </span><span class="content">The USBEndpoint Interface</span><a class="self-link" href="#usbendpoint-interface"></a></h3>
+   <div class="mdn-anno wrapped after">
+    <button class="mdn-anno-btn"><b class="less-than-two-engines-flag" title="This feature is in less than two current engines.">⚠</b><span>MDN</span></button>
+    <div class="feature">
+     <p><a href="https://developer.mozilla.org/en-US/docs/Web/API/USBEndpoint" title="The USBEndpoint interface of the WebUSB API provides information about an endpoint provided by the USB device. An endpoint represents a unidirectional data stream into or out of a device.">USBEndpoint</a></p>
+     <p class="less-than-two-engines-text">In only one current engine.</p>
+     <div class="support">
+      <span class="firefox no"><span>Firefox</span><span>None</span></span><span class="safari no"><span>Safari</span><span>None</span></span><span class="chrome yes"><span>Chrome</span><span>61+</span></span>
+      <hr>
+      <span class="opera yes"><span>Opera</span><span>48+</span></span><span class="edge_blink yes"><span>Edge</span><span>79+</span></span>
+      <hr>
+      <span class="edge no"><span>Edge (Legacy)</span><span>None</span></span><span class="ie no"><span>IE</span><span>None</span></span>
+      <hr>
+      <span class="firefox_android no"><span>Firefox for Android</span><span>None</span></span><span class="safari_ios no"><span>iOS Safari</span><span>None</span></span><span class="chrome_android yes"><span>Chrome for Android</span><span>61+</span></span><span class="webview_android no"><span>Android WebView</span><span>None</span></span><span class="samsunginternet_android yes"><span>Samsung Internet</span><span>8.0+</span></span><span class="opera_android yes"><span>Opera Mobile</span><span>45+</span></span>
+     </div>
+    </div>
+   </div>
 <pre class="idl highlight def"><c- b>enum</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="enum" data-export id="enumdef-usbdirection"><code><c- g>USBDirection</c-></code></dfn> {
   <dfn class="dfn-paneled idl-code" data-dfn-for="USBDirection" data-dfn-type="enum-value" data-export id="dom-usbdirection-in"><code><c- s>"in"</c-></code></dfn>,
   <dfn class="dfn-paneled idl-code" data-dfn-for="USBDirection" data-dfn-type="enum-value" data-export id="dom-usbdirection-out"><code><c- s>"out"</c-></code></dfn>
@@ -4252,6 +4296,12 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
     <li><a href="#ref-for-eventtarget">5. Device Enumeration</a>
    </ul>
   </aside>
+  <aside class="dfn-panel" data-for="term-for-concept-event-fire">
+   <a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
+   <ul>
+    <li><a href="#ref-for-concept-event-fire">5.1. Events</a> <a href="#ref-for-concept-event-fire①">(2)</a>
+   </ul>
+  </aside>
   <aside class="dfn-panel" data-for="term-for-sec-array-objects">
    <a href="https://tc39.github.io/ecma262/#sec-array-objects">https://tc39.github.io/ecma262/#sec-array-objects</a><b>Referenced in:</b>
    <ul>
@@ -4715,6 +4765,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
      <li><span class="dfn-paneled" id="term-for-event">Event</span>
      <li><span class="dfn-paneled" id="term-for-dictdef-eventinit">EventInit</span>
      <li><span class="dfn-paneled" id="term-for-eventtarget">EventTarget</span>
+     <li><span class="dfn-paneled" id="term-for-concept-event-fire">fire an event</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMAScript]</a> defines the following terms:
@@ -4816,7 +4867,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
    <dt id="biblio-infra">[INFRA]
    <dd>Anne van Kesteren; Domenic Denicola. <a href="https://infra.spec.whatwg.org/"><cite>Infra Standard</cite></a>. Living Standard. URL: <a href="https://infra.spec.whatwg.org/">https://infra.spec.whatwg.org/</a>
    <dt id="biblio-permissions">[PERMISSIONS]
-   <dd>Marcos Caceres; Mike Taylor. <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. 25 February 2022. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
+   <dd>Marcos Caceres; Mike Taylor. <a href="https://www.w3.org/TR/permissions/"><cite>Permissions</cite></a>. 27 May 2022. WD. URL: <a href="https://www.w3.org/TR/permissions/">https://www.w3.org/TR/permissions/</a>
    <dt id="biblio-permissions-policy-1">[PERMISSIONS-POLICY-1]
    <dd>Ian Clelland. <a href="https://www.w3.org/TR/permissions-policy-1/"><cite>Permissions Policy</cite></a>. 16 July 2020. WD. URL: <a href="https://www.w3.org/TR/permissions-policy-1/">https://www.w3.org/TR/permissions-policy-1/</a>
    <dt id="biblio-permissions-request">[PERMISSIONS-REQUEST]
