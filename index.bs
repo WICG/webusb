@@ -621,11 +621,11 @@ The {{USB/getDevices()}} method, when invoked, MUST return a new {{Promise}} and
 run the following steps <a>in parallel</a>:
 
   1. Let |storage| be:
-    1. The {{USBPermissionStorage}} object in the script execution environment
-       of the associated [=service worker client=], if [=this=]'s [=relevant
-       global object=] is a {{ServiceWorkerGlobalScope}}.
-    1. Otherwise, the {{USBPermissionStorage}} object in the current script
-       execution environment.
+     1. The {{USBPermissionStorage}} object in the script execution environment
+        of the associated [=service worker client=], if [=this=]'s [=relevant
+        global object=] is a {{ServiceWorkerGlobalScope}}.
+     1. Otherwise, the {{USBPermissionStorage}} object in the current script
+        execution environment.
   1. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
   2. Let |devices| be a new empty {{Array}}.
