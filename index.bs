@@ -751,6 +751,10 @@ interface USBConnectionEvent : Event {
 };
 </xmp>
 
+Note: Workers may register event listeners for <a>connect</a> and
+<a>disconnect</a> events but the event listener will not be invoked unless the
+worker is active.
+
 When the UA detects a new <a>USB device</a> |device| connected to the host it
 MUST perform the following steps for each script execution environment:
 
