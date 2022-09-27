@@ -641,8 +641,6 @@ run the following steps <a>in parallel</a>:
 
 The {{USB/requestDevice()}} method, when invoked, MUST run the following steps:
 
-  1. If [=this=]'s [=relevant global object=] is not a {{Window}}, return [=a
-     promise rejected with=] a "{{SecurityError}}" {{DOMException}}.
   1. <a>Request permission to use</a> the following descriptor,
      <pre highlight="js">
        {
@@ -756,8 +754,6 @@ interface USBConnectionEvent : Event {
 When the UA detects a new <a>USB device</a> |device| connected to the host it
 MUST perform the following steps for each script execution environment:
 
-  1. If |device|'s [=relevant global object=] is not a {{Window}}, abort these
-     steps.
   1. Let |storage| be the {{USBPermissionStorage}} object in the current
      script execution environment.
   2. <a>Check permissions for |device|</a> with |storage| and let
