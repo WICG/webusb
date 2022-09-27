@@ -772,8 +772,6 @@ MUST perform the following steps for each script execution environment:
 When the UA detects a <a>USB device</a> |device| has been disconnected from the
 host it MUST perform the following steps for each script execution environment:
 
-  1. If |device|'s [=relevant global object=] is not a {{Window}}, abort these
-     steps.
   1. Let |storage| be the {{USBPermissionStorage}} object in the current
      script execution environment.
   2. Search for an element |allowedDevice| in
