@@ -454,7 +454,7 @@ scheme, is encoded in the <code>URL</code> field.
     required sequence<USBDeviceFilter> filters;
   };
 
-  [Exposed=(DedicatedWorker,SharedWorker,Window), SecureContext]
+  [Exposed=(Worker,Window), SecureContext]
   interface USB : EventTarget {
     attribute EventHandler onconnect;
     attribute EventHandler ondisconnect;
@@ -467,7 +467,7 @@ scheme, is encoded in the <code>URL</code> field.
     [SameObject] readonly attribute USB usb;
   };
 
-  [Exposed=(DedicatedWorker,SharedWorker), SecureContext]
+  [Exposed=Worker, SecureContext]
   partial interface WorkerNavigator {
     [SameObject] readonly attribute USB usb;
   };
@@ -620,12 +620,18 @@ The {{USB/ondisconnect}} attribute is an Event handler IDL attribute for the
 The {{USB/getDevices()}} method, when invoked, MUST return a new {{Promise}} and
 run the following steps <a>in parallel</a>:
 
+  1. Let |storage| be:
+     1. The {{USBPermissionStorage}} object in the script execution environment
+        of the associated [=service worker client=], if [=this=]'s [=relevant
+        global object=] is a {{ServiceWorkerGlobalScope}}.
+     1. Otherwise, the {{USBPermissionStorage}} object in the current script
+        execution environment.
   1. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
   2. Let |devices| be a new empty {{Array}}.
   3. For each |device| in |enumerationResult|:
      1. If this is the first call to this method, <a>check permissions for
-        |device|</a>.
+        |device|</a> with |storage|.
      2. Search for an element |allowedDevice| in
         <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code> where
         |device| is in |allowedDevice|@{{[[devices]]}}. If no such element
@@ -745,6 +751,10 @@ interface USBConnectionEvent : Event {
 };
 </xmp>
 
+Note: Workers may register event listeners for <a>connect</a> and
+<a>disconnect</a> events but the event listener will not be invoked unless the
+worker is active.
+
 When the UA detects a new <a>USB device</a> |device| connected to the host it
 MUST perform the following steps for each script execution environment:
 
@@ -754,7 +764,8 @@ MUST perform the following steps for each script execution environment:
      |allowedDevice| be the result.
   3. If |allowedDevice| is <code>null</code>, abort these steps.
   4. Let |deviceObj| be the {{USBDevice}} object representing |device|.
-  5. [=Fire an event=] named <dfn>connect</dfn> on {{Navigator/usb}}, using 
+  5. [=Fire an event=] named <dfn>connect</dfn> on |device|'s [=relevant global
+     object=]'s {{Navigator}} object's {{Navigator/usb}}, using
      {{USBConnectionEvent}}, with the <code>device</code> attribute set to 
      |deviceObj|.
 
@@ -773,7 +784,8 @@ host it MUST perform the following steps for each script execution environment:
      |allowedDevice| from
      <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code>.
   5. Let |device| be the {{USBDevice}} object representing |device|.
-  6. [=Fire an event=] named <dfn>disconnect</dfn> on {{Navigator/usb}}, using
+  6. [=Fire an event=] named <dfn>disconnect</dfn> on |device|'s [=relevant
+     global object=]'s {{Navigator}} object's {{Navigator/usb}}, using
      {{USBConnectionEvent}}, with the <code>device</code> attribute set to 
      |device|.
 
