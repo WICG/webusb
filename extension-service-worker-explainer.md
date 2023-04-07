@@ -11,7 +11,8 @@ device and, once permission is granted, enables the web page to control the
 device. Extensions can currently access the API from the extension [background
 page](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/manifest.json/background).
 The goal of this proposal is to provide an alternate means for extensions to
-access WebUSB API without the use of a background page.
+access WebUSB API from a similar background context without the use of a
+background page.
 
 ## Proposed specification changes
 The Navigator attribute `navigator.usb` is currently exposed for DedicatedWorker
