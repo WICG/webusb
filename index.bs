@@ -452,6 +452,7 @@ scheme, is encoded in the <code>URL</code> field.
 
   dictionary USBDeviceRequestOptions {
     required sequence<USBDeviceFilter> filters;
+    sequence<USBDeviceFilter> exclusionFilters;
   };
 
   [Exposed=(Worker,Window), SecureContext]
@@ -646,6 +647,7 @@ The {{USB/requestDevice()}} method, when invoked, MUST run the following steps:
        {
          name: "usb"
          filters: <var>options</var>.<a idl for="USBDeviceRequestOptions">filters</a>
+         exclusionFilters: <var>options</var>.<a idl for="USBDeviceRequestOptions">exclusionFilters</a>
        }
      </pre>
      Let |permissionResult| be the resulting {{Promise}}.
@@ -664,28 +666,39 @@ steps <a>in parallel</a>:
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
      <a>is not a valid filter</a> <a>reject</a> |promise| with a {{TypeError}}
      and abort these steps.
-  2. Check that the algorithm was triggered while the [=relevant global object=]
+  2. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> is
+     present, then run the following steps:
+       1. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code>
+          is empty, then <a>reject</a> |promise| with a {{TypeError}}
+          and abort these steps.
+       2. For each |exclusionFilter| in
+          <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> if
+          |exclusionFilter| <a>is not a valid filter</a> <a>reject</a> |promise|
+          with a {{TypeError}} and abort these steps.
+  3. Check that the algorithm was triggered while the [=relevant global object=]
      had a <a>transient activation</a>. Otherwise, <a>reject</a> |promise| with
      a {{SecurityError}} and abort these steps.
-  3. Set <code>|status|.{{PermissionStatus/state}}</code> to <code>"ask"</code>.
-  4. <a>Enumerate all devices attached to the system</a>. Let this result be
+  4. Set <code>|status|.{{PermissionStatus/state}}</code> to <code>"ask"</code>.
+  5. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
-  5. Remove devices from |enumerationResult| if they do not <a>match a device
+  6. Remove devices from |enumerationResult| if they do not <a>match a device
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
-  6. Display a prompt to the user requesting they select a device from
+  7. Remove devices from |enumerationResult| if they do <a>match a device filter</a>
+     in <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code>.
+  8. Display a prompt to the user requesting they select a device from
      |enumerationResult|. The UA SHOULD show a human-readable name for each
      device.
-  7. Wait for the user to have selected a |device| or cancelled the
+  9. Wait for the user to have selected a |device| or cancelled the
      prompt.
-  8. If the user cancels the prompt, set
+  10. If the user cancels the prompt, set
      <code>|status|.{{USBPermissionResult/devices}}</code> to an empty
      {{FrozenArray}}, <a>resolve</a> |promise| with <code>undefined</code>,
      and abort these steps.
-  9. <a>Add |device| to |storage|</a>.
-  10. Let |deviceObj| be the {{USBDevice}} object representing |device|.
-  11. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
+  11. <a>Add |device| to |storage|</a>.
+  12. Let |deviceObj| be the {{USBDevice}} object representing |device|.
+  13. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
       {{FrozenArray}} containing |deviceObj| as its only element.
-  12. <a>Resolve</a> |promise| with <code>undefined</code>.
+  14. <a>Resolve</a> |promise| with <code>undefined</code>.
 
 To <dfn data-lt="add device to storage">add an allowed <a>USB device</a></dfn>
 |device| to {{USBPermissionStorage}} |storage|, the UA MUST run the following
@@ -2316,6 +2329,7 @@ defined as follows:
     <xmp class="idl">
       dictionary USBPermissionDescriptor : PermissionDescriptor {
         sequence<USBDeviceFilter> filters;
+        sequence<USBDeviceFilter> exclusionFilters;
       };
     </xmp>
   </dd>
@@ -2358,10 +2372,15 @@ defined as follows:
          <code>|desc|.{{USBPermissionDescriptor/filters}}</code> if |filter|
          <a>is not a valid filter</a> then raise a {{TypeError}} and abort these
          steps.
-      2. Set <code>|status|.{{PermissionStatus/state}}</code> to
+      2. If <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code> is
+         set then, for each |exclusionFilter| in
+         <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code> if
+         |exclusionFilter| <a>is not a valid filter</a> then raise a {{TypeError}}
+         and abort these steps.
+      3. Set <code>|status|.{{PermissionStatus/state}}</code> to
          {{"prompt"}}.
-      3. Let |matchingDevices| be a new {{Array}}.
-      4. For each |allowedDevice| in
+      4. Let |matchingDevices| be a new {{Array}}.
+      5. For each |allowedDevice| in
          <code>|storage|.{{USBPermissionStorage/allowedDevices}}</code> and
          for each |device| in <code>|allowedDevice|@{{[[devices]]}}</code>, run
          the following substeps:
@@ -2370,10 +2389,14 @@ defined as follows:
               and |device| does not <a>match a device filter</a> in
               <code>|desc|.{{USBPermissionDescriptor/filters}}</code>, continue
               to the next |device|.
-           2. Get the {{USBDevice}} representing |device| and add it to
+           2. If <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code>
+              is set and |device| does <a>match a device filter</a> in
+              <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code>,
+              continue to the next |device|.
+           3. Get the {{USBDevice}} representing |device| and add it to
               |matchingDevices|.
 
-      5. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
+      6. Set <code>|status|.{{USBPermissionResult/devices}}</code> to a new
          {{FrozenArray}} whose contents are |matchingDevices|.
   </dd>
   <dt><a>permission request algorithm</a></dt>
