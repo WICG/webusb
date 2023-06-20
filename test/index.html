@@ -4,10 +4,10 @@
   <title>WebUSB Testing API</title>
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
-  <meta content="Bikeshed version d9bd89757, updated Thu Mar 23 10:06:53 2023 -0700" name="generator">
+  <meta content="Bikeshed version 5fcd28d6d, updated Tue May 30 13:12:11 2023 -0700" name="generator">
   <link href="https://wicg.github.io/webusb/test/" rel="canonical">
-  <meta content="ed2335478c285d4738687f2df89c074a1c1af4b2" name="document-revision">
-<style>/* style-autolinks */
+  <meta content="1ebe98c8e70d2d6d2c8f728aa2e2242e2b7ec2ed" name="document-revision">
+<style>/* Boilerplate: style-autolinks */
 .css.css, .property.property, .descriptor.descriptor {
     color: var(--a-normal-text);
     font-size: inherit;
@@ -68,8 +68,16 @@ pre .property::before, pre .property::after {
 [data-link-type=biblio] {
     white-space: pre;
 }
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --selflink-text: black;
+        --selflink-bg: silver;
+        --selflink-hover-text: white;
+    }
+}
 </style>
-<style>/* style-colors */
+<style>/* Boilerplate: style-colors */
 
 /* Any --*-text not paired with a --*-bg is assumed to have a transparent bg */
 :root {
@@ -178,220 +186,6 @@ pre .property::before, pre .property::after {
 
     --editedrec-bg: darkorange;
 }
-</style>
-<style>/* style-counters */
-body {
-    counter-reset: example figure issue;
-}
-.issue {
-    counter-increment: issue;
-}
-.issue:not(.no-marker)::before {
-    content: "Issue " counter(issue);
-}
-
-.example {
-    counter-increment: example;
-}
-.example:not(.no-marker)::before {
-    content: "Example " counter(example);
-}
-.invalid.example:not(.no-marker)::before,
-.illegal.example:not(.no-marker)::before {
-    content: "Invalid Example" counter(example);
-}
-
-figcaption {
-    counter-increment: figure;
-}
-figcaption:not(.no-marker)::before {
-    content: "Figure " counter(figure) " ";
-}
-</style>
-<style>/* style-dfn-panel */
-:root {
-    --dfnpanel-bg: #ddd;
-    --dfnpanel-text: var(--text);
-}
-.dfn-panel {
-    position: absolute;
-    z-index: 35;
-    width: 20em;
-    min-width: min-content;
-    max-width: 300px;
-    height: auto;
-    max-height: 500px;
-    overflow: auto;
-    padding: 0.5em 0.75em;
-    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
-    background: var(--dfnpanel-bg);
-    color: var(--dfnpanel-text);
-    border: outset 0.2em;
-    white-space: normal; /* in case it's moved into a pre */
-}
-.dfn-panel:not(.on) { display: none; }
-.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
-.dfn-panel > b { display: block; }
-.dfn-panel a { color: var(--dfnpanel-text); }
-.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
-.dfn-panel > b + b { margin-top: 0.25em; }
-.dfn-panel ul { padding: 0; }
-.dfn-panel li { list-style: inside; }
-.dfn-panel.activated {
-    display: inline-block;
-    position: fixed;
-    left: .5em;
-    bottom: 2em;
-    margin: 0 auto;
-    max-width: calc(100vw - 1.5em - .4em - .5em);
-    max-height: 30vh;
-}
-
-.dfn-paneled { cursor: pointer; }
-</style>
-<style>/* style-issues */
-a[href].issue-return {
-    float: right;
-    float: inline-end;
-    color: var(--issueheading-text);
-    font-weight: bold;
-    text-decoration: none;
-}
-</style>
-<style>/* style-md-lists */
-/* This is a weird hack for me not yet following the commonmark spec
-   regarding paragraph and lists. */
-[data-md] > :first-child {
-    margin-top: 0;
-}
-[data-md] > :last-child {
-    margin-bottom: 0;
-}
-</style>
-<style>/* style-selflinks */
-
-:root {
-    --selflink-text: white;
-    --selflink-bg: gray;
-    --selflink-hover-text: black;
-}
-.heading, .issue, .note, .example, li, dt {
-    position: relative;
-}
-a.self-link {
-    position: absolute;
-    top: 0;
-    left: calc(-1 * (3.5rem - 26px));
-    width: calc(3.5rem - 26px);
-    height: 2em;
-    text-align: center;
-    border: none;
-    transition: opacity .2s;
-    opacity: .5;
-}
-a.self-link:hover {
-    opacity: 1;
-}
-.heading > a.self-link {
-    font-size: 83%;
-}
-.example > a.self-link,
-.note > a.self-link,
-.issue > a.self-link {
-    /* These blocks are overflow:auto, so positioning outside
-       doesn't work. */
-    left: auto;
-    right: 0;
-}
-li > a.self-link {
-    left: calc(-1 * (3.5rem - 26px) - 2em);
-}
-dfn > a.self-link {
-    top: auto;
-    left: auto;
-    opacity: 0;
-    width: 1.5em;
-    height: 1.5em;
-    background: var(--selflink-bg);
-    color: var(--selflink-text);
-    font-style: normal;
-    transition: opacity .2s, background-color .2s, color .2s;
-}
-dfn:hover > a.self-link {
-    opacity: 1;
-}
-dfn > a.self-link:hover {
-    color: var(--selflink-hover-text);
-}
-
-a.self-link::before            { content: "¶"; }
-.heading > a.self-link::before { content: "§"; }
-dfn > a.self-link::before      { content: "#"; }
-</style>
-<style>/* style-syntax-highlighting */
-
-            pre.idl.highlight {
-                background: var(--borderedblock-bg, var(--def-bg));
-            }
-            
-code.highlight { padding: .1em; border-radius: .3em; }
-pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
-
-.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
-c-[a] { color: #990055 } /* Keyword.Declaration */
-c-[b] { color: #990055 } /* Keyword.Type */
-c-[c] { color: #708090 } /* Comment */
-c-[d] { color: #708090 } /* Comment.Multiline */
-c-[e] { color: #0077aa } /* Name.Attribute */
-c-[f] { color: #669900 } /* Name.Tag */
-c-[g] { color: #222222 } /* Name.Variable */
-c-[k] { color: #990055 } /* Keyword */
-c-[l] { color: #000000 } /* Literal */
-c-[m] { color: #000000 } /* Literal.Number */
-c-[n] { color: #0077aa } /* Name */
-c-[o] { color: #999999 } /* Operator */
-c-[p] { color: #999999 } /* Punctuation */
-c-[s] { color: #a67f59 } /* Literal.String */
-c-[t] { color: #a67f59 } /* Literal.String.Single */
-c-[u] { color: #a67f59 } /* Literal.String.Double */
-c-[cp] { color: #708090 } /* Comment.Preproc */
-c-[c1] { color: #708090 } /* Comment.Single */
-c-[cs] { color: #708090 } /* Comment.Special */
-c-[kc] { color: #990055 } /* Keyword.Constant */
-c-[kn] { color: #990055 } /* Keyword.Namespace */
-c-[kp] { color: #990055 } /* Keyword.Pseudo */
-c-[kr] { color: #990055 } /* Keyword.Reserved */
-c-[ld] { color: #000000 } /* Literal.Date */
-c-[nc] { color: #0077aa } /* Name.Class */
-c-[no] { color: #0077aa } /* Name.Constant */
-c-[nd] { color: #0077aa } /* Name.Decorator */
-c-[ni] { color: #0077aa } /* Name.Entity */
-c-[ne] { color: #0077aa } /* Name.Exception */
-c-[nf] { color: #0077aa } /* Name.Function */
-c-[nl] { color: #0077aa } /* Name.Label */
-c-[nn] { color: #0077aa } /* Name.Namespace */
-c-[py] { color: #0077aa } /* Name.Property */
-c-[ow] { color: #999999 } /* Operator.Word */
-c-[mb] { color: #000000 } /* Literal.Number.Bin */
-c-[mf] { color: #000000 } /* Literal.Number.Float */
-c-[mh] { color: #000000 } /* Literal.Number.Hex */
-c-[mi] { color: #000000 } /* Literal.Number.Integer */
-c-[mo] { color: #000000 } /* Literal.Number.Oct */
-c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
-c-[sc] { color: #a67f59 } /* Literal.String.Char */
-c-[sd] { color: #a67f59 } /* Literal.String.Doc */
-c-[se] { color: #a67f59 } /* Literal.String.Escape */
-c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
-c-[si] { color: #a67f59 } /* Literal.String.Interpol */
-c-[sx] { color: #a67f59 } /* Literal.String.Other */
-c-[sr] { color: #a67f59 } /* Literal.String.Regex */
-c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
-c-[vc] { color: #0077aa } /* Name.Variable.Class */
-c-[vg] { color: #0077aa } /* Name.Variable.Global */
-c-[vi] { color: #0077aa } /* Name.Variable.Instance */
-c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
-</style>
-<style>/* style-darkmode */
 
 @media (prefers-color-scheme: dark) {
     :root {
@@ -504,21 +298,287 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
        which is quite common in practice... */
     img { background: white; }
 }
-
-@media (prefers-color-scheme: dark) {
-    :root {
-        --selflink-text: black;
-        --selflink-bg: silver;
-        --selflink-hover-text: white;
-    }
+</style>
+<style>/* Boilerplate: style-counters */
+body {
+    counter-reset: example figure issue;
+}
+.issue {
+    counter-increment: issue;
+}
+.issue:not(.no-marker)::before {
+    content: "Issue " counter(issue);
 }
 
+.example {
+    counter-increment: example;
+}
+.example:not(.no-marker)::before {
+    content: "Example " counter(example);
+}
+.invalid.example:not(.no-marker)::before,
+.illegal.example:not(.no-marker)::before {
+    content: "Invalid Example" counter(example);
+}
+
+figcaption {
+    counter-increment: figure;
+}
+figcaption:not(.no-marker)::before {
+    content: "Figure " counter(figure) " ";
+}
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
 @media (prefers-color-scheme: dark) {
     :root {
         --dfnpanel-bg: #222;
         --dfnpanel-text: var(--text);
     }
 }
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-dfn-panel */
+:root {
+    --dfnpanel-bg: #ddd;
+    --dfnpanel-text: var(--text);
+}
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dfnpanel-bg: #222;
+        --dfnpanel-text: var(--text);
+    }
+}
+.dfn-panel {
+    position: absolute;
+    z-index: 35;
+    width: 20em;
+    width: 300px;
+    height: auto;
+    max-height: 500px;
+    overflow: auto;
+    padding: 0.5em 0.75em;
+    font: small Helvetica Neue, sans-serif, Droid Sans Fallback;
+    background: var(--dfnpanel-bg);
+    color: var(--dfnpanel-text);
+    border: outset 0.2em;
+    white-space: normal; /* in case it's moved into a pre */
+}
+.dfn-panel:not(.on) { display: none; }
+.dfn-panel * { margin: 0; padding: 0; text-indent: 0; }
+.dfn-panel > b { display: block; }
+.dfn-panel a { color: var(--dfnpanel-text); }
+.dfn-panel a:not(:hover) { text-decoration: none !important; border-bottom: none !important; }
+.dfn-panel > b + b { margin-top: 0.25em; }
+.dfn-panel ul { padding: 0 0 0 1em; list-style: none; }
+.dfn-panel li a {
+    white-space: pre;
+    display: inline-block;
+    max-width: calc(300px - 1.5em - 1em);
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.dfn-panel.activated {
+    display: inline-block;
+    position: fixed;
+    left: .5em;
+    bottom: 2em;
+    margin: 0 auto;
+    max-width: calc(100vw - 1.5em - .4em - .5em);
+    max-height: 30vh;
+}
+
+.dfn-paneled[role="button"] { cursor: pointer; }
+</style>
+<style>/* Boilerplate: style-issues */
+a[href].issue-return {
+    float: right;
+    float: inline-end;
+    color: var(--issueheading-text);
+    font-weight: bold;
+    text-decoration: none;
+}
+</style>
+<style>/* Boilerplate: style-md-lists */
+/* This is a weird hack for me not yet following the commonmark spec
+   regarding paragraph and lists. */
+[data-md] > :first-child {
+    margin-top: 0;
+}
+[data-md] > :last-child {
+    margin-bottom: 0;
+}
+</style>
+<style>/* Boilerplate: style-selflinks */
+
+:root {
+    --selflink-text: white;
+    --selflink-bg: gray;
+    --selflink-hover-text: black;
+}
+.heading, .issue, .note, .example, li, dt {
+    position: relative;
+}
+a.self-link {
+    position: absolute;
+    top: 0;
+    left: calc(-1 * (3.5rem - 26px));
+    width: calc(3.5rem - 26px);
+    height: 2em;
+    text-align: center;
+    border: none;
+    transition: opacity .2s;
+    opacity: .5;
+}
+a.self-link:hover {
+    opacity: 1;
+}
+.heading > a.self-link {
+    font-size: 83%;
+}
+.example > a.self-link,
+.note > a.self-link,
+.issue > a.self-link {
+    /* These blocks are overflow:auto, so positioning outside
+       doesn't work. */
+    left: auto;
+    right: 0;
+}
+li > a.self-link {
+    left: calc(-1 * (3.5rem - 26px) - 2em);
+}
+dfn > a.self-link {
+    top: auto;
+    left: auto;
+    opacity: 0;
+    width: 1.5em;
+    height: 1.5em;
+    background: var(--selflink-bg);
+    color: var(--selflink-text);
+    font-style: normal;
+    transition: opacity .2s, background-color .2s, color .2s;
+}
+dfn:hover > a.self-link {
+    opacity: 1;
+}
+dfn > a.self-link:hover {
+    color: var(--selflink-hover-text);
+}
+
+a.self-link::before            { content: "¶"; }
+.heading > a.self-link::before { content: "§"; }
+dfn > a.self-link::before      { content: "#"; }
+</style>
+<style>/* Boilerplate: style-style-syntax-highlighting */
+
+            pre.idl.highlight {
+                background: var(--borderedblock-bg, var(--def-bg));
+            }
+            
+</style>
+<style>/* Boilerplate: style-syntax-highlighting */
+
+code.highlight { padding: .1em; border-radius: .3em; }
+pre.highlight, pre > code.highlight { display: block; padding: 1em; margin: .5em 0; overflow: auto; border-radius: 0; }
+
+.highlight:not(.idl) { background: rgba(0, 0, 0, .03); }
+c-[a] { color: #990055 } /* Keyword.Declaration */
+c-[b] { color: #990055 } /* Keyword.Type */
+c-[c] { color: #708090 } /* Comment */
+c-[d] { color: #708090 } /* Comment.Multiline */
+c-[e] { color: #0077aa } /* Name.Attribute */
+c-[f] { color: #669900 } /* Name.Tag */
+c-[g] { color: #222222 } /* Name.Variable */
+c-[k] { color: #990055 } /* Keyword */
+c-[l] { color: #000000 } /* Literal */
+c-[m] { color: #000000 } /* Literal.Number */
+c-[n] { color: #0077aa } /* Name */
+c-[o] { color: #999999 } /* Operator */
+c-[p] { color: #999999 } /* Punctuation */
+c-[s] { color: #a67f59 } /* Literal.String */
+c-[t] { color: #a67f59 } /* Literal.String.Single */
+c-[u] { color: #a67f59 } /* Literal.String.Double */
+c-[cp] { color: #708090 } /* Comment.Preproc */
+c-[c1] { color: #708090 } /* Comment.Single */
+c-[cs] { color: #708090 } /* Comment.Special */
+c-[kc] { color: #990055 } /* Keyword.Constant */
+c-[kn] { color: #990055 } /* Keyword.Namespace */
+c-[kp] { color: #990055 } /* Keyword.Pseudo */
+c-[kr] { color: #990055 } /* Keyword.Reserved */
+c-[ld] { color: #000000 } /* Literal.Date */
+c-[nc] { color: #0077aa } /* Name.Class */
+c-[no] { color: #0077aa } /* Name.Constant */
+c-[nd] { color: #0077aa } /* Name.Decorator */
+c-[ni] { color: #0077aa } /* Name.Entity */
+c-[ne] { color: #0077aa } /* Name.Exception */
+c-[nf] { color: #0077aa } /* Name.Function */
+c-[nl] { color: #0077aa } /* Name.Label */
+c-[nn] { color: #0077aa } /* Name.Namespace */
+c-[py] { color: #0077aa } /* Name.Property */
+c-[ow] { color: #999999 } /* Operator.Word */
+c-[mb] { color: #000000 } /* Literal.Number.Bin */
+c-[mf] { color: #000000 } /* Literal.Number.Float */
+c-[mh] { color: #000000 } /* Literal.Number.Hex */
+c-[mi] { color: #000000 } /* Literal.Number.Integer */
+c-[mo] { color: #000000 } /* Literal.Number.Oct */
+c-[sb] { color: #a67f59 } /* Literal.String.Backtick */
+c-[sc] { color: #a67f59 } /* Literal.String.Char */
+c-[sd] { color: #a67f59 } /* Literal.String.Doc */
+c-[se] { color: #a67f59 } /* Literal.String.Escape */
+c-[sh] { color: #a67f59 } /* Literal.String.Heredoc */
+c-[si] { color: #a67f59 } /* Literal.String.Interpol */
+c-[sx] { color: #a67f59 } /* Literal.String.Other */
+c-[sr] { color: #a67f59 } /* Literal.String.Regex */
+c-[ss] { color: #a67f59 } /* Literal.String.Symbol */
+c-[vc] { color: #0077aa } /* Name.Variable.Class */
+c-[vg] { color: #0077aa } /* Name.Variable.Global */
+c-[vi] { color: #0077aa } /* Name.Variable.Instance */
+c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
+
 
 @media (prefers-color-scheme: dark) {
     .highlight:not(.idl) { background: rgba(255, 255, 255, .05); }
@@ -587,7 +647,7 @@ c-[il] { color: #000000 } /* Literal.Number.Integer.Long */
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB Testing API</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-04-10">10 April 2023</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2023-06-20">20 June 2023</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1075,454 +1135,86 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
    <li><a href="#dom-fakeusbdeviceinit-usbversionsubminor">usbVersionSubminor</a><span>, in § 4</span>
    <li><a href="#dom-fakeusbdeviceinit-vendorid">vendorId</a><span>, in § 4</span>
   </ul>
-  <aside aria-labelledby="infopaneltitle-for-316772b0029bcc028521d2db08fd3717" class="dfn-panel" data-for="316772b0029bcc028521d2db08fd3717" id="infopanel-for-316772b0029bcc028521d2db08fd3717">
-   <span id="infopaneltitle-for-316772b0029bcc028521d2db08fd3717" style="display:none">Info about the 'Event' external reference.</span><a href="https://dom.spec.whatwg.org/#event">https://dom.spec.whatwg.org/#event</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-event">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-a6aa66e0075314e8eefa4e662cb40fbb" class="dfn-panel" data-for="a6aa66e0075314e8eefa4e662cb40fbb" id="infopanel-for-a6aa66e0075314e8eefa4e662cb40fbb">
-   <span id="infopaneltitle-for-a6aa66e0075314e8eefa4e662cb40fbb" style="display:none">Info about the 'EventTarget' external reference.</span><a href="https://dom.spec.whatwg.org/#eventtarget">https://dom.spec.whatwg.org/#eventtarget</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventtarget">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-15045c15505e025cd6b6d0f134b7c986" class="dfn-panel" data-for="15045c15505e025cd6b6d0f134b7c986" id="infopanel-for-15045c15505e025cd6b6d0f134b7c986">
-   <span id="infopaneltitle-for-15045c15505e025cd6b6d0f134b7c986" style="display:none">Info about the 'fire an event' external reference.</span><a href="https://dom.spec.whatwg.org/#concept-event-fire">https://dom.spec.whatwg.org/#concept-event-fire</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-concept-event-fire">3.1. USB Behavior</a>
-    <li><a href="#ref-for-concept-event-fire①">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-338b28da30648be8a2cee5d1525b5ef4" class="dfn-panel" data-for="338b28da30648be8a2cee5d1525b5ef4" id="infopanel-for-338b28da30648be8a2cee5d1525b5ef4">
-   <span id="infopaneltitle-for-338b28da30648be8a2cee5d1525b5ef4" style="display:none">Info about the 'internal slot' external reference.</span><a href="https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots">https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-sec-object-internal-methods-and-internal-slots">3. Global Testing Interface</a> <a href="#ref-for-sec-object-internal-methods-and-internal-slots①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-716703f1068cc638b4235f83154eff6c" class="dfn-panel" data-for="716703f1068cc638b4235f83154eff6c" id="infopanel-for-716703f1068cc638b4235f83154eff6c">
-   <span id="infopaneltitle-for-716703f1068cc638b4235f83154eff6c" style="display:none">Info about the 'EventHandler' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler">https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-eventhandler">3. Global Testing Interface</a>
-    <li><a href="#ref-for-eventhandler①">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-75ff12c16ae1a8f6cbf2920128280261" class="dfn-panel" data-for="75ff12c16ae1a8f6cbf2920128280261" id="infopanel-for-75ff12c16ae1a8f6cbf2920128280261">
-   <span id="infopaneltitle-for-75ff12c16ae1a8f6cbf2920128280261" style="display:none">Info about the 'HTMLIFrameElement' external reference.</span><a href="https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement">https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-htmliframeelement">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-1875387458fa6e1450bbb7f8999f1636" class="dfn-panel" data-for="1875387458fa6e1450bbb7f8999f1636" id="infopanel-for-1875387458fa6e1450bbb7f8999f1636">
-   <span id="infopaneltitle-for-1875387458fa6e1450bbb7f8999f1636" style="display:none">Info about the 'Worker' external reference.</span><a href="https://html.spec.whatwg.org/multipage/workers.html#worker">https://html.spec.whatwg.org/multipage/workers.html#worker</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-worker">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-6c23c1976c1702789d8f6e0dadba625f" class="dfn-panel" data-for="6c23c1976c1702789d8f6e0dadba625f" id="infopanel-for-6c23c1976c1702789d8f6e0dadba625f">
-   <span id="infopaneltitle-for-6c23c1976c1702789d8f6e0dadba625f" style="display:none">Info about the 'current global object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object">https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-current-global-object">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dfd386d6786e19e14e8be334215a486e" class="dfn-panel" data-for="dfd386d6786e19e14e8be334215a486e" id="infopanel-for-dfd386d6786e19e14e8be334215a486e">
-   <span id="infopaneltitle-for-dfd386d6786e19e14e8be334215a486e" style="display:none">Info about the 'global object' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#global-object">https://html.spec.whatwg.org/multipage/webappapis.html#global-object</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-global-object">3. Global Testing Interface</a> <a href="#ref-for-global-object①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" class="dfn-panel" data-for="3a2763fcaa6bc82693554cf36780c0dd" id="infopanel-for-3a2763fcaa6bc82693554cf36780c0dd">
-   <span id="infopaneltitle-for-3a2763fcaa6bc82693554cf36780c0dd" style="display:none">Info about the 'in parallel' external reference.</span><a href="https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel">https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-in-parallel">3. Global Testing Interface</a> <a href="#ref-for-in-parallel①">(2)</a> <a href="#ref-for-in-parallel②">(3)</a> <a href="#ref-for-in-parallel③">(4)</a>
-    <li><a href="#ref-for-in-parallel④">3.1. USB Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-da7ed5f190c4eedd375552d6f7876301" class="dfn-panel" data-for="da7ed5f190c4eedd375552d6f7876301" id="infopanel-for-da7ed5f190c4eedd375552d6f7876301">
-   <span id="infopaneltitle-for-da7ed5f190c4eedd375552d6f7876301" style="display:none">Info about the 'queue a task' external reference.</span><a href="https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task">https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-queue-a-task">3. Global Testing Interface</a>
-    <li><a href="#ref-for-queue-a-task①">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" class="dfn-panel" data-for="d0f238a61de9310f1738a214749fab18" id="infopanel-for-d0f238a61de9310f1738a214749fab18">
-   <span id="infopaneltitle-for-d0f238a61de9310f1738a214749fab18" style="display:none">Info about the 'DOMString' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-DOMString">https://webidl.spec.whatwg.org/#idl-DOMString</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-DOMString">4. Fake Devices</a> <a href="#ref-for-idl-DOMString①">(2)</a> <a href="#ref-for-idl-DOMString②">(3)</a> <a href="#ref-for-idl-DOMString③">(4)</a> <a href="#ref-for-idl-DOMString④">(5)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" class="dfn-panel" data-for="dde049eb112f043fc45407ec0d4cb457" id="infopanel-for-dde049eb112f043fc45407ec0d4cb457">
-   <span id="infopaneltitle-for-dde049eb112f043fc45407ec0d4cb457" style="display:none">Info about the 'Exposed' external reference.</span><a href="https://webidl.spec.whatwg.org/#Exposed">https://webidl.spec.whatwg.org/#Exposed</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-Exposed">3. Global Testing Interface</a> <a href="#ref-for-Exposed①">(2)</a>
-    <li><a href="#ref-for-Exposed②">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-30e8367dc9a547b9096d98ba691987d9" class="dfn-panel" data-for="30e8367dc9a547b9096d98ba691987d9" id="infopanel-for-30e8367dc9a547b9096d98ba691987d9">
-   <span id="infopaneltitle-for-30e8367dc9a547b9096d98ba691987d9" style="display:none">Info about the 'FrozenArray' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-frozen-array">https://webidl.spec.whatwg.org/#idl-frozen-array</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-frozen-array">3. Global Testing Interface</a>
-    <li><a href="#ref-for-idl-frozen-array①">3.1. USB Behavior</a>
-    <li><a href="#ref-for-idl-frozen-array②">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-e2a06375a2fb70c61a8b4cd0abe9d4f1" class="dfn-panel" data-for="e2a06375a2fb70c61a8b4cd0abe9d4f1" id="infopanel-for-e2a06375a2fb70c61a8b4cd0abe9d4f1">
-   <span id="infopaneltitle-for-e2a06375a2fb70c61a8b4cd0abe9d4f1" style="display:none">Info about the 'InvalidStateError' external reference.</span><a href="https://webidl.spec.whatwg.org/#invalidstateerror">https://webidl.spec.whatwg.org/#invalidstateerror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-invalidstateerror">3. Global Testing Interface</a> <a href="#ref-for-invalidstateerror①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-07f7c1fff8d9d8c7d9646f325878f996" class="dfn-panel" data-for="07f7c1fff8d9d8c7d9646f325878f996" id="infopanel-for-07f7c1fff8d9d8c7d9646f325878f996">
-   <span id="infopaneltitle-for-07f7c1fff8d9d8c7d9646f325878f996" style="display:none">Info about the 'NotFoundError' external reference.</span><a href="https://webidl.spec.whatwg.org/#notfounderror">https://webidl.spec.whatwg.org/#notfounderror</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-notfounderror">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-93669c631ec1ef8e696b4c083bdbe12c" class="dfn-panel" data-for="93669c631ec1ef8e696b4c083bdbe12c" id="infopanel-for-93669c631ec1ef8e696b4c083bdbe12c">
-   <span id="infopaneltitle-for-93669c631ec1ef8e696b4c083bdbe12c" style="display:none">Info about the 'Promise' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-promise">https://webidl.spec.whatwg.org/#idl-promise</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-promise">1.1. Examples</a>
-    <li><a href="#ref-for-idl-promise①">3. Global Testing Interface</a> <a href="#ref-for-idl-promise②">(2)</a> <a href="#ref-for-idl-promise③">(3)</a> <a href="#ref-for-idl-promise④">(4)</a> <a href="#ref-for-idl-promise⑤">(5)</a> <a href="#ref-for-idl-promise⑥">(6)</a> <a href="#ref-for-idl-promise⑦">(7)</a> <a href="#ref-for-idl-promise⑧">(8)</a>
-    <li><a href="#ref-for-idl-promise⑨">3.1. USB Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f572762cd4679aeacd36722d99d2b741" class="dfn-panel" data-for="f572762cd4679aeacd36722d99d2b741" id="infopanel-for-f572762cd4679aeacd36722d99d2b741">
-   <span id="infopaneltitle-for-f572762cd4679aeacd36722d99d2b741" style="display:none">Info about the 'SameObject' external reference.</span><a href="https://webidl.spec.whatwg.org/#SameObject">https://webidl.spec.whatwg.org/#SameObject</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-SameObject">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f1d665343414fecb840e06a999ec9f80" class="dfn-panel" data-for="f1d665343414fecb840e06a999ec9f80" id="infopanel-for-f1d665343414fecb840e06a999ec9f80">
-   <span id="infopaneltitle-for-f1d665343414fecb840e06a999ec9f80" style="display:none">Info about the 'octet' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-octet">https://webidl.spec.whatwg.org/#idl-octet</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-octet">4. Fake Devices</a> <a href="#ref-for-idl-octet①">(2)</a> <a href="#ref-for-idl-octet②">(3)</a> <a href="#ref-for-idl-octet③">(4)</a> <a href="#ref-for-idl-octet④">(5)</a> <a href="#ref-for-idl-octet⑤">(6)</a> <a href="#ref-for-idl-octet⑥">(7)</a> <a href="#ref-for-idl-octet⑦">(8)</a> <a href="#ref-for-idl-octet⑧">(9)</a> <a href="#ref-for-idl-octet⑨">(10)</a> <a href="#ref-for-idl-octet①⓪">(11)</a> <a href="#ref-for-idl-octet①①">(12)</a> <a href="#ref-for-idl-octet①②">(13)</a> <a href="#ref-for-idl-octet①③">(14)</a> <a href="#ref-for-idl-octet①④">(15)</a> <a href="#ref-for-idl-octet①⑤">(16)</a> <a href="#ref-for-idl-octet①⑥">(17)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f4f973f92274819781816b033aea1f11" class="dfn-panel" data-for="f4f973f92274819781816b033aea1f11" id="infopanel-for-f4f973f92274819781816b033aea1f11">
-   <span id="infopaneltitle-for-f4f973f92274819781816b033aea1f11" style="display:none">Info about the 'resolve' external reference.</span><a href="https://webidl.spec.whatwg.org/#resolve">https://webidl.spec.whatwg.org/#resolve</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-resolve">3. Global Testing Interface</a> <a href="#ref-for-resolve①">(2)</a> <a href="#ref-for-resolve②">(3)</a> <a href="#ref-for-resolve③">(4)</a> <a href="#ref-for-resolve④">(5)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-38ab7db52e46bed36993204c29f67202" class="dfn-panel" data-for="38ab7db52e46bed36993204c29f67202" id="infopanel-for-38ab7db52e46bed36993204c29f67202">
-   <span id="infopaneltitle-for-38ab7db52e46bed36993204c29f67202" style="display:none">Info about the 'sequence' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-sequence">https://webidl.spec.whatwg.org/#idl-sequence</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-sequence">4. Fake Devices</a> <a href="#ref-for-idl-sequence①">(2)</a> <a href="#ref-for-idl-sequence②">(3)</a> <a href="#ref-for-idl-sequence③">(4)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-cee863f1f2ec91066cfb7f5d309d59dc" class="dfn-panel" data-for="cee863f1f2ec91066cfb7f5d309d59dc" id="infopanel-for-cee863f1f2ec91066cfb7f5d309d59dc">
-   <span id="infopaneltitle-for-cee863f1f2ec91066cfb7f5d309d59dc" style="display:none">Info about the 'undefined' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-undefined">https://webidl.spec.whatwg.org/#idl-undefined</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-undefined">3. Global Testing Interface</a> <a href="#ref-for-idl-undefined①">(2)</a> <a href="#ref-for-idl-undefined②">(3)</a> <a href="#ref-for-idl-undefined③">(4)</a>
-    <li><a href="#ref-for-idl-undefined④">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-03fa8b99cc63b35d2e7dcadb686676f1" class="dfn-panel" data-for="03fa8b99cc63b35d2e7dcadb686676f1" id="infopanel-for-03fa8b99cc63b35d2e7dcadb686676f1">
-   <span id="infopaneltitle-for-03fa8b99cc63b35d2e7dcadb686676f1" style="display:none">Info about the 'unsigned long' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-unsigned-long">https://webidl.spec.whatwg.org/#idl-unsigned-long</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-unsigned-long">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-85ad66f191d72a7d6508e0bab70044dc" class="dfn-panel" data-for="85ad66f191d72a7d6508e0bab70044dc" id="infopanel-for-85ad66f191d72a7d6508e0bab70044dc">
-   <span id="infopaneltitle-for-85ad66f191d72a7d6508e0bab70044dc" style="display:none">Info about the 'unsigned short' external reference.</span><a href="https://webidl.spec.whatwg.org/#idl-unsigned-short">https://webidl.spec.whatwg.org/#idl-unsigned-short</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-idl-unsigned-short">4. Fake Devices</a> <a href="#ref-for-idl-unsigned-short①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-3da9d554e6d2aa085494dc39b76ff861" class="dfn-panel" data-for="3da9d554e6d2aa085494dc39b76ff861" id="infopanel-for-3da9d554e6d2aa085494dc39b76ff861">
-   <span id="infopaneltitle-for-3da9d554e6d2aa085494dc39b76ff861" style="display:none">Info about the 'USB' external reference.</span><a href="https://wicg.github.io/webusb/#usb">https://wicg.github.io/webusb/#usb</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usb">3. Global Testing Interface</a> <a href="#ref-for-usb①">(2)</a> <a href="#ref-for-usb②">(3)</a>
-    <li><a href="#ref-for-usb③">3.1. USB Behavior</a> <a href="#ref-for-usb④">(2)</a>
-    <li><a href="#ref-for-usb⑤">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-93772cd47b0e9475faf279b0b0615191" class="dfn-panel" data-for="93772cd47b0e9475faf279b0b0615191" id="infopanel-for-93772cd47b0e9475faf279b0b0615191">
-   <span id="infopaneltitle-for-93772cd47b0e9475faf279b0b0615191" style="display:none">Info about the 'USBAlternateInterface' external reference.</span><a href="https://wicg.github.io/webusb/#usbalternateinterface">https://wicg.github.io/webusb/#usbalternateinterface</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbalternateinterface">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-48f681bdf865aaab0487e875e109236c" class="dfn-panel" data-for="48f681bdf865aaab0487e875e109236c" id="infopanel-for-48f681bdf865aaab0487e875e109236c">
-   <span id="infopaneltitle-for-48f681bdf865aaab0487e875e109236c" style="display:none">Info about the 'USBConfiguration' external reference.</span><a href="https://wicg.github.io/webusb/#usbconfiguration">https://wicg.github.io/webusb/#usbconfiguration</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbconfiguration">4. Fake Devices</a> <a href="#ref-for-usbconfiguration①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-97de5f20602cf78e067beff60ec26b5e" class="dfn-panel" data-for="97de5f20602cf78e067beff60ec26b5e" id="infopanel-for-97de5f20602cf78e067beff60ec26b5e">
-   <span id="infopaneltitle-for-97de5f20602cf78e067beff60ec26b5e" style="display:none">Info about the 'USBDevice' external reference.</span><a href="https://wicg.github.io/webusb/#usbdevice">https://wicg.github.io/webusb/#usbdevice</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbdevice">4. Fake Devices</a>
-    <li><a href="#ref-for-usbdevice①">4.1. USBDevice Behavior</a> <a href="#ref-for-usbdevice②">(2)</a> <a href="#ref-for-usbdevice③">(3)</a> <a href="#ref-for-usbdevice④">(4)</a> <a href="#ref-for-usbdevice⑤">(5)</a> <a href="#ref-for-usbdevice⑥">(6)</a> <a href="#ref-for-usbdevice⑦">(7)</a> <a href="#ref-for-usbdevice⑧">(8)</a> <a href="#ref-for-usbdevice⑨">(9)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-448ed5ad213aa00dfde40a252b550f2c" class="dfn-panel" data-for="448ed5ad213aa00dfde40a252b550f2c" id="infopanel-for-448ed5ad213aa00dfde40a252b550f2c">
-   <span id="infopaneltitle-for-448ed5ad213aa00dfde40a252b550f2c" style="display:none">Info about the 'USBDeviceFilter' external reference.</span><a href="https://wicg.github.io/webusb/#dictdef-usbdevicefilter">https://wicg.github.io/webusb/#dictdef-usbdevicefilter</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-usbdevicefilter">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-09304e18698e89121fc6950c02637a69" class="dfn-panel" data-for="09304e18698e89121fc6950c02637a69" id="infopanel-for-09304e18698e89121fc6950c02637a69">
-   <span id="infopaneltitle-for-09304e18698e89121fc6950c02637a69" style="display:none">Info about the 'USBDirection' external reference.</span><a href="https://wicg.github.io/webusb/#enumdef-usbdirection">https://wicg.github.io/webusb/#enumdef-usbdirection</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-usbdirection">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-cdfcb6fd683521f2711f27e5bcba34a1" class="dfn-panel" data-for="cdfcb6fd683521f2711f27e5bcba34a1" id="infopanel-for-cdfcb6fd683521f2711f27e5bcba34a1">
-   <span id="infopaneltitle-for-cdfcb6fd683521f2711f27e5bcba34a1" style="display:none">Info about the 'USBEndpoint' external reference.</span><a href="https://wicg.github.io/webusb/#usbendpoint">https://wicg.github.io/webusb/#usbendpoint</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbendpoint">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-e6a5bf8dc7e109b51a5d755c93ea810f" class="dfn-panel" data-for="e6a5bf8dc7e109b51a5d755c93ea810f" id="infopanel-for-e6a5bf8dc7e109b51a5d755c93ea810f">
-   <span id="infopaneltitle-for-e6a5bf8dc7e109b51a5d755c93ea810f" style="display:none">Info about the 'USBEndpointType' external reference.</span><a href="https://wicg.github.io/webusb/#enumdef-usbendpointtype">https://wicg.github.io/webusb/#enumdef-usbendpointtype</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-enumdef-usbendpointtype">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-db608b17b911b19007c6f6d374ea5961" class="dfn-panel" data-for="db608b17b911b19007c6f6d374ea5961" id="infopanel-for-db608b17b911b19007c6f6d374ea5961">
-   <span id="infopaneltitle-for-db608b17b911b19007c6f6d374ea5961" style="display:none">Info about the 'USBInterface' external reference.</span><a href="https://wicg.github.io/webusb/#usbinterface">https://wicg.github.io/webusb/#usbinterface</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbinterface">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dbc4df1886b44d9a9eb386a18e2bd8bb" class="dfn-panel" data-for="dbc4df1886b44d9a9eb386a18e2bd8bb" id="infopanel-for-dbc4df1886b44d9a9eb386a18e2bd8bb">
-   <span id="infopaneltitle-for-dbc4df1886b44d9a9eb386a18e2bd8bb" style="display:none">Info about the 'alternates' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbinterface-alternates">https://wicg.github.io/webusb/#dom-usbinterface-alternates</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbinterface-alternates">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-28ceb55b7465fa4939ec65d44765751b" class="dfn-panel" data-for="28ceb55b7465fa4939ec65d44765751b" id="infopanel-for-28ceb55b7465fa4939ec65d44765751b">
-   <span id="infopaneltitle-for-28ceb55b7465fa4939ec65d44765751b" style="display:none">Info about the 'claimInterface(interfaceNumber)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-claiminterface">https://wicg.github.io/webusb/#dom-usbdevice-claiminterface</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-claiminterface">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-9d635b75817c3549a50f0c6139c37804" class="dfn-panel" data-for="9d635b75817c3549a50f0c6139c37804" id="infopanel-for-9d635b75817c3549a50f0c6139c37804">
-   <span id="infopaneltitle-for-9d635b75817c3549a50f0c6139c37804" style="display:none">Info about the 'clearHalt(direction, endpointNumber)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-clearhalt">https://wicg.github.io/webusb/#dom-usbdevice-clearhalt</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-clearhalt">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-49030a6f6af6599ca95e3e4d6970fe00" class="dfn-panel" data-for="49030a6f6af6599ca95e3e4d6970fe00" id="infopanel-for-49030a6f6af6599ca95e3e4d6970fe00">
-   <span id="infopaneltitle-for-49030a6f6af6599ca95e3e4d6970fe00" style="display:none">Info about the 'close()' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-close">https://wicg.github.io/webusb/#dom-usbdevice-close</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-close">4.1. USBDevice Behavior</a> <a href="#ref-for-dom-usbdevice-close①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-edcc8c695c7fef17f7aa0280346c6f67" class="dfn-panel" data-for="edcc8c695c7fef17f7aa0280346c6f67" id="infopanel-for-edcc8c695c7fef17f7aa0280346c6f67">
-   <span id="infopaneltitle-for-edcc8c695c7fef17f7aa0280346c6f67" style="display:none">Info about the 'configuration' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-configuration">https://wicg.github.io/webusb/#dom-usbdevice-configuration</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-configuration">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-3b8c78d0ae11728279017d3d1d46765b" class="dfn-panel" data-for="3b8c78d0ae11728279017d3d1d46765b" id="infopanel-for-3b8c78d0ae11728279017d3d1d46765b">
-   <span id="infopaneltitle-for-3b8c78d0ae11728279017d3d1d46765b" style="display:none">Info about the 'configurationValue' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue">https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbconfiguration-configurationvalue">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-55080d795aac677732d4f20336d7e798" class="dfn-panel" data-for="55080d795aac677732d4f20336d7e798" id="infopanel-for-55080d795aac677732d4f20336d7e798">
-   <span id="infopaneltitle-for-55080d795aac677732d4f20336d7e798" style="display:none">Info about the 'configurations' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-configurations">https://wicg.github.io/webusb/#dom-usbdevice-configurations</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-configurations">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-7261fb6ef12d8e0c03c71238cc2104af" class="dfn-panel" data-for="7261fb6ef12d8e0c03c71238cc2104af" id="infopanel-for-7261fb6ef12d8e0c03c71238cc2104af">
-   <span id="infopaneltitle-for-7261fb6ef12d8e0c03c71238cc2104af" style="display:none">Info about the 'controlTransferIn(setup, length)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferin">https://wicg.github.io/webusb/#dom-usbdevice-controltransferin</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-controltransferin">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-cec545b8a4cb9585ab15626b74cfe0e9" class="dfn-panel" data-for="cec545b8a4cb9585ab15626b74cfe0e9" id="infopanel-for-cec545b8a4cb9585ab15626b74cfe0e9">
-   <span id="infopaneltitle-for-cec545b8a4cb9585ab15626b74cfe0e9" style="display:none">Info about the 'controlTransferOut(setup, data)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-controltransferout">https://wicg.github.io/webusb/#dom-usbdevice-controltransferout</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-controltransferout">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-b79210855dc4f7bef34b1f48ef46d7a3" class="dfn-panel" data-for="b79210855dc4f7bef34b1f48ef46d7a3" id="infopanel-for-b79210855dc4f7bef34b1f48ef46d7a3">
-   <span id="infopaneltitle-for-b79210855dc4f7bef34b1f48ef46d7a3" style="display:none">Info about the 'endpoints' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints">https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbalternateinterface-endpoints">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-3e78002a0bcc26a42d19124c9d125e42" class="dfn-panel" data-for="3e78002a0bcc26a42d19124c9d125e42" id="infopanel-for-3e78002a0bcc26a42d19124c9d125e42">
-   <span id="infopaneltitle-for-3e78002a0bcc26a42d19124c9d125e42" style="display:none">Info about the 'filters' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters">https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevicerequestoptions-filters">3.1. USB Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-c68e058eba968f2c58b7be6b8768eca6" class="dfn-panel" data-for="c68e058eba968f2c58b7be6b8768eca6" id="infopanel-for-c68e058eba968f2c58b7be6b8768eca6">
-   <span id="infopaneltitle-for-c68e058eba968f2c58b7be6b8768eca6" style="display:none">Info about the 'index' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index">https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbcontroltransferparameters-index">4.1. USBDevice Behavior</a> <a href="#ref-for-dom-usbcontroltransferparameters-index①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-7e33cbdc7eb302e6753cfa8d10d1535e" class="dfn-panel" data-for="7e33cbdc7eb302e6753cfa8d10d1535e" id="infopanel-for-7e33cbdc7eb302e6753cfa8d10d1535e">
-   <span id="infopaneltitle-for-7e33cbdc7eb302e6753cfa8d10d1535e" style="display:none">Info about the 'interfaces' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces">https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbconfiguration-interfaces">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-5e05f6e5c948e055a089d6bb634d02bc" class="dfn-panel" data-for="5e05f6e5c948e055a089d6bb634d02bc" id="infopanel-for-5e05f6e5c948e055a089d6bb634d02bc">
-   <span id="infopaneltitle-for-5e05f6e5c948e055a089d6bb634d02bc" style="display:none">Info about the 'isochronousTransferIn(endpointNumber, packetLengths)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin">https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-isochronoustransferin">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-c4d23291ae5b28edcfb5f485d66841e5" class="dfn-panel" data-for="c4d23291ae5b28edcfb5f485d66841e5" id="infopanel-for-c4d23291ae5b28edcfb5f485d66841e5">
-   <span id="infopaneltitle-for-c4d23291ae5b28edcfb5f485d66841e5" style="display:none">Info about the 'isochronousTransferOut(endpointNumber, data, packetLengths)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout">https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-isochronoustransferout">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-1bc5459db475a103d0dd1729ded5dbac" class="dfn-panel" data-for="1bc5459db475a103d0dd1729ded5dbac" id="infopanel-for-1bc5459db475a103d0dd1729ded5dbac">
-   <span id="infopaneltitle-for-1bc5459db475a103d0dd1729ded5dbac" style="display:none">Info about the 'open()' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-open">https://wicg.github.io/webusb/#dom-usbdevice-open</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-open">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f30c33417b60f4b094e0c6fc420205d6" class="dfn-panel" data-for="f30c33417b60f4b094e0c6fc420205d6" id="infopanel-for-f30c33417b60f4b094e0c6fc420205d6">
-   <span id="infopaneltitle-for-f30c33417b60f4b094e0c6fc420205d6" style="display:none">Info about the 'releaseInterface(interfaceNumber)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface">https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-releaseinterface">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-625f69c5e0ce386bd3805042991c8175" class="dfn-panel" data-for="625f69c5e0ce386bd3805042991c8175" id="infopanel-for-625f69c5e0ce386bd3805042991c8175">
-   <span id="infopaneltitle-for-625f69c5e0ce386bd3805042991c8175" style="display:none">Info about the 'request' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request">https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbcontroltransferparameters-request">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-cecef6d2ed69d153cb199d8838469947" class="dfn-panel" data-for="cecef6d2ed69d153cb199d8838469947" id="infopanel-for-cecef6d2ed69d153cb199d8838469947">
-   <span id="infopaneltitle-for-cecef6d2ed69d153cb199d8838469947" style="display:none">Info about the 'requestDevice(options)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usb-requestdevice">https://wicg.github.io/webusb/#dom-usb-requestdevice</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usb-requestdevice">3.1. USB Behavior</a>
-    <li><a href="#ref-for-dom-usb-requestdevice①">3.2. Events</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-5cb0f1b2a66d23deb82ce581f435624f" class="dfn-panel" data-for="5cb0f1b2a66d23deb82ce581f435624f" id="infopanel-for-5cb0f1b2a66d23deb82ce581f435624f">
-   <span id="infopaneltitle-for-5cb0f1b2a66d23deb82ce581f435624f" style="display:none">Info about the 'reset()' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-reset">https://wicg.github.io/webusb/#dom-usbdevice-reset</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-reset">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-332dc1b7078d900c1e1e913ab84036fc" class="dfn-panel" data-for="332dc1b7078d900c1e1e913ab84036fc" id="infopanel-for-332dc1b7078d900c1e1e913ab84036fc">
-   <span id="infopaneltitle-for-332dc1b7078d900c1e1e913ab84036fc" style="display:none">Info about the 'selectAlternateInterface(interfaceNumber, alternateSetting)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface">https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-selectalternateinterface">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-32707be977af80524179cb2a0924bb0f" class="dfn-panel" data-for="32707be977af80524179cb2a0924bb0f" id="infopanel-for-32707be977af80524179cb2a0924bb0f">
-   <span id="infopaneltitle-for-32707be977af80524179cb2a0924bb0f" style="display:none">Info about the 'selectConfiguration(configurationValue)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration">https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-selectconfiguration">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-d1451bb7194209433908656fd05936cf" class="dfn-panel" data-for="d1451bb7194209433908656fd05936cf" id="infopanel-for-d1451bb7194209433908656fd05936cf">
-   <span id="infopaneltitle-for-d1451bb7194209433908656fd05936cf" style="display:none">Info about the 'transferIn(endpointNumber, length)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-transferin">https://wicg.github.io/webusb/#dom-usbdevice-transferin</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-transferin">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-eddab52eba982ad51bcffb876cb25920" class="dfn-panel" data-for="eddab52eba982ad51bcffb876cb25920" id="infopanel-for-eddab52eba982ad51bcffb876cb25920">
-   <span id="infopaneltitle-for-eddab52eba982ad51bcffb876cb25920" style="display:none">Info about the 'transferOut(endpointNumber, data)' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbdevice-transferout">https://wicg.github.io/webusb/#dom-usbdevice-transferout</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevice-transferout">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-ac5381c272cc91cf4b27c29971270480" class="dfn-panel" data-for="ac5381c272cc91cf4b27c29971270480" id="infopanel-for-ac5381c272cc91cf4b27c29971270480">
-   <span id="infopaneltitle-for-ac5381c272cc91cf4b27c29971270480" style="display:none">Info about the 'usb' external reference.</span><a href="https://wicg.github.io/webusb/#dom-navigator-usb">https://wicg.github.io/webusb/#dom-navigator-usb</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-navigator-usb">3. Global Testing Interface</a> <a href="#ref-for-dom-navigator-usb①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-f07ea1ffc2c706827d8ce3fa8e99c688" class="dfn-panel" data-for="f07ea1ffc2c706827d8ce3fa8e99c688" id="infopanel-for-f07ea1ffc2c706827d8ce3fa8e99c688">
-   <span id="infopaneltitle-for-f07ea1ffc2c706827d8ce3fa8e99c688" style="display:none">Info about the 'value' external reference.</span><a href="https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value">https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value</a><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbcontroltransferparameters-value">4.1. USBDevice Behavior</a> <a href="#ref-for-dom-usbcontroltransferparameters-value①">(2)</a>
-   </ul>
-  </aside>
   <h3 class="no-num no-ref heading settled" id="index-defined-elsewhere"><span class="content">Terms defined by reference</span><a class="self-link" href="#index-defined-elsewhere"></a></h3>
   <ul class="index">
    <li>
     <a data-link-type="biblio">[DOM]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="316772b0029bcc028521d2db08fd3717">Event</span>
-     <li><span class="dfn-paneled" id="a6aa66e0075314e8eefa4e662cb40fbb">EventTarget</span>
-     <li><span class="dfn-paneled" id="15045c15505e025cd6b6d0f134b7c986">fire an event</span>
+     <li><span class="dfn-paneled" id="129bdae8">Event</span>
+     <li><span class="dfn-paneled" id="2bc0cdf4">EventTarget</span>
+     <li><span class="dfn-paneled" id="5fd23811">fire an event</span>
     </ul>
    <li>
     <a data-link-type="biblio">[ECMASCRIPT]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="338b28da30648be8a2cee5d1525b5ef4">internal slot</span>
+     <li><span class="dfn-paneled" id="c15f1628">internal slot</span>
     </ul>
    <li>
     <a data-link-type="biblio">[HTML]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="716703f1068cc638b4235f83154eff6c">EventHandler</span>
-     <li><span class="dfn-paneled" id="75ff12c16ae1a8f6cbf2920128280261">HTMLIFrameElement</span>
-     <li><span class="dfn-paneled" id="1875387458fa6e1450bbb7f8999f1636">Worker</span>
-     <li><span class="dfn-paneled" id="6c23c1976c1702789d8f6e0dadba625f">current global object</span>
-     <li><span class="dfn-paneled" id="dfd386d6786e19e14e8be334215a486e">global object</span>
-     <li><span class="dfn-paneled" id="3a2763fcaa6bc82693554cf36780c0dd">in parallel</span>
-     <li><span class="dfn-paneled" id="da7ed5f190c4eedd375552d6f7876301">queue a task</span>
+     <li><span class="dfn-paneled" id="f0951476">EventHandler</span>
+     <li><span class="dfn-paneled" id="10e25f42">HTMLIFrameElement</span>
+     <li><span class="dfn-paneled" id="bfc1c271">Worker</span>
+     <li><span class="dfn-paneled" id="ce3d2bbb">current global object</span>
+     <li><span class="dfn-paneled" id="4b6086d7">global object</span>
+     <li><span class="dfn-paneled" id="a72449dd">in parallel</span>
+     <li><span class="dfn-paneled" id="9a517a7d">queue a task</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WEBIDL]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="d0f238a61de9310f1738a214749fab18">DOMString</span>
-     <li><span class="dfn-paneled" id="dde049eb112f043fc45407ec0d4cb457">Exposed</span>
-     <li><span class="dfn-paneled" id="30e8367dc9a547b9096d98ba691987d9">FrozenArray</span>
-     <li><span class="dfn-paneled" id="e2a06375a2fb70c61a8b4cd0abe9d4f1">InvalidStateError</span>
-     <li><span class="dfn-paneled" id="07f7c1fff8d9d8c7d9646f325878f996">NotFoundError</span>
-     <li><span class="dfn-paneled" id="93669c631ec1ef8e696b4c083bdbe12c">Promise</span>
-     <li><span class="dfn-paneled" id="f572762cd4679aeacd36722d99d2b741">SameObject</span>
-     <li><span class="dfn-paneled" id="f1d665343414fecb840e06a999ec9f80">octet</span>
-     <li><span class="dfn-paneled" id="f4f973f92274819781816b033aea1f11">resolve</span>
-     <li><span class="dfn-paneled" id="38ab7db52e46bed36993204c29f67202">sequence</span>
-     <li><span class="dfn-paneled" id="cee863f1f2ec91066cfb7f5d309d59dc">undefined</span>
-     <li><span class="dfn-paneled" id="03fa8b99cc63b35d2e7dcadb686676f1">unsigned long</span>
-     <li><span class="dfn-paneled" id="85ad66f191d72a7d6508e0bab70044dc">unsigned short</span>
+     <li><span class="dfn-paneled" id="8855a9aa">DOMString</span>
+     <li><span class="dfn-paneled" id="889e932f">Exposed</span>
+     <li><span class="dfn-paneled" id="dcf5fafa">FrozenArray</span>
+     <li><span class="dfn-paneled" id="797018a7">InvalidStateError</span>
+     <li><span class="dfn-paneled" id="9eda9b58">NotFoundError</span>
+     <li><span class="dfn-paneled" id="bdbd19d1">Promise</span>
+     <li><span class="dfn-paneled" id="a5c91173">SameObject</span>
+     <li><span class="dfn-paneled" id="bc5645aa">octet</span>
+     <li><span class="dfn-paneled" id="3b90bdcd">resolve</span>
+     <li><span class="dfn-paneled" id="9cce47fd">sequence</span>
+     <li><span class="dfn-paneled" id="5f90bbfb">undefined</span>
+     <li><span class="dfn-paneled" id="e97a9688">unsigned long</span>
+     <li><span class="dfn-paneled" id="450958f7">unsigned short</span>
     </ul>
    <li>
     <a data-link-type="biblio">[WebUSB]</a> defines the following terms:
     <ul>
-     <li><span class="dfn-paneled" id="3da9d554e6d2aa085494dc39b76ff861">USB</span>
-     <li><span class="dfn-paneled" id="93772cd47b0e9475faf279b0b0615191">USBAlternateInterface</span>
-     <li><span class="dfn-paneled" id="48f681bdf865aaab0487e875e109236c">USBConfiguration</span>
-     <li><span class="dfn-paneled" id="97de5f20602cf78e067beff60ec26b5e">USBDevice</span>
-     <li><span class="dfn-paneled" id="448ed5ad213aa00dfde40a252b550f2c">USBDeviceFilter</span>
-     <li><span class="dfn-paneled" id="09304e18698e89121fc6950c02637a69">USBDirection</span>
-     <li><span class="dfn-paneled" id="cdfcb6fd683521f2711f27e5bcba34a1">USBEndpoint</span>
-     <li><span class="dfn-paneled" id="e6a5bf8dc7e109b51a5d755c93ea810f">USBEndpointType</span>
-     <li><span class="dfn-paneled" id="db608b17b911b19007c6f6d374ea5961">USBInterface</span>
-     <li><span class="dfn-paneled" id="dbc4df1886b44d9a9eb386a18e2bd8bb">alternates</span>
-     <li><span class="dfn-paneled" id="28ceb55b7465fa4939ec65d44765751b">claimInterface(interfaceNumber)</span>
-     <li><span class="dfn-paneled" id="9d635b75817c3549a50f0c6139c37804">clearHalt(direction, endpointNumber)</span>
-     <li><span class="dfn-paneled" id="49030a6f6af6599ca95e3e4d6970fe00">close()</span>
-     <li><span class="dfn-paneled" id="edcc8c695c7fef17f7aa0280346c6f67">configuration</span>
-     <li><span class="dfn-paneled" id="3b8c78d0ae11728279017d3d1d46765b">configurationValue</span>
-     <li><span class="dfn-paneled" id="55080d795aac677732d4f20336d7e798">configurations</span>
-     <li><span class="dfn-paneled" id="7261fb6ef12d8e0c03c71238cc2104af">controlTransferIn(setup, length)</span>
-     <li><span class="dfn-paneled" id="cec545b8a4cb9585ab15626b74cfe0e9">controlTransferOut(setup, data)</span>
-     <li><span class="dfn-paneled" id="b79210855dc4f7bef34b1f48ef46d7a3">endpoints</span>
-     <li><span class="dfn-paneled" id="3e78002a0bcc26a42d19124c9d125e42">filters</span>
-     <li><span class="dfn-paneled" id="c68e058eba968f2c58b7be6b8768eca6">index</span>
-     <li><span class="dfn-paneled" id="7e33cbdc7eb302e6753cfa8d10d1535e">interfaces</span>
-     <li><span class="dfn-paneled" id="5e05f6e5c948e055a089d6bb634d02bc">isochronousTransferIn(endpointNumber, packetLengths)</span>
-     <li><span class="dfn-paneled" id="c4d23291ae5b28edcfb5f485d66841e5">isochronousTransferOut(endpointNumber, data, packetLengths)</span>
-     <li><span class="dfn-paneled" id="1bc5459db475a103d0dd1729ded5dbac">open()</span>
-     <li><span class="dfn-paneled" id="f30c33417b60f4b094e0c6fc420205d6">releaseInterface(interfaceNumber)</span>
-     <li><span class="dfn-paneled" id="625f69c5e0ce386bd3805042991c8175">request</span>
-     <li><span class="dfn-paneled" id="cecef6d2ed69d153cb199d8838469947">requestDevice(options)</span>
-     <li><span class="dfn-paneled" id="5cb0f1b2a66d23deb82ce581f435624f">reset()</span>
-     <li><span class="dfn-paneled" id="332dc1b7078d900c1e1e913ab84036fc">selectAlternateInterface(interfaceNumber, alternateSetting)</span>
-     <li><span class="dfn-paneled" id="32707be977af80524179cb2a0924bb0f">selectConfiguration(configurationValue)</span>
-     <li><span class="dfn-paneled" id="d1451bb7194209433908656fd05936cf">transferIn(endpointNumber, length)</span>
-     <li><span class="dfn-paneled" id="eddab52eba982ad51bcffb876cb25920">transferOut(endpointNumber, data)</span>
-     <li><span class="dfn-paneled" id="ac5381c272cc91cf4b27c29971270480">usb</span>
-     <li><span class="dfn-paneled" id="f07ea1ffc2c706827d8ce3fa8e99c688">value</span>
+     <li><span class="dfn-paneled" id="bc4432f2">USB</span>
+     <li><span class="dfn-paneled" id="96d4fd00">USBAlternateInterface</span>
+     <li><span class="dfn-paneled" id="ecc0031e">USBConfiguration</span>
+     <li><span class="dfn-paneled" id="30f61659">USBDevice</span>
+     <li><span class="dfn-paneled" id="69be132c">USBDeviceFilter</span>
+     <li><span class="dfn-paneled" id="0b14ffc1">USBDirection</span>
+     <li><span class="dfn-paneled" id="51cb005e">USBEndpoint</span>
+     <li><span class="dfn-paneled" id="2d661591">USBEndpointType</span>
+     <li><span class="dfn-paneled" id="41c4ecf9">USBInterface</span>
+     <li><span class="dfn-paneled" id="193e24e8">alternates</span>
+     <li><span class="dfn-paneled" id="728b8305">claimInterface(interfaceNumber)</span>
+     <li><span class="dfn-paneled" id="45efd835">clearHalt(direction, endpointNumber)</span>
+     <li><span class="dfn-paneled" id="03667c05">close()</span>
+     <li><span class="dfn-paneled" id="a01d0f74">configuration</span>
+     <li><span class="dfn-paneled" id="2686b930">configurationValue</span>
+     <li><span class="dfn-paneled" id="f8e58e29">configurations</span>
+     <li><span class="dfn-paneled" id="4daafeac">controlTransferIn(setup, length)</span>
+     <li><span class="dfn-paneled" id="724c1d38">controlTransferOut(setup, data)</span>
+     <li><span class="dfn-paneled" id="0d31165a">endpoints</span>
+     <li><span class="dfn-paneled" id="8d0952cf">filters</span>
+     <li><span class="dfn-paneled" id="32d6cff9">index</span>
+     <li><span class="dfn-paneled" id="e9e692d4">interfaces</span>
+     <li><span class="dfn-paneled" id="12df9952">isochronousTransferIn(endpointNumber, packetLengths)</span>
+     <li><span class="dfn-paneled" id="ae57ff94">isochronousTransferOut(endpointNumber, data, packetLengths)</span>
+     <li><span class="dfn-paneled" id="738dff1c">open()</span>
+     <li><span class="dfn-paneled" id="cc74f0fb">releaseInterface(interfaceNumber)</span>
+     <li><span class="dfn-paneled" id="6836e930">request</span>
+     <li><span class="dfn-paneled" id="a13e147b">requestDevice(options)</span>
+     <li><span class="dfn-paneled" id="1cd7ee65">reset()</span>
+     <li><span class="dfn-paneled" id="42e4ea75">selectAlternateInterface(interfaceNumber, alternateSetting)</span>
+     <li><span class="dfn-paneled" id="2890ac2d">selectConfiguration(configurationValue)</span>
+     <li><span class="dfn-paneled" id="5c23c699">transferIn(endpointNumber, length)</span>
+     <li><span class="dfn-paneled" id="5aa918a6">transferOut(endpointNumber, data)</span>
+     <li><span class="dfn-paneled" id="e83f7939">usb</span>
+     <li><span class="dfn-paneled" id="bf3f63d5">value</span>
     </ul>
   </ul>
   <h2 class="no-num no-ref heading settled" id="references"><span class="content">References</span><a class="self-link" href="#references"></a></h2>
@@ -1617,157 +1309,68 @@ operation are satisfied, behave as though the transfer succeeded in sending <var
 };
 
 </pre>
-  <aside aria-labelledby="infopaneltitle-for-usbdevicerequestevent" class="dfn-panel" data-for="usbdevicerequestevent" id="infopanel-for-usbdevicerequestevent">
-   <span id="infopaneltitle-for-usbdevicerequestevent" style="display:none">Info about the 'USBDeviceRequestEvent' definition.</span><b><a href="#usbdevicerequestevent">#usbdevicerequestevent</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbdevicerequestevent">3. Global Testing Interface</a> <a href="#ref-for-usbdevicerequestevent①">(2)</a>
-    <li><a href="#ref-for-usbdevicerequestevent②">3.1. USB Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-usbdevicerequestevent-respondwith" class="dfn-panel" data-for="dom-usbdevicerequestevent-respondwith" id="infopanel-for-dom-usbdevicerequestevent-respondwith">
-   <span id="infopaneltitle-for-dom-usbdevicerequestevent-respondwith" style="display:none">Info about the 'respondWith' definition.</span><b><a href="#dom-usbdevicerequestevent-respondwith">#dom-usbdevicerequestevent-respondwith</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevicerequestevent-respondwith">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-usbtest" class="dfn-panel" data-for="usbtest" id="infopanel-for-usbtest">
-   <span id="infopaneltitle-for-usbtest" style="display:none">Info about the 'USBTest' definition.</span><b><a href="#usbtest">#usbtest</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-usbtest">3. Global Testing Interface</a> <a href="#ref-for-usbtest①">(2)</a> <a href="#ref-for-usbtest②">(3)</a> <a href="#ref-for-usbtest③">(4)</a> <a href="#ref-for-usbtest④">(5)</a> <a href="#ref-for-usbtest⑤">(6)</a> <a href="#ref-for-usbtest⑥">(7)</a>
-    <li><a href="#ref-for-usbtest⑦">3.1. USB Behavior</a>
-    <li><a href="#ref-for-usbtest⑧">3.2. Events</a>
-    <li><a href="#ref-for-usbtest⑨">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-usbtest-initialize" class="dfn-panel" data-for="dom-usbtest-initialize" id="infopanel-for-dom-usbtest-initialize">
-   <span id="infopaneltitle-for-dom-usbtest-initialize" style="display:none">Info about the 'initialize' definition.</span><b><a href="#dom-usbtest-initialize">#dom-usbtest-initialize</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbtest-initialize">3. Global Testing Interface</a>
-    <li><a href="#ref-for-dom-usbtest-initialize①">3.2. Events</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-usbtest-attachtocontext" class="dfn-panel" data-for="dom-usbtest-attachtocontext" id="infopanel-for-dom-usbtest-attachtocontext">
-   <span id="infopaneltitle-for-dom-usbtest-attachtocontext" style="display:none">Info about the 'attachToContext' definition.</span><b><a href="#dom-usbtest-attachtocontext">#dom-usbtest-attachtocontext</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbtest-attachtocontext">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-usbtest-addfakedevice" class="dfn-panel" data-for="dom-usbtest-addfakedevice" id="infopanel-for-dom-usbtest-addfakedevice">
-   <span id="infopaneltitle-for-dom-usbtest-addfakedevice" style="display:none">Info about the 'addFakeDevice' definition.</span><b><a href="#dom-usbtest-addfakedevice">#dom-usbtest-addfakedevice</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbtest-addfakedevice">3. Global Testing Interface</a> <a href="#ref-for-dom-usbtest-addfakedevice①">(2)</a>
-    <li><a href="#ref-for-dom-usbtest-addfakedevice②">4. Fake Devices</a> <a href="#ref-for-dom-usbtest-addfakedevice③">(2)</a> <a href="#ref-for-dom-usbtest-addfakedevice④">(3)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-usbtest-reset" class="dfn-panel" data-for="dom-usbtest-reset" id="infopanel-for-dom-usbtest-reset">
-   <span id="infopaneltitle-for-dom-usbtest-reset" style="display:none">Info about the 'reset' definition.</span><b><a href="#dom-usbtest-reset">#dom-usbtest-reset</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbtest-reset">1.1. Examples</a>
-    <li><a href="#ref-for-dom-usbtest-reset①">3. Global Testing Interface</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-controlled-by" class="dfn-panel" data-for="controlled-by" id="infopanel-for-controlled-by">
-   <span id="infopaneltitle-for-controlled-by" style="display:none">Info about the 'controlled
-by' definition.</span><b><a href="#controlled-by">#controlled-by</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-controlled-by">3. Global Testing Interface</a> <a href="#ref-for-controlled-by①">(2)</a> <a href="#ref-for-controlled-by②">(3)</a>
-    <li><a href="#ref-for-controlled-by③">3.1. USB Behavior</a>
-    <li><a href="#ref-for-controlled-by④">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-usbtest-initializationpromise-slot" class="dfn-panel" data-for="dom-usbtest-initializationpromise-slot" id="infopanel-for-dom-usbtest-initializationpromise-slot">
-   <span id="infopaneltitle-for-dom-usbtest-initializationpromise-slot" style="display:none">Info about the '[[initializationPromise]]' definition.</span><b><a href="#dom-usbtest-initializationpromise-slot">#dom-usbtest-initializationpromise-slot</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbtest-initializationpromise-slot">3. Global Testing Interface</a> <a href="#ref-for-dom-usbtest-initializationpromise-slot①">(2)</a> <a href="#ref-for-dom-usbtest-initializationpromise-slot②">(3)</a> <a href="#ref-for-dom-usbtest-initializationpromise-slot③">(4)</a> <a href="#ref-for-dom-usbtest-initializationpromise-slot④">(5)</a> <a href="#ref-for-dom-usbtest-initializationpromise-slot⑤">(6)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-usbdevicerequestevent-promise-slot" class="dfn-panel" data-for="dom-usbdevicerequestevent-promise-slot" id="infopanel-for-dom-usbdevicerequestevent-promise-slot">
-   <span id="infopaneltitle-for-dom-usbdevicerequestevent-promise-slot" style="display:none">Info about the '[[promise]]' definition.</span><b><a href="#dom-usbdevicerequestevent-promise-slot">#dom-usbdevicerequestevent-promise-slot</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-usbdevicerequestevent-promise-slot">3. Global Testing Interface</a> <a href="#ref-for-dom-usbdevicerequestevent-promise-slot①">(2)</a>
-    <li><a href="#ref-for-dom-usbdevicerequestevent-promise-slot②">3.1. USB Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-requestdevice" class="dfn-panel" data-for="requestdevice" id="infopanel-for-requestdevice">
-   <span id="infopaneltitle-for-requestdevice" style="display:none">Info about the 'requestdevice' definition.</span><b><a href="#requestdevice">#requestdevice</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-requestdevice">3.1. USB Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-fakeusbdevice" class="dfn-panel" data-for="fakeusbdevice" id="infopanel-for-fakeusbdevice">
-   <span id="infopaneltitle-for-fakeusbdevice" style="display:none">Info about the 'FakeUSBDevice' definition.</span><b><a href="#fakeusbdevice">#fakeusbdevice</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-fakeusbdevice">3. Global Testing Interface</a> <a href="#ref-for-fakeusbdevice①">(2)</a> <a href="#ref-for-fakeusbdevice②">(3)</a> <a href="#ref-for-fakeusbdevice③">(4)</a> <a href="#ref-for-fakeusbdevice④">(5)</a>
-    <li><a href="#ref-for-fakeusbdevice⑤">4. Fake Devices</a>
-    <li><a href="#ref-for-fakeusbdevice⑥">4.1. USBDevice Behavior</a> <a href="#ref-for-fakeusbdevice⑦">(2)</a> <a href="#ref-for-fakeusbdevice⑧">(3)</a> <a href="#ref-for-fakeusbdevice⑨">(4)</a> <a href="#ref-for-fakeusbdevice①⓪">(5)</a> <a href="#ref-for-fakeusbdevice①①">(6)</a> <a href="#ref-for-fakeusbdevice①②">(7)</a> <a href="#ref-for-fakeusbdevice①③">(8)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-fakeusbdevice-disconnect" class="dfn-panel" data-for="dom-fakeusbdevice-disconnect" id="infopanel-for-dom-fakeusbdevice-disconnect">
-   <span id="infopaneltitle-for-dom-fakeusbdevice-disconnect" style="display:none">Info about the 'disconnect' definition.</span><b><a href="#dom-fakeusbdevice-disconnect">#dom-fakeusbdevice-disconnect</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-fakeusbdevice-disconnect">3. Global Testing Interface</a>
-    <li><a href="#ref-for-dom-fakeusbdevice-disconnect①">4. Fake Devices</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dictdef-fakeusbdeviceinit" class="dfn-panel" data-for="dictdef-fakeusbdeviceinit" id="infopanel-for-dictdef-fakeusbdeviceinit">
-   <span id="infopaneltitle-for-dictdef-fakeusbdeviceinit" style="display:none">Info about the 'FakeUSBDeviceInit' definition.</span><b><a href="#dictdef-fakeusbdeviceinit">#dictdef-fakeusbdeviceinit</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-fakeusbdeviceinit">3. Global Testing Interface</a>
-    <li><a href="#ref-for-dictdef-fakeusbdeviceinit①">4. Fake Devices</a> <a href="#ref-for-dictdef-fakeusbdeviceinit②">(2)</a>
-    <li><a href="#ref-for-dictdef-fakeusbdeviceinit③">4.1. USBDevice Behavior</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dom-fakeusbdeviceinit-activeconfigurationvalue" class="dfn-panel" data-for="dom-fakeusbdeviceinit-activeconfigurationvalue" id="infopanel-for-dom-fakeusbdeviceinit-activeconfigurationvalue">
-   <span id="infopaneltitle-for-dom-fakeusbdeviceinit-activeconfigurationvalue" style="display:none">Info about the 'activeConfigurationValue' definition.</span><b><a href="#dom-fakeusbdeviceinit-activeconfigurationvalue">#dom-fakeusbdeviceinit-activeconfigurationvalue</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dom-fakeusbdeviceinit-activeconfigurationvalue">4. Fake Devices</a> <a href="#ref-for-dom-fakeusbdeviceinit-activeconfigurationvalue①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dictdef-fakeusbconfigurationinit" class="dfn-panel" data-for="dictdef-fakeusbconfigurationinit" id="infopanel-for-dictdef-fakeusbconfigurationinit">
-   <span id="infopaneltitle-for-dictdef-fakeusbconfigurationinit" style="display:none">Info about the 'FakeUSBConfigurationInit' definition.</span><b><a href="#dictdef-fakeusbconfigurationinit">#dictdef-fakeusbconfigurationinit</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-fakeusbconfigurationinit">4. Fake Devices</a> <a href="#ref-for-dictdef-fakeusbconfigurationinit①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dictdef-fakeusbinterfaceinit" class="dfn-panel" data-for="dictdef-fakeusbinterfaceinit" id="infopanel-for-dictdef-fakeusbinterfaceinit">
-   <span id="infopaneltitle-for-dictdef-fakeusbinterfaceinit" style="display:none">Info about the 'FakeUSBInterfaceInit' definition.</span><b><a href="#dictdef-fakeusbinterfaceinit">#dictdef-fakeusbinterfaceinit</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-fakeusbinterfaceinit">4. Fake Devices</a> <a href="#ref-for-dictdef-fakeusbinterfaceinit①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dictdef-fakeusbalternateinterfaceinit" class="dfn-panel" data-for="dictdef-fakeusbalternateinterfaceinit" id="infopanel-for-dictdef-fakeusbalternateinterfaceinit">
-   <span id="infopaneltitle-for-dictdef-fakeusbalternateinterfaceinit" style="display:none">Info about the 'FakeUSBAlternateInterfaceInit' definition.</span><b><a href="#dictdef-fakeusbalternateinterfaceinit">#dictdef-fakeusbalternateinterfaceinit</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-fakeusbalternateinterfaceinit">4. Fake Devices</a> <a href="#ref-for-dictdef-fakeusbalternateinterfaceinit①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-dictdef-fakeusbendpointinit" class="dfn-panel" data-for="dictdef-fakeusbendpointinit" id="infopanel-for-dictdef-fakeusbendpointinit">
-   <span id="infopaneltitle-for-dictdef-fakeusbendpointinit" style="display:none">Info about the 'FakeUSBEndpointInit' definition.</span><b><a href="#dictdef-fakeusbendpointinit">#dictdef-fakeusbendpointinit</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-dictdef-fakeusbendpointinit">4. Fake Devices</a> <a href="#ref-for-dictdef-fakeusbendpointinit①">(2)</a>
-   </ul>
-  </aside>
-  <aside aria-labelledby="infopaneltitle-for-correspond-to" class="dfn-panel" data-for="correspond-to" id="infopanel-for-correspond-to">
-   <span id="infopaneltitle-for-correspond-to" style="display:none">Info about the 'correspond to' definition.</span><b><a href="#correspond-to">#correspond-to</a></b><b>Referenced in:</b>
-   <ul>
-    <li><a href="#ref-for-correspond-to">4.1. USBDevice Behavior</a> <a href="#ref-for-correspond-to①">(2)</a> <a href="#ref-for-correspond-to②">(3)</a> <a href="#ref-for-correspond-to③">(4)</a> <a href="#ref-for-correspond-to④">(5)</a> <a href="#ref-for-correspond-to⑤">(6)</a> <a href="#ref-for-correspond-to⑥">(7)</a> <a href="#ref-for-correspond-to⑦">(8)</a>
-   </ul>
-  </aside>
-<script>/* script-dfn-panel */
+<script>/* Boilerplate: script-dfn-panel */
 "use strict";
 {
-    function queryAll(sel) {
-        return [].slice.call(document.querySelectorAll(sel));
+    const dfnsJson = window.dfnsJson || {};
+
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
     }
 
-    // Add popup behavior to all dfns to show the corresponding dfn-panel.
-    var dfns = document.querySelectorAll('.dfn-paneled');
-    for (let dfn of dfns) { insertDfnPopupAction(dfn); }
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
+        }
+    }
 
-    document.body.addEventListener("click", (e) => {
-        // If not handled already, just hide all dfn panels.
-        hideAllDfnPanels();
-    });
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
 
     function hideAllDfnPanels() {
         // Turn off any currently "on" or "activated" panels.
@@ -1817,49 +1420,476 @@ by' definition.</span><b><a href="#controlled-by">#controlled-by</a></b><b>Refer
         }
     }
 
-    function insertDfnPopupAction(dfn) {
+    function insertDfnPopupAction(dfn, dfnPanel) {
         // Find dfn panel
-        const dfnPanel = document.querySelector(`.dfn-panel[data-for='${dfn.id}']`);
-        if (dfnPanel) {
-            const panelWrapper = document.createElement('span');
-            panelWrapper.appendChild(dfnPanel);
-            panelWrapper.style.position = "relative";
-            panelWrapper.style.height = "0px";
-            dfn.insertAdjacentElement("afterend", panelWrapper);
-            dfn.setAttribute('role', 'button');
-            dfn.setAttribute('aria-expanded', 'false')
-            dfn.tabIndex = 0;
-            dfn.classList.add('has-dfn-panel');
-            dfn.addEventListener('click', (event) => {
-                showDfnPanel(dfnPanel, dfn);
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
                 event.stopPropagation();
-            });
-            dfn.addEventListener('keypress', (event) => {
-                const kc = event.keyCode;
-                // 32->Space, 13->Enter
-                if(kc == 32 || kc == 13) {
-                    toggleDfnPanel(dfnPanel, dfn);
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            });
+                event.preventDefault();
+            }
+        });
 
-            dfnPanel.addEventListener('click', (event) => {
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
                 pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
                 event.stopPropagation();
-            });
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel */
+"use strict";
+{
+    const dfnsJson = window.dfnsJson || {};
 
-            dfnPanel.addEventListener('keydown', (event) => {
-                if(event.keyCode == 27) { // Escape key
-                    hideDfnPanel(dfnPanel, dfn);
-                    event.stopPropagation();
-                    event.preventDefault();
-                }
-            })
+    function genDfnPanel({dfnID, url, dfnText, refSections, external}) {
+        return mk.aside({
+            class: "dfn-panel",
+            id: `infopanel-for-${dfnID}`,
+            "data-for": dfnID,
+            "aria-labelled-by":`infopaneltitle-for-${dfnID}`,
+            },
+            mk.span({id:`infopaneltitle-for-${dfnID}`, style:"display:none"},
+                `Info about the '${dfnText}' ${external?"external":""} reference.`),
+            mk.a({href:url}, url),
+            mk.b({}, "Referenced in:"),
+            mk.ul({},
+                ...refSections.map(section=>
+                    mk.li({},
+                        ...section.refs.map((ref, refI)=>
+                            [
+                                mk.a({
+                                    href: `#${ref.id}`
+                                    },
+                                    (refI == 0) ? section.title : `(${refI + 1})`
+                                ),
+                                " ",
+                            ]
+                        ),
+                    ),
+                ),
+            ),
+        );
+    }
 
-        } else {
-            console.log("Couldn't find .dfn-panel[data-for='" + dfn.id + "']");
+    function genAllDfnPanels() {
+        for(const panelData of Object.values(window.dfnpanelData)) {
+            const dfnID = panelData.dfnID;
+            const dfn = document.getElementById(dfnID);
+            if(!dfn) {
+                console.log(`Can't find dfn#${dfnID}.`, panelData);
+            } else {
+                const panel = genDfnPanel(panelData);
+                append(document.body, panel);
+                insertDfnPopupAction(dfn, panel)
+            }
         }
     }
+
+    document.addEventListener("DOMContentLoaded", ()=>{
+        genAllDfnPanels();
+
+        // Add popup behavior to all dfns to show the corresponding dfn-panel.
+        var dfns = queryAll('.dfn-paneled');
+        for(let dfn of dfns) { ; }
+
+        document.body.addEventListener("click", (e) => {
+            // If not handled already, just hide all dfn panels.
+            hideAllDfnPanels();
+        });
+    })
+
+
+    function hideAllDfnPanels() {
+        // Turn off any currently "on" or "activated" panels.
+        queryAll(".dfn-panel.on, .dfn-panel.activated").forEach(el=>hideDfnPanel(el));
+    }
+
+    function showDfnPanel(dfnPanel, dfn) {
+        hideAllDfnPanels(); // Only display one at this time.
+        dfn.setAttribute("aria-expanded", "true");
+        dfnPanel.classList.add("on");
+        dfnPanel.style.left = "5px";
+        dfnPanel.style.top = "0px";
+        const panelRect = dfnPanel.getBoundingClientRect();
+        const panelWidth = panelRect.right - panelRect.left;
+        if (panelRect.right > document.body.scrollWidth) {
+            // Panel's overflowing the screen.
+            // Just drop it below the dfn and flip it rightward instead.
+            // This still wont' fix things if the screen is *really* wide,
+            // but fixing that's a lot harder without 'anchor()'.
+            dfnPanel.style.top = "1.5em";
+            dfnPanel.style.left = "auto";
+            dfnPanel.style.right = "0px";
+        }
+    }
+
+    function pinDfnPanel(dfnPanel) {
+        // Switch it to "activated" state, which pins it.
+        dfnPanel.classList.add("activated");
+        dfnPanel.style.left = null;
+        dfnPanel.style.top = null;
+    }
+
+    function hideDfnPanel(dfnPanel, dfn) {
+        if(!dfn) {
+            dfn = document.getElementById(dfnPanel.getAttribute("data-for"));
+        }
+        dfn.setAttribute("aria-expanded", "false")
+        dfnPanel.classList.remove("on");
+        dfnPanel.classList.remove("activated");
+    }
+
+    function toggleDfnPanel(dfnPanel, dfn) {
+        if(dfnPanel.classList.contains("on")) {
+            hideDfnPanel(dfnPanel, dfn);
+        } else {
+            showDfnPanel(dfnPanel, dfn);
+        }
+    }
+
+    function insertDfnPopupAction(dfn, dfnPanel) {
+        // Find dfn panel
+        const panelWrapper = document.createElement('span');
+        panelWrapper.appendChild(dfnPanel);
+        panelWrapper.style.position = "relative";
+        panelWrapper.style.height = "0px";
+        dfn.insertAdjacentElement("afterend", panelWrapper);
+        dfn.setAttribute('role', 'button');
+        dfn.setAttribute('aria-expanded', 'false')
+        dfn.tabIndex = 0;
+        dfn.classList.add('has-dfn-panel');
+        dfn.addEventListener('click', (event) => {
+            showDfnPanel(dfnPanel, dfn);
+            event.stopPropagation();
+        });
+        dfn.addEventListener('keypress', (event) => {
+            const kc = event.keyCode;
+            // 32->Space, 13->Enter
+            if(kc == 32 || kc == 13) {
+                toggleDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        });
+
+        dfnPanel.addEventListener('click', (event) => {
+            if (event.target.nodeName == 'A') {
+                pinDfnPanel(dfnPanel);
+            }
+            event.stopPropagation();
+        });
+
+        dfnPanel.addEventListener('keydown', (event) => {
+            if(event.keyCode == 27) { // Escape key
+                hideDfnPanel(dfnPanel, dfn);
+                event.stopPropagation();
+                event.preventDefault();
+            }
+        })
+    }
+}
+</script>
+<script>/* Boilerplate: script-dfn-panel-json */
+window.dfnpanelData = {};
+window.dfnpanelData['129bdae8'] = {"dfnID": "129bdae8", "url": "https://dom.spec.whatwg.org/#event", "dfnText": "Event", "refSections": [{"refs": [{"id": "ref-for-event"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['2bc0cdf4'] = {"dfnID": "2bc0cdf4", "url": "https://dom.spec.whatwg.org/#eventtarget", "dfnText": "EventTarget", "refSections": [{"refs": [{"id": "ref-for-eventtarget"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['5fd23811'] = {"dfnID": "5fd23811", "url": "https://dom.spec.whatwg.org/#concept-event-fire", "dfnText": "fire an event", "refSections": [{"refs": [{"id": "ref-for-concept-event-fire"}], "title": "3.1. USB Behavior"}, {"refs": [{"id": "ref-for-concept-event-fire\u2460"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['c15f1628'] = {"dfnID": "c15f1628", "url": "https://tc39.github.io/ecma262/#sec-object-internal-methods-and-internal-slots", "dfnText": "internal slot", "refSections": [{"refs": [{"id": "ref-for-sec-object-internal-methods-and-internal-slots"}, {"id": "ref-for-sec-object-internal-methods-and-internal-slots\u2460"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['f0951476'] = {"dfnID": "f0951476", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#eventhandler", "dfnText": "EventHandler", "refSections": [{"refs": [{"id": "ref-for-eventhandler"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-eventhandler\u2460"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['10e25f42'] = {"dfnID": "10e25f42", "url": "https://html.spec.whatwg.org/multipage/iframe-embed-object.html#htmliframeelement", "dfnText": "HTMLIFrameElement", "refSections": [{"refs": [{"id": "ref-for-htmliframeelement"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['bfc1c271'] = {"dfnID": "bfc1c271", "url": "https://html.spec.whatwg.org/multipage/workers.html#worker", "dfnText": "Worker", "refSections": [{"refs": [{"id": "ref-for-worker"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['ce3d2bbb'] = {"dfnID": "ce3d2bbb", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#current-global-object", "dfnText": "current global object", "refSections": [{"refs": [{"id": "ref-for-current-global-object"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['4b6086d7'] = {"dfnID": "4b6086d7", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#global-object", "dfnText": "global object", "refSections": [{"refs": [{"id": "ref-for-global-object"}, {"id": "ref-for-global-object\u2460"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['a72449dd'] = {"dfnID": "a72449dd", "url": "https://html.spec.whatwg.org/multipage/infrastructure.html#in-parallel", "dfnText": "in parallel", "refSections": [{"refs": [{"id": "ref-for-in-parallel"}, {"id": "ref-for-in-parallel\u2460"}, {"id": "ref-for-in-parallel\u2461"}, {"id": "ref-for-in-parallel\u2462"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-in-parallel\u2463"}], "title": "3.1. USB Behavior"}], "external": true};
+window.dfnpanelData['9a517a7d'] = {"dfnID": "9a517a7d", "url": "https://html.spec.whatwg.org/multipage/webappapis.html#queue-a-task", "dfnText": "queue a task", "refSections": [{"refs": [{"id": "ref-for-queue-a-task"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-queue-a-task\u2460"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['8855a9aa'] = {"dfnID": "8855a9aa", "url": "https://webidl.spec.whatwg.org/#idl-DOMString", "dfnText": "DOMString", "refSections": [{"refs": [{"id": "ref-for-idl-DOMString"}, {"id": "ref-for-idl-DOMString\u2460"}, {"id": "ref-for-idl-DOMString\u2461"}, {"id": "ref-for-idl-DOMString\u2462"}, {"id": "ref-for-idl-DOMString\u2463"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['889e932f'] = {"dfnID": "889e932f", "url": "https://webidl.spec.whatwg.org/#Exposed", "dfnText": "Exposed", "refSections": [{"refs": [{"id": "ref-for-Exposed"}, {"id": "ref-for-Exposed\u2460"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-Exposed\u2461"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['dcf5fafa'] = {"dfnID": "dcf5fafa", "url": "https://webidl.spec.whatwg.org/#idl-frozen-array", "dfnText": "FrozenArray", "refSections": [{"refs": [{"id": "ref-for-idl-frozen-array"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-idl-frozen-array\u2460"}], "title": "3.1. USB Behavior"}, {"refs": [{"id": "ref-for-idl-frozen-array\u2461"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['797018a7'] = {"dfnID": "797018a7", "url": "https://webidl.spec.whatwg.org/#invalidstateerror", "dfnText": "InvalidStateError", "refSections": [{"refs": [{"id": "ref-for-invalidstateerror"}, {"id": "ref-for-invalidstateerror\u2460"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['9eda9b58'] = {"dfnID": "9eda9b58", "url": "https://webidl.spec.whatwg.org/#notfounderror", "dfnText": "NotFoundError", "refSections": [{"refs": [{"id": "ref-for-notfounderror"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['bdbd19d1'] = {"dfnID": "bdbd19d1", "url": "https://webidl.spec.whatwg.org/#idl-promise", "dfnText": "Promise", "refSections": [{"refs": [{"id": "ref-for-idl-promise"}], "title": "1.1. Examples"}, {"refs": [{"id": "ref-for-idl-promise\u2460"}, {"id": "ref-for-idl-promise\u2461"}, {"id": "ref-for-idl-promise\u2462"}, {"id": "ref-for-idl-promise\u2463"}, {"id": "ref-for-idl-promise\u2464"}, {"id": "ref-for-idl-promise\u2465"}, {"id": "ref-for-idl-promise\u2466"}, {"id": "ref-for-idl-promise\u2467"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-idl-promise\u2468"}], "title": "3.1. USB Behavior"}], "external": true};
+window.dfnpanelData['a5c91173'] = {"dfnID": "a5c91173", "url": "https://webidl.spec.whatwg.org/#SameObject", "dfnText": "SameObject", "refSections": [{"refs": [{"id": "ref-for-SameObject"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['bc5645aa'] = {"dfnID": "bc5645aa", "url": "https://webidl.spec.whatwg.org/#idl-octet", "dfnText": "octet", "refSections": [{"refs": [{"id": "ref-for-idl-octet"}, {"id": "ref-for-idl-octet\u2460"}, {"id": "ref-for-idl-octet\u2461"}, {"id": "ref-for-idl-octet\u2462"}, {"id": "ref-for-idl-octet\u2463"}, {"id": "ref-for-idl-octet\u2464"}, {"id": "ref-for-idl-octet\u2465"}, {"id": "ref-for-idl-octet\u2466"}, {"id": "ref-for-idl-octet\u2467"}, {"id": "ref-for-idl-octet\u2468"}, {"id": "ref-for-idl-octet\u2460\u24ea"}, {"id": "ref-for-idl-octet\u2460\u2460"}, {"id": "ref-for-idl-octet\u2460\u2461"}, {"id": "ref-for-idl-octet\u2460\u2462"}, {"id": "ref-for-idl-octet\u2460\u2463"}, {"id": "ref-for-idl-octet\u2460\u2464"}, {"id": "ref-for-idl-octet\u2460\u2465"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['3b90bdcd'] = {"dfnID": "3b90bdcd", "url": "https://webidl.spec.whatwg.org/#resolve", "dfnText": "resolve", "refSections": [{"refs": [{"id": "ref-for-resolve"}, {"id": "ref-for-resolve\u2460"}, {"id": "ref-for-resolve\u2461"}, {"id": "ref-for-resolve\u2462"}, {"id": "ref-for-resolve\u2463"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['9cce47fd'] = {"dfnID": "9cce47fd", "url": "https://webidl.spec.whatwg.org/#idl-sequence", "dfnText": "sequence", "refSections": [{"refs": [{"id": "ref-for-idl-sequence"}, {"id": "ref-for-idl-sequence\u2460"}, {"id": "ref-for-idl-sequence\u2461"}, {"id": "ref-for-idl-sequence\u2462"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['5f90bbfb'] = {"dfnID": "5f90bbfb", "url": "https://webidl.spec.whatwg.org/#idl-undefined", "dfnText": "undefined", "refSections": [{"refs": [{"id": "ref-for-idl-undefined"}, {"id": "ref-for-idl-undefined\u2460"}, {"id": "ref-for-idl-undefined\u2461"}, {"id": "ref-for-idl-undefined\u2462"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-idl-undefined\u2463"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['e97a9688'] = {"dfnID": "e97a9688", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-long", "dfnText": "unsigned long", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-long"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['450958f7'] = {"dfnID": "450958f7", "url": "https://webidl.spec.whatwg.org/#idl-unsigned-short", "dfnText": "unsigned short", "refSections": [{"refs": [{"id": "ref-for-idl-unsigned-short"}, {"id": "ref-for-idl-unsigned-short\u2460"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['bc4432f2'] = {"dfnID": "bc4432f2", "url": "https://wicg.github.io/webusb/#usb", "dfnText": "USB", "refSections": [{"refs": [{"id": "ref-for-usb"}, {"id": "ref-for-usb\u2460"}, {"id": "ref-for-usb\u2461"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-usb\u2462"}, {"id": "ref-for-usb\u2463"}], "title": "3.1. USB Behavior"}, {"refs": [{"id": "ref-for-usb\u2464"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['96d4fd00'] = {"dfnID": "96d4fd00", "url": "https://wicg.github.io/webusb/#usbalternateinterface", "dfnText": "USBAlternateInterface", "refSections": [{"refs": [{"id": "ref-for-usbalternateinterface"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['ecc0031e'] = {"dfnID": "ecc0031e", "url": "https://wicg.github.io/webusb/#usbconfiguration", "dfnText": "USBConfiguration", "refSections": [{"refs": [{"id": "ref-for-usbconfiguration"}, {"id": "ref-for-usbconfiguration\u2460"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['30f61659'] = {"dfnID": "30f61659", "url": "https://wicg.github.io/webusb/#usbdevice", "dfnText": "USBDevice", "refSections": [{"refs": [{"id": "ref-for-usbdevice"}], "title": "4. Fake Devices"}, {"refs": [{"id": "ref-for-usbdevice\u2460"}, {"id": "ref-for-usbdevice\u2461"}, {"id": "ref-for-usbdevice\u2462"}, {"id": "ref-for-usbdevice\u2463"}, {"id": "ref-for-usbdevice\u2464"}, {"id": "ref-for-usbdevice\u2465"}, {"id": "ref-for-usbdevice\u2466"}, {"id": "ref-for-usbdevice\u2467"}, {"id": "ref-for-usbdevice\u2468"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['69be132c'] = {"dfnID": "69be132c", "url": "https://wicg.github.io/webusb/#dictdef-usbdevicefilter", "dfnText": "USBDeviceFilter", "refSections": [{"refs": [{"id": "ref-for-dictdef-usbdevicefilter"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['0b14ffc1'] = {"dfnID": "0b14ffc1", "url": "https://wicg.github.io/webusb/#enumdef-usbdirection", "dfnText": "USBDirection", "refSections": [{"refs": [{"id": "ref-for-enumdef-usbdirection"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['51cb005e'] = {"dfnID": "51cb005e", "url": "https://wicg.github.io/webusb/#usbendpoint", "dfnText": "USBEndpoint", "refSections": [{"refs": [{"id": "ref-for-usbendpoint"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['2d661591'] = {"dfnID": "2d661591", "url": "https://wicg.github.io/webusb/#enumdef-usbendpointtype", "dfnText": "USBEndpointType", "refSections": [{"refs": [{"id": "ref-for-enumdef-usbendpointtype"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['41c4ecf9'] = {"dfnID": "41c4ecf9", "url": "https://wicg.github.io/webusb/#usbinterface", "dfnText": "USBInterface", "refSections": [{"refs": [{"id": "ref-for-usbinterface"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['193e24e8'] = {"dfnID": "193e24e8", "url": "https://wicg.github.io/webusb/#dom-usbinterface-alternates", "dfnText": "alternates", "refSections": [{"refs": [{"id": "ref-for-dom-usbinterface-alternates"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['728b8305'] = {"dfnID": "728b8305", "url": "https://wicg.github.io/webusb/#dom-usbdevice-claiminterface", "dfnText": "claimInterface(interfaceNumber)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-claiminterface"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['45efd835'] = {"dfnID": "45efd835", "url": "https://wicg.github.io/webusb/#dom-usbdevice-clearhalt", "dfnText": "clearHalt(direction, endpointNumber)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-clearhalt"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['03667c05'] = {"dfnID": "03667c05", "url": "https://wicg.github.io/webusb/#dom-usbdevice-close", "dfnText": "close()", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-close"}, {"id": "ref-for-dom-usbdevice-close\u2460"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['a01d0f74'] = {"dfnID": "a01d0f74", "url": "https://wicg.github.io/webusb/#dom-usbdevice-configuration", "dfnText": "configuration", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-configuration"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['2686b930'] = {"dfnID": "2686b930", "url": "https://wicg.github.io/webusb/#dom-usbconfiguration-configurationvalue", "dfnText": "configurationValue", "refSections": [{"refs": [{"id": "ref-for-dom-usbconfiguration-configurationvalue"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['f8e58e29'] = {"dfnID": "f8e58e29", "url": "https://wicg.github.io/webusb/#dom-usbdevice-configurations", "dfnText": "configurations", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-configurations"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['4daafeac'] = {"dfnID": "4daafeac", "url": "https://wicg.github.io/webusb/#dom-usbdevice-controltransferin", "dfnText": "controlTransferIn(setup, length)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-controltransferin"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['724c1d38'] = {"dfnID": "724c1d38", "url": "https://wicg.github.io/webusb/#dom-usbdevice-controltransferout", "dfnText": "controlTransferOut(setup, data)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-controltransferout"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['0d31165a'] = {"dfnID": "0d31165a", "url": "https://wicg.github.io/webusb/#dom-usbalternateinterface-endpoints", "dfnText": "endpoints", "refSections": [{"refs": [{"id": "ref-for-dom-usbalternateinterface-endpoints"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['8d0952cf'] = {"dfnID": "8d0952cf", "url": "https://wicg.github.io/webusb/#dom-usbdevicerequestoptions-filters", "dfnText": "filters", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevicerequestoptions-filters"}], "title": "3.1. USB Behavior"}], "external": true};
+window.dfnpanelData['32d6cff9'] = {"dfnID": "32d6cff9", "url": "https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-index", "dfnText": "index", "refSections": [{"refs": [{"id": "ref-for-dom-usbcontroltransferparameters-index"}, {"id": "ref-for-dom-usbcontroltransferparameters-index\u2460"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['e9e692d4'] = {"dfnID": "e9e692d4", "url": "https://wicg.github.io/webusb/#dom-usbconfiguration-interfaces", "dfnText": "interfaces", "refSections": [{"refs": [{"id": "ref-for-dom-usbconfiguration-interfaces"}], "title": "4. Fake Devices"}], "external": true};
+window.dfnpanelData['12df9952'] = {"dfnID": "12df9952", "url": "https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferin", "dfnText": "isochronousTransferIn(endpointNumber, packetLengths)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-isochronoustransferin"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['ae57ff94'] = {"dfnID": "ae57ff94", "url": "https://wicg.github.io/webusb/#dom-usbdevice-isochronoustransferout", "dfnText": "isochronousTransferOut(endpointNumber, data, packetLengths)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-isochronoustransferout"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['738dff1c'] = {"dfnID": "738dff1c", "url": "https://wicg.github.io/webusb/#dom-usbdevice-open", "dfnText": "open()", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-open"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['cc74f0fb'] = {"dfnID": "cc74f0fb", "url": "https://wicg.github.io/webusb/#dom-usbdevice-releaseinterface", "dfnText": "releaseInterface(interfaceNumber)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-releaseinterface"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['6836e930'] = {"dfnID": "6836e930", "url": "https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-request", "dfnText": "request", "refSections": [{"refs": [{"id": "ref-for-dom-usbcontroltransferparameters-request"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['a13e147b'] = {"dfnID": "a13e147b", "url": "https://wicg.github.io/webusb/#dom-usb-requestdevice", "dfnText": "requestDevice(options)", "refSections": [{"refs": [{"id": "ref-for-dom-usb-requestdevice"}], "title": "3.1. USB Behavior"}, {"refs": [{"id": "ref-for-dom-usb-requestdevice\u2460"}], "title": "3.2. Events"}], "external": true};
+window.dfnpanelData['1cd7ee65'] = {"dfnID": "1cd7ee65", "url": "https://wicg.github.io/webusb/#dom-usbdevice-reset", "dfnText": "reset()", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-reset"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['42e4ea75'] = {"dfnID": "42e4ea75", "url": "https://wicg.github.io/webusb/#dom-usbdevice-selectalternateinterface", "dfnText": "selectAlternateInterface(interfaceNumber, alternateSetting)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-selectalternateinterface"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['2890ac2d'] = {"dfnID": "2890ac2d", "url": "https://wicg.github.io/webusb/#dom-usbdevice-selectconfiguration", "dfnText": "selectConfiguration(configurationValue)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-selectconfiguration"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['5c23c699'] = {"dfnID": "5c23c699", "url": "https://wicg.github.io/webusb/#dom-usbdevice-transferin", "dfnText": "transferIn(endpointNumber, length)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-transferin"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['5aa918a6'] = {"dfnID": "5aa918a6", "url": "https://wicg.github.io/webusb/#dom-usbdevice-transferout", "dfnText": "transferOut(endpointNumber, data)", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevice-transferout"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['e83f7939'] = {"dfnID": "e83f7939", "url": "https://wicg.github.io/webusb/#dom-navigator-usb", "dfnText": "usb", "refSections": [{"refs": [{"id": "ref-for-dom-navigator-usb"}, {"id": "ref-for-dom-navigator-usb\u2460"}], "title": "3. Global Testing Interface"}], "external": true};
+window.dfnpanelData['bf3f63d5'] = {"dfnID": "bf3f63d5", "url": "https://wicg.github.io/webusb/#dom-usbcontroltransferparameters-value", "dfnText": "value", "refSections": [{"refs": [{"id": "ref-for-dom-usbcontroltransferparameters-value"}, {"id": "ref-for-dom-usbcontroltransferparameters-value\u2460"}], "title": "4.1. USBDevice Behavior"}], "external": true};
+window.dfnpanelData['usbdevicerequestevent'] = {"dfnID": "usbdevicerequestevent", "url": "#usbdevicerequestevent", "dfnText": "USBDeviceRequestEvent", "refSections": [{"refs": [{"id": "ref-for-usbdevicerequestevent"}, {"id": "ref-for-usbdevicerequestevent\u2460"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-usbdevicerequestevent\u2461"}], "title": "3.1. USB Behavior"}], "external": false};
+window.dfnpanelData['dom-usbdevicerequestevent-respondwith'] = {"dfnID": "dom-usbdevicerequestevent-respondwith", "url": "#dom-usbdevicerequestevent-respondwith", "dfnText": "respondWith", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevicerequestevent-respondwith"}], "title": "3. Global Testing Interface"}], "external": false};
+window.dfnpanelData['usbtest'] = {"dfnID": "usbtest", "url": "#usbtest", "dfnText": "USBTest", "refSections": [{"refs": [{"id": "ref-for-usbtest"}, {"id": "ref-for-usbtest\u2460"}, {"id": "ref-for-usbtest\u2461"}, {"id": "ref-for-usbtest\u2462"}, {"id": "ref-for-usbtest\u2463"}, {"id": "ref-for-usbtest\u2464"}, {"id": "ref-for-usbtest\u2465"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-usbtest\u2466"}], "title": "3.1. USB Behavior"}, {"refs": [{"id": "ref-for-usbtest\u2467"}], "title": "3.2. Events"}, {"refs": [{"id": "ref-for-usbtest\u2468"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dom-usbtest-initialize'] = {"dfnID": "dom-usbtest-initialize", "url": "#dom-usbtest-initialize", "dfnText": "initialize", "refSections": [{"refs": [{"id": "ref-for-dom-usbtest-initialize"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-dom-usbtest-initialize\u2460"}], "title": "3.2. Events"}], "external": false};
+window.dfnpanelData['dom-usbtest-attachtocontext'] = {"dfnID": "dom-usbtest-attachtocontext", "url": "#dom-usbtest-attachtocontext", "dfnText": "attachToContext", "refSections": [{"refs": [{"id": "ref-for-dom-usbtest-attachtocontext"}], "title": "3. Global Testing Interface"}], "external": false};
+window.dfnpanelData['dom-usbtest-addfakedevice'] = {"dfnID": "dom-usbtest-addfakedevice", "url": "#dom-usbtest-addfakedevice", "dfnText": "addFakeDevice", "refSections": [{"refs": [{"id": "ref-for-dom-usbtest-addfakedevice"}, {"id": "ref-for-dom-usbtest-addfakedevice\u2460"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-dom-usbtest-addfakedevice\u2461"}, {"id": "ref-for-dom-usbtest-addfakedevice\u2462"}, {"id": "ref-for-dom-usbtest-addfakedevice\u2463"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dom-usbtest-reset'] = {"dfnID": "dom-usbtest-reset", "url": "#dom-usbtest-reset", "dfnText": "reset", "refSections": [{"refs": [{"id": "ref-for-dom-usbtest-reset"}], "title": "1.1. Examples"}, {"refs": [{"id": "ref-for-dom-usbtest-reset\u2460"}], "title": "3. Global Testing Interface"}], "external": false};
+window.dfnpanelData['controlled-by'] = {"dfnID": "controlled-by", "url": "#controlled-by", "dfnText": "controlled\nby", "refSections": [{"refs": [{"id": "ref-for-controlled-by"}, {"id": "ref-for-controlled-by\u2460"}, {"id": "ref-for-controlled-by\u2461"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-controlled-by\u2462"}], "title": "3.1. USB Behavior"}, {"refs": [{"id": "ref-for-controlled-by\u2463"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dom-usbtest-initializationpromise-slot'] = {"dfnID": "dom-usbtest-initializationpromise-slot", "url": "#dom-usbtest-initializationpromise-slot", "dfnText": "[[initializationPromise]]", "refSections": [{"refs": [{"id": "ref-for-dom-usbtest-initializationpromise-slot"}, {"id": "ref-for-dom-usbtest-initializationpromise-slot\u2460"}, {"id": "ref-for-dom-usbtest-initializationpromise-slot\u2461"}, {"id": "ref-for-dom-usbtest-initializationpromise-slot\u2462"}, {"id": "ref-for-dom-usbtest-initializationpromise-slot\u2463"}, {"id": "ref-for-dom-usbtest-initializationpromise-slot\u2464"}], "title": "3. Global Testing Interface"}], "external": false};
+window.dfnpanelData['dom-usbdevicerequestevent-promise-slot'] = {"dfnID": "dom-usbdevicerequestevent-promise-slot", "url": "#dom-usbdevicerequestevent-promise-slot", "dfnText": "[[promise]]", "refSections": [{"refs": [{"id": "ref-for-dom-usbdevicerequestevent-promise-slot"}, {"id": "ref-for-dom-usbdevicerequestevent-promise-slot\u2460"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-dom-usbdevicerequestevent-promise-slot\u2461"}], "title": "3.1. USB Behavior"}], "external": false};
+window.dfnpanelData['requestdevice'] = {"dfnID": "requestdevice", "url": "#requestdevice", "dfnText": "requestdevice", "refSections": [{"refs": [{"id": "ref-for-requestdevice"}], "title": "3.1. USB Behavior"}], "external": false};
+window.dfnpanelData['fakeusbdevice'] = {"dfnID": "fakeusbdevice", "url": "#fakeusbdevice", "dfnText": "FakeUSBDevice", "refSections": [{"refs": [{"id": "ref-for-fakeusbdevice"}, {"id": "ref-for-fakeusbdevice\u2460"}, {"id": "ref-for-fakeusbdevice\u2461"}, {"id": "ref-for-fakeusbdevice\u2462"}, {"id": "ref-for-fakeusbdevice\u2463"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-fakeusbdevice\u2464"}], "title": "4. Fake Devices"}, {"refs": [{"id": "ref-for-fakeusbdevice\u2465"}, {"id": "ref-for-fakeusbdevice\u2466"}, {"id": "ref-for-fakeusbdevice\u2467"}, {"id": "ref-for-fakeusbdevice\u2468"}, {"id": "ref-for-fakeusbdevice\u2460\u24ea"}, {"id": "ref-for-fakeusbdevice\u2460\u2460"}, {"id": "ref-for-fakeusbdevice\u2460\u2461"}, {"id": "ref-for-fakeusbdevice\u2460\u2462"}], "title": "4.1. USBDevice Behavior"}], "external": false};
+window.dfnpanelData['dom-fakeusbdevice-disconnect'] = {"dfnID": "dom-fakeusbdevice-disconnect", "url": "#dom-fakeusbdevice-disconnect", "dfnText": "disconnect", "refSections": [{"refs": [{"id": "ref-for-dom-fakeusbdevice-disconnect"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-dom-fakeusbdevice-disconnect\u2460"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dictdef-fakeusbdeviceinit'] = {"dfnID": "dictdef-fakeusbdeviceinit", "url": "#dictdef-fakeusbdeviceinit", "dfnText": "FakeUSBDeviceInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-fakeusbdeviceinit"}], "title": "3. Global Testing Interface"}, {"refs": [{"id": "ref-for-dictdef-fakeusbdeviceinit\u2460"}, {"id": "ref-for-dictdef-fakeusbdeviceinit\u2461"}], "title": "4. Fake Devices"}, {"refs": [{"id": "ref-for-dictdef-fakeusbdeviceinit\u2462"}], "title": "4.1. USBDevice Behavior"}], "external": false};
+window.dfnpanelData['dom-fakeusbdeviceinit-activeconfigurationvalue'] = {"dfnID": "dom-fakeusbdeviceinit-activeconfigurationvalue", "url": "#dom-fakeusbdeviceinit-activeconfigurationvalue", "dfnText": "activeConfigurationValue", "refSections": [{"refs": [{"id": "ref-for-dom-fakeusbdeviceinit-activeconfigurationvalue"}, {"id": "ref-for-dom-fakeusbdeviceinit-activeconfigurationvalue\u2460"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dictdef-fakeusbconfigurationinit'] = {"dfnID": "dictdef-fakeusbconfigurationinit", "url": "#dictdef-fakeusbconfigurationinit", "dfnText": "FakeUSBConfigurationInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-fakeusbconfigurationinit"}, {"id": "ref-for-dictdef-fakeusbconfigurationinit\u2460"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dictdef-fakeusbinterfaceinit'] = {"dfnID": "dictdef-fakeusbinterfaceinit", "url": "#dictdef-fakeusbinterfaceinit", "dfnText": "FakeUSBInterfaceInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-fakeusbinterfaceinit"}, {"id": "ref-for-dictdef-fakeusbinterfaceinit\u2460"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dictdef-fakeusbalternateinterfaceinit'] = {"dfnID": "dictdef-fakeusbalternateinterfaceinit", "url": "#dictdef-fakeusbalternateinterfaceinit", "dfnText": "FakeUSBAlternateInterfaceInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-fakeusbalternateinterfaceinit"}, {"id": "ref-for-dictdef-fakeusbalternateinterfaceinit\u2460"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['dictdef-fakeusbendpointinit'] = {"dfnID": "dictdef-fakeusbendpointinit", "url": "#dictdef-fakeusbendpointinit", "dfnText": "FakeUSBEndpointInit", "refSections": [{"refs": [{"id": "ref-for-dictdef-fakeusbendpointinit"}, {"id": "ref-for-dictdef-fakeusbendpointinit\u2460"}], "title": "4. Fake Devices"}], "external": false};
+window.dfnpanelData['correspond-to'] = {"dfnID": "correspond-to", "url": "#correspond-to", "dfnText": "correspond to", "refSections": [{"refs": [{"id": "ref-for-correspond-to"}, {"id": "ref-for-correspond-to\u2460"}, {"id": "ref-for-correspond-to\u2461"}, {"id": "ref-for-correspond-to\u2462"}, {"id": "ref-for-correspond-to\u2463"}, {"id": "ref-for-correspond-to\u2464"}, {"id": "ref-for-correspond-to\u2465"}, {"id": "ref-for-correspond-to\u2466"}], "title": "4.1. USBDevice Behavior"}], "external": false};
+</script>
+<script>/* Boilerplate: script-dom-helper */
+function query(sel) { return document.querySelector(sel); }
+
+function queryAll(sel) { return [...document.querySelectorAll(sel)]; }
+
+function iter(obj) {
+	if(!obj) return [];
+	var it = obj[Symbol.iterator];
+	if(it) return it;
+	return Object.entries(obj);
+}
+
+function mk(tagname, attrs, ...children) {
+	const el = document.createElement(tagname);
+	for(const [k,v] of iter(attrs)) {
+		if(k.slice(0,3) == "_on") {
+			const eventName = k.slice(3);
+			el.addEventListener(eventName, v);
+		} else if(k[0] == "_") {
+			// property, not attribute
+			el[k.slice(1)] = v;
+		} else {
+			if(v === false || v == null) {
+        continue;
+      } else if(v === true) {
+        el.setAttribute(k, "");
+        continue;
+      } else {
+  			el.setAttribute(k, v);
+      }
+		}
+	}
+	append(el, children);
+	return el;
+}
+
+/* Create shortcuts for every known HTML element */
+[
+  "a",
+  "abbr",
+  "acronym",
+  "address",
+  "applet",
+  "area",
+  "article",
+  "aside",
+  "audio",
+  "b",
+  "base",
+  "basefont",
+  "bdo",
+  "big",
+  "blockquote",
+  "body",
+  "br",
+  "button",
+  "canvas",
+  "caption",
+  "center",
+  "cite",
+  "code",
+  "col",
+  "colgroup",
+  "datalist",
+  "dd",
+  "del",
+  "details",
+  "dfn",
+  "dialog",
+  "div",
+  "dl",
+  "dt",
+  "em",
+  "embed",
+  "fieldset",
+  "figcaption",
+  "figure",
+  "font",
+  "footer",
+  "form",
+  "frame",
+  "frameset",
+  "head",
+  "header",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "html",
+  "i",
+  "iframe",
+  "img",
+  "input",
+  "ins",
+  "kbd",
+  "label",
+  "legend",
+  "li",
+  "link",
+  "main",
+  "map",
+  "mark",
+  "meta",
+  "meter",
+  "nav",
+  "nobr",
+  "noscript",
+  "object",
+  "ol",
+  "optgroup",
+  "option",
+  "output",
+  "p",
+  "param",
+  "pre",
+  "progress",
+  "q",
+  "s",
+  "samp",
+  "script",
+  "section",
+  "select",
+  "small",
+  "source",
+  "span",
+  "strike",
+  "strong",
+  "style",
+  "sub",
+  "summary",
+  "sup",
+  "table",
+  "tbody",
+  "td",
+  "template",
+  "textarea",
+  "tfoot",
+  "th",
+  "thead",
+  "time",
+  "title",
+  "tr",
+  "u",
+  "ul",
+  "var",
+  "video",
+  "wbr",
+  "xmp",
+].forEach(tagname=>{
+	mk[tagname] = (...args) => mk(tagname, ...args);
+});
+
+function* nodesFromChildList(children) {
+	for(const child of children.flat(Infinity)) {
+		if(child instanceof Node) {
+			yield child;
+		} else {
+			yield new Text(child);
+		}
+	}
+}
+function append(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		if(el instanceof Node) el.appendChild(child);
+		else el.push(child);
+	}
+	return el;
+}
+
+function insertAfter(el, ...children) {
+	for(const child of nodesFromChildList(children)) {
+		el.parentNode.insertBefore(child, el.nextSibling);
+	}
+	return el;
+}
+
+function clearContents(el) {
+	el.innerHTML = "";
+	return el;
+}
+
+function parseHTML(markup) {
+	if(markup.toLowerCase().trim().indexOf('<!doctype') === 0) {
+		const doc = document.implementation.createHTMLDocument("");
+		doc.documentElement.innerHTML = markup;
+		return doc;
+	} else {
+		const el = mk.template({});
+		el.innerHTML = markup;
+		return el.content;
+	}
 }
 </script>
