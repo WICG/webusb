@@ -452,7 +452,7 @@ scheme, is encoded in the <code>URL</code> field.
 
   dictionary USBDeviceRequestOptions {
     required sequence<USBDeviceFilter> filters;
-    sequence<USBDeviceFilter> exclusionFilters;
+    sequence<USBDeviceFilter> exclusionFilters = [];
   };
 
   [Exposed=(Worker,Window), SecureContext]
@@ -666,15 +666,10 @@ steps <a>in parallel</a>:
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
      <a>is not a valid filter</a> <a>reject</a> |promise| with a {{TypeError}}
      and abort these steps.
-  2. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> is
-     present, then run the following steps:
-       1. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code>
-          is empty, then <a>reject</a> |promise| with a {{TypeError}}
-          and abort these steps.
-       2. For each |exclusionFilter| in
-          <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> if
-          |exclusionFilter| <a>is not a valid filter</a> <a>reject</a> |promise|
-          with a {{TypeError}} and abort these steps.
+  2. For each |exclusionFilter| in
+    <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> if
+    |exclusionFilter| <a>is not a valid filter</a> <a>reject</a> |promise|
+    with a {{TypeError}} and abort these steps.
   3. Check that the algorithm was triggered while the [=relevant global object=]
      had a <a>transient activation</a>. Otherwise, <a>reject</a> |promise| with
      a {{SecurityError}} and abort these steps.
@@ -683,7 +678,9 @@ steps <a>in parallel</a>:
      |enumerationResult|.
   6. Remove devices from |enumerationResult| if they do not <a>match a device
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
-  7. Remove devices from |enumerationResult| if they <a>match a device filter</a>
+  7. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> is
+     not empty, remove devices from |enumerationResult| if they <a>match a
+     device filter</a>
      in <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code>.
   8. Display a prompt to the user requesting they select a device from
      |enumerationResult|. The UA SHOULD show a human-readable name for each
@@ -2390,7 +2387,7 @@ defined as follows:
               <code>|desc|.{{USBPermissionDescriptor/filters}}</code>, continue
               to the next |device|.
            2. If <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code>
-              is set and |device| <a>matches a device filter</a> in
+              is not empty and |device| <a>matches a device filter</a> in
               <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code>,
               continue to the next |device|.
            3. Get the {{USBDevice}} representing |device| and add it to
