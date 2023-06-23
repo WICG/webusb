@@ -678,9 +678,7 @@ steps <a>in parallel</a>:
      |enumerationResult|.
   6. Remove devices from |enumerationResult| if they do not <a>match a device
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
-  7. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> is
-     not empty, remove devices from |enumerationResult| if they <a>match a
-     device filter</a>
+  7. Remove devices from |enumerationResult| if they <a>match a device filter</a>
      in <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code>.
   8. Display a prompt to the user requesting they select a device from
      |enumerationResult|. The UA SHOULD show a human-readable name for each
@@ -2387,7 +2385,7 @@ defined as follows:
               <code>|desc|.{{USBPermissionDescriptor/filters}}</code>, continue
               to the next |device|.
            2. If <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code>
-              is not empty and |device| <a>matches a device filter</a> in
+              is set and |device| <a>matches a device filter</a> in
               <code>|desc|.{{USBPermissionDescriptor/exclusionFilters}}</code>,
               continue to the next |device|.
            3. Get the {{USBDevice}} representing |device| and add it to
