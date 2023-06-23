@@ -452,7 +452,7 @@ scheme, is encoded in the <code>URL</code> field.
 
   dictionary USBDeviceRequestOptions {
     required sequence<USBDeviceFilter> filters;
-    sequence<USBDeviceFilter> exclusionFilters;
+    sequence<USBDeviceFilter> exclusionFilters = [];
   };
 
   [Exposed=(Worker,Window), SecureContext]
@@ -666,15 +666,10 @@ steps <a>in parallel</a>:
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
      <a>is not a valid filter</a> <a>reject</a> |promise| with a {{TypeError}}
      and abort these steps.
-  2. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> is
-     present, then run the following steps:
-       1. If <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code>
-          is empty, then <a>reject</a> |promise| with a {{TypeError}}
-          and abort these steps.
-       2. For each |exclusionFilter| in
-          <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> if
-          |exclusionFilter| <a>is not a valid filter</a> <a>reject</a> |promise|
-          with a {{TypeError}} and abort these steps.
+  2. For each |exclusionFilter| in
+    <code>|options|.{{USBPermissionDescriptor/exclusionFilters}}</code> if
+    |exclusionFilter| <a>is not a valid filter</a> <a>reject</a> |promise|
+    with a {{TypeError}} and abort these steps.
   3. Check that the algorithm was triggered while the [=relevant global object=]
      had a <a>transient activation</a>. Otherwise, <a>reject</a> |promise| with
      a {{SecurityError}} and abort these steps.
