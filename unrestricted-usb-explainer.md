@@ -58,7 +58,7 @@ data, and other vulnerable devices.
 
 The authors of the WebUSB specification believe it is not possible to expose
 unrestricted USB access to arbitrary web pages in a way that protects the user
-and also serves the VDI use case. The Isolated Web Apps proposal provides an
+and also enables USB redirection. The Isolated Web Apps proposal provides an
 alternate path for applications that require powerful capabilities considered
 too dangerous for the web.
 
