@@ -17,10 +17,12 @@ and cannot be claimed by a site using WebUSB. Similarly, the [device blocklist](
 lists a number of security devices which are not accessible to sites using
 WebUSB.
 
-These security restrictions make WebUSB unsuitable for use cases in which an
-application needs to access arbitrary USB devices. This is common in Virtual
-Desktop Infrastructure (VDI) deployments, where local peripherals need to be
-controlled by drivers and applications running on the remote virtual desktop.
+These security restrictions make WebUSB unsuitable for the USB redirection
+features common in Virtual Desktop Infrastructure (VDI) and remote desktop
+applications, where local peripherals need to be controlled by drivers and
+applications running on a remote system. While high-level redirection is
+sometimes possible these systems typically require low-level USB access in
+order to provide the best compatibility.
 
 ## Proposed specification changes
 The WebUSB API already requires an application to request permission from the
