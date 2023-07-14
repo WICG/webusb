@@ -1307,8 +1307,15 @@ All USB devices MUST have a <a>default control pipe</a> which is
         with a {{NotFoundError}} and abort these steps.
     1. If <a>this</a>.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>true</code>,
         <a>resolve</a> |promise| and abort these steps.
-    1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is <code>true</code>,
-        [=reject=] |promise| with a {{SecurityError}} and abort these steps.
+    1. Let |unrestricted| be <code>false</code>.
+    1. Let |document| be <a>this</a>'s [=relevant global object=]'s [=associated Document=], or
+        <code>null</code> if there is no associated {{Document}}.
+    1. If |document| is not <code>null</code> and |document| is [=allowed to use=] the
+        [=policy-controlled feature=] named <code>"usb-unrestricted"</code>, set |unrestricted| to
+        <code>true</code>.
+    1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is <code>true</code>
+        and |unrestricted| is <code>false</code>, [=reject=] |promise| with a {{SecurityError}} and
+        abort these steps.
     1. Perform the necessary platform-specific steps to request exclusive control
         over |interfaces|[|interfaceIndex|] for the current execution context. If this fails,
         <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
@@ -2307,6 +2314,12 @@ slots</a> described in the following table:
 This specification defines a <a>policy-controlled feature</a>, identified by the
 token <code>"usb"</code>, that controls whether the {{Navigator/usb}} attribute
 is exposed on the {{Navigator}} object.
+
+The <a>default allowlist</a> for this feature is <code>["self"]</code>.
+
+This specification defines a second <a>policy-controlled feature</a>, identified
+by the token <code>"usb-unrestricted"</code>, that controls whether blocklisted
+USB devices and device interfaces with protected classes can be accessed.
 
 The <a>default allowlist</a> for this feature is <code>["self"]</code>.
 
