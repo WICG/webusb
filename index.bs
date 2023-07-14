@@ -2319,9 +2319,15 @@ The <a>default allowlist</a> for this feature is <code>["self"]</code>.
 
 This specification defines a second <a>policy-controlled feature</a>, identified
 by the token <code>"usb-unrestricted"</code>, that controls whether blocklisted
-USB devices and device interfaces with protected classes can be accessed.
+USB devices and device interfaces with protected classes can be accessed. This
+feature MUST only be enabled for Isolated Web Apps that declare the feature in
+the Web Application Manifest [[APPMANIFEST]].
 
 The <a>default allowlist</a> for this feature is <code>["self"]</code>.
+Typically this would imply that the feature is allowed in {{Document}}s in
+[=top-level traversables=] by default. However, due to the requirement that this
+feature is only enabled for Isolated Web Apps with the feature declared in the
+manifest, the effective default allowlist is <code>["none"]</code>.
 
 ## Permission API ## {#permission-api}
 
