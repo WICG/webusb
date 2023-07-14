@@ -69,11 +69,11 @@ capabilities.
 
 ## Privacy considerations
 Unrestricted USB access can be used to access private information that is
-normally managed by the operating system or browser. For example, the browser
-uses an input focus model to ensure that keystrokes entered into a protected
-password field cannot be read by script. Unrestricted low-level access to USB
-HID devices like keyboards would enable script to bypass any input focus model
-and record the user's keystrokes.
+normally managed by the operating system or browser. For example, the operating
+system uses file permissions to ensure that sensitive data cannot be accessed by
+unprivileged applications. Unrestricted low-level access to USB mass storage
+devices would enable script to bypass any permissions model and access private
+data.
 
 Device identifiers like product names and serial numbers are permanent
 identifiers that can be used to fingerprint the user. To mitigate fingerprinting
