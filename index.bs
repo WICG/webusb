@@ -2320,8 +2320,8 @@ The <a>default allowlist</a> for this feature is <code>["self"]</code>.
 This specification defines a second <a>policy-controlled feature</a>, identified
 by the token <code>"usb-unrestricted"</code>, that controls whether blocklisted
 USB devices and device interfaces with protected classes can be accessed. This
-feature MUST only be enabled for Isolated Web Apps that declare the feature in
-the Web Application Manifest [[APPMANIFEST]].
+feature MUST only be enabled for <a href="https://github.com/WICG/isolated-web-apps/blob/main/README.md">Isolated Web Apps</a>
+that declare the feature in the Web Application Manifest [[APPMANIFEST]].
 
 The <a>default allowlist</a> for this feature is <code>["self"]</code>.
 Typically this would imply that the feature is allowed in {{Document}}s in
