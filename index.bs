@@ -2306,7 +2306,6 @@ slots</a> described in the following table:
 
 <xmp class="idl">
   // USBBlocklistEntry is never exposed.
-  [Exposed=()]
   dictionary USBBlocklistEntry {
     required unsigned short idVendor;
     required unsigned short idProduct;
@@ -2340,21 +2339,22 @@ produced by the following algorithm:
              |line|.{{String/substring()}} with 0 and |commentBegin|.
           1. Set |line| to the result of |line|.{{String/trimEnd()}}.
           1. Let |components| be the result of invoking
-             {{String/split(separator, limit)}} on |line| with separator
+             |line|.{{String/split(separator, limit)}} with separator
              <code>':'</code>.
           1. If the [=list/size=] of |components| is not 2 or 3,
              [=iteration/continue=].
           1. Let |idVendor| be the result of invoking
-             {{Number/parseInt(string, radix)}} with |components|[0] and 16, or
-             [=iteration/continue=] if a {{TypeError}} is thrown.
+             {{Number}}.{{Number/parseInt(string, radix)}} with |components|[0]
+             and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
           1. Let |idProduct| be the result of invoking
-             {{Number/parseInt(string, radix)}} with |components|[1] and 16, or
-             [=iteration/continue=] if a {{TypeError}} is thrown.
+             {{Number}}.{{Number/parseInt(string, radix)}} with |components|[1]
+             and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
           1. If the [=list/size=] of |components| is:
               * 2: Let |bcdDevice| be <code>0xFFFF</code>.
               * 3: Let |bcdDevice| be the result of invoking
-                {{Number/parseInt(string, radix)}} with |components|[2] and 16,
-                or [=iteration/continue=] if a {{TypeError}} is thrown.
+                {{Number}}.{{Number/parseInt(string, radix)}} with
+                |components|[2] and 16, or [=iteration/continue=] if a
+                {{TypeError}} is thrown.
           1. [=list/Append=] a new {{USBBlocklistEntry}} with |idVendor|,
              |idProduct|, and |bcdDevice| to |blocklist|.
       1. [=Resolve=] |promise| with |blocklist|.
