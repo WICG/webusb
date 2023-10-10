@@ -2333,18 +2333,14 @@ of {{USBBlocklistEntry}} objects produced by the following algorithm:
          starting from the beginning of |line| on code point <code>':'</code>.
       1. If the [=list/size=] of |components| is not 2 or 3,
          [=iteration/continue=].
-      1. Let |idVendor| be the result of invoking
-         {{Number}}.{{Number/parseInt(string, radix)}} with |components|[0]
-         and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
-      1. Let |idProduct| be the result of invoking
-         {{Number}}.{{Number/parseInt(string, radix)}} with |components|[1]
-         and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
+      1. Let |idVendor| be the result of interpreting |components|[0] as a
+         hexadecimal number.
+      1. Let |idProduct| be the result of interpreting |components|[1] as a
+         hexadecimal number.
       1. If the [=list/size=] of |components| is:
           * 2: Let |bcdDevice| be <code>0xFFFF</code>.
-          * 3: Let |bcdDevice| be the result of invoking
-            {{Number}}.{{Number/parseInt(string, radix)}} with
-            |components|[2] and 16, or [=iteration/continue=] if a
-            {{TypeError}} is thrown.
+          * 3: Let |bcdDevice| be the result of interpreting |components|[2] as
+            a hexadecimal number.
       1. [=list/Append=] a new {{USBBlocklistEntry}} with |idVendor|,
          |idProduct|, and |bcdDevice| to |blocklist|.
   1. Return |blocklist|.
