@@ -2316,53 +2316,43 @@ slots</a> described in the following table:
 This specification relies on a <a href="https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt">blocklist.txt</a>
 file in this repository to restrict the set of devices a website can access.
 
-The result of <dfn>parsing the blocklist</dfn> at a {{URL}} |url| is a
-{{Promise}} that resolves to a [=list=] of {{USBBlocklistEntry}} objects,
-produced by the following algorithm:
+The result of <dfn>parsing the blocklist</dfn> at a {{URL}} |url| is a [=list=]
+of {{USBBlocklistEntry}} objects produced by the following algorithm:
 
-  1. Let |promise| be a [=a new promise=].
-  1. Let |request| be a new [=request=] with associated [=request/URL=] |url|.
-  1. Let |processResponse| be an algorithm accepting a [=response=] |response|
-     with the following steps:
-      1. Let |body| be the associated [=response/body=] for |response|.
-      1. If |body| is <code>null</code>, [=resolve=] |promise| with an empty
-         [=list=] and abort these steps.
-      1. Let |contents| be the result of running [=utf-8 decode=] with |body|.
-      1. Let |lines| be the result of invoking
-         {{String/split(separator, limit)}} on |contents| with separator
-         <code>'\n'</code>.
-      1. Let |blocklist| be an empty [=list=].
-      1. [=list/For each=] |line| of |lines|:
-          1. Let |commentBegin| be the result of invoking
-             |line|.{{String/indexOf()}} with <code>'#'</code>.
-          1. If |commentBegin| is not -1, set |line| to the result of invoking
-             |line|.{{String/substring()}} with 0 and |commentBegin|.
-          1. Set |line| to the result of |line|.{{String/trimEnd()}}.
-          1. Let |components| be the result of invoking
-             |line|.{{String/split(separator, limit)}} with separator
-             <code>':'</code>.
-          1. If the [=list/size=] of |components| is not 2 or 3,
-             [=iteration/continue=].
-          1. Let |idVendor| be the result of invoking
-             {{Number}}.{{Number/parseInt(string, radix)}} with |components|[0]
-             and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
-          1. Let |idProduct| be the result of invoking
-             {{Number}}.{{Number/parseInt(string, radix)}} with |components|[1]
-             and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
-          1. If the [=list/size=] of |components| is:
-              * 2: Let |bcdDevice| be <code>0xFFFF</code>.
-              * 3: Let |bcdDevice| be the result of invoking
-                {{Number}}.{{Number/parseInt(string, radix)}} with
-                |components|[2] and 16, or [=iteration/continue=] if a
-                {{TypeError}} is thrown.
-          1. [=list/Append=] a new {{USBBlocklistEntry}} with |idVendor|,
-             |idProduct|, and |bcdDevice| to |blocklist|.
-      1. [=Resolve=] |promise| with |blocklist|.
-  1. [=Fetch=] with |request| and |processResponse|.
-  1. Return |promise|.
+  1. Fetch |url| and let |contents| be its body, decoded as UTF-8.
+  1. Let |lines| be the result of invoking
+     {{String/split(separator, limit)}} on |contents| with separator
+     <code>'\n'</code>.
+  1. Let |blocklist| be an empty [=list=].
+  1. [=list/For each=] |line| of |lines|:
+      1. Let |commentBegin| be the result of invoking
+         |line|.{{String/indexOf()}} with <code>'#'</code>.
+      1. If |commentBegin| is not -1, set |line| to the result of invoking
+         |line|.{{String/substring()}} with 0 and |commentBegin|.
+      1. Set |line| to the result of |line|.{{String/trimEnd()}}.
+      1. Let |components| be the result of invoking
+         |line|.{{String/split(separator, limit)}} with separator
+         <code>':'</code>.
+      1. If the [=list/size=] of |components| is not 2 or 3,
+         [=iteration/continue=].
+      1. Let |idVendor| be the result of invoking
+         {{Number}}.{{Number/parseInt(string, radix)}} with |components|[0]
+         and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
+      1. Let |idProduct| be the result of invoking
+         {{Number}}.{{Number/parseInt(string, radix)}} with |components|[1]
+         and 16, or [=iteration/continue=] if a {{TypeError}} is thrown.
+      1. If the [=list/size=] of |components| is:
+          * 2: Let |bcdDevice| be <code>0xFFFF</code>.
+          * 3: Let |bcdDevice| be the result of invoking
+            {{Number}}.{{Number/parseInt(string, radix)}} with
+            |components|[2] and 16, or [=iteration/continue=] if a
+            {{TypeError}} is thrown.
+      1. [=list/Append=] a new {{USBBlocklistEntry}} with |idVendor|,
+         |idProduct|, and |bcdDevice| to |blocklist|.
+  1. Return |blocklist|.
 
-The <dfn>USB blocklist</dfn> is the value of the resolved promise returned by
-[=parsing the blocklist=] at <a href="https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt">https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt</a>.
+The <dfn>USB blocklist</dfn> is the result of [=parsing the blocklist=] at
+<a href="https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt">https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt</a>.
 The UA should re-fetch the blocklist periodically, but it’s unspecified how
 often.
 
@@ -2642,7 +2632,5 @@ spec:infra; type:dfn; for:list; text:for each
 spec:infra; type:dfn; for:list; text:append
 spec:infra; type:dfn; for:list; text:empty
 spec:infra; type:dfn; for:list; text:size
-spec:fetch; type:dfn; for:/; text:request
-spec:fetch; type:dfn; for:/; text:response
 spec:url; type:interface; text:URL
 </pre>
