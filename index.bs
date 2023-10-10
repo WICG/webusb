@@ -2320,19 +2320,17 @@ The result of <dfn>parsing the blocklist</dfn> at a {{URL}} |url| is a [=list=]
 of {{USBBlocklistEntry}} objects produced by the following algorithm:
 
   1. Fetch |url| and let |contents| be its body, decoded as UTF-8.
-  1. Let |lines| be the result of invoking
-     {{String/split(separator, limit)}} on |contents| with separator
-     <code>'\n'</code>.
+  1. Let |lines| be the result of [=strictly splitting=] |contents| starting
+     from the beginning of |contents| on code point <code>'\n'</code>.
   1. Let |blocklist| be an empty [=list=].
   1. [=list/For each=] |line| of |lines|:
-      1. Let |commentBegin| be the result of invoking
-         |line|.{{String/indexOf()}} with <code>'#'</code>.
-      1. If |commentBegin| is not -1, set |line| to the result of invoking
-         |line|.{{String/substring()}} with 0 and |commentBegin|.
-      1. Set |line| to the result of |line|.{{String/trimEnd()}}.
-      1. Let |components| be the result of invoking
-         |line|.{{String/split(separator, limit)}} with separator
-         <code>':'</code>.
+      1. Set |line| to the result of [=collecting a sequence of code points=]
+         not equal to <code>'#'</code> from |line| starting from the beginning
+         of |line|.
+      1. Set |line| to the result of [=stripping leading and trailing ASCII
+         whitespace=] from |line|.
+      1. Let |components| be the result of [=strictly splitting=] |line|
+         starting from the beginning of |line| on code point <code>':'</code>.
       1. If the [=list/size=] of |components| is not 2 or 3,
          [=iteration/continue=].
       1. Let |idVendor| be the result of invoking
