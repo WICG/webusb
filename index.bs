@@ -2337,10 +2337,9 @@ of {{USBBlocklistEntry}} objects produced by the following algorithm:
          hexadecimal number.
       1. Let |idProduct| be the result of interpreting |components|[1] as a
          hexadecimal number.
-      1. If the [=list/size=] of |components| is:
-          * 2: Let |bcdDevice| be <code>0xFFFF</code>.
-          * 3: Let |bcdDevice| be the result of interpreting |components|[2] as
-            a hexadecimal number.
+      1. Let |bcdDevice| be <code>0xFFFF</code>.
+      1. If the [=list/size=] of |components| is 3, set |bcdDevice| to the
+         result of interpreting |components|[2] as a hexadecimal number.
       1. [=list/Append=] a new {{USBBlocklistEntry}} with |idVendor|,
          |idProduct|, and |bcdDevice| to |blocklist|.
   1. Return |blocklist|.
