@@ -631,6 +631,7 @@ run the following steps <a>in parallel</a>:
      |enumerationResult|.
   2. Let |devices| be a new empty {{Array}}.
   3. For each |device| in |enumerationResult|:
+     1. If |device| is [=blocklisted=], [=iteration/continue=].
      1. If this is the first call to this method, <a>check permissions for
         |device|</a> with |storage|.
      2. Search for an element |allowedDevice| in
@@ -676,6 +677,7 @@ steps <a>in parallel</a>:
   4. Set <code>|status|.{{PermissionStatus/state}}</code> to <code>"ask"</code>.
   5. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
+  1. Remove devices from |enumerationResult| if they are [=blocklisted=].
   6. Remove devices from |enumerationResult| if they do not <a>match a device
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
   7. Remove devices from |enumerationResult| if they <a>match a device filter</a>
@@ -2307,6 +2309,68 @@ slots</a> described in the following table:
         1. Return <code>wMaxPacketSize</code> of |endpointDescriptor|.
 </dl>
 
+# The USB Blocklist # {#blocklist}
+
+<xmp class="idl">
+  // USBBlocklistEntry is never exposed.
+  dictionary USBBlocklistEntry {
+    required unsigned short idVendor;
+    required unsigned short idProduct;
+    required unsigned short bcdDevice;
+  };
+</xmp>
+
+This specification relies on a <a href="https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt">blocklist.txt</a>
+file in this repository to restrict the set of devices a website can access.
+
+The result of <dfn>parsing the blocklist</dfn> at a {{URL}} |url| is a [=list=]
+of {{USBBlocklistEntry}} objects produced by the following algorithm:
+
+  1. Fetch |url| and let |contents| be its body, decoded as UTF-8.
+  1. Let |lines| be the result of [=strictly splitting=] |contents| starting
+     from the beginning of |contents| on code point <code>'\n'</code>.
+  1. Let |blocklist| be an empty [=list=].
+  1. [=list/For each=] |line| of |lines|:
+      1. Set |line| to the result of [=collecting a sequence of code points=]
+         not equal to <code>'#'</code> from |line| starting from the beginning
+         of |line|.
+      1. Set |line| to the result of [=stripping leading and trailing ASCII
+         whitespace=] from |line|.
+      1. Let |components| be the result of [=strictly splitting=] |line|
+         starting from the beginning of |line| on code point <code>':'</code>.
+      1. If the [=list/size=] of |components| is not 2 or 3,
+         [=iteration/continue=].
+      1. Let |idVendor| be the result of interpreting |components|[0] as a
+         hexadecimal number.
+      1. Let |idProduct| be the result of interpreting |components|[1] as a
+         hexadecimal number.
+      1. Let |bcdDevice| be <code>0xFFFF</code>.
+      1. If the [=list/size=] of |components| is 3, set |bcdDevice| to the
+         result of interpreting |components|[2] as a hexadecimal number.
+      1. [=list/Append=] a new {{USBBlocklistEntry}} with |idVendor|,
+         |idProduct|, and |bcdDevice| to |blocklist|.
+  1. Return |blocklist|.
+
+The <dfn>USB blocklist</dfn> is the result of [=parsing the blocklist=] at
+<a href="https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt">https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt</a>.
+The UA should re-fetch the blocklist periodically, but it’s unspecified how
+often.
+
+A {{USBDevice}} |device| is <dfn>blocklisted</dfn> if the following steps return
+"blocked":
+
+  1. [=list/For each=] |entry| of the [=USB blocklist=]:
+      1. If |device|.{{USBDevice/vendorId}} is not equal to
+         |entry|.{{USBBlocklistEntry/idVendor}}, [=iteration/continue=].
+      1. If |device|.{{USBDevice/productId}} is not equal to
+         |entry|.{{USBBlocklistEntry/idProduct}}, [=iteration/continue=].
+      1. Let |bcdDevice| be |device|.{{USBDevice/deviceVersionMajor}} << 8 +
+         |device|.{{USBDevice/deviceVersionMinor}} << 4 +
+         |device|.{{USBDevice/deviceVersionSubminor}}.
+      1. If |bcdDevice| is less than or equal to
+         |entry|.{{USBBlocklistEntry/bcdDevice}}, return "blocked".
+  1. Return "not blocked".
+
 # Integrations # {#integrations}
 
 <h3 id="permissions-policy" oldids="feature-policy">Permissions Policy</h3>
@@ -2580,4 +2644,5 @@ spec:infra; type:dfn; for:list; text:for each
 spec:infra; type:dfn; for:list; text:append
 spec:infra; type:dfn; for:list; text:empty
 spec:infra; type:dfn; for:list; text:size
+spec:url; type:interface; text:URL
 </pre>
