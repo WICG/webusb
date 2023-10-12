@@ -621,6 +621,9 @@ The {{USB/ondisconnect}} attribute is an Event handler IDL attribute for the
 The {{USB/getDevices()}} method, when invoked, MUST return a new {{Promise}} and
 run the following steps <a>in parallel</a>:
 
+  1. Let |document| be <a>this</a>'s [=relevant global object=]'s
+     [=associated Document=], or <code>null</code> if there is no associated
+     {{Document}}.
   1. Let |storage| be:
      1. The {{USBPermissionStorage}} object in the script execution environment
         of the associated [=service worker client=], if [=this=]'s [=relevant
@@ -631,7 +634,7 @@ run the following steps <a>in parallel</a>:
      |enumerationResult|.
   2. Let |devices| be a new empty {{Array}}.
   3. For each |device| in |enumerationResult|:
-     1. If |device| is [=blocklisted=], [=iteration/continue=].
+     1. If |device| is [=blocklisted=] for |document|, [=iteration/continue=].
      1. If this is the first call to this method, <a>check permissions for
         |device|</a> with |storage|.
      2. Search for an element |allowedDevice| in
@@ -658,10 +661,10 @@ The {{USB/requestDevice()}} method, when invoked, MUST run the following steps:
           throw a {{NotFoundError}} and abort these steps.
        2. Return <code>|result|.{{USBPermissionResult/devices}}[0]</code>.
 
-To <dfn>request the "usb" permission</dfn>, given a {{USBPermissionStorage}}
-|storage|, a {{USBPermissionDescriptor}} |options| and a {{USBPermissionResult}}
-|status|, the UA MUST return a new {{Promise}} |promise| and run the following
-steps <a>in parallel</a>:
+To <dfn>request the "usb" permission</dfn>, given a {{Document}} |document|, a
+{{USBPermissionStorage}} |storage|, a {{USBPermissionDescriptor}} |options| and
+a {{USBPermissionResult}} |status|, the UA MUST return a new {{Promise}}
+|promise| and run the following steps <a>in parallel</a>:
 
   1. For each |filter| in
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
@@ -677,7 +680,8 @@ steps <a>in parallel</a>:
   4. Set <code>|status|.{{PermissionStatus/state}}</code> to <code>"ask"</code>.
   5. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
-  1. Remove devices from |enumerationResult| if they are [=blocklisted=].
+  1. Remove devices from |enumerationResult| if they are [=blocklisted=] for
+     |document|.
   6. Remove devices from |enumerationResult| if they do not <a>match a device
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
   7. Remove devices from |enumerationResult| if they <a>match a device filter</a>
@@ -2356,9 +2360,12 @@ The <dfn>USB blocklist</dfn> is the result of [=parsing the blocklist=] at
 The UA should re-fetch the blocklist periodically, but it’s unspecified how
 often.
 
-A {{USBDevice}} |device| is <dfn>blocklisted</dfn> if the following steps return
-"blocked":
+A {{USBDevice}} |device| is <dfn>blocklisted</dfn> for a {{Document}} |document|
+if the following steps return "blocked":
 
+  1. If |document| is not <code>null</code> and |document| is [=allowed to use=]
+     the [=policy-controlled feature=] named <code>"usb-unrestricted"</code>,
+     return "not blocked".
   1. [=list/For each=] |entry| of the [=USB blocklist=]:
       1. If |device|.{{USBDevice/vendorId}} is not equal to
          |entry|.{{USBBlocklistEntry/idVendor}}, [=iteration/continue=].
