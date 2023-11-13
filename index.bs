@@ -621,6 +621,9 @@ The {{USB/ondisconnect}} attribute is an Event handler IDL attribute for the
 The {{USB/getDevices()}} method, when invoked, MUST return a new {{Promise}} and
 run the following steps <a>in parallel</a>:
 
+  1. Let |document| be <a>this</a>'s [=relevant global object=]'s
+     [=associated Document=], or <code>null</code> if there is no associated
+     {{Document}}.
   1. Let |storage| be:
      1. The {{USBPermissionStorage}} object in the script execution environment
         of the associated [=service worker client=], if [=this=]'s [=relevant
@@ -631,7 +634,7 @@ run the following steps <a>in parallel</a>:
      |enumerationResult|.
   2. Let |devices| be a new empty {{Array}}.
   3. For each |device| in |enumerationResult|:
-     1. If |device| is [=blocklisted=], [=iteration/continue=].
+     1. If |device| is [=blocklisted=] for |document|, [=iteration/continue=].
      1. If this is the first call to this method, <a>check permissions for
         |device|</a> with |storage|.
      2. Search for an element |allowedDevice| in
@@ -658,10 +661,10 @@ The {{USB/requestDevice()}} method, when invoked, MUST run the following steps:
           throw a {{NotFoundError}} and abort these steps.
        2. Return <code>|result|.{{USBPermissionResult/devices}}[0]</code>.
 
-To <dfn>request the "usb" permission</dfn>, given a {{USBPermissionStorage}}
-|storage|, a {{USBPermissionDescriptor}} |options| and a {{USBPermissionResult}}
-|status|, the UA MUST return a new {{Promise}} |promise| and run the following
-steps <a>in parallel</a>:
+To <dfn>request the "usb" permission</dfn>, given a {{Document}} |document|, a
+{{USBPermissionStorage}} |storage|, a {{USBPermissionDescriptor}} |options| and
+a {{USBPermissionResult}} |status|, the UA MUST return a new {{Promise}}
+|promise| and run the following steps <a>in parallel</a>:
 
   1. For each |filter| in
      <code>|options|.{{USBPermissionDescriptor/filters}}</code> if |filter|
@@ -677,7 +680,8 @@ steps <a>in parallel</a>:
   4. Set <code>|status|.{{PermissionStatus/state}}</code> to <code>"ask"</code>.
   5. <a>Enumerate all devices attached to the system</a>. Let this result be
      |enumerationResult|.
-  1. Remove devices from |enumerationResult| if they are [=blocklisted=].
+  1. Remove devices from |enumerationResult| if they are [=blocklisted=] for
+     |document|.
   6. Remove devices from |enumerationResult| if they do not <a>match a device
      filter</a> in <code>|options|.{{USBPermissionDescriptor/filters}}</code>.
   7. Remove devices from |enumerationResult| if they <a>match a device filter</a>
@@ -1309,8 +1313,15 @@ All USB devices MUST have a <a>default control pipe</a> which is
         with a {{NotFoundError}} and abort these steps.
     1. If <a>this</a>.{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is <code>true</code>,
         <a>resolve</a> |promise| and abort these steps.
-    1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is <code>true</code>,
-        [=reject=] |promise| with a {{SecurityError}} and abort these steps.
+    1. Let |unrestricted| be <code>false</code>.
+    1. Let |document| be <a>this</a>'s [=relevant global object=]'s [=associated Document=], or
+        <code>null</code> if there is no associated {{Document}}.
+    1. If |document| is not <code>null</code> and |document| is [=allowed to use=] the
+        [=policy-controlled feature=] named <code>"usb-unrestricted"</code>, set |unrestricted| to
+        <code>true</code>.
+    1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is <code>true</code>
+        and |unrestricted| is <code>false</code>, [=reject=] |promise| with a {{SecurityError}} and
+        abort these steps.
     1. Perform the necessary platform-specific steps to request exclusive control
         over |interfaces|[|interfaceIndex|] for the current execution context. If this fails,
         <a>reject</a> |promise| with a {{NetworkError}} and abort these steps.
@@ -2349,9 +2360,12 @@ The <dfn>USB blocklist</dfn> is the result of [=parsing the blocklist=] at
 The UA should re-fetch the blocklist periodically, but it’s unspecified how
 often.
 
-A {{USBDevice}} |device| is <dfn>blocklisted</dfn> if the following steps return
-"blocked":
+A {{USBDevice}} |device| is <dfn>blocklisted</dfn> for a {{Document}} |document|
+if the following steps return "blocked":
 
+  1. If |document| is not <code>null</code> and |document| is [=allowed to use=]
+     the [=policy-controlled feature=] named <code>"usb-unrestricted"</code>,
+     return "not blocked".
   1. [=list/For each=] |entry| of the [=USB blocklist=]:
       1. If |device|.{{USBDevice/vendorId}} is not equal to
          |entry|.{{USBBlocklistEntry/idVendor}}, [=iteration/continue=].
@@ -2373,6 +2387,18 @@ token <code>"usb"</code>, that controls whether the {{Navigator/usb}} attribute
 is exposed on the {{Navigator}} object.
 
 The <a>default allowlist</a> for this feature is <code>["self"]</code>.
+
+This specification defines a second <a>policy-controlled feature</a>, identified
+by the token <code>"usb-unrestricted"</code>, that controls whether blocklisted
+USB devices and device interfaces with protected classes can be accessed. This
+feature MUST only be enabled for <a href="https://github.com/WICG/isolated-web-apps/blob/main/README.md">Isolated Web Apps</a>
+that declare the feature in the Web Application Manifest [[APPMANIFEST]].
+
+The <a>default allowlist</a> for this feature is <code>["self"]</code>.
+Typically this would imply that the feature is allowed in {{Document}}s in
+[=top-level traversables=] by default. However, due to the requirement that this
+feature is only enabled for Isolated Web Apps with the feature declared in the
+manifest, the effective default allowlist is <code>["none"]</code>.
 
 ## Permission API ## {#permission-api}
 
