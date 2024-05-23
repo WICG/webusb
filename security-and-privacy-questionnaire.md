@@ -140,7 +140,7 @@ contexts ineligible to access the feature.
 > 14.  How do the features in this specification work in the context of a browser’s
 >      Private Browsing or Incognito mode?
 
-(For WebUSB in general:) Implementations are expected to implement separate
+Implementations are expected to implement separate
 storage for device permissions between the "normal" and "incognito" modes. This
 mitigates passive leakage of information between sessions. Permissions granted
 during a private browsing session are expected to be cleared at the end of that
