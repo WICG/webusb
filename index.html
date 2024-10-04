@@ -6,7 +6,7 @@
   <link href="https://www.w3.org/StyleSheets/TR/2021/cg-draft" rel="stylesheet">
   <meta content="Bikeshed version 82ce88815, updated Thu Sep 7 16:33:55 2023 -0700" name="generator">
   <link href="https://wicg.github.io/webusb" rel="canonical">
-  <meta content="775f963bfa0ba1c0616ad4ba2b00cf10d94744e1" name="document-revision">
+  <meta content="f756c9f4a3d7e4c1f42859f652f905f5339219cf" name="document-revision">
 <style>
 table {
   border-collapse: collapse;
@@ -921,7 +921,7 @@ var.selected6 { background-color: #FFBCF2; box-shadow: 0 0 0 2px #FFBCF2; }
   <div class="head">
    <p data-fill-with="logo"><a class="logo" href="https://www.w3.org/"> <img alt="W3C" height="48" src="https://www.w3.org/StyleSheets/TR/2021/logos/W3C" width="72"> </a> </p>
    <h1 class="p-name no-ref" id="title">WebUSB API</h1>
-   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-05-23">23 May 2024</time></p>
+   <p id="w3c-state"><a href="https://www.w3.org/standards/types#CG-DRAFT">Draft Community Group Report</a>, <time class="dt-updated" datetime="2024-10-04">4 October 2024</time></p>
    <div data-fill-with="spec-metadata">
     <dl>
      <dt>This version:
@@ -1679,7 +1679,7 @@ the UA MUST run the following steps:</p>
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed④"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed④"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext③"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbconnectionevent"><code><c- g>USBConnectionEvent</c-></code></dfn> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event" id="ref-for-event"><c- n>Event</c-></a> {
@@ -1782,7 +1782,7 @@ stalling the endpoint then the error is cleared before continuing,</p>
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑤"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext④"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbintransferresult"><code><c- g>USBInTransferResult</c-></code></dfn> {
@@ -1792,7 +1792,7 @@ stalling the endpoint then the error is cleared before continuing,</p>
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑥"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑥"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext⑤"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbouttransferresult"><code><c- g>USBOutTransferResult</c-></code></dfn> {
@@ -1802,7 +1802,7 @@ stalling the endpoint then the error is cleared before continuing,</p>
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑦"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑦"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext⑥"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbisochronousintransferpacket"><code><c- g>USBIsochronousInTransferPacket</c-></code></dfn> {
@@ -1812,7 +1812,7 @@ stalling the endpoint then the error is cleared before continuing,</p>
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑧"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑧"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext⑦"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbisochronousintransferresult"><code><c- g>USBIsochronousInTransferResult</c-></code></dfn> {
@@ -1822,7 +1822,7 @@ stalling the endpoint then the error is cleared before continuing,</p>
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑨"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed⑨"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext⑧"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbisochronousouttransferpacket"><code><c- g>USBIsochronousOutTransferPacket</c-></code></dfn> {
@@ -1832,7 +1832,7 @@ stalling the endpoint then the error is cleared before continuing,</p>
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①⓪"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①⓪"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext⑨"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbisochronousouttransferresult"><code><c- g>USBIsochronousOutTransferResult</c-></code></dfn> {
@@ -1840,7 +1840,7 @@ stalling the endpoint then the error is cleared before continuing,</p>
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array③"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferpacket" id="ref-for-usbisochronousouttransferpacket①"><c- n>USBIsochronousOutTransferPacket</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBIsochronousOutTransferResult" data-dfn-type="attribute" data-export data-readonly data-type="FrozenArray<USBIsochronousOutTransferPacket>" id="dom-usbisochronousouttransferresult-packets"><code><c- g>packets</c-></code></dfn>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①①"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①⓪"><c- g>SecureContext</c-></a>]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①①"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①⓪"><c- g>SecureContext</c-></a>]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbdevice"><code><c- g>USBDevice</c-></code></dfn> {
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet③"><c- b>octet</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="octet" href="#dom-usbdevice-usbversionmajor" id="ref-for-dom-usbdevice-usbversionmajor"><c- g>usbVersionMajor</c-></a>;
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet" id="ref-for-idl-octet④"><c- b>octet</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="octet" href="#dom-usbdevice-usbversionminor" id="ref-for-dom-usbdevice-usbversionminor"><c- g>usbVersionMinor</c-></a>;
@@ -2672,7 +2672,7 @@ vendor.</p>
    </dl>
    <h3 class="heading settled" data-level="6.3" id="usbconfiguration-interface"><span class="secno">6.3. </span><span class="content">The USBConfiguration Interface</span><a class="self-link" href="#usbconfiguration-interface"></a></h3>
 <pre class="idl highlight def">[
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①②"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①②"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①①"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbconfiguration"><code><c- g>USBConfiguration</c-></code></dfn> {
@@ -2777,7 +2777,7 @@ interfaces exposed by this device configuration.</p>
    <p class="issue" id="issue-7197531b"><a class="self-link" href="#issue-7197531b"></a> Include some non-normative information about device configurations. <a href="https://github.com/WICG/webusb/issues/46">[Issue #46]</a></p>
    <h3 class="heading settled" data-level="6.4" id="usbinterface-interface"><span class="secno">6.4. </span><span class="content">The USBInterface Interface</span><a class="self-link" href="#usbinterface-interface"></a></h3>
 <pre class="idl highlight def">[
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①③"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①③"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①②"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbinterface"><code><c- g>USBInterface</c-></code></dfn> {
@@ -2969,7 +2969,7 @@ the interface is claimed by the current execution context and SHALL be set to <c
    </dl>
    <h3 class="heading settled" data-level="6.5" id="usbalternateinterface-interface"><span class="secno">6.5. </span><span class="content">The USBAlternateInterface Interface</span><a class="self-link" href="#usbalternateinterface-interface"></a></h3>
 <pre class="idl highlight def">[
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①④"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①④"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①③"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbalternateinterface"><code><c- g>USBAlternateInterface</c-></code></dfn> {
@@ -3122,7 +3122,7 @@ match the value of the <code>bNumEndpoints</code> field of the <a data-link-type
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①⑤"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①⑤"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext" id="ref-for-SecureContext①④"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbendpoint"><code><c- g>USBEndpoint</c-></code></dfn> {
@@ -3346,7 +3346,7 @@ defined as follows:</p>
     array of <a data-link-type="dfn" href="#usb-device" id="ref-for-usb-device⑤">USB devices</a>.</p>
     <dt><a data-link-type="dfn" href="https://w3c.github.io/permissions/#dfn-permission-result-type" id="ref-for-dfn-permission-result-type">permission result type</a>
     <dd>
-<pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①⑥"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->)]
+<pre class="idl highlight def">[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed" id="ref-for-Exposed①⑥"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->)]
 <c- b>interface</c-> <dfn class="dfn-paneled idl-code" data-dfn-type="interface" data-export id="usbpermissionresult"><code><c- g>USBPermissionResult</c-></code></dfn> : <a data-link-type="idl-name" href="https://w3c.github.io/permissions/#dom-permissionstatus" id="ref-for-dom-permissionstatus"><c- n>PermissionStatus</c-></a> {
   <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array" id="ref-for-idl-frozen-array⑧"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#usbdevice" id="ref-for-usbdevice①④"><c- n>USBDevice</c-></a>> <dfn class="dfn-paneled idl-code" data-dfn-for="USBPermissionResult" data-dfn-type="attribute" data-export data-type="FrozenArray<USBDevice>" id="dom-usbpermissionresult-devices"><code><c- g>devices</c-></code></dfn>;
 };
@@ -4029,7 +4029,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbconnectionevent"><code><c- g>USBConnectionEvent</c-></code></a> : <a data-link-type="idl-name" href="https://dom.spec.whatwg.org/#event"><c- n>Event</c-></a> {
@@ -4044,7 +4044,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbintransferresult"><code><c- g>USBInTransferResult</c-></code></a> {
@@ -4054,7 +4054,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbouttransferresult"><code><c- g>USBOutTransferResult</c-></code></a> {
@@ -4064,7 +4064,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousintransferpacket"><code><c- g>USBIsochronousInTransferPacket</c-></code></a> {
@@ -4074,7 +4074,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousintransferresult"><code><c- g>USBIsochronousInTransferResult</c-></code></a> {
@@ -4084,7 +4084,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousouttransferpacket"><code><c- g>USBIsochronousOutTransferPacket</c-></code></a> {
@@ -4094,7 +4094,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbisochronousouttransferresult"><code><c- g>USBIsochronousOutTransferResult</c-></code></a> {
@@ -4102,7 +4102,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#usbisochronousouttransferpacket"><c- n>USBIsochronousOutTransferPacket</c-></a>> <a data-readonly data-type="FrozenArray<USBIsochronousOutTransferPacket>" href="#dom-usbisochronousouttransferresult-packets"><code><c- g>packets</c-></code></a>;
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->), <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>]
 <c- b>interface</c-> <a href="#usbdevice"><code><c- g>USBDevice</c-></code></a> {
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="octet" href="#dom-usbdevice-usbversionmajor"><c- g>usbVersionMajor</c-></a>;
   <c- b>readonly</c-> <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-octet"><c- b>octet</c-></a> <a class="idl-code" data-link-type="attribute" data-readonly data-type="octet" href="#dom-usbdevice-usbversionminor"><c- g>usbVersionMinor</c-></a>;
@@ -4160,7 +4160,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbconfiguration"><code><c- g>USBConfiguration</c-></code></a> {
@@ -4171,7 +4171,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbinterface"><code><c- g>USBInterface</c-></code></a> {
@@ -4183,7 +4183,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbalternateinterface"><code><c- g>USBAlternateInterface</c-></code></a> {
@@ -4208,7 +4208,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
 };
 
 [
-  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->),
+  <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->),
   <a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#SecureContext"><c- g>SecureContext</c-></a>
 ]
 <c- b>interface</c-> <a href="#usbendpoint"><code><c- g>USBEndpoint</c-></code></a> {
@@ -4241,7 +4241,7 @@ parameters in addition to a larger data payload that can be either IN or OUT.</p
   <a data-link-type="dfn" href="https://webidl.spec.whatwg.org/#idl-sequence"><c- b>sequence</c-></a>&lt;<a data-link-type="idl-name" href="#dictdef-allowedusbdevice"><c- n>AllowedUSBDevice</c-></a>> <a data-default="[]" data-type="sequence<AllowedUSBDevice> " href="#dom-usbpermissionstorage-alloweddevices"><code><c- g>allowedDevices</c-></code></a> = [];
 };
 
-[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>DedicatedWorker</c->,<c- n>SharedWorker</c->,<c- n>Window</c->)]
+[<a class="idl-code" data-link-type="extended-attribute" href="https://webidl.spec.whatwg.org/#Exposed"><c- g>Exposed</c-></a>=(<c- n>Worker</c->,<c- n>Window</c->)]
 <c- b>interface</c-> <a href="#usbpermissionresult"><code><c- g>USBPermissionResult</c-></code></a> : <a data-link-type="idl-name" href="https://w3c.github.io/permissions/#dom-permissionstatus"><c- n>PermissionStatus</c-></a> {
   <c- b>attribute</c-> <a class="idl-code" data-link-type="interface" href="https://webidl.spec.whatwg.org/#idl-frozen-array"><c- b>FrozenArray</c-></a>&lt;<a data-link-type="idl-name" href="#usbdevice"><c- n>USBDevice</c-></a>> <a data-type="FrozenArray<USBDevice>" href="#dom-usbpermissionresult-devices"><code><c- g>devices</c-></code></a>;
 };
