@@ -756,7 +756,7 @@ dictionary USBConnectionEventInit : EventInit {
 };
 
 [
-  Exposed=(DedicatedWorker,SharedWorker,Window),
+  Exposed=(Worker,Window),
   SecureContext
 ]
 interface USBConnectionEvent : Event {
@@ -874,7 +874,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBInTransferResult {
@@ -884,7 +884,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBOutTransferResult {
@@ -894,7 +894,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousInTransferPacket {
@@ -904,7 +904,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousInTransferResult {
@@ -914,7 +914,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousOutTransferPacket {
@@ -924,7 +924,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousOutTransferResult {
@@ -932,7 +932,7 @@ stalling the endpoint then the error is cleared before continuing,
     readonly attribute FrozenArray<USBIsochronousOutTransferPacket> packets;
   };
 
-  [Exposed=(DedicatedWorker,SharedWorker,Window), SecureContext]
+  [Exposed=(Worker,Window), SecureContext]
   interface USBDevice {
     readonly attribute octet usbVersionMajor;
     readonly attribute octet usbVersionMinor;
@@ -1721,7 +1721,7 @@ All USB devices MUST have a <a>default control pipe</a> which is
 
 <xmp class="idl">
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBConfiguration {
@@ -1837,7 +1837,7 @@ Include some non-normative information about device configurations.
 
 <xmp class="idl">
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBInterface {
@@ -2044,7 +2044,7 @@ low level access through this API would.
 
 <xmp class="idl">
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBAlternateInterface {
@@ -2199,7 +2199,7 @@ slots</a> described in the following table:
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBEndpoint {
@@ -2440,7 +2440,7 @@ defined as follows:
   <dt><a>permission result type</a></dt>
   <dd>
     <xmp class="idl">
-      [Exposed=(DedicatedWorker,SharedWorker,Window)]
+      [Exposed=(Worker,Window)]
       interface USBPermissionResult : PermissionStatus {
         attribute FrozenArray<USBDevice> devices;
       };
