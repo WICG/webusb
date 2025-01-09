@@ -2371,8 +2371,8 @@ if the following steps return "blocked":
          |entry|.{{USBBlocklistEntry/idVendor}}, [=iteration/continue=].
       1. If |device|.{{USBDevice/productId}} is not equal to
          |entry|.{{USBBlocklistEntry/idProduct}}, [=iteration/continue=].
-      1. Let |bcdDevice| be |device|.{{USBDevice/deviceVersionMajor}} << 8 +
-         |device|.{{USBDevice/deviceVersionMinor}} << 4 +
+      1. Let |bcdDevice| be |device|.{{USBDevice/deviceVersionMajor}} &lt;&lt; 8 +
+         |device|.{{USBDevice/deviceVersionMinor}} &lt;&lt; 4 +
          |device|.{{USBDevice/deviceVersionSubminor}}.
       1. If |bcdDevice| is less than or equal to
          |entry|.{{USBBlocklistEntry/bcdDevice}}, return "blocked".
@@ -2643,6 +2643,8 @@ spec: html
         text: transient activation
         text: in parallel
         text: incumbent settings object
+        for:/
+            text: top-level traversable
 spec: webidl
     type: dfn
         text: resolve
