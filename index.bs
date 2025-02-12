@@ -627,6 +627,8 @@ The <dfn for=USB method>getDevices()</dfn> method, when invoked, MUST run the
 following steps:
 
 1. Let |global| be [=this=]'s [=relevant global object=].
+1. Let |document| be |global|'s [=associated Document=], or `null` if there is
+    no associated {{Document}}.
 1. Let |storage| be:
     1. The {{USBPermissionStorage}} object in the script execution
         environment of the associated [=service worker client=], if
@@ -639,6 +641,8 @@ following steps:
         |enumerationResult|.
     1. Let |devices| be a new empty {{Array}}.
     1. For each |device| in |enumerationResult|:
+        1. If |device| is [=blocklisted=] for |document|,
+            [=iteration/continue=].
         1. If this is the first call to this method, <a>check permissions for
             |device|</a> with |storage|.
         1. Search for an element |allowedDevice| in
@@ -674,9 +678,9 @@ MUST run the following steps:
 </div>
 
 <div algorithm="request the USB permission">
-To <dfn>request the "usb" permission</dfn>, given a {{USBPermissionStorage}}
-|storage|, a {{USBPermissionDescriptor}} |options| and a {{USBPermissionResult}}
-|status|, the UA MUST run the following steps:
+To <dfn>request the "usb" permission</dfn>, given a {{Document}} |document|, a
+{{USBPermissionStorage}} |storage|, a {{USBPermissionDescriptor}} |options| and
+a {{USBPermissionResult}} |status|, the UA MUST run the following steps:
 
 1. Let |global| be |storage|'s [=relevant global object=].
 1. [=For each=] |filter| in |options|.{{USBPermissionDescriptor/filters}}, if
@@ -693,6 +697,8 @@ To <dfn>request the "usb" permission</dfn>, given a {{USBPermissionStorage}}
 1. Run the following steps [=in parallel=].
     1. [=Enumerate all devices attached to the system=]. Let this result be
         |enumerationResult|.
+    1. Remove devices from |enumerationResult| if they are [=blocklisted=] for
+        |document|.
     1. Remove devices from |enumerationResult| if they do not [=match a device
         filter=] in |options|.{{USBPermissionDescriptor/filters}}.
     1. Remove devices from |enumerationResult| if they [=match a device
@@ -773,7 +779,7 @@ dictionary USBConnectionEventInit : EventInit {
 };
 
 [
-  Exposed=(DedicatedWorker,SharedWorker,Window),
+  Exposed=(Worker,Window),
   SecureContext
 ]
 interface USBConnectionEvent : Event {
@@ -891,7 +897,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBInTransferResult {
@@ -901,7 +907,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBOutTransferResult {
@@ -911,7 +917,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousInTransferPacket {
@@ -921,7 +927,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousInTransferResult {
@@ -931,7 +937,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousOutTransferPacket {
@@ -941,7 +947,7 @@ stalling the endpoint then the error is cleared before continuing,
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBIsochronousOutTransferResult {
@@ -949,7 +955,7 @@ stalling the endpoint then the error is cleared before continuing,
     readonly attribute FrozenArray<USBIsochronousOutTransferPacket> packets;
   };
 
-  [Exposed=(DedicatedWorker,SharedWorker,Window), SecureContext]
+  [Exposed=(Worker,Window), SecureContext]
   interface USBDevice {
     readonly attribute octet usbVersionMajor;
     readonly attribute octet usbVersionMinor;
@@ -1365,9 +1371,15 @@ when invoked, MUST run the following steps:
     "{{NotFoundError}}" {{DOMException}}.
 1. If [=this=].{{USBDevice/[[claimedInterface]]}}[|interfaceIndex|] is `true`,
     return [=a promise resolved with=] `undefined`.
+1. Let |unrestricted| be `false`.
+1. Let |document| be |global|'s [=associated Document=], or `null` if there is
+    no associated {{Document}}.
+1. If |document| is not `null` and |document| is [=allowed to use=] the
+    [=policy-controlled feature=] named <code>"usb-unrestricted"</code>, set
+    |unrestricted| to `true`.
 1. If |interfaces|[|interfaceIndex|].{{USBInterface/[[isProtectedClass]]}} is
-    `true`, return [=a promise rejected with=] a "{{SecurityError}}"
-    {{DOMException}}.
+    `true` and |unrestricted| is `false`, return [=a promise rejected with=] a
+    "{{SecurityError}}" {{DOMException}}.
 1. Let |promise| be [=a new promise=].
 1. Run the following steps [=in parallel=].
     1. Perform the necessary platform-specific steps to request exclusive control
@@ -1856,7 +1868,7 @@ perform the following steps:
 
 <xmp class="idl">
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBConfiguration {
@@ -1972,7 +1984,7 @@ Include some non-normative information about device configurations.
 
 <xmp class="idl">
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBInterface {
@@ -2179,7 +2191,7 @@ low level access through this API would.
 
 <xmp class="idl">
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBAlternateInterface {
@@ -2334,7 +2346,7 @@ slots</a> described in the following table:
   };
 
   [
-    Exposed=(DedicatedWorker,SharedWorker,Window),
+    Exposed=(Worker,Window),
     SecureContext
   ]
   interface USBEndpoint {
@@ -2448,6 +2460,71 @@ slots</a> described in the following table:
         1. Return <code>wMaxPacketSize</code> of |endpointDescriptor|.
 </dl>
 
+# The USB Blocklist # {#blocklist}
+
+<xmp class="idl">
+  // USBBlocklistEntry is never exposed.
+  dictionary USBBlocklistEntry {
+    required unsigned short idVendor;
+    required unsigned short idProduct;
+    required unsigned short bcdDevice;
+  };
+</xmp>
+
+This specification relies on a <a href="https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt">blocklist.txt</a>
+file in this repository to restrict the set of devices a website can access.
+
+The result of <dfn>parsing the blocklist</dfn> at a {{URL}} |url| is a [=list=]
+of {{USBBlocklistEntry}} objects produced by the following algorithm:
+
+  1. Fetch |url| and let |contents| be its body, decoded as UTF-8.
+  1. Let |lines| be the result of [=strictly splitting=] |contents| starting
+     from the beginning of |contents| on code point <code>'\n'</code>.
+  1. Let |blocklist| be an empty [=list=].
+  1. [=list/For each=] |line| of |lines|:
+      1. Set |line| to the result of [=collecting a sequence of code points=]
+         not equal to <code>'#'</code> from |line| starting from the beginning
+         of |line|.
+      1. Set |line| to the result of [=stripping leading and trailing ASCII
+         whitespace=] from |line|.
+      1. Let |components| be the result of [=strictly splitting=] |line|
+         starting from the beginning of |line| on code point <code>':'</code>.
+      1. If the [=list/size=] of |components| is not 2 or 3,
+         [=iteration/continue=].
+      1. Let |idVendor| be the result of interpreting |components|[0] as a
+         hexadecimal number.
+      1. Let |idProduct| be the result of interpreting |components|[1] as a
+         hexadecimal number.
+      1. Let |bcdDevice| be <code>0xFFFF</code>.
+      1. If the [=list/size=] of |components| is 3, set |bcdDevice| to the
+         result of interpreting |components|[2] as a hexadecimal number.
+      1. [=list/Append=] a new {{USBBlocklistEntry}} with |idVendor|,
+         |idProduct|, and |bcdDevice| to |blocklist|.
+  1. Return |blocklist|.
+
+The <dfn>USB blocklist</dfn> is the result of [=parsing the blocklist=] at
+<a href="https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt">https://raw.githubusercontent.com/WICG/webusb/main/blocklist.txt</a>.
+The UA should re-fetch the blocklist periodically, but it’s unspecified how
+often.
+
+A {{USBDevice}} |device| is <dfn>blocklisted</dfn> for a {{Document}} |document|
+if the following steps return "blocked":
+
+  1. If |document| is not <code>null</code> and |document| is [=allowed to use=]
+     the [=policy-controlled feature=] named <code>"usb-unrestricted"</code>,
+     return "not blocked".
+  1. [=list/For each=] |entry| of the [=USB blocklist=]:
+      1. If |device|.{{USBDevice/vendorId}} is not equal to
+         |entry|.{{USBBlocklistEntry/idVendor}}, [=iteration/continue=].
+      1. If |device|.{{USBDevice/productId}} is not equal to
+         |entry|.{{USBBlocklistEntry/idProduct}}, [=iteration/continue=].
+      1. Let |bcdDevice| be |device|.{{USBDevice/deviceVersionMajor}} &lt;&lt; 8 +
+         |device|.{{USBDevice/deviceVersionMinor}} &lt;&lt; 4 +
+         |device|.{{USBDevice/deviceVersionSubminor}}.
+      1. If |bcdDevice| is less than or equal to
+         |entry|.{{USBBlocklistEntry/bcdDevice}}, return "blocked".
+  1. Return "not blocked".
+
 # Integrations # {#integrations}
 
 <h3 id="permissions-policy" oldids="feature-policy">Permissions Policy</h3>
@@ -2457,6 +2534,18 @@ token <code>"usb"</code>, that controls whether the {{Navigator/usb}} attribute
 is exposed on the {{Navigator}} object.
 
 The <a>default allowlist</a> for this feature is <code>["self"]</code>.
+
+This specification defines a second <a>policy-controlled feature</a>, identified
+by the token <code>"usb-unrestricted"</code>, that controls whether blocklisted
+USB devices and device interfaces with protected classes can be accessed. This
+feature MUST only be enabled for <a href="https://github.com/WICG/isolated-web-apps/blob/main/README.md">Isolated Web Apps</a>
+that declare the feature in the Web Application Manifest [[APPMANIFEST]].
+
+The <a>default allowlist</a> for this feature is <code>["self"]</code>.
+Typically this would imply that the feature is allowed in {{Document}}s in
+[=top-level traversables=] by default. However, due to the requirement that this
+feature is only enabled for Isolated Web Apps with the feature declared in the
+manifest, the effective default allowlist is <code>["none"]</code>.
 
 ## Permission API ## {#permission-api}
 
@@ -2498,7 +2587,7 @@ defined as follows:
   <dt><a>permission result type</a></dt>
   <dd>
     <xmp class="idl">
-      [Exposed=(DedicatedWorker,SharedWorker,Window)]
+      [Exposed=(Worker,Window)]
       interface USBPermissionResult : PermissionStatus {
         attribute FrozenArray<USBDevice> devices;
       };
@@ -2701,6 +2790,8 @@ spec: html
         text: transient activation
         text: in parallel
         text: incumbent settings object
+        for:/
+            text: top-level traversable
 spec: webidl
     type: dfn
         text: resolve
@@ -2709,4 +2800,5 @@ spec:infra; type:dfn; for:list; text:for each
 spec:infra; type:dfn; for:list; text:append
 spec:infra; type:dfn; for:list; text:empty
 spec:infra; type:dfn; for:list; text:size
+spec:url; type:interface; text:URL
 </pre>
