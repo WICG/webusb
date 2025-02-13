@@ -531,7 +531,7 @@ permission to access any devices so the page must first call
 </div>
 
 Methods defined in this specification typically complete asynchronously, queuing
-work on the <dfn>USB task source</dfn>.
+work on the <dfn lt="USB task source">USB</dfn> [=task source=].
 
 A USB device |device| <dfn data-lt="match a device filter">matches a device
 filter</dfn> |filter| if the following steps return <code>match</code>:
