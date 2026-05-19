@@ -2058,6 +2058,10 @@ of the following values.
     <td>Mass Storage</td>
   </tr>
   <tr>
+    <td><code>0x09</code></td>
+    <td>Hub</td>
+  </tr>
+  <tr>
     <td><code>0x0B</code></td>
     <td>Smart Card</td>
   </tr>
