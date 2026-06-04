@@ -1805,44 +1805,50 @@ given {{USBDevice}} |device|, {{USBControlTransferParameters}} |setup|, and
 1. If |configuration| is `null`, return `undefined`.
 1. If |setup|.{{USBControlTransferParameters/requestType}} is {{"standard"}},
     perform the following steps:
-    1. If |direction| is not {{"in"}}, return [=a promise rejected with=] a
+    1. If |direction| is {{"out"}}, return [=a promise rejected with=] a
         "{{SecurityError}}" {{DOMException}}.
     1. If |setup|.{{USBControlTransferParameters/request}} is not one of
         `0x00` (GET_STATUS), `0x06` (GET_DESCRIPTOR), `0x08` (GET_CONFIGURATION),
         `0x0A` (GET_INTERFACE) or `0x0C` (SYNCH_FRAME), return [=a promise
         rejected with=] a "{{SecurityError}}" {{DOMException}}.
-1. Let |interface| be `null`.
-1. If |setup|.{{USBControlTransferParameters/recipient}} is {{"interface"}} or
-    |setup|.{{USBControlTransferParameters/requestType}} is {{"class"}},
+1. If |setup|.{{USBControlTransferParameters/requestType}} is {{"class"}},
     perform the following steps:
     1. Let |interfaceNumber| be the lower 8 bits of
         |setup|.{{USBControlTransferParameters/index}}.
     1. Let |interfaceIndex| be the result of [=finding the interface index=]
         with |interfaceNumber| and |configuration|.
-    1. If |interfaceIndex| is not `-1`, set |interface| to
+    1. If |interfaceIndex| is not `-1`, perform the following steps:
+        1. Let |interface| be
+            |configuration|.{{USBConfiguration/[[interfaces]]}}[|interfaceIndex|].
+        1. If |interface|.{{USBInterface/[[isProtectedClass]]}} is `true`,
+            return [=a promise rejected with=] a "{{SecurityError}}"
+            {{DOMException}}.
+1. If |setup|.{{USBControlTransferParameters/recipient}} is {{"interface"}},
+    perform the following steps:
+    1. Let |interfaceNumber| be the lower 8 bits of
+        |setup|.{{USBControlTransferParameters/index}}.
+    1. Let |interfaceIndex| be the result of [=finding the interface index=]
+        with |interfaceNumber| and |configuration|.
+    1. If |interfaceIndex| is `-1`, return [=a promise rejected with=] a
+        "{{NotFoundError}}" {{DOMException}}.
+    1. Let |interface| be
         |configuration|.{{USBConfiguration/[[interfaces]]}}[|interfaceIndex|].
+    1. If |interface|.{{USBInterface/[[isProtectedClass]]}} is `true`, return [=a
+        promise rejected with=] a "{{SecurityError}}" {{DOMException}}.
+    1. If the result of [=finding if the interface is claimed=] with
+        |interface| is not `true`, return [=a promise rejected with=] an
+        "{{InvalidStateError}}" {{DOMException}}.
 1. If |setup|.{{USBControlTransferParameters/recipient}} is {{"endpoint"}},
     perform the following steps:
     1. Let |endpointAddress| be |setup|.{{USBControlTransferParameters/index}}.
     1. Let |endpoint| be the result of [=finding the endpoint=] with
         |endpointAddress| and |device|.
-    1. If |endpoint| is not `null`, perform the following steps:
-        1. Let |alternate| be |endpoint|.{{USBEndpoint/[[alternateInterface]]}}.
-        1. Set |interface| to |alternate|.{{USBAlternateInterface/[[interface]]}}.
-1. If |interface| is not `null` and
-    |interface|.{{USBInterface/[[isProtectedClass]]}} is `true`, return [=a
-    promise rejected with=] a "{{SecurityError}}" {{DOMException}}.
-1. If |setup|.{{USBControlTransferParameters/recipient}} is {{"interface"}},
-    perform the following steps:
-    1. If |interface| is `null`, return [=a promise rejected with=] a
+    1. If |endpoint| is `null`, return [=a promise rejected with=] a
         "{{NotFoundError}}" {{DOMException}}.
-    1. If the result of [=finding if the interface is claimed=] with
-        |interface| is not `true`, return [=a promise rejected with=] an
-        "{{InvalidStateError}}" {{DOMException}}.
-1. If |setup|.{{USBControlTransferParameters/recipient}} is {{"endpoint"}}, run
-    the following steps:
-    1. If |interface| is `null`, return [=a promise rejected with=] a
-        "{{NotFoundError}}" {{DOMException}}.
+    1. Let |alternate| be |endpoint|.{{USBEndpoint/[[alternateInterface]]}}.
+    1. Let |interface| be |alternate|.{{USBAlternateInterface/[[interface]]}}.
+    1. If |interface|.{{USBInterface/[[isProtectedClass]]}} is `true`, return [=a
+        promise rejected with=] a "{{SecurityError}}" {{DOMException}}.
     1. If the result of [=finding if the interface is claimed=] with |interface|
         is `false`, return [=a promise rejected with=] an
         "{{InvalidStateError}}" {{DOMException}}.
@@ -2817,6 +2823,7 @@ spec: html
 spec: webidl
     type: dfn
         text: resolve
+spec: permissions; type: enum-value; text: prompt
 spec:infra; type:dfn; text:list
 spec:infra; type:dfn; for:list; text:for each
 spec:infra; type:dfn; for:list; text:append
