@@ -2823,7 +2823,6 @@ spec: html
 spec: webidl
     type: dfn
         text: resolve
-spec: permissions; type: enum-value; text: prompt
 spec:infra; type:dfn; text:list
 spec:infra; type:dfn; for:list; text:for each
 spec:infra; type:dfn; for:list; text:append
